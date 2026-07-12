@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Fenrua utility catalogue with purpose, security boundaries, and maturity labels." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0d0d0d" />
+    <link rel="canonical" href="https://fenrua.ai/utilities/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://fenrua.ai/#organization",
+        "name": "Fenrua Labs",
+        "alternateName": "Fenrua",
+        "url": "https://fenrua.ai/",
+        "description": "Fenrua is building open Layer 0 AI security infrastructure with public evidence, maturity-labelled primitives, and reproducible verification records.",
+        "sameAs": ["https://github.com/fenrualabs"]
+      }
+    </script>
+    <title>Fenrua Utilities</title>
+    <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="/" aria-label="Fenrua home">
+        <img src="/assets/sigil.svg" width="40" height="40" alt="" />
+        <span>
+          <strong>Fenrua</strong>
+          <small>Layer 0 AI security infrastructure</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/">Overview</a>
+        <a href="/architecture/">Architecture</a>
+        <a href="/kernel/">Kernel</a>
+        <a href="/utilities/" aria-current="page">Utilities</a>
+        <a href="/research/">Research</a>
+        <a href="/verify/">Verify</a>
+        <a href="/developers/">Developers</a>
+        <a href="/toolchain/">Toolchain</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/status/">Status</a>
+      </nav>
+    </header>
+    <main id="content">
+      <section class="route-hero" aria-labelledby="page-title">
+        <p class="eyebrow">USER SPACE</p>
+        <h1 id="page-title">Utilities</h1>
+        <p>Utilities adapt the kernel to developer workflows. No fake launch controls are exposed.</p>
+        
+      </section>
+      <section class="section-shell">
+        <div class="registry " role="region" tabindex="0">
+          <table>
+            <thead><tr><th scope="col">Utility</th><th scope="col">Purpose</th><th scope="col">Boundary</th><th scope="col">Maturity</th></tr></thead>
+            <tbody>
+<tr><td>Fenrua Identity</td><td>Bind entities and artifacts to manifests.</td><td>Identity is not a security verdict.</td><td>Specification</td></tr>
+<tr><td>Fenrua Authority</td><td>Represent allowed, denied, and approval-gated actions.</td><td>Enforcement depends on integration.</td><td>Specification</td></tr>
+<tr><td>Fenrua Attest</td><td>Create signed evidence bundles.</td><td>Not external certification.</td><td>Reference implementation</td></tr>
+<tr><td>Fenrua Verify</td><td>Validate manifests, hashes, signatures, and completeness.</td><td>Checks supplied artifacts only.</td><td>Prototype foundation</td></tr>
+<tr><td>Fenrua Trace</td><td>Preserve action, tool-call, approval, and incident lineage.</td><td>Trace integrity, not prediction.</td><td>Research</td></tr>
+<tr><td>Fenrua Gate</td><td>Fail closed on unsafe execution state.</td><td>Requires runtime adapter.</td><td>Planned</td></tr>
+<tr><td>Fenrua Revoke</td><td>Publish revocation and quarantine state.</td><td>No live service claimed.</td><td>Doctrine</td></tr>
+<tr><td>Fenrua Registry</td><td>Anchor entity, evidence, and release state.</td><td>Contract refresh pending.</td><td>Research</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>Fenrua Labs</strong>
+        <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
+      </div>
+      <div class="footer-social">
+        <p>Public claims are bounded by public evidence.</p>
+        <div class="footer-links">
+          <a href="/evidence/">Evidence</a>
+          <a href="/toolchain/">Toolchain</a>
+          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

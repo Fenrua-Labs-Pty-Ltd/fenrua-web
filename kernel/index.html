@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Fenrua security kernel primitives, responsibilities, state transitions, and fail-closed behavior." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0d0d0d" />
+    <link rel="canonical" href="https://fenrua.ai/kernel/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://fenrua.ai/#organization",
+        "name": "Fenrua Labs",
+        "alternateName": "Fenrua",
+        "url": "https://fenrua.ai/",
+        "description": "Fenrua is building open Layer 0 AI security infrastructure with public evidence, maturity-labelled primitives, and reproducible verification records.",
+        "sameAs": ["https://github.com/fenrualabs"]
+      }
+    </script>
+    <title>Fenrua Security Kernel</title>
+    <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="/" aria-label="Fenrua home">
+        <img src="/assets/sigil.svg" width="40" height="40" alt="" />
+        <span>
+          <strong>Fenrua</strong>
+          <small>Layer 0 AI security infrastructure</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/">Overview</a>
+        <a href="/architecture/">Architecture</a>
+        <a href="/kernel/" aria-current="page">Kernel</a>
+        <a href="/utilities/">Utilities</a>
+        <a href="/research/">Research</a>
+        <a href="/verify/">Verify</a>
+        <a href="/developers/">Developers</a>
+        <a href="/toolchain/">Toolchain</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/status/">Status</a>
+      </nav>
+    </header>
+    <main id="content">
+      <section class="route-hero" aria-labelledby="page-title">
+        <p class="eyebrow">KERNEL SPACE</p>
+        <h1 id="page-title">Security Kernel</h1>
+        <p>The kernel owns the security primitives beneath autonomous AI execution. Each primitive carries its own maturity label and evidence boundary.</p>
+        
+      </section>
+      <section class="section-shell">
+        <div class="route-grid"><article>
+          <span>Specification</span>
+          <h3>Identity</h3>
+          <p>AI entities, artifacts, builds, models, tools, operators, deployments, and evidence bundles.</p>
+          
+        </article>
+        <article>
+          <span>Specification</span>
+          <h3>Authority</h3>
+          <p>Allow, deny, approval, scope, expiry, delegation, and revocation.</p>
+          
+        </article>
+        <article>
+          <span>Reference</span>
+          <h3>Integrity</h3>
+          <p>Source, build, dependency, runtime image, policy, manifest, and environment comparisons.</p>
+          
+        </article>
+        <article>
+          <span>Specification</span>
+          <h3>Policy</h3>
+          <p>Filesystem, network, tool, repository, secret, database, signing, deployment, and failure-mode controls.</p>
+          
+        </article>
+        <article>
+          <span>Implemented surface</span>
+          <h3>Evidence</h3>
+          <p>Inputs, outputs, tool calls, decisions, builds, tests, findings, incidents, and recovery events.</p>
+          
+        </article>
+        <article>
+          <span>Reference</span>
+          <h3>Verification</h3>
+          <p>Hashes, signatures, manifests, completeness, runtime conformity, audit scope, and release lineage.</p>
+          
+        </article>
+        <article>
+          <span>Specification</span>
+          <h3>Containment</h3>
+          <p>Fail-closed behavior for missing, invalid, stale, drifted, revoked, or incomplete state.</p>
+          
+        </article>
+        <article>
+          <span>Doctrine</span>
+          <h3>Recovery</h3>
+          <p>Revocation, quarantine, key rotation, rollback, evidence continuity, and controlled re-entry.</p>
+          
+        </article></div>
+      </section>
+      <section class="section-shell split-section">
+        <div><p class="eyebrow">STATE TRANSITION</p><h2>Kernel lifecycle</h2></div>
+        <pre><code>unregistered -> registered -> policy_bound -> evidence_required
+-> verified_with_limitations -> active
+-> revoked | quarantined | superseded -> recovered</code></pre>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>Fenrua Labs</strong>
+        <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
+      </div>
+      <div class="footer-social">
+        <p>Public claims are bounded by public evidence.</p>
+        <div class="footer-links">
+          <a href="/evidence/">Evidence</a>
+          <a href="/toolchain/">Toolchain</a>
+          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

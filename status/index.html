@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Fenrua status system with loading, success, partial, stale, failure, paused, and maintenance states." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0d0d0d" />
+    <link rel="canonical" href="https://fenrua.ai/status/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://fenrua.ai/#organization",
+        "name": "Fenrua Labs",
+        "alternateName": "Fenrua",
+        "url": "https://fenrua.ai/",
+        "description": "Fenrua is building open Layer 0 AI security infrastructure with public evidence, maturity-labelled primitives, and reproducible verification records.",
+        "sameAs": ["https://github.com/fenrualabs"]
+      }
+    </script>
+    <title>Fenrua Status</title>
+    <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="/" aria-label="Fenrua home">
+        <img src="/assets/sigil.svg" width="40" height="40" alt="" />
+        <span>
+          <strong>Fenrua</strong>
+          <small>Layer 0 AI security infrastructure</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/">Overview</a>
+        <a href="/architecture/">Architecture</a>
+        <a href="/kernel/">Kernel</a>
+        <a href="/utilities/">Utilities</a>
+        <a href="/research/">Research</a>
+        <a href="/verify/">Verify</a>
+        <a href="/developers/">Developers</a>
+        <a href="/toolchain/">Toolchain</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/status/" aria-current="page">Status</a>
+      </nav>
+    </header>
+    <main id="content">
+      <section class="route-hero" aria-labelledby="page-title">
+        <p class="eyebrow">STATE SYSTEM</p>
+        <h1 id="page-title">Status</h1>
+        <p>Every telemetry widget must expose state, timestamp, source, retry behavior, and explanation.</p>
+        
+      </section>
+      <section class="section-shell">
+        <div class="toolchain-summary state-grid">
+          <article data-state="loading">
+                <span>loading</span>
+                <strong>Loading</strong>
+                <p>Request started; verified status not yet available.</p>
+                <small>Source: status contract · Timestamp: 2026-07-13 · Retry: Retry after the configured refresh interval.</small>
+              </article>
+<article data-state="success">
+                <span>success</span>
+                <strong>Success</strong>
+                <p>Source responded and supplied evidence within the freshness window.</p>
+                <small>Source: status contract · Timestamp: 2026-07-13 · Retry: Next check follows normal cadence.</small>
+              </article>
+<article data-state="partial">
+                <span>partial</span>
+                <strong>Partial</strong>
+                <p>Some evidence is available but one or more supporting sources are missing.</p>
+                <small>Source: status contract · Timestamp: 2026-07-13 · Retry: Retry with degraded confidence.</small>
+              </article>
+<article data-state="stale">
+                <span>stale</span>
+                <strong>Stale</strong>
+                <p>Last evidence is older than the freshness policy.</p>
+                <small>Source: status contract · Timestamp: 2026-07-13 · Retry: Retry and keep previous value labelled stale.</small>
+              </article>
+<article data-state="failure">
+                <span>failure</span>
+                <strong>Failure</strong>
+                <p>Source failed or returned invalid evidence.</p>
+                <small>Source: status contract · Timestamp: 2026-07-13 · Retry: Retry with backoff and fail closed for decisions.</small>
+              </article>
+<article data-state="paused">
+                <span>paused</span>
+                <strong>Paused</strong>
+                <p>Source is intentionally paused.</p>
+                <small>Source: status contract · Timestamp: 2026-07-13 · Retry: No automatic retry until pause is lifted.</small>
+              </article>
+<article data-state="maintenance">
+                <span>maintenance</span>
+                <strong>Maintenance</strong>
+                <p>Source is undergoing maintenance.</p>
+                <small>Source: status contract · Timestamp: 2026-07-13 · Retry: Retry after the published maintenance window.</small>
+              </article>
+        </div>
+      </section>
+      <section class="section-shell">
+        <div class="registry " role="region" tabindex="0">
+          <table>
+            <thead><tr><th scope="col">Component</th><th scope="col">State</th><th scope="col">Maturity</th><th scope="col">Source</th><th scope="col">Timestamp</th><th scope="col">Explanation</th></tr></thead>
+            <tbody>
+<tr><td>Website</td><td><span class="status-badge status-success">success</span></td><td>Reference implementation</td><td>index.html</td><td>2026-07-13</td><td>Static site validation passed.</td></tr>
+<tr><td>Toolchain registry</td><td><span class="status-badge status-success">success</span></td><td>Read-only live</td><td>data/toolchain-registry.json</td><td>2026-07-13</td><td>129 records; no post-evidence updates.</td></tr>
+<tr><td>Public verifier</td><td><span class="status-badge status-partial">partial</span></td><td>Prototype foundation</td><td>/verify/</td><td>2026-07-13</td><td>Local examples and deterministic output only.</td></tr>
+<tr><td>Policy engine</td><td><span class="status-badge status-paused">paused</span></td><td>Specification</td><td>kernel spec</td><td>2026-07-13</td><td>No production engine claimed.</td></tr>
+<tr><td>Runtime gate</td><td><span class="status-badge status-maintenance">maintenance</span></td><td>Planned</td><td>kernel spec</td><td>2026-07-13</td><td>Requires future adapter evidence.</td></tr>
+<tr><td>Contract evidence</td><td><span class="status-badge status-paused">paused</span></td><td>Pending refreshed bundle</td><td>contract boundary doc</td><td>2026-07-13</td><td>No stale contract claims finalized.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>Fenrua Labs</strong>
+        <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
+      </div>
+      <div class="footer-social">
+        <p>Public claims are bounded by public evidence.</p>
+        <div class="footer-links">
+          <a href="/evidence/">Evidence</a>
+          <a href="/toolchain/">Toolchain</a>
+          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "schema": "fenrua.entity-manifest.v1",
+  "entity": {
+    "id": "fenrua-entity:example-agent",
+    "type": "agent",
+    "name": "Example review agent",
+    "owner": "fenrua-org:example"
+  },
+  "artifact": {
+    "sourceRevision": "390f7aeef778ce93db12e16028bc3a788b643c2d",
+    "buildDigest": null,
+    "dependencyLockDigest": null,
+    "containerDigest": null
+  },
+  "model": {
+    "provider": null,
+    "modelId": null,
+    "policyRevision": "fenrua-policy:example-review"
+  },
+  "tools": ["read_repository", "validate_schema"],
+  "authorityPolicy": "fenrua-policy:example-review",
+  "evidenceBundles": ["fenrua-evidence:example-bundle"],
+  "runtime": {
+    "environment": "local-review",
+    "attestation": null
+  },
+  "revocation": {
+    "state": "active",
+    "reason": null
+  }
+}

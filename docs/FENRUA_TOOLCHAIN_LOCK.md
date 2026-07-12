@@ -3,6 +3,7 @@
 Status: generated public lock summary  
 Generated at: 2026-07-12T19:49:17Z  
 Source: `data/toolchain-registry.json`
+Registry SHA-256: `98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9`
 
 ## Method
 

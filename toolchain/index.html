@@ -4,105 +4,69 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
-    <meta
-      name="description"
-      content="Public Fenrua toolchain registry with detected versions, execution status, evidence boundaries, validation pipelines, and known limitations."
-    />
+    <meta name="description" content="Server-rendered Fenrua toolchain registry with exact detected versions, filters, pagination, downloads, timestamp, and integrity hash." />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0d0d0d" />
     <link rel="canonical" href="https://fenrua.ai/toolchain/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://fenrua.ai/#organization",
+        "name": "Fenrua Labs",
+        "alternateName": "Fenrua",
+        "url": "https://fenrua.ai/",
+        "description": "Fenrua is building open Layer 0 AI security infrastructure with public evidence, maturity-labelled primitives, and reproducible verification records.",
+        "sameAs": ["https://github.com/fenrualabs"]
+      }
+    </script>
     <title>Fenrua Toolchain Registry</title>
-    <link rel="icon" href="../assets/sigil.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="../styles.css" />
-    <script src="toolchain.js" defer></script>
+    <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/toolchain/toolchain.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
-
     <header class="site-header" aria-label="Site header">
-      <a class="brand" href="../" aria-label="Fenrua home">
-        <img src="../assets/sigil.svg" width="40" height="40" alt="" />
+      <a class="brand" href="/" aria-label="Fenrua home">
+        <img src="/assets/sigil.svg" width="40" height="40" alt="" />
         <span>
           <strong>Fenrua</strong>
-          <small>Toolchain registry</small>
+          <small>Layer 0 AI security infrastructure</small>
         </span>
       </a>
-
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="../#overview">Overview</a>
-        <a href="../#architecture">Architecture</a>
-        <a href="../#security-kernel">Security Kernel</a>
-        <a href="../#utilities">Utilities</a>
-        <a href="../#research">Research</a>
-        <a href="../#verify">Verify</a>
-        <a href="../#developers">Developers</a>
-        <a href="./" aria-current="page">Toolchain</a>
-        <a href="../#evidence">Evidence</a>
-        <a href="../#status">Status</a>
+        <a href="/">Overview</a>
+        <a href="/architecture/">Architecture</a>
+        <a href="/kernel/">Kernel</a>
+        <a href="/utilities/">Utilities</a>
+        <a href="/research/">Research</a>
+        <a href="/verify/">Verify</a>
+        <a href="/developers/">Developers</a>
+        <a href="/toolchain/" aria-current="page">Toolchain</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/status/">Status</a>
       </nav>
     </header>
-
     <main id="content">
-      <section class="hero toolchain-hero" aria-labelledby="toolchain-title">
-        <div class="hero-copy">
-          <p class="eyebrow">VERIFICATION LABORATORY / VERSION CAPTURE / CLAIM CONTROL</p>
-          <h1 id="toolchain-title">The verification laboratory behind Fenrua.</h1>
-          <p class="hero-subtitle">
-            Fenrua combines independent compilers, test frameworks, fuzzers,
-            symbolic engines, static analysers, cryptographic tooling,
-            application tests, container scanners, and reproducible build
-            utilities. Tool presence is not treated as proof.
-          </p>
-          <div class="cta-row">
-            <a class="button button-primary" href="../data/toolchain-registry.json">Download registry JSON</a>
-            <a class="button button-secondary" href="../docs/FENRUA_TOOLCHAIN_LOCK.md">Toolchain lock</a>
-            <a class="button button-secondary" href="../docs/FENRUA_SECURITY_TOOLCHAIN_EVIDENCE_MAP.md">Evidence map</a>
-            <a class="button button-secondary" href="../#evidence">Frozen evidence bundles</a>
-          </div>
-        </div>
-
-        <aside class="hero-console" aria-label="Toolchain boundary console">
-          <div class="console-top">
-            <span>toolchain-registry.json</span>
-            <span data-toolchain-meta="tool-count">loading</span>
-          </div>
-          <pre><code>method: read-only version capture
-source: ../data/toolchain-registry.json
-semgrep: <span data-toolchain-meta="semgrep-version">loading</span>
-installed: <span data-toolchain-meta="installed-count">loading</span>
-evidence_producing: <span data-toolchain-meta="evidence-count">loading</span>
-container_only: <span data-toolchain-meta="container-count">loading</span>
-boundary: installation != security proof</code></pre>
-        </aside>
+      <section class="route-hero" aria-labelledby="page-title">
+        <p class="eyebrow">SERVER-RENDERED REGISTRY</p>
+        <h1 id="page-title">Toolchain</h1>
+        <p>The registry is useful before JavaScript runs. JavaScript only adds filtering, pagination, and copy controls.</p>
+        <div class="cta-row"><a class="button button-primary" href="/data/toolchain-registry.json">Download JSON</a><a class="button button-secondary" href="/docs/FENRUA_TOOLCHAIN_LOCK.md">Download Markdown lock</a></div>
       </section>
-
-      <section class="section-shell" aria-labelledby="pipelines-title">
-        <div class="section-heading">
-          <p class="eyebrow">CANONICAL VALIDATION PIPELINES</p>
-          <h2 id="pipelines-title">Toolchain-to-evidence flow</h2>
-          <p>
-            Pipelines describe where a tool can participate. A tool appears in
-            the registry only after local inspection, but pipeline membership is
-            not a claim that it produced the current frozen evidence bundle.
-          </p>
+      <section class="section-shell">
+        <div class="toolchain-meta">
+          <p><strong>Generated:</strong> <time datetime="2026-07-12T19:49:17Z">2026-07-12T19:49:17Z</time></p>
+          <p><strong>Registry SHA-256:</strong> <code>98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9</code><button type="button" data-copy="98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9">Copy hash</button></p>
+          <p><strong>Tools:</strong> 129</p>
+          <p><strong>Evidence-lock:</strong> no post-evidence updates implied.</p>
         </div>
-        <div id="pipeline-grid" class="flow-grid" aria-live="polite"></div>
       </section>
-
-      <section class="section-shell" aria-labelledby="registry-title">
-        <div class="section-heading">
-          <p class="eyebrow">SEARCH AND FILTERS</p>
-          <h2 id="registry-title">Full version registry</h2>
-          <p>
-            Filter by category, installation mode, execution state, evidence
-            status, and technical domain. Rows show normalized public evidence;
-            raw shell output with private paths is not published.
-          </p>
-        </div>
-
+      <section class="section-shell">
         <div class="registry-tools toolchain-tools">
           <label for="tool-search">Search tools</label>
-          <input id="tool-search" type="search" autocomplete="off" placeholder="Search tool, category, pipeline, command, or status..." />
+          <input id="tool-search" type="search" autocomplete="off" placeholder="Search tool, command, category, status, or limitation..." />
           <div class="filter-groups" aria-label="Toolchain filters">
             <button type="button" data-filter="all" aria-pressed="true">All</button>
             <button type="button" data-filter="native">Native</button>
@@ -112,98 +76,1334 @@ boundary: installation != security proof</code></pre>
             <button type="button" data-filter="executed">Executed</button>
             <button type="button" data-filter="evidence">Evidence-producing</button>
             <button type="button" data-filter="exploratory">Exploratory</button>
-            <button type="button" data-filter="canonical">Canonical</button>
-            <button type="button" data-filter="superseded">Superseded</button>
             <button type="button" data-filter="current">Current</button>
             <button type="button" data-filter="version-review">Version review required</button>
-            <button type="button" data-filter="solidity">Solidity</button>
-            <button type="button" data-filter="zk">ZK</button>
-            <button type="button" data-filter="cryptography">Cryptography</button>
-            <button type="button" data-filter="application">Application</button>
-            <button type="button" data-filter="infrastructure">Infrastructure</button>
-            <button type="button" data-filter="database">Database</button>
-            <button type="button" data-filter="chain-clients">Chain clients</button>
-            <button type="button" data-filter="native-compilation">Native compilation</button>
-            <button type="button" data-filter="source-control">Source control</button>
+            <button type="button" data-category-filter="Application and web security">Application &amp; web security</button>
+            <button type="button" data-category-filter="Editor, AI, and source control">Editor, AI, &amp; source control</button>
+            <button type="button" data-category-filter="Infrastructure, databases, and orchestration">Infrastructure, databases, &amp; orchestration</button>
+            <button type="button" data-category-filter="Languages and native compilation">Languages &amp; native compilation</button>
+            <button type="button" data-category-filter="Solidity, EVM, and contract security">Solidity, EVM, &amp; contract security</button>
+            <button type="button" data-category-filter="Supporting command-line tools">Supporting command-line tools</button>
+            <button type="button" data-category-filter="Zero-knowledge systems and cryptography">Zero-knowledge systems &amp; cryptography</button>
+          </div>
+          <div class="pagination-controls" aria-label="Toolchain pagination">
+            <button type="button" data-page-action="prev">Previous</button>
+            <span data-page-status>Page 1</span>
+            <button type="button" data-page-action="next">Next</button>
           </div>
         </div>
-
-        <div class="toolchain-summary" aria-label="Toolchain status summaries">
-          <article><span>Evidence-producing tools</span><strong data-toolchain-meta="evidence-count">loading</strong></article>
-          <article><span>Exploratory tools</span><strong data-toolchain-meta="exploratory-count">loading</strong></article>
-          <article><span>Container-only tools</span><strong data-toolchain-meta="container-count">loading</strong></article>
-          <article><span>Project-local tools</span><strong data-toolchain-meta="project-count">loading</strong></article>
-          <article><span>Native tools</span><strong data-toolchain-meta="native-count">loading</strong></article>
-          <article><span>Superseded versions</span><strong data-toolchain-meta="superseded-count">loading</strong></article>
-        </div>
-
-        <div class="registry" role="region" aria-label="Full toolchain registry" tabindex="0">
+        <div class="registry toolchain-table" role="region" tabindex="0">
           <table>
-            <thead>
-              <tr>
-                <th scope="col">Tool</th>
-                <th scope="col">Detected Version</th>
-                <th scope="col">Category</th>
-                <th scope="col">Mode</th>
-                <th scope="col">Status</th>
-                <th scope="col">Evidence</th>
-                <th scope="col">Command</th>
-                <th scope="col">Limitations</th>
-              </tr>
-            </thead>
-            <tbody id="toolchain-registry">
-              <tr>
-                <td>Loading registry</td>
-                <td>Loading</td>
-                <td>Loading</td>
-                <td>Loading</td>
-                <td>Loading</td>
-                <td>Loading</td>
-                <td>Loading</td>
-                <td>Loading</td>
-              </tr>
+            <thead><tr><th scope="col">Tool</th><th scope="col">Detected Version</th><th scope="col">Category</th><th scope="col">Mode</th><th scope="col">Status</th><th scope="col">Evidence</th><th scope="col">Command</th><th scope="col">Limitations</th></tr></thead>
+            <tbody>
+<tr data-tool-row data-page="1" data-search="solc solc, the solidity compiler commandline interface; version: 0.8.35+commit.47b9dedd.linux.g++ solidity, evm, and contract security compilation native installed_and_executed version captured only. no current frozen contract compile evidence is published from this website. solidity-security version-inventory solc --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>solc<br><small>Compilation</small></td>
+      <td><code>solc, the solidity compiler commandline interface; Version: 0.8.35+commit.47b9dedd.Linux.g++</code><button type="button" data-copy="solc, the solidity compiler commandline interface; Version: 0.8.35+commit.47b9dedd.Linux.g++">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>solc --version</code></td>
+      <td>Version captured only. No current frozen contract compile evidence is published from this website.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="solc-select installed versions 0.8.24, 0.8.28, 0.8.30, 0.8.35; current 0.8.35 solidity, evm, and contract security compilation native installed_and_executed the tool does not expose a simple --version output in this environment. solidity-security version-inventory solc-select versions" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>solc-select<br><small>Compilation</small></td>
+      <td><code>Installed versions 0.8.24, 0.8.28, 0.8.30, 0.8.35; current 0.8.35</code><button type="button" data-copy="Installed versions 0.8.24, 0.8.28, 0.8.30, 0.8.35; current 0.8.35">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>solc-select versions</code></td>
+      <td>The tool does not expose a simple --version output in this environment.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="forge forge version: 1.7.1; commit sha: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8 solidity, evm, and contract security unit and integration testing native installed_and_executed version captured only; contract evidence refresh is pending. solidity-security version-inventory forge --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>forge<br><small>Unit and integration testing</small></td>
+      <td><code>forge Version: 1.7.1; Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8</code><button type="button" data-copy="forge Version: 1.7.1; Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>forge --version</code></td>
+      <td>Version captured only; contract evidence refresh is pending.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="cast cast version: 1.7.1; commit sha: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8 solidity, evm, and contract security deployment inspection native installed_and_executed no live contract-state claim is published from this version capture. solidity-security version-inventory cast --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>cast<br><small>Deployment inspection</small></td>
+      <td><code>cast Version: 1.7.1; Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8</code><button type="button" data-copy="cast Version: 1.7.1; Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>cast --version</code></td>
+      <td>No live contract-state claim is published from this version capture.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="anvil anvil version: 1.7.1; commit sha: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8 solidity, evm, and contract security local evm runtime native installed_and_executed no local chain test was run for this website task. solidity-security version-inventory anvil --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>anvil<br><small>Local EVM runtime</small></td>
+      <td><code>anvil Version: 1.7.1; Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8</code><button type="button" data-copy="anvil Version: 1.7.1; Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>anvil --version</code></td>
+      <td>No local chain test was run for this website task.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="chisel chisel version: 1.7.1; commit sha: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8 solidity, evm, and contract security exploratory evm repl native installed_exploratory exploratory tool; not part of the canonical website validation pipeline. solidity-security version-inventory chisel --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>chisel<br><small>Exploratory EVM REPL</small></td>
+      <td><code>chisel Version: 1.7.1; Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8</code><button type="button" data-copy="chisel Version: 1.7.1; Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>chisel --version</code></td>
+      <td>Exploratory tool; not part of the canonical website validation pipeline.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="hardhat unavailable in path solidity, evm, and contract security unit and integration testing unavailable unavailable no local hardhat binary was detected. solidity-security hardhat --version" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Solidity, EVM, and contract security" data-installed="false" data-executed="false" data-evidence="false">
+      <td>Hardhat<br><small>Unit and integration testing</small></td>
+      <td><code>Unavailable in PATH</code><button type="button" data-copy="Unavailable in PATH">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>hardhat --version</code></td>
+      <td>No local Hardhat binary was detected.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="ethers unavailable in fenrua-web package inventory solidity, evm, and contract security evm integration library unavailable unavailable not a dependency of the static website. solidity-security npm list --depth=0 --json" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Solidity, EVM, and contract security" data-installed="false" data-executed="false" data-evidence="false">
+      <td>Ethers<br><small>EVM integration library</small></td>
+      <td><code>Unavailable in fenrua-web package inventory</code><button type="button" data-copy="Unavailable in fenrua-web package inventory">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>package.json</small></td>
+      <td><code>npm list --depth=0 --json</code></td>
+      <td>Not a dependency of the static website.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="openzeppelin contracts unavailable in fenrua-web package inventory solidity, evm, and contract security contract library unavailable unavailable not a dependency of the static website. solidity-security npm list --depth=0 --json" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Solidity, EVM, and contract security" data-installed="false" data-executed="false" data-evidence="false">
+      <td>OpenZeppelin Contracts<br><small>Contract library</small></td>
+      <td><code>Unavailable in fenrua-web package inventory</code><button type="button" data-copy="Unavailable in fenrua-web package inventory">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>package.json</small></td>
+      <td><code>npm list --depth=0 --json</code></td>
+      <td>Not a dependency of the static website.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="slither 0.11.5 solidity, evm, and contract security static analysis native installed_and_executed no current frozen contract slither report is published. solidity-security version-inventory slither --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Slither<br><small>Static analysis</small></td>
+      <td><code>0.11.5</code><button type="button" data-copy="0.11.5">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>slither --version</code></td>
+      <td>No current frozen contract Slither report is published.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="crytic compile 0.4.1 solidity, evm, and contract security compilation adapter native installed_and_executed version captured only. solidity-security version-inventory crytic-compile --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Crytic Compile<br><small>Compilation adapter</small></td>
+      <td><code>0.4.1</code><button type="button" data-copy="0.4.1">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>crytic-compile --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="echidna echidna 2.3.2 solidity, evm, and contract security fuzzing and invariant testing native installed_and_executed no current frozen echidna campaign is published. solidity-security version-inventory echidna --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Echidna<br><small>Fuzzing and invariant testing</small></td>
+      <td><code>Echidna 2.3.2</code><button type="button" data-copy="Echidna 2.3.2">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>echidna --version</code></td>
+      <td>No current frozen Echidna campaign is published.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="medusa medusa version 1.5.1 solidity, evm, and contract security fuzzing and invariant testing native installed_and_executed version captured only. solidity-security version-inventory medusa --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Medusa<br><small>Fuzzing and invariant testing</small></td>
+      <td><code>medusa version 1.5.1</code><button type="button" data-copy="medusa version 1.5.1">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>medusa --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="aderyn aderyn 0.6.8 solidity, evm, and contract security static analysis native installed_and_executed version captured only. solidity-security version-inventory aderyn --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Aderyn<br><small>Static analysis</small></td>
+      <td><code>aderyn 0.6.8</code><button type="button" data-copy="aderyn 0.6.8">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>aderyn --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="halmos halmos 0.3.3 solidity, evm, and contract security symbolic execution native installed_and_executed version captured only. solidity-security version-inventory halmos --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Halmos<br><small>Symbolic execution</small></td>
+      <td><code>halmos 0.3.3</code><button type="button" data-copy="halmos 0.3.3">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>halmos --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="solhint 6.2.3 solidity, evm, and contract security linting native installed_and_executed version captured only. solidity-security version-inventory solhint --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Solhint<br><small>Linting</small></td>
+      <td><code>6.2.3</code><button type="button" data-copy="6.2.3">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>solhint --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="mythril mythril version v0.24.8 solidity, evm, and contract security symbolic execution native installed_and_executed runtime warnings were suppressed from public evidence because they contained local package paths. solidity-security version-inventory myth version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Mythril<br><small>Symbolic execution</small></td>
+      <td><code>Mythril version v0.24.8</code><button type="button" data-copy="Mythril version v0.24.8">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>myth version</code></td>
+      <td>Runtime warnings were suppressed from public evidence because they contained local package paths.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="trail of bits ethereum security toolbox trailofbits/eth-security-toolbox:latest image id 365282b8d03a solidity, evm, and contract security containerized security toolbox container container_only image presence was verified; the container was not executed for this website task. solidity-security infrastructure version-inventory docker image ls --format ..." data-status="CONTAINER_ONLY" data-mode="container" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Trail of Bits Ethereum Security Toolbox<br><small>Containerized security toolbox</small></td>
+      <td><code>trailofbits/eth-security-toolbox:latest image id 365282b8d03a</code><button type="button" data-copy="trailofbits/eth-security-toolbox:latest image id 365282b8d03a">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>container</td>
+      <td><span class="status-badge">CONTAINER_ONLY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>docker image ls --format ...</code></td>
+      <td>Image presence was verified; the container was not executed for this website task.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="wake 4.22.1 solidity, evm, and contract security testing and static analysis native installed_and_executed version captured only. solidity-security version-inventory wake --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Wake<br><small>Testing and static analysis</small></td>
+      <td><code>4.22.1</code><button type="button" data-copy="4.22.1">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>wake --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="hevm 0.58.0 [no git revision present] solidity, evm, and contract security symbolic execution and evm testing native installed_and_executed version output reports no git revision. solidity-security version-inventory hevm version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>HEVM<br><small>Symbolic execution and EVM testing</small></td>
+      <td><code>0.58.0 [no git revision present]</code><button type="button" data-copy="0.58.0 [no git revision present]">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>hevm version</code></td>
+      <td>Version output reports no git revision.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="certora certora-cli 8.17.1 solidity, evm, and contract security formal specification and verification tooling native installed_exploratory no certora run evidence is published. solidity-security version-inventory certorarun --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Certora<br><small>Formal specification and verification tooling</small></td>
+      <td><code>certora-cli 8.17.1</code><button type="button" data-copy="certora-cli 8.17.1">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>certoraRun --version</code></td>
+      <td>No Certora run evidence is published.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="manticore manticore 0.3.7 solidity, evm, and contract security symbolic execution native installed_exploratory runtime warnings were suppressed from public evidence because they contained local package paths. solidity-security version-inventory manticore --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Manticore<br><small>Symbolic execution</small></td>
+      <td><code>Manticore 0.3.7</code><button type="button" data-copy="Manticore 0.3.7">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>manticore --version</code></td>
+      <td>Runtime warnings were suppressed from public evidence because they contained local package paths.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="surya 0.4.13 solidity, evm, and contract security interface and graph analysis native installed_and_executed version captured only. solidity-security version-inventory surya --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Surya<br><small>Interface and graph analysis</small></td>
+      <td><code>0.4.13</code><button type="button" data-copy="0.4.13">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>surya --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="vyper 0.4.3+commit.bff19ea2 solidity, evm, and contract security contract compilation native installed_exploratory no vyper source is part of the current public website evidence. solidity-security version-inventory vyper --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Vyper<br><small>Contract compilation</small></td>
+      <td><code>0.4.3+commit.bff19ea2</code><button type="button" data-copy="0.4.3+commit.bff19ea2">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>vyper --version</code></td>
+      <td>No Vyper source is part of the current public website evidence.</td>
+    </tr>
+<tr data-tool-row data-page="1" data-search="slither helper suite installed helper commands from slither 0.11.5: upgradeability, erc, storage, mutation, property, flattening, interface solidity, evm, and contract security upgradeability, storage, mutation, property, flattening, and interface analysis native installed_exploratory helper commands require project inputs and do not expose independent version numbers. solidity-security version-inventory slither-check-upgradeability --version slither-read-storage --version slither-mutate --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Slither helper suite<br><small>Upgradeability, storage, mutation, property, flattening, and interface analysis</small></td>
+      <td><code>Installed helper commands from Slither 0.11.5: upgradeability, ERC, storage, mutation, property, flattening, interface</code><button type="button" data-copy="Installed helper commands from Slither 0.11.5: upgradeability, ERC, storage, mutation, property, flattening, interface">Copy version</button></td>
+      <td>Solidity, EVM, and contract security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>slither-check-upgradeability --version</code><br><code>slither-read-storage --version</code><br><code>slither-mutate --version</code></td>
+      <td>Helper commands require project inputs and do not expose independent version numbers.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="circom circom compiler 2.2.3 zero-knowledge systems and cryptography circuit compiler native installed_and_executed version captured only. zk-cryptography version-inventory circom --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Circom<br><small>Circuit compiler</small></td>
+      <td><code>circom compiler 2.2.3</code><button type="button" data-copy="circom compiler 2.2.3">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>circom --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="project-local circom compiler circom v2.2.3 from local cargo install listing zero-knowledge systems and cryptography circuit compiler project-local project_local cargo inventory confirms install; no circuit compilation was run for this website task. zk-cryptography version-inventory cargo install --list" data-status="PROJECT_LOCAL" data-mode="project-local" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Project-local Circom compiler<br><small>Circuit compiler</small></td>
+      <td><code>circom v2.2.3 from local Cargo install listing</code><button type="button" data-copy="circom v2.2.3 from local Cargo install listing">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>project-local</td>
+      <td><span class="status-badge">PROJECT_LOCAL</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>cargo install --list</code></td>
+      <td>Cargo inventory confirms install; no circuit compilation was run for this website task.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="circomspect circomspect v0.9.0 from local cargo install listing zero-knowledge systems and cryptography static circuit inspection native installed_and_executed help output confirms executable behavior; version comes from cargo install inventory. zk-cryptography version-inventory circomspect --help cargo install --list" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Circomspect<br><small>Static circuit inspection</small></td>
+      <td><code>circomspect v0.9.0 from local Cargo install listing</code><button type="button" data-copy="circomspect v0.9.0 from local Cargo install listing">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>circomspect --help</code><br><code>cargo install --list</code></td>
+      <td>Help output confirms executable behavior; version comes from cargo install inventory.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="snarkjs snarkjs@0.7.6 zero-knowledge systems and cryptography witness, proof, verification, and solidity verifier tooling native-and-project-local project_local version captured; no groth16 setup or proof is claimed here. zk-cryptography version-inventory snarkjs --version npm -c ../fenrua-kernel list --depth=0 --json" data-status="PROJECT_LOCAL" data-mode="native-and-project-local" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>SnarkJS<br><small>Witness, proof, verification, and Solidity verifier tooling</small></td>
+      <td><code>snarkjs@0.7.6</code><button type="button" data-copy="snarkjs@0.7.6">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>native-and-project-local</td>
+      <td><span class="status-badge">PROJECT_LOCAL</span></td>
+      <td>no<br><small>../Fenrua Website/fenrua-kernel/package.json</small></td>
+      <td><code>snarkjs --version</code><br><code>npm -C ../fenrua-kernel list --depth=0 --json</code></td>
+      <td>Version captured; no Groth16 setup or proof is claimed here.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="rapidsnark executable present; help reports prover usage zero-knowledge systems and cryptography proof generation native installed_exploratory the binary does not expose a version string in the tested command. zk-cryptography version-inventory rapidsnark --version rapidsnark" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>RapidSnark<br><small>Proof generation</small></td>
+      <td><code>Executable present; help reports prover usage</code><button type="button" data-copy="Executable present; help reports prover usage">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>rapidsnark --version</code><br><code>rapidsnark</code></td>
+      <td>The binary does not expose a version string in the tested command.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="sagemath 10.9 zero-knowledge systems and cryptography mathematical validation native installed_and_executed version captured only. zk-cryptography version-inventory sage --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>SageMath<br><small>Mathematical validation</small></td>
+      <td><code>10.9</code><button type="button" data-copy="10.9">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>sage --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="circomlib 2.0.5 zero-knowledge systems and cryptography circuit library project-local project_local kernel project dependency; no circuit claim is finalized here. zk-cryptography version-inventory npm -c ../fenrua-kernel list --depth=0 --json" data-status="PROJECT_LOCAL" data-mode="project-local" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>circomlib<br><small>Circuit library</small></td>
+      <td><code>2.0.5</code><button type="button" data-copy="2.0.5">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>project-local</td>
+      <td><span class="status-badge">PROJECT_LOCAL</span></td>
+      <td>no<br><small>../Fenrua Website/fenrua-kernel/package.json</small></td>
+      <td><code>npm -C ../fenrua-kernel list --depth=0 --json</code></td>
+      <td>Kernel project dependency; no circuit claim is finalized here.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="circom_tester unavailable in inspected package inventories zero-knowledge systems and cryptography circuit testing unavailable unavailable not detected in the inspected website or kernel package manifests. zk-cryptography rg circom_tester package inventories" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Zero-knowledge systems and cryptography" data-installed="false" data-executed="false" data-evidence="false">
+      <td>circom_tester<br><small>Circuit testing</small></td>
+      <td><code>Unavailable in inspected package inventories</code><button type="button" data-copy="Unavailable in inspected package inventories">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>rg circom_tester package inventories</code></td>
+      <td>Not detected in the inspected website or kernel package manifests.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="circomlibjs unavailable in inspected package inventories zero-knowledge systems and cryptography circuit javascript helpers unavailable unavailable not detected in the inspected website or kernel package manifests. zk-cryptography rg circomlibjs package inventories" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Zero-knowledge systems and cryptography" data-installed="false" data-executed="false" data-evidence="false">
+      <td>circomlibjs<br><small>Circuit JavaScript helpers</small></td>
+      <td><code>Unavailable in inspected package inventories</code><button type="button" data-copy="Unavailable in inspected package inventories">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>rg circomlibjs package inventories</code></td>
+      <td>Not detected in the inspected website or kernel package manifests.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="ffjavascript 0.3.0 and 0.3.1 present in kernel pnpm lockfile zero-knowledge systems and cryptography finite-field javascript helpers project-local project_local transitive lockfile dependency; not a direct website dependency. zk-cryptography version-inventory rg ffjavascript ../fenrua-kernel/pnpm-lock.yaml" data-status="PROJECT_LOCAL" data-mode="project-local" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>ffjavascript<br><small>Finite-field JavaScript helpers</small></td>
+      <td><code>0.3.0 and 0.3.1 present in kernel pnpm lockfile</code><button type="button" data-copy="0.3.0 and 0.3.1 present in kernel pnpm lockfile">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>project-local</td>
+      <td><span class="status-badge">PROJECT_LOCAL</span></td>
+      <td>no<br><small>../Fenrua Website/fenrua-kernel/pnpm-lock.yaml</small></td>
+      <td><code>rg ffjavascript ../fenrua-kernel/pnpm-lock.yaml</code></td>
+      <td>Transitive lockfile dependency; not a direct website dependency.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="age v1.3.1 zero-knowledge systems and cryptography cryptographic file encryption native installed_and_executed version captured only. zk-cryptography version-inventory age --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Age<br><small>Cryptographic file encryption</small></td>
+      <td><code>v1.3.1</code><button type="button" data-copy="v1.3.1">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>age --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="noir unavailable in path zero-knowledge systems and cryptography zk language unavailable unavailable no noir binary was detected. zk-cryptography noir --version" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Zero-knowledge systems and cryptography" data-installed="false" data-executed="false" data-evidence="false">
+      <td>Noir<br><small>ZK language</small></td>
+      <td><code>Unavailable in PATH</code><button type="button" data-copy="Unavailable in PATH">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>noir --version</code></td>
+      <td>No noir binary was detected.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="nargo nargo version = 1.0.0-beta.22; noirc version = 1.0.0-beta.22+c57152f91260ecdb9faad4efc20abb14b6d2ece7 zero-knowledge systems and cryptography noir package/build tooling native installed_exploratory no noir project is published by this website. zk-cryptography version-inventory nargo --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Nargo<br><small>Noir package/build tooling</small></td>
+      <td><code>nargo version = 1.0.0-beta.22; noirc version = 1.0.0-beta.22+c57152f91260ecdb9faad4efc20abb14b6d2ece7</code><button type="button" data-copy="nargo version = 1.0.0-beta.22; noirc version = 1.0.0-beta.22+c57152f91260ecdb9faad4efc20abb14b6d2ece7">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>nargo --version</code></td>
+      <td>No Noir project is published by this website.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="barretenberg 5.0.0-nightly.20260522 zero-knowledge systems and cryptography proof backend native installed_exploratory nightly build; no proof evidence is claimed here. zk-cryptography version-inventory bb --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Barretenberg<br><small>Proof backend</small></td>
+      <td><code>5.0.0-nightly.20260522</code><button type="button" data-copy="5.0.0-nightly.20260522">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>bb --version</code></td>
+      <td>Nightly build; no proof evidence is claimed here.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="openssl openssl 3.5.5 27 jan 2026 zero-knowledge systems and cryptography cryptographic utility native installed_and_executed version captured only. zk-cryptography supporting-cli version-inventory openssl version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>OpenSSL<br><small>Cryptographic utility</small></td>
+      <td><code>OpenSSL 3.5.5 27 Jan 2026</code><button type="button" data-copy="OpenSSL 3.5.5 27 Jan 2026">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>openssl version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="gnupg gpg (gnupg) 2.4.8; libgcrypt 1.12.0 zero-knowledge systems and cryptography signing and verification utility native installed_and_executed version captured only; no signing key material is exposed. zk-cryptography supporting-cli version-inventory gpg --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Zero-knowledge systems and cryptography" data-installed="true" data-executed="true" data-evidence="false">
+      <td>GnuPG<br><small>Signing and verification utility</small></td>
+      <td><code>gpg (GnuPG) 2.4.8; libgcrypt 1.12.0</code><button type="button" data-copy="gpg (GnuPG) 2.4.8; libgcrypt 1.12.0">Copy version</button></td>
+      <td>Zero-knowledge systems and cryptography</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>gpg --version</code></td>
+      <td>Version captured only; no signing key material is exposed.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="node.js v24.18.0 application and web security validation runtime native installed_executed_evidence_producing evidence scope is website validation, not production runtime attestation. application-security version-inventory node --version npm run validate" data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-mode="native" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="true">
+      <td>Node.js<br><small>Validation runtime</small></td>
+      <td><code>v24.18.0</code><button type="button" data-copy="v24.18.0">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXECUTED_EVIDENCE_PRODUCING</span></td>
+      <td>yes<br><small>package.json; scripts/require-node24.mjs</small></td>
+      <td><code>node --version</code><br><code>npm run validate</code></td>
+      <td>Evidence scope is website validation, not production runtime attestation.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="npm 11.18.0 application and web security package manager native installed_executed_evidence_producing no package install was performed. application-security version-inventory npm --version npm run validate" data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-mode="native" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="true">
+      <td>npm<br><small>Package manager</small></td>
+      <td><code>11.18.0</code><button type="button" data-copy="11.18.0">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXECUTED_EVIDENCE_PRODUCING</span></td>
+      <td>yes<br><small>package.json</small></td>
+      <td><code>npm --version</code><br><code>npm run validate</code></td>
+      <td>No package install was performed.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="npx 11.18.0 application and web security package command runner native installed_and_executed used for deploy script design only; no deploy was run. application-security version-inventory npx --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>npx<br><small>Package command runner</small></td>
+      <td><code>11.18.0</code><button type="button" data-copy="11.18.0">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>package.json</small></td>
+      <td><code>npx --version</code></td>
+      <td>Used for deploy script design only; no deploy was run.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="pnpm installed but blocked in fenrua-web because packagemanager is npm application and web security package manager native-or-project-policy-blocked not_in_canonical_pipeline this repository is explicitly configured for npm. application-security version-inventory pnpm --version" data-status="NOT_IN_CANONICAL_PIPELINE" data-mode="native-or-project-policy-blocked" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>pnpm<br><small>Package manager</small></td>
+      <td><code>Installed but blocked in fenrua-web because packageManager is npm</code><button type="button" data-copy="Installed but blocked in fenrua-web because packageManager is npm">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>native-or-project-policy-blocked</td>
+      <td><span class="status-badge">NOT_IN_CANONICAL_PIPELINE</span></td>
+      <td>no<br><small>package.json</small></td>
+      <td><code>pnpm --version</code></td>
+      <td>This repository is explicitly configured for npm.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="yarn installed but blocked in fenrua-web because packagemanager is npm application and web security package manager native-or-project-policy-blocked not_in_canonical_pipeline this repository is explicitly configured for npm. application-security version-inventory yarn --version" data-status="NOT_IN_CANONICAL_PIPELINE" data-mode="native-or-project-policy-blocked" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Yarn<br><small>Package manager</small></td>
+      <td><code>Installed but blocked in fenrua-web because packageManager is npm</code><button type="button" data-copy="Installed but blocked in fenrua-web because packageManager is npm">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>native-or-project-policy-blocked</td>
+      <td><span class="status-badge">NOT_IN_CANONICAL_PIPELINE</span></td>
+      <td>no<br><small>package.json</small></td>
+      <td><code>yarn --version</code></td>
+      <td>This repository is explicitly configured for npm.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="corepack 0.35.0 application and web security package manager dispatcher native installed_and_executed version captured only. application-security version-inventory corepack --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Corepack<br><small>Package manager dispatcher</small></td>
+      <td><code>0.35.0</code><button type="button" data-copy="0.35.0">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>corepack --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="typescript unavailable in path; deno reports typescript 6.0.3 internally application and web security type validation unavailable unavailable no standalone tsc binary was detected. application-security tsc --version deno --version" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-executed="false" data-evidence="false">
+      <td>TypeScript<br><small>Type validation</small></td>
+      <td><code>Unavailable in PATH; Deno reports TypeScript 6.0.3 internally</code><button type="button" data-copy="Unavailable in PATH; Deno reports TypeScript 6.0.3 internally">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>tsc --version</code><br><code>deno --version</code></td>
+      <td>No standalone tsc binary was detected.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="next.js unavailable in path application and web security application framework unavailable unavailable the public site is plain static html/css/js, not a next.js app. application-security next --version" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-executed="false" data-evidence="false">
+      <td>Next.js<br><small>Application framework</small></td>
+      <td><code>Unavailable in PATH</code><button type="button" data-copy="Unavailable in PATH">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>package.json</small></td>
+      <td><code>next --version</code></td>
+      <td>The public site is plain static HTML/CSS/JS, not a Next.js app.</td>
+    </tr>
+<tr data-tool-row data-page="2" data-search="react unavailable in fenrua-web package inventory application and web security ui library unavailable unavailable not a dependency of the static website. application-security npm list --depth=0 --json" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-executed="false" data-evidence="false">
+      <td>React<br><small>UI library</small></td>
+      <td><code>Unavailable in fenrua-web package inventory</code><button type="button" data-copy="Unavailable in fenrua-web package inventory">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>package.json</small></td>
+      <td><code>npm list --depth=0 --json</code></td>
+      <td>Not a dependency of the static website.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="tailwind css unavailable in fenrua-web package inventory application and web security css framework unavailable unavailable the site uses a local css file. application-security npm list --depth=0 --json" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-executed="false" data-evidence="false">
+      <td>Tailwind CSS<br><small>CSS framework</small></td>
+      <td><code>Unavailable in fenrua-web package inventory</code><button type="button" data-copy="Unavailable in fenrua-web package inventory">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>package.json</small></td>
+      <td><code>npm list --depth=0 --json</code></td>
+      <td>The site uses a local CSS file.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="eslint unavailable in path application and web security linting unavailable unavailable no eslint binary was detected. application-security eslint --version" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-executed="false" data-evidence="false">
+      <td>ESLint<br><small>Linting</small></td>
+      <td><code>Unavailable in PATH</code><button type="button" data-copy="Unavailable in PATH">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>package.json</small></td>
+      <td><code>eslint --version</code></td>
+      <td>No ESLint binary was detected.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="prettier 3.9.4 application and web security formatting native installed_and_executed version captured only; no formatting run was required. application-security version-inventory prettier --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Prettier<br><small>Formatting</small></td>
+      <td><code>3.9.4</code><button type="button" data-copy="3.9.4">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>prettier --version</code></td>
+      <td>Version captured only; no formatting run was required.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="playwright unavailable in path application and web security browser validation unavailable unavailable no playwright binary was detected, so browser coverage was not added in this pass. application-security playwright --version" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-executed="false" data-evidence="false">
+      <td>Playwright<br><small>Browser validation</small></td>
+      <td><code>Unavailable in PATH</code><button type="button" data-copy="Unavailable in PATH">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>playwright --version</code></td>
+      <td>No Playwright binary was detected, so browser coverage was not added in this pass.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="supabase javascript sdk unavailable in fenrua-web package inventory application and web security database and edge api client unavailable unavailable the public website exposes no browser supabase credentials or client. application-security npm list --depth=0 --json" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-executed="false" data-evidence="false">
+      <td>Supabase JavaScript SDK<br><small>Database and edge API client</small></td>
+      <td><code>Unavailable in fenrua-web package inventory</code><button type="button" data-copy="Unavailable in fenrua-web package inventory">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>package.json</small></td>
+      <td><code>npm list --depth=0 --json</code></td>
+      <td>The public website exposes no browser Supabase credentials or client.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="semgrep 1.169.0 application and web security source analysis native installed_and_executed version capture only. user corrected the prior expected marker typo; no semgrep scan result is claimed here. application-security version-inventory semgrep --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Semgrep<br><small>Source analysis</small></td>
+      <td><code>1.169.0</code><button type="button" data-copy="1.169.0">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>semgrep --version</code></td>
+      <td>Version capture only. User corrected the prior expected marker typo; no Semgrep scan result is claimed here.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="deno deno 2.9.2; v8 14.9.207.2-rusty; typescript 6.0.3 application and web security validation runtime native-and-container installed_and_executed version captured; deno is not part of fenrua-web npm validate. application-security version-inventory deno --version docker image ls --format ... denoland/deno" data-status="INSTALLED_AND_EXECUTED" data-mode="native-and-container" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Deno<br><small>Validation runtime</small></td>
+      <td><code>deno 2.9.2; v8 14.9.207.2-rusty; typescript 6.0.3</code><button type="button" data-copy="deno 2.9.2; v8 14.9.207.2-rusty; typescript 6.0.3">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>native-and-container</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>deno --version</code><br><code>docker image ls --format ... denoland/deno</code></td>
+      <td>Version captured; Deno is not part of fenrua-web npm validate.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="trivy native binary unavailable; aquasec/trivy:0.70.0 image id be1190afcb28 detected application and web security container and dependency scanning container container_only image presence was verified; no trivy scan was run for this website task. application-security infrastructure version-inventory trivy --version docker image ls --format ... aquasec/trivy" data-status="CONTAINER_ONLY" data-mode="container" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Trivy<br><small>Container and dependency scanning</small></td>
+      <td><code>Native binary unavailable; aquasec/trivy:0.70.0 image id be1190afcb28 detected</code><button type="button" data-copy="Native binary unavailable; aquasec/trivy:0.70.0 image id be1190afcb28 detected">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>container</td>
+      <td><span class="status-badge">CONTAINER_ONLY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>trivy --version</code><br><code>docker image ls --format ... aquasec/trivy</code></td>
+      <td>Image presence was verified; no Trivy scan was run for this website task.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="repository-local validation scripts fenrua-web npm validate scripts at package version 1.0.0 application and web security static export, metadata, link, api, and telemetry validation project-local installed_executed_evidence_producing validation is scoped to the static website and serverless chain-progress api. application-security npm run validate" data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-mode="project-local" data-category="Application and web security" data-installed="true" data-executed="true" data-evidence="true">
+      <td>Repository-local validation scripts<br><small>Static export, metadata, link, API, and telemetry validation</small></td>
+      <td><code>fenrua-web npm validate scripts at package version 1.0.0</code><button type="button" data-copy="fenrua-web npm validate scripts at package version 1.0.0">Copy version</button></td>
+      <td>Application and web security</td>
+      <td>project-local</td>
+      <td><span class="status-badge">INSTALLED_EXECUTED_EVIDENCE_PRODUCING</span></td>
+      <td>yes<br><small>scripts/check-static-links.mjs; scripts/check-public-discovery.mjs; scripts/test-chain-progress.mjs; scripts/test-kernel-telemetry.mjs</small></td>
+      <td><code>npm run validate</code></td>
+      <td>Validation is scoped to the static website and serverless chain-progress API.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="python python 3.14.4 languages and native compilation language runtime native installed_and_executed python command was unavailable; python3 was available. native-kernel version-inventory python3 --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Python<br><small>Language runtime</small></td>
+      <td><code>Python 3.14.4</code><button type="button" data-copy="Python 3.14.4">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>python3 --version</code></td>
+      <td>python command was unavailable; python3 was available.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="pip pip 25.1.1 (python 3.14) languages and native compilation python package manager native installed_and_executed local package path omitted from public evidence. native-kernel version-inventory pip --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>pip<br><small>Python package manager</small></td>
+      <td><code>pip 25.1.1 (python 3.14)</code><button type="button" data-copy="pip 25.1.1 (python 3.14)">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>pip --version</code></td>
+      <td>Local package path omitted from public evidence.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="uv uv 0.11.26 languages and native compilation python tool/package manager native installed_and_executed version captured only. native-kernel version-inventory uv --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>uv<br><small>Python tool/package manager</small></td>
+      <td><code>uv 0.11.26</code><button type="button" data-copy="uv 0.11.26">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>uv --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="pipx 1.8.0 languages and native compilation python isolated cli installer native installed_and_executed version captured only. native-kernel version-inventory pipx --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>pipx<br><small>Python isolated CLI installer</small></td>
+      <td><code>1.8.0</code><button type="button" data-copy="1.8.0">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>pipx --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="pytest pytest 9.0.2 languages and native compilation test runner native installed_and_executed no pytest suite is part of this static website. native-kernel version-inventory pytest --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>pytest<br><small>Test runner</small></td>
+      <td><code>pytest 9.0.2</code><button type="button" data-copy="pytest 9.0.2">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>pytest --version</code></td>
+      <td>No pytest suite is part of this static website.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="rust rustc 1.97.0 (2d8144b78 2026-07-07) languages and native compilation compiler native installed_and_executed version captured only. native-kernel version-inventory rustc --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Rust<br><small>Compiler</small></td>
+      <td><code>rustc 1.97.0 (2d8144b78 2026-07-07)</code><button type="button" data-copy="rustc 1.97.0 (2d8144b78 2026-07-07)">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>rustc --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="cargo cargo 1.97.0 (c980f4866 2026-06-30) languages and native compilation rust package manager native installed_and_executed version captured only. native-kernel version-inventory cargo --version cargo install --list" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Cargo<br><small>Rust package manager</small></td>
+      <td><code>cargo 1.97.0 (c980f4866 2026-06-30)</code><button type="button" data-copy="cargo 1.97.0 (c980f4866 2026-06-30)">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>cargo --version</code><br><code>cargo install --list</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="rustup rustup 1.29.0 (28d1352db 2026-03-05) languages and native compilation rust toolchain manager native installed_and_executed version captured only. native-kernel version-inventory rustup --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>rustup<br><small>Rust toolchain manager</small></td>
+      <td><code>rustup 1.29.0 (28d1352db 2026-03-05)</code><button type="button" data-copy="rustup 1.29.0 (28d1352db 2026-03-05)">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>rustup --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="go go version go1.26.0 linux/amd64 languages and native compilation compiler/runtime native installed_and_executed version captured only. native-kernel version-inventory go version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Go<br><small>Compiler/runtime</small></td>
+      <td><code>go version go1.26.0 linux/amd64</code><button type="button" data-copy="go version go1.26.0 linux/amd64">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>go version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="gcc gcc (ubuntu 15.2.0-16ubuntu1) 15.2.0 languages and native compilation c compiler native installed_and_executed version captured only. native-kernel version-inventory gcc --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>GCC<br><small>C compiler</small></td>
+      <td><code>gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0</code><button type="button" data-copy="gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>gcc --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="g++ g++ (ubuntu 15.2.0-16ubuntu1) 15.2.0 languages and native compilation c++ compiler native installed_and_executed version captured only. native-kernel version-inventory g++ --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>G++<br><small>C++ compiler</small></td>
+      <td><code>g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0</code><button type="button" data-copy="g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>g++ --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="gfortran gnu fortran (ubuntu 15.2.0-16ubuntu1) 15.2.0 languages and native compilation fortran compiler native installed_and_executed version captured only. native-kernel version-inventory gfortran --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>GFortran<br><small>Fortran compiler</small></td>
+      <td><code>GNU Fortran (Ubuntu 15.2.0-16ubuntu1) 15.2.0</code><button type="button" data-copy="GNU Fortran (Ubuntu 15.2.0-16ubuntu1) 15.2.0">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>gfortran --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="clang ubuntu clang version 21.1.8 (6ubuntu1) languages and native compilation c compiler native installed_and_executed installeddir path omitted from public evidence. native-kernel version-inventory clang --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Clang<br><small>C compiler</small></td>
+      <td><code>Ubuntu clang version 21.1.8 (6ubuntu1)</code><button type="button" data-copy="Ubuntu clang version 21.1.8 (6ubuntu1)">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>clang --version</code></td>
+      <td>InstalledDir path omitted from public evidence.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="clang++ ubuntu clang version 21.1.8 (6ubuntu1) languages and native compilation c++ compiler native installed_and_executed installeddir path omitted from public evidence. native-kernel version-inventory clang++ --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Clang++<br><small>C++ compiler</small></td>
+      <td><code>Ubuntu clang version 21.1.8 (6ubuntu1)</code><button type="button" data-copy="Ubuntu clang version 21.1.8 (6ubuntu1)">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>clang++ --version</code></td>
+      <td>InstalledDir path omitted from public evidence.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="cmake cmake version 4.2.3 languages and native compilation build system native installed_and_executed version captured only. native-kernel version-inventory cmake --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>CMake<br><small>Build system</small></td>
+      <td><code>cmake version 4.2.3</code><button type="button" data-copy="cmake version 4.2.3">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>cmake --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="3" data-search="gnu make gnu make 4.4.1 languages and native compilation build automation native installed_and_executed version captured only. native-kernel version-inventory make --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>GNU Make<br><small>Build automation</small></td>
+      <td><code>GNU Make 4.4.1</code><button type="button" data-copy="GNU Make 4.4.1">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>make --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="ninja 1.13.2 languages and native compilation build automation native installed_and_executed version captured only. native-kernel version-inventory ninja --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Ninja<br><small>Build automation</small></td>
+      <td><code>1.13.2</code><button type="button" data-copy="1.13.2">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>ninja --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="nasm nasm version 3.01 languages and native compilation assembler native installed_and_executed version captured only. native-kernel version-inventory nasm -v" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>NASM<br><small>Assembler</small></td>
+      <td><code>NASM version 3.01</code><button type="button" data-copy="NASM version 3.01">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>nasm -v</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="bison bison (gnu bison) 3.8.2 languages and native compilation parser generator native installed_and_executed version captured only. native-kernel version-inventory bison --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Bison<br><small>Parser generator</small></td>
+      <td><code>bison (GNU Bison) 3.8.2</code><button type="button" data-copy="bison (GNU Bison) 3.8.2">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>bison --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="flex flex 2.6.4 languages and native compilation lexer generator native installed_and_executed version captured only. native-kernel version-inventory flex --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Flex<br><small>Lexer generator</small></td>
+      <td><code>flex 2.6.4</code><button type="button" data-copy="flex 2.6.4">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>flex --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="ccache ccache version 4.12.3 languages and native compilation compiler cache native installed_and_executed version captured only. native-kernel version-inventory ccache --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>ccache<br><small>Compiler cache</small></td>
+      <td><code>ccache version 4.12.3</code><button type="button" data-copy="ccache version 4.12.3">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>ccache --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="sccache sccache 0.13.0 languages and native compilation compiler cache native installed_and_executed version captured only. native-kernel version-inventory sccache --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>sccache<br><small>Compiler cache</small></td>
+      <td><code>sccache 0.13.0</code><button type="button" data-copy="sccache 0.13.0">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>sccache --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="mold mold 2.40.4 (compatible with gnu ld) languages and native compilation linker native installed_and_executed version captured only. native-kernel version-inventory mold --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Mold<br><small>Linker</small></td>
+      <td><code>mold 2.40.4 (compatible with GNU ld)</code><button type="button" data-copy="mold 2.40.4 (compatible with GNU ld)">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>mold --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="perl perl v5.40.1 languages and native compilation scripting runtime native installed_and_executed version captured only. native-kernel version-inventory perl --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Perl<br><small>Scripting runtime</small></td>
+      <td><code>Perl v5.40.1</code><button type="button" data-copy="Perl v5.40.1">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>perl --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="java openjdk 25.0.3 lts languages and native compilation runtime native installed_and_executed runtime path omitted from public evidence. native-kernel version-inventory java -version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Java<br><small>Runtime</small></td>
+      <td><code>OpenJDK 25.0.3 LTS</code><button type="button" data-copy="OpenJDK 25.0.3 LTS">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>java -version</code></td>
+      <td>Runtime path omitted from public evidence.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="gradle gradle 9.6.1 languages and native compilation build automation native installed_and_executed version captured only. native-kernel version-inventory gradle --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Gradle<br><small>Build automation</small></td>
+      <td><code>Gradle 9.6.1</code><button type="button" data-copy="Gradle 9.6.1">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>gradle --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="maven apache maven 3.9.16 languages and native compilation build automation native installed_and_executed local maven and java paths omitted from public evidence. native-kernel version-inventory mvn --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Maven<br><small>Build automation</small></td>
+      <td><code>Apache Maven 3.9.16</code><button type="button" data-copy="Apache Maven 3.9.16">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>mvn --version</code></td>
+      <td>Local Maven and Java paths omitted from public evidence.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search=".net sdk 10.0.301 languages and native compilation sdk native installed_and_executed version captured only. native-kernel version-inventory dotnet --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>.NET SDK<br><small>SDK</small></td>
+      <td><code>10.0.301</code><button type="button" data-copy="10.0.301">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>dotnet --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="bun 1.3.14 languages and native compilation javascript runtime native installed_and_executed not part of fenrua-web validate. application-security native-kernel version-inventory bun --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Languages and native compilation" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Bun<br><small>JavaScript runtime</small></td>
+      <td><code>1.3.14</code><button type="button" data-copy="1.3.14">Copy version</button></td>
+      <td>Languages and native compilation</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>bun --version</code></td>
+      <td>Not part of fenrua-web validate.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="wsl2 ubuntu ubuntu 26.04 lts on wsl 2.7.10.0 infrastructure, databases, and orchestration execution environment native installed_and_executed public output excludes windows host details. infrastructure version-inventory lsb_release -ds wsl.exe --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>WSL2 Ubuntu<br><small>Execution environment</small></td>
+      <td><code>Ubuntu 26.04 LTS on WSL 2.7.10.0</code><button type="button" data-copy="Ubuntu 26.04 LTS on WSL 2.7.10.0">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>lsb_release -ds</code><br><code>wsl.exe --version</code></td>
+      <td>Public output excludes Windows host details.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="docker engine and cli docker version 29.6.1, build 8900f1d infrastructure, databases, and orchestration container runtime native installed_and_executed no private docker context or registry data is exposed. infrastructure version-inventory docker --version docker version --format" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Docker Engine and CLI<br><small>Container runtime</small></td>
+      <td><code>Docker version 29.6.1, build 8900f1d</code><button type="button" data-copy="Docker version 29.6.1, build 8900f1d">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>docker --version</code><br><code>docker version --format</code></td>
+      <td>No private Docker context or registry data is exposed.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="docker compose docker compose version v5.2.0 infrastructure, databases, and orchestration container orchestration native installed_and_executed version captured only. infrastructure version-inventory docker compose version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Docker Compose<br><small>Container orchestration</small></td>
+      <td><code>Docker Compose version v5.2.0</code><button type="button" data-copy="Docker Compose version v5.2.0">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>docker compose version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="docker buildx github.com/docker/buildx v0.35.0-desktop.2 b554ce1decd8b509893b1e7c6227eabfb923d094 infrastructure, databases, and orchestration container build utility native installed_and_executed version captured only. infrastructure version-inventory docker buildx version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Docker Buildx<br><small>Container build utility</small></td>
+      <td><code>github.com/docker/buildx v0.35.0-desktop.2 b554ce1decd8b509893b1e7c6227eabfb923d094</code><button type="button" data-copy="github.com/docker/buildx v0.35.0-desktop.2 b554ce1decd8b509893b1e7c6227eabfb923d094">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>docker buildx version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="supabase cli 2.106.0 infrastructure, databases, and orchestration supabase local and deployment tooling native installed_and_executed no supabase secrets, admin urls, or private topology are exposed. infrastructure version-inventory supabase --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Supabase CLI<br><small>Supabase local and deployment tooling</small></td>
+      <td><code>2.106.0</code><button type="button" data-copy="2.106.0">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>supabase --version</code></td>
+      <td>No Supabase secrets, admin URLs, or private topology are exposed.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="postgresql client psql unavailable in path infrastructure, databases, and orchestration database client unavailable unavailable supabase postgres images were present, but psql was not available as a native cli. infrastructure psql --version" data-status="UNAVAILABLE" data-mode="unavailable" data-category="Infrastructure, databases, and orchestration" data-installed="false" data-executed="false" data-evidence="false">
+      <td>PostgreSQL client<br><small>Database client</small></td>
+      <td><code>psql unavailable in PATH</code><button type="button" data-copy="psql unavailable in PATH">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>unavailable</td>
+      <td><span class="status-badge">UNAVAILABLE</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>psql --version</code></td>
+      <td>Supabase Postgres images were present, but psql was not available as a native CLI.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="kubectl client version: v1.36.1; kustomize version: v5.8.1 infrastructure, databases, and orchestration kubernetes client native installed_and_executed no cluster access or context data is exposed. infrastructure version-inventory kubectl version --client" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>kubectl<br><small>Kubernetes client</small></td>
+      <td><code>Client Version: v1.36.1; Kustomize Version: v5.8.1</code><button type="button" data-copy="Client Version: v1.36.1; Kustomize Version: v5.8.1">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>kubectl version --client</code></td>
+      <td>No cluster access or context data is exposed.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="kustomize standalone kustomize unavailable; kubectl embeds kustomize v5.8.1 infrastructure, databases, and orchestration kubernetes configuration embedded installed_exploratory standalone binary was not detected. infrastructure version-inventory kustomize version kubectl version --client" data-status="INSTALLED_EXPLORATORY" data-mode="embedded" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Kustomize<br><small>Kubernetes configuration</small></td>
+      <td><code>Standalone kustomize unavailable; kubectl embeds Kustomize v5.8.1</code><button type="button" data-copy="Standalone kustomize unavailable; kubectl embeds Kustomize v5.8.1">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>embedded</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>kustomize version</code><br><code>kubectl version --client</code></td>
+      <td>Standalone binary was not detected.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="helm v4.2.3+g43e8b7f infrastructure, databases, and orchestration kubernetes package manager native installed_and_executed no cluster access or release state is exposed. infrastructure version-inventory helm version --short" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Helm<br><small>Kubernetes package manager</small></td>
+      <td><code>v4.2.3+g43e8b7f</code><button type="button" data-copy="v4.2.3+g43e8b7f">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>helm version --short</code></td>
+      <td>No cluster access or release state is exposed.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="terraform terraform v1.15.8 on linux_amd64 infrastructure, databases, and orchestration infrastructure as code native installed_exploratory no terraform plan or state is exposed. infrastructure version-inventory terraform version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Terraform<br><small>Infrastructure as code</small></td>
+      <td><code>Terraform v1.15.8 on linux_amd64</code><button type="button" data-copy="Terraform v1.15.8 on linux_amd64">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>terraform version</code></td>
+      <td>No Terraform plan or state is exposed.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="opentofu opentofu v1.12.3 on linux_amd64 infrastructure, databases, and orchestration infrastructure as code native installed_exploratory no opentofu plan or state is exposed. infrastructure version-inventory tofu version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>OpenTofu<br><small>Infrastructure as code</small></td>
+      <td><code>OpenTofu v1.12.3 on linux_amd64</code><button type="button" data-copy="OpenTofu v1.12.3 on linux_amd64">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>tofu version</code></td>
+      <td>No OpenTofu plan or state is exposed.</td>
+    </tr>
+<tr data-tool-row data-page="4" data-search="ansible ansible [core 2.21.1] infrastructure, databases, and orchestration configuration automation native installed_exploratory local config and module paths omitted from public evidence. infrastructure version-inventory ansible --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Ansible<br><small>Configuration automation</small></td>
+      <td><code>ansible [core 2.21.1]</code><button type="button" data-copy="ansible [core 2.21.1]">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>ansible --version</code></td>
+      <td>Local config and module paths omitted from public evidence.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="deno docker runtime denoland/deno:2.9.0 image id 8d24854de78a infrastructure, databases, and orchestration containerized javascript/typescript runtime container container_only image presence was verified; container execution was not required. infrastructure application-security version-inventory docker image ls --format ... denoland/deno" data-status="CONTAINER_ONLY" data-mode="container" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Deno Docker runtime<br><small>Containerized JavaScript/TypeScript runtime</small></td>
+      <td><code>denoland/deno:2.9.0 image id 8d24854de78a</code><button type="button" data-copy="denoland/deno:2.9.0 image id 8d24854de78a">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>container</td>
+      <td><span class="status-badge">CONTAINER_ONLY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>docker image ls --format ... denoland/deno</code></td>
+      <td>Image presence was verified; container execution was not required.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="supabase pg_prove image supabase/pg_prove:3.36 and public.ecr.aws/supabase/pg_prove:3.36 image id eda7c5e68719 infrastructure, databases, and orchestration database testing image container container_only image presence was verified; no database tests were run for this website task. infrastructure database version-inventory docker image ls --format ... pg_prove" data-status="CONTAINER_ONLY" data-mode="container" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Supabase pg_prove image<br><small>Database testing image</small></td>
+      <td><code>supabase/pg_prove:3.36 and public.ecr.aws/supabase/pg_prove:3.36 image id eda7c5e68719</code><button type="button" data-copy="supabase/pg_prove:3.36 and public.ecr.aws/supabase/pg_prove:3.36 image id eda7c5e68719">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>container</td>
+      <td><span class="status-badge">CONTAINER_ONLY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>docker image ls --format ... pg_prove</code></td>
+      <td>Image presence was verified; no database tests were run for this website task.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="geth geth version: 1.17.4-stable; git commit: 36a7dc72e96b3f42846be925cfeb2fad18489917 infrastructure, databases, and orchestration chain client native installed_and_executed no chain safety or deployment claim follows from the client version. infrastructure chain-clients version-inventory geth version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Geth<br><small>Chain client</small></td>
+      <td><code>Geth Version: 1.17.4-stable; Git Commit: 36a7dc72e96b3f42846be925cfeb2fad18489917</code><button type="button" data-copy="Geth Version: 1.17.4-stable; Git Commit: 36a7dc72e96b3f42846be925cfeb2fad18489917">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>geth version</code></td>
+      <td>No chain safety or deployment claim follows from the client version.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="besu besu/v26.6.1/linux-x86_64/openjdk-java-25 infrastructure, databases, and orchestration chain client native installed_and_executed no chain safety or deployment claim follows from the client version. infrastructure chain-clients version-inventory besu --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Besu<br><small>Chain client</small></td>
+      <td><code>besu/v26.6.1/linux-x86_64/openjdk-java-25</code><button type="button" data-copy="besu/v26.6.1/linux-x86_64/openjdk-java-25">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>besu --version</code></td>
+      <td>No chain safety or deployment claim follows from the client version.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="erigon erigon version 3.5.1-bed215a4 infrastructure, databases, and orchestration chain client native installed_and_executed no chain safety or deployment claim follows from the client version. infrastructure chain-clients version-inventory erigon --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Erigon<br><small>Chain client</small></td>
+      <td><code>erigon version 3.5.1-bed215a4</code><button type="button" data-copy="erigon version 3.5.1-bed215a4">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>erigon --version</code></td>
+      <td>No chain safety or deployment claim follows from the client version.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="reth reth version: 2.3.0; commit sha: 9384bc53d8c0c77e59cac83fdaaf3b372c6d2216 infrastructure, databases, and orchestration chain client native installed_and_executed no chain safety or deployment claim follows from the client version. infrastructure chain-clients version-inventory reth --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Infrastructure, databases, and orchestration" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Reth<br><small>Chain client</small></td>
+      <td><code>Reth Version: 2.3.0; Commit SHA: 9384bc53d8c0c77e59cac83fdaaf3b372c6d2216</code><button type="button" data-copy="Reth Version: 2.3.0; Commit SHA: 9384bc53d8c0c77e59cac83fdaaf3b372c6d2216">Copy version</button></td>
+      <td>Infrastructure, databases, and orchestration</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>reth --version</code></td>
+      <td>No chain safety or deployment claim follows from the client version.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="codex cli codex-cli 0.143.0 editor, ai, and source control ai coding interface native installed_and_executed editor/agent tooling is not presented as security assurance. source-control version-inventory codex --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Editor, AI, and source control" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Codex CLI<br><small>AI coding interface</small></td>
+      <td><code>codex-cli 0.143.0</code><button type="button" data-copy="codex-cli 0.143.0">Copy version</button></td>
+      <td>Editor, AI, and source control</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>codex --version</code></td>
+      <td>Editor/agent tooling is not presented as security assurance.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="vs code 1.128.0; commit fc3def6774c76082adf699d366f31a557ce5573f editor, ai, and source control editor native installed_and_executed editor presence is not security tooling. source-control version-inventory code --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Editor, AI, and source control" data-installed="true" data-executed="true" data-evidence="false">
+      <td>VS Code<br><small>Editor</small></td>
+      <td><code>1.128.0; commit fc3def6774c76082adf699d366f31a557ce5573f</code><button type="button" data-copy="1.128.0; commit fc3def6774c76082adf699d366f31a557ce5573f">Copy version</button></td>
+      <td>Editor, AI, and source control</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>code --version</code></td>
+      <td>Editor presence is not security tooling.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="vs code insiders 1.129.0-insider; commit e7b83d54552fa9cb419c63fb24bde66f70addb60 editor, ai, and source control editor native installed_exploratory editor presence is not security tooling. source-control version-inventory code-insiders --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Editor, AI, and source control" data-installed="true" data-executed="true" data-evidence="false">
+      <td>VS Code Insiders<br><small>Editor</small></td>
+      <td><code>1.129.0-insider; commit e7b83d54552fa9cb419c63fb24bde66f70addb60</code><button type="button" data-copy="1.129.0-insider; commit e7b83d54552fa9cb419c63fb24bde66f70addb60">Copy version</button></td>
+      <td>Editor, AI, and source control</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>code-insiders --version</code></td>
+      <td>Editor presence is not security tooling.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="git git version 2.53.0 editor, ai, and source control source control native installed_executed_evidence_producing git records repository state; it does not prove deployed bytecode or production safety. source-control application-security version-inventory git --version git status --short git rev-parse head" data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-mode="native" data-category="Editor, AI, and source control" data-installed="true" data-executed="true" data-evidence="true">
+      <td>Git<br><small>Source control</small></td>
+      <td><code>git version 2.53.0</code><button type="button" data-copy="git version 2.53.0">Copy version</button></td>
+      <td>Editor, AI, and source control</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXECUTED_EVIDENCE_PRODUCING</span></td>
+      <td>yes<br><small>docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md</small></td>
+      <td><code>git --version</code><br><code>git status --short</code><br><code>git rev-parse HEAD</code></td>
+      <td>Git records repository state; it does not prove deployed bytecode or production safety.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="git lfs git-lfs/3.7.1 editor, ai, and source control large-file source control support native installed_and_executed no lfs artifact is part of the current website evidence. source-control version-inventory git-lfs version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Editor, AI, and source control" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Git LFS<br><small>Large-file source control support</small></td>
+      <td><code>git-lfs/3.7.1</code><button type="button" data-copy="git-lfs/3.7.1">Copy version</button></td>
+      <td>Editor, AI, and source control</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>git-lfs version</code></td>
+      <td>No LFS artifact is part of the current website evidence.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="github cli gh version 2.46.0 editor, ai, and source control github automation native installed_and_executed no github write operation was performed. source-control version-inventory gh --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Editor, AI, and source control" data-installed="true" data-executed="true" data-evidence="false">
+      <td>GitHub CLI<br><small>GitHub automation</small></td>
+      <td><code>gh version 2.46.0</code><button type="button" data-copy="gh version 2.46.0">Copy version</button></td>
+      <td>Editor, AI, and source control</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>gh --version</code></td>
+      <td>No GitHub write operation was performed.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="vim vim - vi improved 9.1; patches 1-948, 950-2141 editor, ai, and source control editor native installed_exploratory editor presence is not security assurance. source-control version-inventory vim --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Editor, AI, and source control" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Vim<br><small>Editor</small></td>
+      <td><code>VIM - Vi IMproved 9.1; patches 1-948, 950-2141</code><button type="button" data-copy="VIM - Vi IMproved 9.1; patches 1-948, 950-2141">Copy version</button></td>
+      <td>Editor, AI, and source control</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>vim --version</code></td>
+      <td>Editor presence is not security assurance.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="nano gnu nano, version 8.7.1 editor, ai, and source control editor native installed_exploratory editor presence is not security assurance. source-control version-inventory nano --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Editor, AI, and source control" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Nano<br><small>Editor</small></td>
+      <td><code>GNU nano, version 8.7.1</code><button type="button" data-copy="GNU nano, version 8.7.1">Copy version</button></td>
+      <td>Editor, AI, and source control</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>nano --version</code></td>
+      <td>Editor presence is not security assurance.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="vs code extensions mechatroner.rainbow-csv@3.24.1; ritwickdey.liveserver@5.7.10 editor, ai, and source control editor extension inventory native installed_exploratory extensions are not overclaimed as security tooling. source-control version-inventory code --list-extensions --show-versions" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Editor, AI, and source control" data-installed="true" data-executed="true" data-evidence="false">
+      <td>VS Code extensions<br><small>Editor extension inventory</small></td>
+      <td><code>mechatroner.rainbow-csv@3.24.1; ritwickdey.liveserver@5.7.10</code><button type="button" data-copy="mechatroner.rainbow-csv@3.24.1; ritwickdey.liveserver@5.7.10">Copy version</button></td>
+      <td>Editor, AI, and source control</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>code --list-extensions --show-versions</code></td>
+      <td>Extensions are not overclaimed as security tooling.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="ripgrep ripgrep 15.1.0 (rev af60c2de9d) supporting command-line tools search and discovery native installed_executed_evidence_producing search results inform discovery; they are not security proof. supporting-cli application-security version-inventory rg --version rg ..." data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="true">
+      <td>Ripgrep<br><small>Search and discovery</small></td>
+      <td><code>ripgrep 15.1.0 (rev af60c2de9d)</code><button type="button" data-copy="ripgrep 15.1.0 (rev af60c2de9d)">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXECUTED_EVIDENCE_PRODUCING</span></td>
+      <td>yes<br><small>docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md</small></td>
+      <td><code>rg --version</code><br><code>rg ...</code></td>
+      <td>Search results inform discovery; they are not security proof.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="jq jq-1.8.1 supporting command-line tools json inspection native installed_and_executed version captured only. supporting-cli version-inventory jq --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>jq<br><small>JSON inspection</small></td>
+      <td><code>jq-1.8.1</code><button type="button" data-copy="jq-1.8.1">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>jq --version</code></td>
+      <td>Version captured only.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="fdfind fdfind 10.3.0 supporting command-line tools file discovery native installed_and_executed the fd alias was unavailable; fdfind was available. supporting-cli version-inventory fd --version fdfind --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>fdfind<br><small>File discovery</small></td>
+      <td><code>fdfind 10.3.0</code><button type="button" data-copy="fdfind 10.3.0">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>fd --version</code><br><code>fdfind --version</code></td>
+      <td>The fd alias was unavailable; fdfind was available.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="just just 1.45.0 supporting command-line tools command runner native installed_and_executed no website justfile is present. supporting-cli version-inventory just --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Just<br><small>Command runner</small></td>
+      <td><code>just 1.45.0</code><button type="button" data-copy="just 1.45.0">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>just --version</code></td>
+      <td>No website justfile is present.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="hyperfine hyperfine 1.19.0 supporting command-line tools benchmarking native installed_exploratory no benchmark was run for this website task. supporting-cli version-inventory hyperfine --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>Hyperfine<br><small>Benchmarking</small></td>
+      <td><code>hyperfine 1.19.0</code><button type="button" data-copy="hyperfine 1.19.0">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>hyperfine --version</code></td>
+      <td>No benchmark was run for this website task.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="tmux tmux 3.6 supporting command-line tools session management native installed_exploratory session tooling is not security assurance. supporting-cli version-inventory tmux -v" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>tmux<br><small>Session management</small></td>
+      <td><code>tmux 3.6</code><button type="button" data-copy="tmux 3.6">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>tmux -V</code></td>
+      <td>Session tooling is not security assurance.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="gnu screen screen version 4.09.01 supporting command-line tools session management native installed_exploratory session tooling is not security assurance. supporting-cli version-inventory screen --version" data-status="INSTALLED_EXPLORATORY" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>GNU Screen<br><small>Session management</small></td>
+      <td><code>Screen version 4.09.01</code><button type="button" data-copy="Screen version 4.09.01">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_EXPLORATORY</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>screen --version</code></td>
+      <td>Session tooling is not security assurance.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="rsync rsync 3.4.1 protocol version 32 supporting command-line tools transport and reproducibility support native installed_and_executed no transfer operation was performed. supporting-cli version-inventory rsync --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>rsync<br><small>Transport and reproducibility support</small></td>
+      <td><code>rsync 3.4.1 protocol version 32</code><button type="button" data-copy="rsync 3.4.1 protocol version 32">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>rsync --version</code></td>
+      <td>No transfer operation was performed.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="openssh openssh_10.2p1 ubuntu-2ubuntu3.2; openssl 3.5.5 27 jan 2026 supporting command-line tools secure transport native installed_and_executed no hosts, keys, or connection details are exposed. supporting-cli version-inventory ssh -v" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>OpenSSH<br><small>Secure transport</small></td>
+      <td><code>OpenSSH_10.2p1 Ubuntu-2ubuntu3.2; OpenSSL 3.5.5 27 Jan 2026</code><button type="button" data-copy="OpenSSH_10.2p1 Ubuntu-2ubuntu3.2; OpenSSL 3.5.5 27 Jan 2026">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>ssh -V</code></td>
+      <td>No hosts, keys, or connection details are exposed.</td>
+    </tr>
+<tr data-tool-row data-page="5" data-search="curl curl 8.18.0 with openssl 3.5.5 supporting command-line tools http transport native installed_and_executed no request targets or credentials are exposed. supporting-cli version-inventory curl --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>curl<br><small>HTTP transport</small></td>
+      <td><code>curl 8.18.0 with OpenSSL 3.5.5</code><button type="button" data-copy="curl 8.18.0 with OpenSSL 3.5.5">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>curl --version</code></td>
+      <td>No request targets or credentials are exposed.</td>
+    </tr>
+<tr data-tool-row data-page="6" data-search="wget gnu wget 1.25.0 supporting command-line tools http transport native installed_and_executed no download operation was performed. supporting-cli version-inventory wget --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>wget<br><small>HTTP transport</small></td>
+      <td><code>GNU Wget 1.25.0</code><button type="button" data-copy="GNU Wget 1.25.0">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>wget --version</code></td>
+      <td>No download operation was performed.</td>
+    </tr>
+<tr data-tool-row data-page="6" data-search="zip zip 3.0 supporting command-line tools archive creation native installed_and_executed no archive was created for this website task. supporting-cli version-inventory zip -v" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>zip<br><small>Archive creation</small></td>
+      <td><code>Zip 3.0</code><button type="button" data-copy="Zip 3.0">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>zip -v</code></td>
+      <td>No archive was created for this website task.</td>
+    </tr>
+<tr data-tool-row data-page="6" data-search="unzip unzip 6.00 supporting command-line tools archive extraction native installed_and_executed no archive was extracted for this website task. supporting-cli version-inventory unzip -v" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>unzip<br><small>Archive extraction</small></td>
+      <td><code>UnZip 6.00</code><button type="button" data-copy="UnZip 6.00">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>unzip -v</code></td>
+      <td>No archive was extracted for this website task.</td>
+    </tr>
+<tr data-tool-row data-page="6" data-search="tar tar (gnu tar) 1.35 supporting command-line tools archive creation and extraction native installed_and_executed no archive operation was performed for this website task. supporting-cli version-inventory tar --version" data-status="INSTALLED_AND_EXECUTED" data-mode="native" data-category="Supporting command-line tools" data-installed="true" data-executed="true" data-evidence="false">
+      <td>tar<br><small>Archive creation and extraction</small></td>
+      <td><code>tar (GNU tar) 1.35</code><button type="button" data-copy="tar (GNU tar) 1.35">Copy version</button></td>
+      <td>Supporting command-line tools</td>
+      <td>native</td>
+      <td><span class="status-badge">INSTALLED_AND_EXECUTED</span></td>
+      <td>no<br><small>data/toolchain-registry.json</small></td>
+      <td><code>tar --version</code></td>
+      <td>No archive operation was performed for this website task.</td>
+    </tr>
             </tbody>
           </table>
         </div>
         <p class="empty-state" id="toolchain-empty" hidden>No tools match the active filter.</p>
       </section>
-
-      <section class="section-shell" aria-labelledby="method-title">
-        <div class="section-heading">
-          <p class="eyebrow">VERSION VERIFICATION METHOD</p>
-          <h2 id="method-title">What the registry proves</h2>
-          <p>
-            The registry proves that a bounded command or repository inspection
-            was performed and that the normalized result was published. It does
-            not prove a tool was used in a security campaign unless the row
-            marks evidence production and points to the relevant path.
-          </p>
-        </div>
-
-        <div class="constraint-list">
-          <p><strong>Installed:</strong> a binary, container image, or project dependency was detected.</p>
-          <p><strong>Executed:</strong> a read-only version, help, list, or repository inspection command was run.</p>
-          <p><strong>Evidence-producing:</strong> the tool participates in an existing repeatable evidence path in this repository.</p>
-          <p><strong>Exploratory:</strong> available or inspected, but not part of the canonical verification pipeline.</p>
-          <p><strong>Unavailable:</strong> the expected command or dependency was not detected locally.</p>
-          <p><strong>Known limitation:</strong> contract evidence refresh is pending; no stale deployment, bytecode, reserve, or invariant claim is finalized here.</p>
-          <p><strong>Evidence-lock integrity:</strong> dependencies and tool versions are preserved to match the inspected evidence environment; no post-evidence updates are implied.</p>
-        </div>
-      </section>
     </main>
-
     <footer class="site-footer">
       <div>
-        <strong>Fenrua Toolchain</strong>
-        <span>Public version and evidence status registry.</span>
+        <strong>Fenrua Labs</strong>
+        <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
       </div>
       <div class="footer-social">
-        <p>Machine-readable source remains the authority.</p>
+        <p>Public claims are bounded by public evidence.</p>
         <div class="footer-links">
-          <a href="../data/toolchain-registry.json">Registry JSON</a>
-          <a href="../docs/FENRUA_TOOLCHAIN_LOCK.md">Toolchain lock</a>
-          <a href="../docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
-          <a href="../">Fenrua home</a>
+          <a href="/evidence/">Evidence</a>
+          <a href="/toolchain/">Toolchain</a>
+          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
         </div>
       </div>
     </footer>

@@ -1,0 +1,35 @@
+{
+  "schema": "fenrua.authority-policy.v1",
+  "policyId": "fenrua-policy:example-review",
+  "subject": "fenrua-entity:example-agent",
+  "issuedBy": "fenrua-org:example",
+  "issuedAt": "2026-07-13T00:00:00Z",
+  "expiresAt": null,
+  "rules": [
+    {
+      "effect": "allow",
+      "action": "read",
+      "tool": "read_repository",
+      "resource": "public-repository",
+      "scope": {
+        "filesystem": ["./docs", "./data", "./examples"],
+        "network": [],
+        "repository": ["read"],
+        "database": [],
+        "infrastructure": [],
+        "wallet": []
+      },
+      "environment": "local-review",
+      "evidenceRequired": ["fenrua-evidence:example-bundle"],
+      "failureMode": "fail_closed"
+    }
+  ],
+  "delegation": {
+    "allowed": false,
+    "maxDepth": 0
+  },
+  "revocation": {
+    "state": "active",
+    "reason": null
+  }
+}

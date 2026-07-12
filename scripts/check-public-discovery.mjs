@@ -29,6 +29,7 @@ for (const crawler of [
 
 assert.match(robots, /Sitemap: https:\/\/fenrua\.ai\/sitemap\.xml/);
 assert.match(sitemap, /<loc>https:\/\/fenrua\.ai\/<\/loc>/);
+assert.match(sitemap, /<loc>https:\/\/fenrua\.ai\/architecture\/<\/loc>/);
 assert.match(sitemap, /<loc>https:\/\/fenrua\.ai\/toolchain\/<\/loc>/);
 assert.match(html, /<link rel="canonical" href="https:\/\/fenrua\.ai\/" \/>/);
 

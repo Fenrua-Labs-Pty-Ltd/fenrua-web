@@ -1,0 +1,38 @@
+{
+  "schema": "fenrua.evidence-bundle.v1",
+  "bundleId": "fenrua-evidence:example-bundle",
+  "artifactId": "fenrua-entity:example-agent",
+  "producer": "fenrua-org:example",
+  "createdAt": "2026-07-13T00:00:00Z",
+  "sourceRevision": "390f7aeef778ce93db12e16028bc3a788b643c2d",
+  "toolVersions": [
+    {
+      "tool": "node",
+      "version": "v24.18.0"
+    },
+    {
+      "tool": "semgrep",
+      "version": "1.169.0"
+    }
+  ],
+  "commands": ["npm run validate"],
+  "inputs": ["examples/entity-manifest.example.json"],
+  "outputs": ["examples/verification-result.example.json"],
+  "hashes": [],
+  "signatures": [],
+  "findings": [],
+  "limitations": ["Production runtime attestation was not supplied"],
+  "environment": {
+    "publicLabel": "local-review",
+    "privateDetailsRedacted": true
+  },
+  "anchoring": [],
+  "supersession": {
+    "supersedes": null,
+    "supersededBy": null
+  },
+  "revocation": {
+    "state": "active",
+    "reason": null
+  }
+}

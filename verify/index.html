@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Fenrua public verifier foundation with examples, deterministic output, schemas, and local CLI flow." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0d0d0d" />
+    <link rel="canonical" href="https://fenrua.ai/verify/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://fenrua.ai/#organization",
+        "name": "Fenrua Labs",
+        "alternateName": "Fenrua",
+        "url": "https://fenrua.ai/",
+        "description": "Fenrua is building open Layer 0 AI security infrastructure with public evidence, maturity-labelled primitives, and reproducible verification records.",
+        "sameAs": ["https://github.com/fenrualabs"]
+      }
+    </script>
+    <title>Fenrua Verify</title>
+    <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="/" aria-label="Fenrua home">
+        <img src="/assets/sigil.svg" width="40" height="40" alt="" />
+        <span>
+          <strong>Fenrua</strong>
+          <small>Layer 0 AI security infrastructure</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/">Overview</a>
+        <a href="/architecture/">Architecture</a>
+        <a href="/kernel/">Kernel</a>
+        <a href="/utilities/">Utilities</a>
+        <a href="/research/">Research</a>
+        <a href="/verify/" aria-current="page">Verify</a>
+        <a href="/developers/">Developers</a>
+        <a href="/toolchain/">Toolchain</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/status/">Status</a>
+      </nav>
+    </header>
+    <main id="content">
+      <section class="route-hero" aria-labelledby="page-title">
+        <p class="eyebrow">PUBLIC VERIFIER FOUNDATION</p>
+        <h1 id="page-title">Verify</h1>
+        <p>No live server-side verifier is claimed. The public flow is local, deterministic, schema-first, and limitation-aware.</p>
+        
+      </section>
+      <section class="section-shell split-section">
+        <div>
+          <p class="eyebrow">LOCAL CLI WALKTHROUGH</p>
+          <h2>Run the current checks</h2>
+          <p>Use the repository validation suite and schema examples. The example verifier output is deterministic and explicitly marks runtime attestation as unverified.</p>
+        </div>
+        <pre><code>npm run validate
+node scripts/test-toolchain-registry.mjs
+
+# Example artifacts
+examples/entity-manifest.example.json
+examples/authority-policy.example.json
+examples/evidence-bundle.example.json
+examples/verification-result.example.json</code></pre>
+      </section>
+      <section class="section-shell">
+        <div class="doc-grid">
+          <a href="/examples/entity-manifest.example.json">Entity manifest example</a>
+          <a href="/examples/authority-policy.example.json">Authority policy example</a>
+          <a href="/examples/evidence-bundle.example.json">Evidence bundle example</a>
+          <a href="/examples/verification-result.example.json">Verification result example</a>
+          <a href="/docs/FENRUA_ENTITY_MANIFEST_SPEC.md">Entity manifest schema</a>
+          <a href="/docs/FENRUA_AUTHORITY_POLICY_SPEC.md">Authority policy schema</a>
+          <a href="/docs/FENRUA_EVIDENCE_BUNDLE_SPEC.md">Evidence bundle schema</a>
+          <a href="/docs/FENRUA_VERIFICATION_RESULT_SPEC.md">Verification result schema</a>
+        </div>
+      </section>
+      <section class="section-shell split-section">
+        <div><p class="eyebrow">DETERMINISTIC OUTPUT</p><h2>Example result</h2></div>
+        <pre><code>{
+  "result": "PASS_WITH_LIMITATIONS",
+  "manifestSchema": "valid",
+  "identity": "verified",
+  "signatures": "verified",
+  "artifactIntegrity": "verified",
+  "policyIntegrity": "verified",
+  "evidenceCompleteness": "partial",
+  "runtimeConformity": "unverified",
+  "revocationStatus": "active"
+}</code></pre>
+      </section>
+      <section class="section-shell">
+        <div class="registry " role="region" tabindex="0">
+          <table>
+            <thead><tr><th scope="col">Code</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+<tr><td><code>PASS</code></td><td>All supplied checks passed.</td></tr>
+<tr><td><code>PASS_WITH_LIMITATIONS</code></td><td>Checks passed but runtime or completeness limitations remain.</td></tr>
+<tr><td><code>INCOMPLETE</code></td><td>Required manifest, policy, or evidence fields are missing.</td></tr>
+<tr><td><code>STALE</code></td><td>Evidence is older than the accepted freshness policy.</td></tr>
+<tr><td><code>POLICY_VIOLATION</code></td><td>Requested action violates policy.</td></tr>
+<tr><td><code>INTEGRITY_MISMATCH</code></td><td>Hash, build, source, or runtime value does not match.</td></tr>
+<tr><td><code>SIGNATURE_INVALID</code></td><td>Signature could not be verified.</td></tr>
+<tr><td><code>RUNTIME_UNVERIFIED</code></td><td>Runtime attestation was not supplied or accepted.</td></tr>
+<tr><td><code>REVOKED</code></td><td>Artifact, entity, or policy is revoked.</td></tr>
+<tr><td><code>FAIL_CLOSED</code></td><td>Verifier reached an unsafe or unsupported state.</td></tr>
+<tr><td><code>UNSUPPORTED_SCHEMA</code></td><td>Schema version is not supported.</td></tr>
+<tr><td><code>ERROR</code></td><td>Verifier failed unexpectedly.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>Fenrua Labs</strong>
+        <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
+      </div>
+      <div class="footer-social">
+        <p>Public claims are bounded by public evidence.</p>
+        <div class="footer-links">
+          <a href="/evidence/">Evidence</a>
+          <a href="/toolchain/">Toolchain</a>
+          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

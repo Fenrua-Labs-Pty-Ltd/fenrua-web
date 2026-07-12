@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Toolchain Evidence Lock research record." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0d0d0d" />
+    <link rel="canonical" href="https://fenrua.ai/research/toolchain-evidence-lock/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://fenrua.ai/#organization",
+        "name": "Fenrua Labs",
+        "alternateName": "Fenrua",
+        "url": "https://fenrua.ai/",
+        "description": "Fenrua is building open Layer 0 AI security infrastructure with public evidence, maturity-labelled primitives, and reproducible verification records.",
+        "sameAs": ["https://github.com/fenrualabs"]
+      }
+    </script>
+    <title>Toolchain Evidence Lock | Fenrua Research</title>
+    <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="/" aria-label="Fenrua home">
+        <img src="/assets/sigil.svg" width="40" height="40" alt="" />
+        <span>
+          <strong>Fenrua</strong>
+          <small>Layer 0 AI security infrastructure</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/">Overview</a>
+        <a href="/architecture/">Architecture</a>
+        <a href="/kernel/">Kernel</a>
+        <a href="/utilities/">Utilities</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/verify/">Verify</a>
+        <a href="/developers/">Developers</a>
+        <a href="/toolchain/">Toolchain</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/status/">Status</a>
+      </nav>
+    </header>
+    <main id="content">
+      <section class="route-hero" aria-labelledby="page-title">
+        <p class="eyebrow">RESEARCH RECORD</p>
+        <h1 id="page-title">Toolchain Evidence Lock</h1>
+        <p>Evidence systems · Evidence</p>
+        
+      </section>
+      <section class="section-shell">
+        <div class="registry " role="region" tabindex="0">
+          <table>
+            <thead><tr><th scope="col">Field</th><th scope="col">Record</th></tr></thead>
+            <tbody>
+<tr><th scope="row">Claim</th><td>Toolchain versions are published as detected and remain locked to the inspected evidence environment.</td></tr>
+<tr><th scope="row">Non-claim</th><td>The registry does not claim the newest possible version of every tool.</td></tr>
+<tr><th scope="row">Threat</th><td>Post-evidence dependency drift can make public claims unreproducible.</td></tr>
+<tr><th scope="row">Invariant</th><td>A public claim must refer to a tool version and evidence bundle that were captured together.</td></tr>
+<tr><th scope="row">Implementation</th><td>data/toolchain-registry.json and docs/FENRUA_TOOLCHAIN_LOCK.md.</td></tr>
+<tr><th scope="row">Tooling</th><td>Version commands, package inventory, Docker image inventory, registry validation.</td></tr>
+<tr><th scope="row">Commands</th><td>node scripts/test-toolchain-registry.mjs; npm run validate</td></tr>
+<tr><th scope="row">Evidence</th><td>Registry SHA-256 98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9</td></tr>
+<tr><th scope="row">Regression</th><td>Toolchain registry test prevents Semgrep and SnarkJS drift.</td></tr>
+<tr><th scope="row">Supersession</th><td>Active; future updates require a new frozen evidence bundle.</td></tr>
+<tr><th scope="row">Maturity</th><td>Read-only live</td></tr>
+<tr><th scope="row">Limitations</th><td>Version capture does not prove security findings.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>Fenrua Labs</strong>
+        <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
+      </div>
+      <div class="footer-social">
+        <p>Public claims are bounded by public evidence.</p>
+        <div class="footer-links">
+          <a href="/evidence/">Evidence</a>
+          <a href="/toolchain/">Toolchain</a>
+          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

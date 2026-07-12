@@ -4,28 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
-    <meta
-      name="description"
-      content="Fenrua is building the open Layer 0 security kernel beneath autonomous AI systems: identity, authority, integrity, policy, evidence, verification, containment, and recovery."
-    />
+    <meta name="description" content="Fenrua is the public evidence surface for the open security kernel beneath autonomous AI systems." />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0d0d0d" />
     <link rel="canonical" href="https://fenrua.ai/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://fenrua.ai/" />
-    <meta property="og:title" content="Fenrua: Layer 0 AI Security Infrastructure" />
-    <meta
-      property="og:description"
-      content="A public evidence surface for Fenrua's security kernel, developer standards, verification laboratory, and maturity-labelled research."
-    />
-    <meta property="og:image" content="assets/sigil.svg" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Fenrua: Layer 0 AI Security Infrastructure" />
-    <meta
-      name="twitter:description"
-      content="The security kernel beneath autonomous AI: evidence-first, source-first, reproducible, and maturity-labelled."
-    />
-    <title>Fenrua | Layer 0 AI Security Infrastructure</title>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -38,464 +20,103 @@
         "sameAs": ["https://github.com/fenrualabs"]
       }
     </script>
-    <link rel="icon" href="assets/sigil.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="kernel-status.js" defer></script>
+    <title>Fenrua | Layer 0 AI Security Infrastructure</title>
+    <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
-
     <header class="site-header" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
-        <img src="assets/sigil.svg" width="40" height="40" alt="" />
+        <img src="/assets/sigil.svg" width="40" height="40" alt="" />
         <span>
           <strong>Fenrua</strong>
-          <small>Layer 0 security utility infrastructure</small>
+          <small>Layer 0 AI security infrastructure</small>
         </span>
       </a>
-
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="#overview">Overview</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#security-kernel">Security Kernel</a>
-        <a href="#utilities">Utilities</a>
-        <a href="#research">Research</a>
-        <a href="#verify">Verify</a>
-        <a href="#developers">Developers</a>
-        <a href="toolchain/">Toolchain</a>
-        <a href="#evidence">Evidence</a>
-        <a href="#status">Status</a>
+        <a href="/" aria-current="page">Overview</a>
+        <a href="/architecture/">Architecture</a>
+        <a href="/kernel/">Kernel</a>
+        <a href="/utilities/">Utilities</a>
+        <a href="/research/">Research</a>
+        <a href="/verify/">Verify</a>
+        <a href="/developers/">Developers</a>
+        <a href="/toolchain/">Toolchain</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/status/">Status</a>
       </nav>
     </header>
-
     <main id="content">
-      <section id="overview" class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow">OPEN SECURITY KERNEL / SOURCE FIRST / MATURITY LABELLED</p>
-          <h1 id="hero-title">The security kernel beneath autonomous AI.</h1>
-          <p class="hero-subtitle">
-            Fenrua provides cryptographic identity, machine-readable authority,
-            runtime-integrity verification, policy enforcement, and
-            tamper-evident evidence for AI agents, models, tools, and
-            infrastructure.
-          </p>
-
-          <div class="cta-row" aria-label="Primary actions">
-            <a class="button button-primary" href="#architecture">Explore the architecture</a>
-            <a class="button button-secondary" href="#verify">Verify an artifact</a>
-            <a class="button button-secondary" href="#evidence">Inspect the evidence</a>
-            <a class="button button-secondary" href="toolchain/">View the toolchain</a>
-            <a class="button button-secondary" data-link="repository" href="https://github.com/fenrualabs/fenrua-kernel">
-              View the kernel repository
-            </a>
-          </div>
-        </div>
-
-        <aside class="hero-console" aria-label="Kernel boundary console">
-          <div class="console-top">
-            <span>fenrua security kernel</span>
-            <span data-kernel-field="buildStatus">PASS</span>
-          </div>
-          <pre aria-label="Fenrua operating boundary"><code>category: Layer 0 AI Security Utility Infrastructure
-analogy: open, modular, inspectable kernel for AI security
-kernel: identity · authority · integrity · policy
-evidence: verification · containment · revocation · recovery
-snapshot: <span data-kernel-field="versionTag">sync 390f7aee...</span>
-evidence_revision: <span data-kernel-field="evidenceRevisionTag">evidence 85ecc97c...</span>
-maturity: evolving research and infrastructure project
-contract_boundary: refreshed evidence bundle pending
-non_claim: installed tooling is not proof of security</code></pre>
-        </aside>
+      <section class="route-hero" aria-labelledby="page-title">
+        <p class="eyebrow">LAYER 0 AI SECURITY UTILITY INFRASTRUCTURE</p>
+        <h1 id="page-title">The security kernel beneath autonomous AI.</h1>
+        <p>Fenrua provides identity, authority, integrity, policy, evidence, verification, containment, and recovery primitives for AI agents, models, tools, runtimes, applications, chains, and infrastructure.</p>
+        <div class="cta-row"><a class="button button-primary" href="/architecture/">Explore architecture</a><a class="button button-secondary" href="/verify/">Verify locally</a><a class="button button-secondary" href="/toolchain/">Inspect toolchain</a></div>
       </section>
-
-      <section class="status-band" aria-label="Current verified public status">
-        <div>
-          <strong><a data-link="version" href="https://github.com/fenrualabs/fenrua-kernel/commit/390f7ae" data-kernel-field="versionTag">sync 390f7aee...</a></strong>
-          <span>Kernel Snapshot</span>
-        </div>
-        <div>
-          <strong data-kernel-field="genesisIntegrity">10/10 Genesis Cases Verified</strong>
-          <span>Evidence Suite</span>
-        </div>
-        <div>
-          <strong><a data-link="ci" href="https://github.com/fenrualabs/fenrua-kernel/actions" data-kernel-field="ciOutput">Differential: PASS</a></strong>
-          <span>Public CI Signal</span>
-        </div>
-        <div>
-          <strong>Research-grade</strong>
-          <span>No production certification claim</span>
-        </div>
-      </section>
-
-      <section id="architecture" class="section-shell" aria-labelledby="architecture-title">
+      <section class="section-shell" aria-labelledby="home-answers">
         <div class="section-heading">
-          <p class="eyebrow">OPERATING-SYSTEM ARCHITECTURE</p>
-          <h2 id="architecture-title">Fenrua in the AI stack</h2>
-          <p>
-            Fenrua does not replace applications, agents, models, tools,
-            infrastructure, or chains. It sits beneath them as the security
-            substrate that constrains execution, records evidence, and enables
-            independent review.
-          </p>
+          <p class="eyebrow">FIVE-MINUTE ORIENTATION</p>
+          <h2 id="home-answers">What reviewers need first</h2>
+          <p>The homepage is intentionally a routing surface. Deep technical detail lives on dedicated pages so evidence, maturity, and limitations stay inspectable.</p>
         </div>
-
-        <div class="stack-diagram" role="img" aria-label="Fenrua stack: users, AI applications, agents, compute, user-space integrations, security kernel, primitives.">
-          <span>USERS, OPERATORS, ORGANISATIONS</span>
-          <span>AI APPLICATIONS AND WORKFLOWS</span>
-          <span>AGENTS, MODELS, TOOLS, ORCHESTRATORS</span>
-          <span>COMPUTE, DATA, APIS, CLOUD, CHAINS</span>
-          <span>FENRUA USER-SPACE INTEGRATIONS</span>
-          <strong>FENRUA SECURITY KERNEL</strong>
-          <code>IDENTITY · AUTHORITY · INTEGRITY · POLICY · EVIDENCE · VERIFICATION · CONTAINMENT · RECOVERY</code>
-        </div>
-
-        <div class="flow-grid" aria-label="Canonical operating flows">
-          <article>
-            <span>01</span>
-            <h3>Pre-execution policy evaluation</h3>
-            <p>Entity, operator, tool, environment, and requested action are checked against signed authority policy before execution is allowed.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Tool-call authorisation</h3>
-            <p>Allowed, denied, and human-approval actions are explicit. Scopes cover files, networks, repositories, deployments, wallets, and data.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Runtime-integrity verification</h3>
-            <p>Reviewed source, build digest, dependency lock, container image, model identity, prompt policy, and deployment manifest are compared.</p>
-          </article>
-          <article>
-            <span>04</span>
-            <h3>Evidence-bundle creation</h3>
-            <p>Inputs, outputs, policy decisions, approvals, hashes, signatures, commands, findings, and limitations become machine-readable records.</p>
-          </article>
-          <article>
-            <span>05</span>
-            <h3>Revocation and quarantine</h3>
-            <p>Missing identity, stale evidence, drift, invalid signatures, revoked artifacts, and policy violations fail closed and preserve incident evidence.</p>
-          </article>
-          <article>
-            <span>06</span>
-            <h3>Research-to-kernel translation</h3>
-            <p>Observations become claims, non-claims, threats, vectors, implementations, validation, verifiers, evidence, utilities, and regressions.</p>
-          </article>
-        </div>
+        <div class="route-grid"><article>
+          <span>WHAT</span>
+          <h3>Fenrua is a security substrate</h3>
+          <p>It is not a chatbot, marketplace, generic chain, wallet surface, or certification authority.</p>
+          <a href="/architecture/">Architecture</a>
+        </article>
+        <article>
+          <span>WHY LAYER 0</span>
+          <h3>It sits beneath AI execution</h3>
+          <p>Independent systems need identity, authority, integrity, policy, evidence, verification, containment, and recovery before autonomous execution can be trusted.</p>
+          <a href="/kernel/">Kernel primitives</a>
+        </article>
+        <article>
+          <span>TODAY</span>
+          <h3>Reference surfaces are public</h3>
+          <p>The website, evidence registry, toolchain lock, telemetry checks, and schema foundations are available with maturity labels.</p>
+          <a href="/status/">Status</a>
+        </article>
+        <article>
+          <span>EVIDENCE</span>
+          <h3>Claims are source-linked</h3>
+          <p>Every significant public claim points to a source, timestamp, maturity label, and limitation.</p>
+          <a href="/evidence/">Evidence registry</a>
+        </article>
+        <article>
+          <span>NEXT</span>
+          <h3>Developers start locally</h3>
+          <p>The verifier page and developer quick-start show the local workflow without pretending a live verifier exists.</p>
+          <a href="/developers/">Quick start</a>
+        </article></div>
       </section>
-
-      <section id="security-kernel" class="section-shell" aria-labelledby="security-kernel-title">
-        <div class="section-heading">
-          <p class="eyebrow">KERNEL SPACE</p>
-          <h2 id="security-kernel-title">Eight canonical primitives</h2>
-          <p>
-            Kernel-space functions are foundational security primitives. They
-            are not product promises by themselves; each primitive carries its
-            own maturity label, evidence path, and non-claim boundary.
-          </p>
-        </div>
-
-        <div class="primitive-grid">
-          <article><span>Implemented / reference mix</span><h3>Identity</h3><p>AI entities, artifacts, models, tools, builds, operators, deployments, and evidence bundles.</p></article>
-          <article><span>Specification / prototype</span><h3>Authority</h3><p>Permitted actions, prohibited actions, delegation, expiry, revocation, scopes, and human approval.</p></article>
-          <article><span>Reference implementation</span><h3>Integrity</h3><p>Source commits, build digests, dependency locks, runtime images, policies, contracts, and environment manifests.</p></article>
-          <article><span>Specification</span><h3>Policy</h3><p>Filesystem, network, tool, repository, secret, database, signing, deployment, and failure-mode controls.</p></article>
-          <article><span>Implemented / expanding</span><h3>Evidence</h3><p>Inputs, outputs, tool calls, policy decisions, builds, tests, findings, deployments, incidents, and recovery events.</p></article>
-          <article><span>Reference implementation</span><h3>Verification</h3><p>Signatures, hashes, manifests, completeness, conformance, runtime state, audit scope, and release lineage.</p></article>
-          <article><span>Specification</span><h3>Containment</h3><p>Fail-closed responses for stale evidence, drift, invalid identity, invalid signature, missing approval, and revoked artifacts.</p></article>
-          <article><span>Planned / doctrine</span><h3>Recovery</h3><p>Revocation, quarantine, key rotation, policy replacement, rollback, evidence continuity, and controlled re-entry.</p></article>
-        </div>
-
-        <div class="spec-panel spec-panel-wide">
-          <h3>Contract Evidence Freeze</h3>
-          <p>
-            Contract evidence refresh in progress. Exact source, invariant,
-            deployment, bytecode, and runtime details will be published from
-            the next frozen contract evidence bundle.
-          </p>
-        </div>
-      </section>
-
-      <section id="utilities" class="section-shell" aria-labelledby="utilities-title">
-        <div class="section-heading">
-          <p class="eyebrow">USER SPACE</p>
-          <h2 id="utilities-title">Utility catalogue</h2>
-          <p>
-            User-space modules adapt the kernel to developer workflows. A
-            utility is only presented as available when its interface, evidence,
-            and limitations are public.
-          </p>
-        </div>
-
-        <div class="utility-table" role="region" aria-label="Fenrua utility maturity" tabindex="0">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Utility</th>
-                <th scope="col">Purpose</th>
-                <th scope="col">Boundary</th>
-                <th scope="col">Maturity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Fenrua Identity</td><td>Bind AI entities and artifacts to stable manifests.</td><td>Identity only; not a security verdict.</td><td>Specification</td></tr>
-              <tr><td>Fenrua Authority</td><td>Represent allowed, denied, and approval-gated actions.</td><td>Policy representation; enforcement depends on integration.</td><td>Specification</td></tr>
-              <tr><td>Fenrua Attest</td><td>Create signed evidence bundles and source-linked records.</td><td>Evidence generation; not external certification.</td><td>Reference implementation</td></tr>
-              <tr><td>Fenrua Verify</td><td>Validate manifests, hashes, signatures, and evidence completeness.</td><td>Deterministic checks over supplied artifacts.</td><td>Prototype foundation</td></tr>
-              <tr><td>Fenrua Trace</td><td>Preserve action, tool-call, approval, and incident lineage.</td><td>Trace integrity; not behavioral prediction.</td><td>Research</td></tr>
-              <tr><td>Fenrua Gate</td><td>Fail closed when identity, policy, evidence, or runtime conditions are unsafe.</td><td>Requires runtime adapter.</td><td>Planned</td></tr>
-              <tr><td>Fenrua Revoke</td><td>Publish revocation and quarantine state.</td><td>No live revocation service claimed here.</td><td>Doctrine</td></tr>
-              <tr><td>Fenrua Registry</td><td>Anchor entity, evidence, and release state.</td><td>Read-only public surfaces until contract refresh is frozen.</td><td>Research</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section id="research" class="section-shell" aria-labelledby="research-title">
-        <div class="section-heading">
-          <p class="eyebrow">RESEARCH TO INFRASTRUCTURE</p>
-          <h2 id="research-title">Discovery becomes a reusable primitive</h2>
-          <p>
-            Every public research record must state the claim, the non-claim,
-            assumptions, threat model, toolchain, commands, evidence hash,
-            maturity, unresolved issues, and regression status.
-          </p>
-        </div>
-
-        <ol class="lifecycle-list">
-          <li>Research observation</li>
-          <li>Formal claim and explicit non-claims</li>
-          <li>Threat or invariant</li>
-          <li>Test vector and reference implementation</li>
-          <li>Multi-tool validation and independent verifier</li>
-          <li>Machine-readable evidence</li>
-          <li>Reusable kernel primitive</li>
-          <li>Integration utility and regression protection</li>
-        </ol>
-
-        <div class="registry" role="region" aria-label="Permanent regression evidence" tabindex="0">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Research Record</th>
-                <th scope="col">Primitive</th>
-                <th scope="col">Evidence</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody id="regression-registry">
-              <tr>
-                <td>regression-order-sub-cross-limb-borrow</td>
-                <td>N521_ORDER · subtract-mod-n</td>
-                <td><code>regression_001_p521_sub_overflow.bin</code></td>
-                <td>Preparing pinned evidence links</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section id="verify" class="section-shell split-section" aria-labelledby="verify-title">
+      <section class="section-shell split-section" aria-labelledby="home-boundary">
         <div>
-          <p class="eyebrow">PUBLIC VERIFIER FOUNDATION</p>
-          <h2 id="verify-title">Deterministic result shape</h2>
-          <p>
-            No live server-side verifier is claimed on this page. The public
-            foundation is a deterministic result format, static examples, local
-            CLI guidance, and schema-first validation boundaries.
-          </p>
-        </div>
-        <pre><code>verification:
-  result: PASS_WITH_LIMITATIONS
-  manifest_schema: valid
-  identity: verified
-  signatures: verified
-  artifact_integrity: verified
-  policy_integrity: verified
-  evidence_completeness: partial
-  runtime_conformity: unverified
-  revocation_status: active
-  limitations:
-    - Production runtime attestation was not supplied</code></pre>
-      </section>
-
-      <section id="developers" class="section-shell" aria-labelledby="developers-title">
-        <div class="section-heading">
-          <p class="eyebrow">DEVELOPER SURFACE</p>
-          <h2 id="developers-title">Standards and implementation documents</h2>
-          <p>
-            The public developer surface exposes schemas and doctrine before it
-            exposes SDK promises. Planned capabilities are labelled as planned.
-          </p>
-        </div>
-
-        <div class="doc-grid">
-          <a href="docs/FENRUA_LAYER0_AI_SECURITY_ARCHITECTURE.md">Layer 0 architecture</a>
-          <a href="docs/FENRUA_SECURITY_KERNEL_SPEC.md">Security kernel spec</a>
-          <a href="docs/FENRUA_ENTITY_MANIFEST_SPEC.md">Entity manifest spec</a>
-          <a href="docs/FENRUA_AUTHORITY_POLICY_SPEC.md">Authority policy spec</a>
-          <a href="docs/FENRUA_EVIDENCE_BUNDLE_SPEC.md">Evidence bundle spec</a>
-          <a href="docs/FENRUA_VERIFICATION_RESULT_SPEC.md">Verification result spec</a>
-          <a href="docs/FENRUA_SECURITY_TOOLCHAIN_EVIDENCE_MAP.md">Toolchain evidence map</a>
-          <a href="docs/FENRUA_PUBLIC_CLAIM_EVIDENCE_REGISTER.md">Claim evidence register</a>
-        </div>
-      </section>
-
-      <section id="toolchain-preview" class="section-shell split-section" aria-labelledby="toolchain-preview-title">
-        <div>
-          <p class="eyebrow">VERIFICATION LABORATORY</p>
-          <h2 id="toolchain-preview-title">The toolchain is public and searchable</h2>
-          <p>
-            Fenrua combines compilers, fuzzers, symbolic engines, static
-            analysers, cryptographic tooling, application checks, container
-            scanners, and reproducible build utilities. Tool presence is not
-            treated as proof.
-          </p>
+          <p class="eyebrow">NON-CLAIM</p>
+          <h2 id="home-boundary">Evidence-lock integrity</h2>
+          <p>Tool and dependency versions are preserved to match the inspected evidence environment. No post-evidence updates are implied.</p>
         </div>
         <div class="constraint-list">
-          <p><strong>Registry:</strong> <a href="data/toolchain-registry.json">machine-readable JSON</a></p>
-          <p><strong>Public route:</strong> <a href="toolchain/">/toolchain</a></p>
-          <p><strong>Semgrep reconciliation:</strong> local version <code>1.169.0</code> is the detected source-of-truth after the typo correction.</p>
-          <p><strong>Evidence-lock integrity:</strong> the registry preserves the inspected evidence environment rather than altering versions after evidence capture.</p>
-        </div>
-      </section>
-
-      <section id="evidence" class="section-shell" aria-labelledby="evidence-title">
-        <div class="section-heading">
-          <p class="eyebrow">EVIDENCE REGISTRY</p>
-          <h2 id="evidence-title">Source-linked public evidence</h2>
-          <p>
-            Significant claims must carry a source, date, maturity label, and
-            limitation. Exact contract claims remain blocked until the refreshed
-            bundle is frozen.
-          </p>
-        </div>
-
-        <div class="registry-tools">
-          <label for="registry-search">Filter registry</label>
-          <input id="registry-search" type="search" autocomplete="off" placeholder="Search artifact, hash, or source..." />
-        </div>
-
-        <div class="registry" role="region" aria-label="Evidence commit registry" tabindex="0">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Artifact</th>
-                <th scope="col">Hash Reference</th>
-                <th scope="col">Source/Commit</th>
-                <th scope="col">Copy</th>
-              </tr>
-            </thead>
-            <tbody id="evidence-registry">
-              <tr>
-                <td>Repository Sync Snapshot</td>
-                <td><code>390f7aee...</code></td>
-                <td><a data-link="version" href="https://github.com/fenrualabs/fenrua-kernel/commit/390f7ae">Pinned snapshot</a></td>
-                <td><button type="button" data-copy="390f7ae">Copy</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section id="status" class="section-shell" aria-labelledby="status-title">
-        <div class="section-heading">
-          <p class="eyebrow">STATUS</p>
-          <h2 id="status-title">Capability maturity register</h2>
-          <p>
-            Public status values distinguish research, specification, reference
-            implementation, prototype, read-only live, gated beta, production,
-            paused, retired, and unavailable states.
-          </p>
-        </div>
-
-        <div class="dashboard-grid">
-          <article class="metric"><span>Website</span><strong>Reference implementation</strong></article>
-          <article class="metric"><span>Kernel repository</span><strong>Reference implementation</strong></article>
-          <article class="metric"><span>Evidence registry</span><strong>Read-only live</strong></article>
-          <article class="metric"><span>Toolchain registry</span><strong>Read-only live</strong></article>
-          <article class="metric"><span>Public verifier</span><strong>Prototype foundation</strong></article>
-          <article class="metric"><span>Policy engine</span><strong>Specification</strong></article>
-          <article class="metric"><span>Runtime gate</span><strong>Planned</strong></article>
-          <article class="metric"><span>Revocation service</span><strong>Doctrine</strong></article>
-        </div>
-      </section>
-
-      <section id="chain-progress" class="section-shell chain-progress" aria-labelledby="chain-progress-title">
-        <div class="section-heading">
-          <p class="eyebrow">READ-ONLY CHAIN OBSERVATION</p>
-          <h2 id="chain-progress-title">Chain 978 + Chain N521</h2>
-          <p>
-            Public chain data is a read-only observation surface. It does not
-            prove contract safety, deployment identity, reserve state, or future
-            runtime behavior.
-          </p>
-        </div>
-
-        <div class="probe-strip">
-          <span>Feed <strong data-chain-meta="feed-status">starting</strong></span>
-          <span>Generated <strong data-chain-meta="generated">pending</strong></span>
-          <span>Refresh <strong data-chain-meta="countdown">arming probe</strong></span>
-          <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
-        </div>
-
-        <div class="chain-grid">
-          <article class="chain-card" data-chain-card="978">
-            <div class="chain-card-top">
-              <span>FENc978</span>
-              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Reading</span></strong>
-            </div>
-            <h3>Chain 978</h3>
-            <dl>
-              <div><dt>Chain identity</dt><dd data-chain-field="978-chain-id">978 · pending</dd></div>
-              <div><dt>Latest block</dt><dd data-chain-field="978-block">Reading</dd></div>
-              <div><dt>Blocks since check</dt><dd data-chain-field="978-delta">Waiting for second check</dd></div>
-              <div><dt>Last check</dt><dd data-chain-field="978-checked">pending</dd></div>
-            </dl>
-            <div class="chain-progress-meter" aria-label="Chain 978 next verification progress">
-              <div class="chain-progress-meter-top">
-                <span><i class="chain-progress-glyph" aria-hidden="true"></i>Next verification</span>
-                <strong data-chain-field="978-progress">connecting</strong>
-              </div>
-              <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-            </div>
-          </article>
-
-          <article class="chain-card" data-chain-card="521">
-            <div class="chain-card-top">
-              <span>FENn521</span>
-              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Reading</span></strong>
-            </div>
-            <h3>Chain N521</h3>
-            <dl>
-              <div><dt>Chain identity</dt><dd data-chain-field="521-chain-id">521 · pending</dd></div>
-              <div><dt>Latest block</dt><dd data-chain-field="521-block">Reading</dd></div>
-              <div><dt>Blocks since check</dt><dd data-chain-field="521-delta">Waiting for second check</dd></div>
-              <div><dt>Last check</dt><dd data-chain-field="521-checked">pending</dd></div>
-            </dl>
-            <div class="chain-progress-meter" aria-label="Chain N521 next verification progress">
-              <div class="chain-progress-meter-top">
-                <span><i class="chain-progress-glyph" aria-hidden="true"></i>Next verification</span>
-                <strong data-chain-field="521-progress">connecting</strong>
-              </div>
-              <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-            </div>
-          </article>
+          <p><strong>Semgrep:</strong> detected <code>1.169.0</code>.</p>
+          <p><strong>SnarkJS:</strong> detected <code>0.7.6</code>; <code>1.13.8</code> is <code>underscore</code>.</p>
+          <p><strong>Contract boundary:</strong> refreshed contract evidence is pending; no stale deployment claim is finalized.</p>
         </div>
       </section>
     </main>
-
-    <footer id="distribution" class="site-footer">
+    <footer class="site-footer">
       <div>
         <strong>Fenrua Labs</strong>
-        <span>Evidence-first Layer 0 AI security infrastructure.</span>
+        <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
       </div>
-      <div class="footer-social" aria-label="Technical links">
-        <p>GitHub remains the primary distribution point for public technical evidence.</p>
+      <div class="footer-social">
+        <p>Public claims are bounded by public evidence.</p>
         <div class="footer-links">
-          <a data-link="repository" href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
-          <a href="toolchain/">Toolchain</a>
-          <a href="docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
-          <a href="mailto:partnerships@fenrua.ai?subject=Work%20with%20Fenrua">partnerships@fenrua.ai</a>
+          <a href="/evidence/">Evidence</a>
+          <a href="/toolchain/">Toolchain</a>
+          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
         </div>
       </div>
     </footer>

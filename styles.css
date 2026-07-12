@@ -1087,6 +1087,156 @@ h3 {
   color: var(--muted);
 }
 
+.route-hero {
+  display: grid;
+  gap: 1rem;
+  min-height: 28rem;
+  align-content: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(101, 242, 154, 0.06), transparent 58%),
+    rgba(18, 18, 18, 0.92);
+  padding: clamp(1.25rem, 4vw, 4rem);
+  box-shadow: var(--shadow);
+}
+
+.route-hero h1 {
+  max-width: 20ch;
+}
+
+.route-hero p:not(.eyebrow) {
+  max-width: 72ch;
+  color: var(--muted);
+  font-size: 1.04rem;
+}
+
+.route-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.route-grid article {
+  display: grid;
+  gap: 0.65rem;
+  min-height: 13rem;
+  align-content: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 1rem;
+}
+
+.route-grid article span {
+  color: var(--blue);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+}
+
+.route-grid article p {
+  color: var(--muted);
+}
+
+.route-grid article a {
+  width: fit-content;
+  margin-top: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 0.5rem 0.65rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.route-grid article a:hover,
+.route-grid article a:focus-visible {
+  border-color: var(--green);
+  color: var(--green);
+  outline: none;
+}
+
+.toolchain-meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.toolchain-meta p {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 1rem;
+  color: var(--muted);
+}
+
+.toolchain-meta strong {
+  display: block;
+  color: var(--text);
+}
+
+.toolchain-meta code {
+  display: block;
+  color: var(--green);
+  overflow-wrap: anywhere;
+}
+
+.toolchain-meta button,
+.toolchain-table button {
+  margin-top: 0.5rem;
+}
+
+.pagination-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pagination-controls button {
+  min-height: 2.35rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: #101515;
+  padding: 0.5rem 0.65rem;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.76rem;
+}
+
+.pagination-controls span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.status-success {
+  border-color: rgba(101, 242, 154, 0.44);
+  color: var(--green);
+}
+
+.status-partial,
+.status-stale,
+.status-paused,
+.status-maintenance {
+  border-color: rgba(242, 201, 109, 0.46);
+  color: var(--amber);
+}
+
+.status-failure {
+  border-color: rgba(255, 107, 107, 0.46);
+  color: var(--red);
+}
+
+.state-grid article {
+  min-height: 12rem;
+}
+
+.state-grid article p,
+.state-grid article small {
+  color: var(--muted);
+}
+
 .registry-tools input:focus {
   border-color: var(--blue);
   outline: none;
@@ -1315,6 +1465,8 @@ tr:last-child td {
   .philosophy-grid,
   .flow-grid,
   .doc-grid,
+  .route-grid,
+  .toolchain-meta,
   .toolchain-summary,
   .lifecycle-list {
     grid-template-columns: 1fr;

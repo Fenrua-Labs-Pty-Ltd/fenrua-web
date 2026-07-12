@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Fenrua research records with claims, non-claims, threats, tooling, evidence, and limitations." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0d0d0d" />
+    <link rel="canonical" href="https://fenrua.ai/research/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://fenrua.ai/#organization",
+        "name": "Fenrua Labs",
+        "alternateName": "Fenrua",
+        "url": "https://fenrua.ai/",
+        "description": "Fenrua is building open Layer 0 AI security infrastructure with public evidence, maturity-labelled primitives, and reproducible verification records.",
+        "sameAs": ["https://github.com/fenrualabs"]
+      }
+    </script>
+    <title>Fenrua Research Registry</title>
+    <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="/" aria-label="Fenrua home">
+        <img src="/assets/sigil.svg" width="40" height="40" alt="" />
+        <span>
+          <strong>Fenrua</strong>
+          <small>Layer 0 AI security infrastructure</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/">Overview</a>
+        <a href="/architecture/">Architecture</a>
+        <a href="/kernel/">Kernel</a>
+        <a href="/utilities/">Utilities</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/verify/">Verify</a>
+        <a href="/developers/">Developers</a>
+        <a href="/toolchain/">Toolchain</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/status/">Status</a>
+      </nav>
+    </header>
+    <main id="content">
+      <section class="route-hero" aria-labelledby="page-title">
+        <p class="eyebrow">RESEARCH TO INFRASTRUCTURE</p>
+        <h1 id="page-title">Research Registry</h1>
+        <p>Research appears publicly only when its claim, non-claim, threat, invariant, evidence, tooling, maturity, and limitations are adjacent.</p>
+        
+      </section>
+      <section class="section-shell">
+        <div class="registry " role="region" tabindex="0">
+          <table>
+            <thead><tr><th scope="col">Research</th><th scope="col">Claim</th><th scope="col">Non-Claim</th><th scope="col">Primitive</th><th scope="col">Maturity</th></tr></thead>
+            <tbody>
+<tr>
+      <td><a href="/research/pn521-cross-limb-borrow/">P/N521 Cross-Limb Borrow Regression</a><br><small>Cryptography</small></td>
+      <td>A permanent regression fixture preserves the subtraction overflow boundary for P/N521 limb arithmetic.</td>
+      <td>This does not prove production certification or all arithmetic invariants.</td>
+      <td>Integrity</td>
+      <td>Evidence surface</td>
+    </tr>
+<tr>
+      <td><a href="/research/toolchain-evidence-lock/">Toolchain Evidence Lock</a><br><small>Evidence systems</small></td>
+      <td>Toolchain versions are published as detected and remain locked to the inspected evidence environment.</td>
+      <td>The registry does not claim the newest possible version of every tool.</td>
+      <td>Evidence</td>
+      <td>Read-only live</td>
+    </tr>
+<tr>
+      <td><a href="/research/read-only-chain-observation/">Read-Only Chain Observation Boundary</a><br><small>Chain research</small></td>
+      <td>Chain 978 and Chain N521 are exposed as sanitized read-only observations.</td>
+      <td>A chain observation does not prove contract safety, bytecode identity, reserve state, or deployment correctness.</td>
+      <td>Verification</td>
+      <td>Read-only live</td>
+    </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>Fenrua Labs</strong>
+        <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
+      </div>
+      <div class="footer-social">
+        <p>Public claims are bounded by public evidence.</p>
+        <div class="footer-links">
+          <a href="/evidence/">Evidence</a>
+          <a href="/toolchain/">Toolchain</a>
+          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

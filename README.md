@@ -10,9 +10,10 @@ This repo is a standalone website for Fenrua Labs and the `fenrua-kernel`
 evidence surface. It uses plain HTML, one CSS file, a local SVG asset, and one
 local JavaScript manifest for status hydration.
 
-The public site now also exposes Fenrua's Layer 0 AI security architecture,
-security-kernel model, toolchain registry, claim register, maturity register,
-and contract evidence refresh boundary.
+The public site now exposes Fenrua's Layer 0 AI security architecture,
+security-kernel model, standalone route system, toolchain registry, claim
+register, maturity register, verifier foundation, evidence registry, and
+contract evidence refresh boundary.
 
 Collaboration contact: `partnerships@fenrua.ai`.
 
@@ -48,6 +49,13 @@ Use Node 24 for validation and publishing:
 npm run validate
 ```
 
+Regenerate the static routes after changing route data or the toolchain
+registry:
+
+```bash
+npm run generate:static
+```
+
 ## Files
 
 - `index.html` - protocol explorer
@@ -55,6 +63,15 @@ npm run validate
 - `kernel-status.js` - local telemetry and registry manifest
 - `data/toolchain-registry.json` - public machine-readable toolchain registry
 - `toolchain/index.html` - searchable public toolchain route
+- `architecture/index.html` - standalone architecture route
+- `kernel/index.html` - standalone security-kernel route
+- `utilities/index.html` - utility catalogue
+- `research/index.html` - research registry
+- `verify/index.html` - verifier foundation and downloadable examples
+- `developers/index.html` - developer quick-start
+- `evidence/index.html` - evidence registry
+- `status/index.html` - status-state system
+- `examples/*.json` - verifier example artifacts
 - `api/chain-progress.js` - server-side live Chain 978 and Chain N521 progress probe
 - `assets/sigil.svg` - local Fenrua mark
 - `docs/SECURITY_AUDIT_LOG.md` - audit log
@@ -67,6 +84,7 @@ npm run validate
 - `docs/FENRUA_TOOLCHAIN_LOCK.md` - public toolchain lock
 - `docs/FENRUA_PUBLIC_CLAIM_EVIDENCE_REGISTER.md` - public claim register
 - `docs/FENRUA_CONTRACT_EVIDENCE_REFRESH_BOUNDARY.md` - contract evidence freeze boundary
+- `docs/FENRUA_V2_FINAL_AUDIT_GATE.md` - V2 evidence matrix and remaining gaps
 
 ## Tracking Policy
 
