@@ -13,8 +13,6 @@
     "test:chain-progress": "node scripts/test-chain-progress.mjs",
     "test:kernel-telemetry": "node scripts/test-kernel-telemetry.mjs",
     "sync:kernel-status": "node scripts/sync-kernel-status.mjs",
-    "build": "npm run validate",
-    "vercel-build": "npm run validate",
     "deploy:production:node24": "node scripts/require-node24.mjs && npx --yes vercel@latest deploy --prod --yes --project fenrua-web",
     "deploy:prodction:node24": "npm run deploy:production:node24"
   }
