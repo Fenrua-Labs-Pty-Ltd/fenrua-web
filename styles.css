@@ -378,10 +378,35 @@ h1 {
   gap: 0.75rem;
 }
 
+.probe-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 0.75rem;
+}
+
+.probe-strip span {
+  border: 1px solid rgba(101, 242, 154, 0.22);
+  border-radius: 6px;
+  background: rgba(101, 242, 154, 0.055);
+  padding: 0.55rem 0.7rem;
+  color: var(--dim);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.probe-strip strong {
+  color: var(--green);
+  font-weight: 700;
+  text-transform: none;
+}
+
 .chain-card {
   display: grid;
   gap: 1rem;
+  position: relative;
   min-height: 20rem;
+  overflow: hidden;
   border: 1px solid rgba(101, 242, 154, 0.32);
   border-radius: 8px;
   background:
@@ -391,6 +416,19 @@ h1 {
   box-shadow:
     inset 0 0 0 1px rgba(101, 242, 154, 0.035),
     0 20px 60px rgba(0, 0, 0, 0.24);
+}
+
+.chain-card::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  opacity: 0.72;
+  transform: translateX(-100%);
+  animation: live-sweep 10s linear infinite;
 }
 
 .chain-card[data-status="online"] {
@@ -420,9 +458,23 @@ h1 {
 }
 
 .chain-card-top strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.45rem;
   color: var(--green);
   font-size: 0.8rem;
   text-align: right;
+}
+
+.live-dot {
+  width: 0.52rem;
+  height: 0.52rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--green);
+  box-shadow: 0 0 0 0 rgba(101, 242, 154, 0.68);
+  animation: live-pulse 1.8s ease-out infinite;
 }
 
 .chain-card h3 {
@@ -447,6 +499,7 @@ h1 {
 .chain-card dd {
   margin: 0;
   color: var(--text);
+  font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
 }
 
@@ -465,6 +518,27 @@ h1 {
   border-color: var(--blue);
   color: var(--blue);
   outline: none;
+}
+
+@keyframes live-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(101, 242, 154, 0.68);
+  }
+  70% {
+    box-shadow: 0 0 0 0.55rem rgba(101, 242, 154, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(101, 242, 154, 0);
+  }
+}
+
+@keyframes live-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .section-shell,

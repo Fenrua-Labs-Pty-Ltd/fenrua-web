@@ -2,12 +2,6 @@
 
 `fenrua-web` is the canonical static website for `fenrua.ai`.
 
-## Local Preview
-
-Open `index.html` directly in a browser.
-
-No dependency setup or build step is required.
-
 ## Vercel
 
 Use Vercel as the production deployment for `fenrua.ai`.

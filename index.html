@@ -117,16 +117,22 @@ privacy: no analytics, no beacons, no third-party scripts</code></pre>
           <p class="eyebrow">LIVE CHAIN PROGRESS</p>
           <h2 id="chain-progress-title">Chain 978 + Chain N521</h2>
           <p>
-            Public RPC continuity for the two Fenrua evidence lanes. Chain 978
-            carries FEN protocol support; Chain N521 carries N / P-521 research.
+            Server-side continuity probes for the two Fenrua evidence lanes.
+            Chain 978 carries FEN protocol support; Chain N521 carries N / P-521 research.
           </p>
+        </div>
+
+        <div class="probe-strip" aria-live="polite">
+          <span>Probe <strong data-chain-meta="probe-id">pending</strong></span>
+          <span>Generated <strong data-chain-meta="generated">pending</strong></span>
+          <span>Refresh <strong data-chain-meta="countdown">arming probe</strong></span>
         </div>
 
         <div class="chain-grid" aria-live="polite">
           <article class="chain-card" data-chain-card="978">
             <div class="chain-card-top">
               <span>FENc978</span>
-              <strong data-chain-field="978-status">Reading</strong>
+              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Reading</span></strong>
             </div>
             <h3>Chain 978</h3>
             <dl>
@@ -139,8 +145,20 @@ privacy: no analytics, no beacons, no third-party scripts</code></pre>
                 <dd data-chain-field="978-block">Reading</dd>
               </div>
               <div>
+                <dt>Block Delta</dt>
+                <dd data-chain-field="978-delta">syncing</dd>
+              </div>
+              <div>
                 <dt>Latency</dt>
                 <dd data-chain-field="978-latency">pending</dd>
+              </div>
+              <div>
+                <dt>Refresh</dt>
+                <dd data-chain-field="978-refresh">arming probe</dd>
+              </div>
+              <div>
+                <dt>Probe ID</dt>
+                <dd data-chain-field="978-request">pending</dd>
               </div>
               <div>
                 <dt>Checked</dt>
@@ -153,7 +171,7 @@ privacy: no analytics, no beacons, no third-party scripts</code></pre>
           <article class="chain-card" data-chain-card="521">
             <div class="chain-card-top">
               <span>FENn521</span>
-              <strong data-chain-field="521-status">Reading</strong>
+              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Reading</span></strong>
             </div>
             <h3>Chain N521</h3>
             <dl>
@@ -166,8 +184,20 @@ privacy: no analytics, no beacons, no third-party scripts</code></pre>
                 <dd data-chain-field="521-block">Reading</dd>
               </div>
               <div>
+                <dt>Block Delta</dt>
+                <dd data-chain-field="521-delta">syncing</dd>
+              </div>
+              <div>
                 <dt>Latency</dt>
                 <dd data-chain-field="521-latency">pending</dd>
+              </div>
+              <div>
+                <dt>Refresh</dt>
+                <dd data-chain-field="521-refresh">arming probe</dd>
+              </div>
+              <div>
+                <dt>Probe ID</dt>
+                <dd data-chain-field="521-request">pending</dd>
               </div>
               <div>
                 <dt>Checked</dt>

@@ -12,6 +12,10 @@ local JavaScript manifest for status hydration.
 
 Collaboration contact: `partnerships@fenrua.ai`.
 
+Live Chain 978 and Chain N521 progress is fetched through the server-side
+`/api/chain-progress` probe. The browser receives only sanitized status fields;
+private endpoint values stay in Vercel environment variables.
+
 ## Canonical Website
 
 `fenrua-web` is the canonical public website for Fenrua Labs. Production

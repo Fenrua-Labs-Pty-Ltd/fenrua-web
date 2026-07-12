@@ -161,7 +161,10 @@ const chainFieldMap = {
     status: '[data-chain-field="978-status"]',
     chainId: '[data-chain-field="978-chain-id"]',
     block: '[data-chain-field="978-block"]',
+    delta: '[data-chain-field="978-delta"]',
     latency: '[data-chain-field="978-latency"]',
+    refresh: '[data-chain-field="978-refresh"]',
+    request: '[data-chain-field="978-request"]',
     checked: '[data-chain-field="978-checked"]',
     card: '[data-chain-card="978"]',
   },
@@ -169,10 +172,21 @@ const chainFieldMap = {
     status: '[data-chain-field="521-status"]',
     chainId: '[data-chain-field="521-chain-id"]',
     block: '[data-chain-field="521-block"]',
+    delta: '[data-chain-field="521-delta"]',
     latency: '[data-chain-field="521-latency"]',
+    refresh: '[data-chain-field="521-refresh"]',
+    request: '[data-chain-field="521-request"]',
     checked: '[data-chain-field="521-checked"]',
     card: '[data-chain-card="521"]',
   },
+};
+
+const chainRefreshMs = 10_000;
+const lastChainBlocks = {};
+const chainProbe = {
+  nextAt: 0,
+  tickId: null,
+  refreshMs: chainRefreshMs,
 };
 
 function formatNumber(value) {
@@ -195,25 +209,67 @@ function formatCheckedAt(value) {
 
 function chainStatusText(chain) {
   if (chain.status === "online" && Number.isSafeInteger(chain.blockNumber)) {
-    return "Block progress live";
+    return "Live block feed";
   }
 
   if (chain.status === "wrong-chain") {
     return "Chain mismatch";
   }
 
-  return "Reading progress";
+  return "Retrying probe";
 }
 
-function updateChainCard(chain) {
+function formatCountdown() {
+  if (!chainProbe.nextAt) return "arming probe";
+  const seconds = Math.max(0, Math.ceil((chainProbe.nextAt - Date.now()) / 1000));
+  return seconds === 0 ? "refreshing" : `next read in ${seconds}s`;
+}
+
+function updateChainCountdown() {
+  const text = formatCountdown();
+  setText('[data-chain-meta="countdown"]', text);
+  Object.values(chainFieldMap).forEach((fields) => {
+    setText(fields.refresh, text);
+  });
+}
+
+function startChainCountdown() {
+  if (chainProbe.tickId) return;
+  chainProbe.tickId = window.setInterval(updateChainCountdown, 1_000);
+}
+
+function updateChainMeta(payload) {
+  const refreshMs = Number.isSafeInteger(payload.refreshMs) ? payload.refreshMs : chainRefreshMs;
+  chainProbe.refreshMs = refreshMs;
+  chainProbe.nextAt = Date.now() + refreshMs;
+
+  setText('[data-chain-meta="probe-id"]', payload.probeId || "pending");
+  setText('[data-chain-meta="generated"]', formatCheckedAt(payload.generatedAt));
+  updateChainCountdown();
+}
+
+function updateChainCard(chain, payload) {
   const fields = chainFieldMap[chain.expectedChainId];
   if (!fields) return;
+
+  const previousBlock = lastChainBlocks[chain.expectedChainId];
+  const delta =
+    Number.isSafeInteger(chain.blockNumber) && Number.isSafeInteger(previousBlock)
+      ? Math.max(0, chain.blockNumber - previousBlock)
+      : null;
 
   setText(fields.status, chainStatusText(chain));
   setText(fields.chainId, `${chain.chainId ?? chain.expectedChainId} / 0x${chain.expectedChainId.toString(16)}`);
   setText(fields.block, formatNumber(chain.blockNumber));
+  setText(fields.delta, delta === null ? "syncing" : `+${delta} blocks`);
   setText(fields.latency, Number.isSafeInteger(chain.latencyMs) ? `${chain.latencyMs}ms` : "pending");
+  setText(fields.refresh, formatCountdown());
+  setText(fields.request, payload.probeId || "pending");
   setText(fields.checked, formatCheckedAt(chain.checkedAt));
+
+  if (Number.isSafeInteger(chain.blockNumber)) {
+    lastChainBlocks[chain.expectedChainId] = chain.blockNumber;
+  }
 
   document.querySelectorAll(fields.card).forEach((card) => {
     card.dataset.status = chain.status || "offline";
@@ -225,27 +281,31 @@ async function readChainProgress() {
   if (!response.ok) throw new Error(`Chain progress HTTP ${response.status}`);
   const payload = await response.json();
   if (!Array.isArray(payload.chains)) throw new Error("Missing chain progress");
-  payload.chains.forEach(updateChainCard);
-  return Number.isSafeInteger(payload.refreshMs) ? payload.refreshMs : 15_000;
+  updateChainMeta(payload);
+  payload.chains.forEach((chain) => updateChainCard(chain, payload));
+  return Number.isSafeInteger(payload.refreshMs) ? payload.refreshMs : chainRefreshMs;
 }
 
 function hydrateChainProgress() {
   if (!document.querySelector("[data-chain-card]")) return;
 
-  let interval = 15_000;
-
   const read = async () => {
     try {
-      interval = await readChainProgress();
+      const refreshMs = await readChainProgress();
+      window.setTimeout(() => void read(), refreshMs);
     } catch {
+      chainProbe.nextAt = Date.now() + chainProbe.refreshMs;
+      setText('[data-chain-meta="probe-id"]', "retry pending");
+      updateChainCountdown();
       document.querySelectorAll("[data-chain-card]").forEach((card) => {
         card.dataset.status = "offline";
       });
+      window.setTimeout(() => void read(), chainProbe.refreshMs);
     }
   };
 
+  startChainCountdown();
   void read();
-  window.setInterval(() => void read(), interval);
 }
 
 hydrateKernelStatus();
