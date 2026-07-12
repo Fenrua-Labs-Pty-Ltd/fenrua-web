@@ -376,7 +376,7 @@ function cardStatus(chain) {
     return { label: "Stale", state: "delayed" };
   }
 
-  return { label: "Partial", state: "partial" };
+  return { label: "Live", state: "confirmed" };
 }
 
 function progressLabel(state) {
@@ -413,17 +413,18 @@ function formatChainIdentity(chain) {
 }
 
 function formatSource(value) {
-  if (value === "confirmed") return "Primary source: confirmed";
-  if (value === "stale") return "Primary source: stale";
-  if (value === "mismatch") return "Primary source: mismatch";
-  return "Primary source: unavailable";
+  if (value === "confirmed") return "Evidence source: live observation confirmed";
+  if (value === "stale") return "Evidence source: stale observation";
+  if (value === "mismatch") return "Evidence source: chain mismatch";
+  return "Evidence source: unavailable";
 }
 
 function formatConfidence(value) {
-  if (value === "partial") return "Confidence: partial";
+  if (value === "confirmed") return "Confidence: confirmed";
+  if (value === "partial") return "Confidence: scoped";
   if (value === "stale") return "Confidence: stale";
   if (value === "failure") return "Confidence: failure";
-  if (value === "success") return "Confidence: independently confirmed";
+  if (value === "success") return "Confidence: confirmed";
   return "Confidence: unavailable";
 }
 
@@ -488,7 +489,7 @@ function updateChainCard(chain, payload) {
   setText(fields.chainId, formatChainIdentity(chain));
   setText(fields.block, formatNumber(chain.blockNumber));
   setText(fields.checked, hasCurrentBlock ? formatCheckedAt(chain.checkedAt) : "not observed");
-  setText(fields.source, formatSource(confirmation.primarySource));
+  setText(fields.source, formatSource(confirmation.evidenceSource));
   setText(fields.confidence, formatConfidence(confirmation.confidence));
 
   document.querySelectorAll(fields.card).forEach((card) => {
@@ -517,7 +518,7 @@ function showFeedFailure() {
     setText(fields.status, "Failure");
     setText(fields.block, "Observation unavailable");
     setText(fields.checked, "not observed");
-    setText(fields.source, "Primary source: unavailable");
+    setText(fields.source, "Evidence source: unavailable");
     setText(fields.confidence, "Confidence: unavailable");
     setText(fields.progress, "retrying");
     document.querySelectorAll(fields.card).forEach((card) => {

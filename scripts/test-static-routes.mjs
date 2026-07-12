@@ -47,8 +47,9 @@ assert.match(overview, /data-chain-card="978"/, "overview must render Chain 978 
 assert.match(overview, /data-chain-card="521"/, "overview must render Chain N521 live block card");
 assert.match(overview, /data-chain-meta="feed-status"/, "overview must expose live chain feed status");
 assert.equal([...overview.matchAll(/data-chain-card="/g)].length, 4, "overview must render two responsive pairs of live block cards");
-assert.match(overview, /Primary source/);
+assert.match(overview, /Evidence source/);
 assert.match(overview, /Confidence/);
+assert.doesNotMatch(overview, /Independent source|Primary source/);
 assert.doesNotMatch(overview, /Blocks since check|data-chain-field="(?:978|521)-delta"/);
 
 const verify = await readFile(new URL("../verify/index.html", import.meta.url), "utf8");

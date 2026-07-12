@@ -10,7 +10,7 @@ Ending implementation commit: recorded by `git rev-parse HEAD` after this report
 ## Changes
 
 - Toolchain route now publishes exact server-rendered delivery counts and defensible derived taxonomy.
-- Chain telemetry now exposes primary-source, independent-source, and confidence language without leaking endpoints.
+- Chain telemetry now exposes evidence-source and confidence language without leaking endpoints or implying a missing third-party source.
 - Verify route links a complete result corpus.
 - Developer route includes clean-checkout bootstrap commands.
 - Research records expose full review fields.

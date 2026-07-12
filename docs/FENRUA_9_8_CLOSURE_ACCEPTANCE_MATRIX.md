@@ -7,7 +7,7 @@ Status: evidence matrix for independent review
 | Route architecture | `scripts/generate-static-routes.mjs`, `sitemap.xml` | Pass | No docs sidebar |
 | Homepage density | `/`, live blocks responsive placement | Pass | Subjective review still useful |
 | Toolchain baseline | `/toolchain/` server-rendered rows and counts | Pass | Registry is version evidence, not security proof |
-| Telemetry terminal language | `api/chain-progress.js`, `kernel-status.js` | Pass | Independent source remains unavailable |
+| Telemetry terminal language | `api/chain-progress.js`, `kernel-status.js` | Pass | Read-only observation is not contract, bytecode, reserve, or deployment assurance |
 | Verify corpus | `examples/verification-results/*.json` | Pass | No hosted verifier |
 | Developer quick start | `/developers/`, reproduction report | Pass | Node 24 required |
 | Research records | `/research/<record>/` pages | Pass | Reproduction depth depends on upstream kernel artifacts |

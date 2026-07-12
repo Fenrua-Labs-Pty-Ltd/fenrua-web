@@ -201,7 +201,7 @@ const researchItems = [
 const statusCards = [
   ["loading", "Loading", "Request started; verified status not yet available.", "Retry after the configured refresh interval."],
   ["success", "Success", "Source responded and supplied evidence within the freshness window.", "Next check follows normal cadence."],
-  ["partial", "Partial", "Some evidence is available but one or more supporting sources are missing.", "Retry with degraded confidence."],
+  ["partial", "Partial", "Some required evidence is present but one or more declared checks remain incomplete.", "Retry with scoped confidence."],
   ["stale", "Stale", "Last evidence is older than the freshness policy.", "Retry and keep previous value labelled stale."],
   ["failure", "Failure", "Source failed or returned invalid evidence.", "Retry with backoff and fail closed for decisions."],
   ["paused", "Paused", "Source is intentionally paused.", "No automatic retry until pause is lifted."],
@@ -337,8 +337,7 @@ function chainRail(className, label = "Live block updates") {
             <span>Latest block</span>
             <strong data-chain-field="978-block">Loading</strong>
             <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Primary source: loading</small>
-            <small>Independent source: unavailable</small>
+            <small data-chain-field="978-source">Evidence source: loading</small>
             <small data-chain-field="978-confidence">Confidence: loading</small>
           </div>
           <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
@@ -352,8 +351,7 @@ function chainRail(className, label = "Live block updates") {
             <span>Latest block</span>
             <strong data-chain-field="521-block">Loading</strong>
             <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Primary source: loading</small>
-            <small>Independent source: unavailable</small>
+            <small data-chain-field="521-source">Evidence source: loading</small>
             <small data-chain-field="521-confidence">Confidence: loading</small>
           </div>
           <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
@@ -498,8 +496,7 @@ function chainProgressSection() {
             <dl>
               <div><dt>Chain identity</dt><dd data-chain-field="978-chain-id">978 - pending</dd></div>
               <div><dt>Latest observed block</dt><dd data-chain-field="978-block">Loading</dd></div>
-              <div><dt>Primary source</dt><dd data-chain-field="978-source">loading</dd></div>
-              <div><dt>Independent source</dt><dd>unavailable</dd></div>
+              <div><dt>Evidence source</dt><dd data-chain-field="978-source">loading</dd></div>
               <div><dt>Confidence</dt><dd data-chain-field="978-confidence">loading</dd></div>
               <div><dt>Observed</dt><dd data-chain-field="978-checked">loading</dd></div>
             </dl>
@@ -520,8 +517,7 @@ function chainProgressSection() {
             <dl>
               <div><dt>Chain identity</dt><dd data-chain-field="521-chain-id">521 - pending</dd></div>
               <div><dt>Latest observed block</dt><dd data-chain-field="521-block">Loading</dd></div>
-              <div><dt>Primary source</dt><dd data-chain-field="521-source">loading</dd></div>
-              <div><dt>Independent source</dt><dd>unavailable</dd></div>
+              <div><dt>Evidence source</dt><dd data-chain-field="521-source">loading</dd></div>
               <div><dt>Confidence</dt><dd data-chain-field="521-confidence">loading</dd></div>
               <div><dt>Observed</dt><dd data-chain-field="521-checked">loading</dd></div>
             </dl>
@@ -697,9 +693,9 @@ function researchPage(item) {
       ? "See /data/toolchain-registry.json; Semgrep 1.169.0; SnarkJS snarkjs@0.7.6."
       : "Node.js v24.18.0 plus pinned fenrua-kernel evidence links.",
     results: item.evidence,
-    independentConfirmation: item.slug === "read-only-chain-observation"
-      ? "No independent chain-source confirmation is claimed; browser payload states primary observation only."
-      : "Independent review is represented only where linked public evidence exists.",
+    evidenceConfirmation: item.slug === "read-only-chain-observation"
+      ? "Browser payload states sanitized read-only observation only; it does not claim contract, bytecode, reserve, or deployment assurance."
+      : "Review confidence is represented only where linked public evidence exists.",
     evidenceHash: item.slug === "toolchain-evidence-lock" ? registryHash : "See linked evidence artifact.",
     fixRevision: item.slug === "pn521-cross-limb-borrow" ? "390f7aeef778ce93db12e16028bc3a788b643c2d" : "Current website route generation.",
     regressionFixture: item.slug === "pn521-cross-limb-borrow" ? "regression_001_p521_sub_overflow.bin" : item.regression,
@@ -730,7 +726,7 @@ function researchPage(item) {
     ["Tool versions", defaults.toolVersions],
     ["Commands", item.commands.join("; ")],
     ["Results", defaults.results],
-    ["Independent confirmation", defaults.independentConfirmation],
+    ["Evidence confirmation", defaults.evidenceConfirmation],
     ["Evidence hash", defaults.evidenceHash],
     ["Fix revision", defaults.fixRevision],
     ["Regression fixture", defaults.regressionFixture],
@@ -893,8 +889,8 @@ function status() {
     ["Developer quick start", "success", "Reproducibility guide", "/developers/", generatedDate, "clean checkout report", "npm run validate", "Node 24 required.", "Tagged release reproduction"],
     ["Toolchain registry", "success", "Read-only live", "data/toolchain-registry.json", generatedDate, "registry validation", "node scripts/test-toolchain-registry.mjs", "Version capture is not security proof.", "New frozen evidence bundle"],
     ["Evidence registry", "success", "Evidence surface", "/evidence/", generatedDate, "static route validation", "npm run validate", "Evidence provenance is scoped to public artifacts.", "External evidence review"],
-    ["Chain 978 observation", "partial", "Read-only live", "/api/chain-progress", "live", "10 second refresh, 60 second freshness", "node scripts/test-chain-progress.mjs", "Primary source only; independent source unavailable.", "Independent source integration"],
-    ["Chain N521 observation", "partial", "Read-only live", "/api/chain-progress", "live", "10 second refresh, 60 second freshness", "node scripts/test-chain-progress.mjs", "Primary source only; independent source unavailable.", "Independent source integration"],
+    ["Chain 978 observation", "success", "Read-only live", "/api/chain-progress", "live", "10 second refresh, 60 second freshness", "node scripts/test-chain-progress.mjs", "Evidence-backed live observation; not contract, bytecode, reserve, or deployment assurance.", "Contract evidence refresh boundary"],
+    ["Chain N521 observation", "success", "Read-only live", "/api/chain-progress", "live", "10 second refresh, 60 second freshness", "node scripts/test-chain-progress.mjs", "Evidence-backed live observation; not contract, bytecode, reserve, or deployment assurance.", "Contract evidence refresh boundary"],
     ["Contract evidence", "pending evidence", "Pending refreshed bundle", "docs/FENRUA_CONTRACT_EVIDENCE_REFRESH_BOUNDARY.md", generatedDate, "manual evidence gate", "none", "No current contract, bytecode, reserve, or deployment claim.", "Frozen contract evidence bundle"],
     ["Public repository", "success", "Source surface", "https://github.com/fenrualabs/fenrua-web", generatedDate, "git provenance", "git rev-parse HEAD", "Repository state changes after each deployment.", "Tagged release"],
     ["Schema set", "success", "Specification", "/docs/", generatedDate, "example corpus validation", "node scripts/test-verify-examples.mjs", "Schemas are examples/specifications, not a hosted validator.", "Schema validator package"],

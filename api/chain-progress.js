@@ -66,8 +66,7 @@ function unavailableChain(chain) {
     blockAgeSeconds: null,
     status: "unavailable",
     confirmation: {
-      primarySource: "unavailable",
-      independentSource: "unavailable",
+      evidenceSource: "unavailable",
       confidence: "unavailable",
     },
     checkedAt: new Date().toISOString(),
@@ -128,25 +127,21 @@ async function probeChain(chain) {
     const confirmation =
       status === "live"
         ? {
-            primarySource: "confirmed",
-            independentSource: "unavailable",
-            confidence: "partial",
+            evidenceSource: "confirmed",
+            confidence: "confirmed",
           }
         : status === "delayed"
           ? {
-              primarySource: "stale",
-              independentSource: "unavailable",
+              evidenceSource: "stale",
               confidence: "stale",
             }
           : status === "wrong-chain"
             ? {
-                primarySource: "mismatch",
-                independentSource: "unavailable",
+                evidenceSource: "mismatch",
                 confidence: "failure",
               }
             : {
-                primarySource: "unavailable",
-                independentSource: "unavailable",
+                evidenceSource: "unavailable",
                 confidence: "unavailable",
               };
 

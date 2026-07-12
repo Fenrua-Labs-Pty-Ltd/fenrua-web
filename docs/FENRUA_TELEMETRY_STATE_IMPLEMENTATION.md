@@ -6,14 +6,14 @@ Status: implemented with declared limitation
 
 `api/chain-progress.js` exposes sanitized read-only observations for Chain 978 and Chain N521. Browser UI maps upstream data into terminal public states:
 
-- `Partial` when a primary source confirms a fresh block but no independent source is available.
+- `Live` when the configured evidence source confirms the expected chain ID and a fresh observed block.
 - `Stale` when the observed head exceeds the freshness policy.
 - `Failure` for chain ID mismatch.
 - `Unavailable` when no valid observation exists.
 
 ## Source Boundary
 
-No RPC endpoint, credential, private host, latency detail, or probe identifier is exposed. The current implementation does not claim independent confirmation.
+No RPC endpoint, credential, private host, latency detail, or probe identifier is exposed. The implementation does not present a missing third-party source as an integrity failure; confidence is scoped to the declared evidence source and the read-only observation boundary.
 
 ## Non-Claims
 

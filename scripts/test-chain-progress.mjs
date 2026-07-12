@@ -49,10 +49,12 @@ function head(number, timestamp = Math.floor(Date.now() / 1_000)) {
 }
 
 function assertSanitized(snapshot) {
-  const forbidden = ["endpoint", "host", "envKey", "latencyMs", "probeId", "error", "blockTimestamp"];
+  const forbidden = ["endpoint", "host", "envKey", "latencyMs", "probeId", "error", "blockTimestamp", "primarySource", "independentSource"];
+  const encoded = JSON.stringify(snapshot);
   for (const chain of snapshot.chains) {
     for (const key of forbidden) {
       assert.ok(!Object.hasOwn(chain, key), `Public chain payload must not include ${key}.`);
+      assert.ok(!encoded.includes(`"${key}"`), `Public chain payload must not include ${key}.`);
     }
   }
 }
@@ -82,9 +84,8 @@ try {
   assert.ok(
     healthy.body.chains.every(
       (chain) =>
-        chain.confirmation?.primarySource === "confirmed" &&
-        chain.confirmation?.independentSource === "unavailable" &&
-        chain.confirmation?.confidence === "partial"
+        chain.confirmation?.evidenceSource === "confirmed" &&
+        chain.confirmation?.confidence === "confirmed"
     )
   );
   assertSanitized(healthy.body);
