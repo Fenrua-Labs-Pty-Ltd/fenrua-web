@@ -1,6 +1,6 @@
 # fenrua-web
 
-Static Protocol Explorer for `fenrua.ai`.
+Canonical static Protocol Explorer for `fenrua.ai`.
 
 ## First Evidence Link
 
@@ -9,6 +9,12 @@ Static Protocol Explorer for `fenrua.ai`.
 This repo is a standalone website for Fenrua Labs and the `fenrua-kernel`
 evidence surface. It uses plain HTML, one CSS file, a local SVG asset, and one
 local JavaScript manifest for status hydration.
+
+## Canonical Website
+
+`fenrua-web` is the canonical public website for Fenrua Labs. Production
+publishes through the existing Vercel project `fenrua-commons`, which owns
+`fenrua.ai`.
 
 ## Utility Standard
 
@@ -19,12 +25,18 @@ local JavaScript manifest for status hydration.
 - Do not claim "Certified" or "Formally Verified" until the math is complete
   and external audits are signed.
 
-## Local Build
+## Local Validation
 
 No build step is required.
 
 Open `index.html` directly in a browser, or serve the folder with any static
 file server.
+
+Use Node 24 for validation and publishing:
+
+```bash
+npm run validate
+```
 
 ## Files
 
@@ -37,9 +49,26 @@ file server.
 - `docs/REGRESSION_HISTORY.md` - regression coverage record
 - `docs/audit-report.json` - machine-readable audit summary
 - `docs/DEPLOYMENT.md` - hosting notes
+- `docs/VERCEL.md` - Vercel publishing notes for `fenrua.ai`
 - `docs/UTILITY_STANDARD.md` - repository operating standard
 
 ## Tracking Policy
 
 Do not add Google Analytics, Hotjar, pixels, remote embeds, or any other
 tracking scripts. If traffic data is needed, use raw server logs from the host.
+
+## Production Domain
+
+Publish through Vercel with `fenrua.ai` as the production domain:
+
+```bash
+npm run deploy:production:node24
+```
+
+The typo-safe alias also works:
+
+```bash
+npm run deploy:prodction:node24
+```
+
+See [Vercel Publishing](docs/VERCEL.md).

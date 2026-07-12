@@ -84,6 +84,11 @@ pre {
   transform: translateY(0);
 }
 
+.copy-buffer {
+  position: fixed;
+  left: -9999px;
+}
+
 .site-header,
 .site-footer,
 main {

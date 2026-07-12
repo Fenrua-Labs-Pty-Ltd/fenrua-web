@@ -83,8 +83,7 @@ function fallbackCopy(value, button) {
   const textarea = document.createElement("textarea");
   textarea.value = value;
   textarea.setAttribute("readonly", "readonly");
-  textarea.style.position = "fixed";
-  textarea.style.left = "-9999px";
+  textarea.className = "copy-buffer";
   document.body.append(textarea);
   textarea.select();
   document.execCommand("copy");

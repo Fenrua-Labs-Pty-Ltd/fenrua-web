@@ -1,6 +1,6 @@
 # Deployment Notes
 
-`fenrua-web` is intentionally static.
+`fenrua-web` is the canonical static website for `fenrua.ai`.
 
 ## Local Preview
 
@@ -8,12 +8,11 @@ Open `index.html` directly in a browser.
 
 No package install or build step is required.
 
-## GitHub Pages
+## Vercel
 
-1. Create a GitHub repository named `fenrua-web`.
-2. Push this folder to the `main` branch.
-3. Enable Pages from the branch root.
-4. Point `fenrua.ai` at the published Pages target.
+Use Vercel as the production deployment for `fenrua.ai`.
+
+See [Vercel Publishing](VERCEL.md).
 
 ## Evidence Sync
 
