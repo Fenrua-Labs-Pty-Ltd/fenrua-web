@@ -191,6 +191,7 @@ const maxFreshHeadAgeSeconds = 60;
 const lastChainBlocks = {};
 const lastChainHeadAges = {};
 const lastChainCheckedAt = {};
+const chainProgressLevels = {};
 const chainProbe = {
   nextAt: 0,
   tickId: null,
@@ -286,6 +287,24 @@ function updateProgressRail(selector, value) {
   });
 }
 
+function progressiveFill(chain, hasCurrentBlock, delta) {
+  const chainId = chain.expectedChainId;
+  const current = chainProgressLevels[chainId];
+
+  if (!hasCurrentBlock || chain.status === "wrong-chain") {
+    return Number.isFinite(current) ? current : 18;
+  }
+
+  if (!Number.isFinite(current)) {
+    chainProgressLevels[chainId] = 22;
+  } else if (delta !== null && delta > 0) {
+    const increment = Math.min(20, Math.max(7, delta * 7));
+    chainProgressLevels[chainId] = Math.min(100, current + increment);
+  }
+
+  return chainProgressLevels[chainId];
+}
+
 function formatCountdown() {
   if (!chainProbe.nextAt) return "starting";
   const seconds = Math.max(0, Math.ceil((chainProbe.nextAt - Date.now()) / 1000));
@@ -357,12 +376,7 @@ function updateChainCard(chain, payload) {
 
   setText(fields.status, status.label);
   setText(fields.progress, progressLabel(status.state));
-  updateProgressRail(
-    fields.progressRail,
-    hasCurrentBlock && displayChain.status !== "wrong-chain"
-      ? Math.min(100, 42 + (delta ?? 0) * 18)
-      : 18
-  );
+  updateProgressRail(fields.progressRail, progressiveFill(displayChain, hasCurrentBlock, delta));
   setText(fields.chainId, `${chain.chainId ?? "unavailable"} / expected 0x${chain.expectedChainId.toString(16)}`);
   if (hasCurrentBlock) {
     setText(fields.block, formatNumber(chain.blockNumber));

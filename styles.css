@@ -612,7 +612,7 @@ h1 {
 }
 
 .chain-progress-rail {
-  height: 0.72rem;
+  height: 0.4rem;
   overflow: hidden;
   border-radius: 999px;
   background: #080b0a;
@@ -626,7 +626,7 @@ h1 {
   border-radius: inherit;
   background: var(--green);
   box-shadow: 0 0 18px rgba(101, 242, 154, 0.32);
-  transition: width 700ms ease;
+  transition: width 360ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .chain-card[data-status="advanced"] .chain-progress-rail i {
