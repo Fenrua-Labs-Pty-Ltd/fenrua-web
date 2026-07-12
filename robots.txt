@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Explicit public-content access for search and AI discovery crawlers.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+Sitemap: https://fenrua.ai/sitemap.xml
