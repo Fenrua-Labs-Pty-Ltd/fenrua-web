@@ -175,11 +175,46 @@ function attr(value) {
   return esc(value).replaceAll("'", "&#39;");
 }
 
-function layout({ title, description, current, body, scripts = "", canonicalPath }) {
+function chainRail(className, label = "Live block updates") {
+  return `<div class="${attr(className)}" aria-label="${attr(label)}">
+        <article class="header-chain-card" data-chain-card="978">
+          <div class="chain-card-top">
+            <span>FENc978</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Reading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="978-block">Reading</strong>
+            <small data-chain-field="978-checked">pending</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <article class="header-chain-card" data-chain-card="521">
+          <div class="chain-card-top">
+            <span>FENn521</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Reading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="521-block">Reading</strong>
+            <small data-chain-field="521-checked">pending</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <span class="sr-only" data-chain-meta="feed-status">starting</span>
+        <span class="sr-only" data-chain-meta="generated">pending</span>
+        <span class="sr-only" data-chain-meta="countdown">arming probe</span>
+        <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
+      </div>`;
+}
+
+function layout({ title, description, current, body, scripts = "", canonicalPath, headerLive = false }) {
   const canonical = canonicalPath ?? (current === "Overview" ? "/" : `/${current.toLowerCase()}/`);
   const navHtml = nav
     .map(([label, href]) => `<a href="${href}"${current === label ? ' aria-current="page"' : ""}>${label}</a>`)
     .join("\n        ");
+  const headerClass = headerLive ? "site-header site-header-live" : "site-header";
+  const headerRail = headerLive ? `\n      ${chainRail("header-chain-rail mobile-chain-rail")}` : "";
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -209,7 +244,7 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
-    <header class="site-header" aria-label="Site header">
+    <header class="${headerClass}" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
         <span>
@@ -219,7 +254,7 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         ${navHtml}
-      </nav>
+      </nav>${headerRail}
     </header>
     <main id="content">
 ${body}
@@ -284,7 +319,7 @@ ${rows.join("\n")}
 }
 
 function chainProgressSection() {
-  return `<section id="chain-progress" class="section-shell chain-progress" aria-labelledby="chain-progress-title">
+  return `<section id="chain-progress" class="section-shell chain-progress desktop-chain-progress" aria-labelledby="chain-progress-title">
         <div class="section-heading">
           <p class="eyebrow">READ-ONLY LIVE OBSERVATION</p>
           <h2 id="chain-progress-title">Chain 978 + Chain N521</h2>
@@ -345,12 +380,14 @@ function home() {
     description: "Fenrua is the public evidence surface for the open security kernel beneath autonomous AI systems.",
     current: "Overview",
     scripts: '<script src="/kernel-status.js" defer></script>',
+    headerLive: true,
     body: `${routeHero(
       "LAYER 0 AI SECURITY UTILITY INFRASTRUCTURE",
       "The security kernel beneath autonomous AI.",
       "Fenrua provides identity, authority, integrity, policy, evidence, verification, containment, and recovery primitives for AI agents, models, tools, runtimes, applications, chains, and infrastructure.",
       `<div class="cta-row"><a class="button button-primary" href="/architecture/">Explore architecture</a><a class="button button-secondary" href="/verify/">Verify locally</a><a class="button button-secondary" href="/toolchain/">Inspect toolchain</a></div>`
     )}
+      ${chainProgressSection()}
       <section class="section-shell" aria-labelledby="home-answers">
         <div class="section-heading">
           <p class="eyebrow">FIVE-MINUTE ORIENTATION</p>
@@ -365,7 +402,6 @@ function home() {
           { kicker: "NEXT", title: "Developers start locally", text: "The verifier page and developer quick-start show the local workflow without pretending a live verifier exists.", href: "/developers/", link: "Quick start" },
         ])}
       </section>
-      ${chainProgressSection()}
       <section class="section-shell split-section" aria-labelledby="home-boundary">
         <div>
           <p class="eyebrow">NON-CLAIM</p>

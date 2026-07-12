@@ -27,7 +27,7 @@
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
-    <header class="site-header" aria-label="Site header">
+    <header class="site-header site-header-live" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
         <span>
@@ -47,6 +47,36 @@
         <a href="/evidence/">Evidence</a>
         <a href="/status/">Status</a>
       </nav>
+      <div class="header-chain-rail mobile-chain-rail" aria-label="Live block updates">
+        <article class="header-chain-card" data-chain-card="978">
+          <div class="chain-card-top">
+            <span>FENc978</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Reading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="978-block">Reading</strong>
+            <small data-chain-field="978-checked">pending</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <article class="header-chain-card" data-chain-card="521">
+          <div class="chain-card-top">
+            <span>FENn521</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Reading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="521-block">Reading</strong>
+            <small data-chain-field="521-checked">pending</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <span class="sr-only" data-chain-meta="feed-status">starting</span>
+        <span class="sr-only" data-chain-meta="generated">pending</span>
+        <span class="sr-only" data-chain-meta="countdown">arming probe</span>
+        <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
+      </div>
     </header>
     <main id="content">
       <section class="route-hero" aria-labelledby="page-title">
@@ -55,44 +85,7 @@
         <p>Fenrua provides identity, authority, integrity, policy, evidence, verification, containment, and recovery primitives for AI agents, models, tools, runtimes, applications, chains, and infrastructure.</p>
         <div class="cta-row"><a class="button button-primary" href="/architecture/">Explore architecture</a><a class="button button-secondary" href="/verify/">Verify locally</a><a class="button button-secondary" href="/toolchain/">Inspect toolchain</a></div>
       </section>
-      <section class="section-shell" aria-labelledby="home-answers">
-        <div class="section-heading">
-          <p class="eyebrow">FIVE-MINUTE ORIENTATION</p>
-          <h2 id="home-answers">What reviewers need first</h2>
-          <p>The homepage is intentionally a routing surface. Deep technical detail lives on dedicated pages so evidence, maturity, and limitations stay inspectable.</p>
-        </div>
-        <div class="route-grid"><article>
-          <span>WHAT</span>
-          <h3>Fenrua is a security substrate</h3>
-          <p>It is not a chatbot, marketplace, generic chain, wallet surface, or certification authority.</p>
-          <a href="/architecture/">Architecture</a>
-        </article>
-        <article>
-          <span>WHY LAYER 0</span>
-          <h3>It sits beneath AI execution</h3>
-          <p>Independent systems need identity, authority, integrity, policy, evidence, verification, containment, and recovery before autonomous execution can be trusted.</p>
-          <a href="/kernel/">Kernel primitives</a>
-        </article>
-        <article>
-          <span>TODAY</span>
-          <h3>Reference surfaces are public</h3>
-          <p>The website, evidence registry, toolchain lock, telemetry checks, and schema foundations are available with maturity labels.</p>
-          <a href="/status/">Status</a>
-        </article>
-        <article>
-          <span>EVIDENCE</span>
-          <h3>Claims are source-linked</h3>
-          <p>Every significant public claim points to a source, timestamp, maturity label, and limitation.</p>
-          <a href="/evidence/">Evidence registry</a>
-        </article>
-        <article>
-          <span>NEXT</span>
-          <h3>Developers start locally</h3>
-          <p>The verifier page and developer quick-start show the local workflow without pretending a live verifier exists.</p>
-          <a href="/developers/">Quick start</a>
-        </article></div>
-      </section>
-      <section id="chain-progress" class="section-shell chain-progress" aria-labelledby="chain-progress-title">
+      <section id="chain-progress" class="section-shell chain-progress desktop-chain-progress" aria-labelledby="chain-progress-title">
         <div class="section-heading">
           <p class="eyebrow">READ-ONLY LIVE OBSERVATION</p>
           <h2 id="chain-progress-title">Chain 978 + Chain N521</h2>
@@ -144,6 +137,43 @@
             </div>
           </article>
         </div>
+      </section>
+      <section class="section-shell" aria-labelledby="home-answers">
+        <div class="section-heading">
+          <p class="eyebrow">FIVE-MINUTE ORIENTATION</p>
+          <h2 id="home-answers">What reviewers need first</h2>
+          <p>The homepage is intentionally a routing surface. Deep technical detail lives on dedicated pages so evidence, maturity, and limitations stay inspectable.</p>
+        </div>
+        <div class="route-grid"><article>
+          <span>WHAT</span>
+          <h3>Fenrua is a security substrate</h3>
+          <p>It is not a chatbot, marketplace, generic chain, wallet surface, or certification authority.</p>
+          <a href="/architecture/">Architecture</a>
+        </article>
+        <article>
+          <span>WHY LAYER 0</span>
+          <h3>It sits beneath AI execution</h3>
+          <p>Independent systems need identity, authority, integrity, policy, evidence, verification, containment, and recovery before autonomous execution can be trusted.</p>
+          <a href="/kernel/">Kernel primitives</a>
+        </article>
+        <article>
+          <span>TODAY</span>
+          <h3>Reference surfaces are public</h3>
+          <p>The website, evidence registry, toolchain lock, telemetry checks, and schema foundations are available with maturity labels.</p>
+          <a href="/status/">Status</a>
+        </article>
+        <article>
+          <span>EVIDENCE</span>
+          <h3>Claims are source-linked</h3>
+          <p>Every significant public claim points to a source, timestamp, maturity label, and limitation.</p>
+          <a href="/evidence/">Evidence registry</a>
+        </article>
+        <article>
+          <span>NEXT</span>
+          <h3>Developers start locally</h3>
+          <p>The verifier page and developer quick-start show the local workflow without pretending a live verifier exists.</p>
+          <a href="/developers/">Quick start</a>
+        </article></div>
       </section>
       <section class="section-shell split-section" aria-labelledby="home-boundary">
         <div>

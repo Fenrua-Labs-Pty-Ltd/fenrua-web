@@ -33,9 +33,13 @@ assert.match(toolchain, /Download Markdown lock/);
 
 const overview = await readFile(new URL("../index.html", import.meta.url), "utf8");
 assert.match(overview, /<script src="\/kernel-status\.js" defer><\/script>/, "overview must load live chain updater");
+assert.match(overview, /class="site-header site-header-live"/, "overview must place live blocks in the header");
+assert.match(overview, /class="header-chain-rail mobile-chain-rail"/, "overview must render the mobile header live chain rail");
+assert.match(overview, /class="section-shell chain-progress desktop-chain-progress"/, "overview must render desktop live blocks under the intro card");
 assert.match(overview, /data-chain-card="978"/, "overview must render Chain 978 live block card");
 assert.match(overview, /data-chain-card="521"/, "overview must render Chain N521 live block card");
 assert.match(overview, /data-chain-meta="feed-status"/, "overview must expose live chain feed status");
+assert.equal([...overview.matchAll(/data-chain-card="/g)].length, 4, "overview must render two responsive pairs of live block cards");
 
 const status = await readFile(new URL("../status/index.html", import.meta.url), "utf8");
 for (const state of ["loading", "success", "partial", "stale", "failure", "paused", "maintenance"]) {
