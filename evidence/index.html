@@ -58,7 +58,7 @@
       <section class="section-shell">
         <div class="registry " role="region" tabindex="0">
           <table>
-            <thead><tr><th scope="col">Artifact</th><th scope="col">Claim</th><th scope="col">Hash</th><th scope="col">Source</th><th scope="col">Revisions</th><th scope="col">Producer</th><th scope="col">Command</th><th scope="col">Verified</th><th scope="col">Supersession</th><th scope="col">Limitation</th></tr></thead>
+            <thead><tr><th scope="col">Artifact</th><th scope="col">Claim</th><th scope="col">Hash</th><th scope="col">Source</th><th scope="col">Revisions</th><th scope="col">Producer</th><th scope="col">Command</th><th scope="col">Verified / Revocation</th><th scope="col">Supersession</th><th scope="col">Limitation</th></tr></thead>
             <tbody>
 <tr id="repository-sync-snapshot">
       <td><code>repository-sync-snapshot</code><br>Repository Sync Snapshot<br><small>kernel snapshot</small></td>
@@ -68,7 +68,7 @@
       <td><code>390f7aeef778ce93db12e16028bc3a788b643c2d</code><br><small>Evidence: <code>85ecc97c026b01b576d735501795951dd293b3ca</code></small></td>
       <td>sync-kernel-status.mjs<br><small>git, Node.js</small></td>
       <td><code>node scripts/test-kernel-telemetry.mjs</code></td>
-      <td>2026-07-12<br><small>Read-only live · active</small></td>
+      <td>2026-07-12<br><small>Maturity: Read-only live · Revocation: active</small></td>
       <td>none / none</td>
       <td>Snapshot evidence does not prove future revisions.<button type="button" data-copy="Fenrua Evidence:
 Artifact: repository-sync-snapshot
@@ -86,7 +86,7 @@ Scope: Snapshot evidence does not prove future revisions.">Copy citation</button
       <td><code>390f7aeef778ce93db12e16028bc3a788b643c2d</code><br><small>Evidence: <code>85ecc97c026b01b576d735501795951dd293b3ca</code></small></td>
       <td>sync-kernel-status.mjs<br><small>git, Node.js</small></td>
       <td><code>node scripts/test-kernel-telemetry.mjs</code></td>
-      <td>2026-07-12<br><small>Evidence surface · active</small></td>
+      <td>2026-07-12<br><small>Maturity: Evidence surface · Revocation: active</small></td>
       <td>none / none</td>
       <td>Scope is the public frozen report, not production runtime attestation.<button type="button" data-copy="Fenrua Evidence:
 Artifact: frozen-evidence-revision
@@ -104,7 +104,7 @@ Scope: Scope is the public frozen report, not production runtime attestation.">C
       <td><code>390f7aeef778ce93db12e16028bc3a788b643c2d</code><br><small>Evidence: <code>85ecc97c026b01b576d735501795951dd293b3ca</code></small></td>
       <td>fenrua-kernel genesis report<br><small>Node.js, native P/N521 tests</small></td>
       <td><code>node scripts/test-kernel-telemetry.mjs</code></td>
-      <td>2026-07-12<br><small>Evidence surface · active</small></td>
+      <td>2026-07-12<br><small>Maturity: Evidence surface · Revocation: active</small></td>
       <td>none / none</td>
       <td>Manifest scope is limited to listed genesis records.<button type="button" data-copy="Fenrua Evidence:
 Artifact: genesis-manifest-record
@@ -122,7 +122,7 @@ Scope: Manifest scope is limited to listed genesis records.">Copy citation</butt
       <td><code>390f7aeef778ce93db12e16028bc3a788b643c2d</code><br><small>Evidence: <code>85ecc97c026b01b576d735501795951dd293b3ca</code></small></td>
       <td>fenrua-kernel audit suite<br><small>CMake, native tests, sanitizer differential tests</small></td>
       <td><code>node scripts/test-kernel-telemetry.mjs</code></td>
-      <td>2026-07-12<br><small>Evidence surface · active</small></td>
+      <td>2026-07-12<br><small>Maturity: Evidence surface · Revocation: active</small></td>
       <td>none / none</td>
       <td>Differential testing is not production certification.<button type="button" data-copy="Fenrua Evidence:
 Artifact: differential-validation
@@ -140,7 +140,7 @@ Scope: Differential testing is not production certification.">Copy citation</but
       <td><code>845187ca3dea57723b31ec5306fed1c275fcdcb7</code><br><small>Evidence: <code>toolchain-lock-2026-07-12</code></small></td>
       <td>data/toolchain-registry.json<br><small>Node.js, Semgrep 1.169.0, SnarkJS snarkjs@0.7.6</small></td>
       <td><code>node scripts/test-toolchain-registry.mjs</code></td>
-      <td>2026-07-13<br><small>Read-only live · active</small></td>
+      <td>2026-07-13<br><small>Maturity: Read-only live · Revocation: active</small></td>
       <td>none / none</td>
       <td>Version capture is not security proof.<button type="button" data-copy="Fenrua Evidence:
 Artifact: toolchain-evidence-lock

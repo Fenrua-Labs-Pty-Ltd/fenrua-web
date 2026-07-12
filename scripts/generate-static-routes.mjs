@@ -865,7 +865,7 @@ function evidence() {
       <td><code>${esc(record.sourceCommit)}</code><br><small>Evidence: <code>${esc(record.evidenceCommit)}</code></small></td>
       <td>${esc(record.producer)}<br><small>${esc(record.toolchainSubset)}</small></td>
       <td><code>${esc(record.command)}</code></td>
-      <td>${esc(record.verified)}<br><small>${esc(record.maturity)} · ${esc(record.revocationState)}</small></td>
+      <td>${esc(record.verified)}<br><small>Maturity: ${esc(record.maturity)} · Revocation: ${esc(record.revocationState)}</small></td>
       <td>${esc(record.supersedes)} / ${esc(record.supersededBy)}</td>
       <td>${esc(record.limitation)}<button type="button" data-copy="${attr(evidenceCitation(record))}">Copy citation</button></td>
     </tr>`
@@ -877,7 +877,7 @@ function evidence() {
     scripts: '<script src="/toolchain/toolchain.js" defer></script>',
     body: `${routeHero("PUBLIC EVIDENCE", "Evidence Registry", "Every significant claim is tied to source, timestamp, maturity, limitation, provenance, and copyable hash.")}
       <section class="section-shell">
-        ${table(["Artifact", "Claim", "Hash", "Source", "Revisions", "Producer", "Command", "Verified", "Supersession", "Limitation"], rows)}
+        ${table(["Artifact", "Claim", "Hash", "Source", "Revisions", "Producer", "Command", "Verified / Revocation", "Supersession", "Limitation"], rows)}
       </section>`,
   });
 }
