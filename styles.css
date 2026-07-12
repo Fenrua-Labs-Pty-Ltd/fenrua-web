@@ -210,11 +210,12 @@ blockquote {
 }
 
 h1 {
-  max-width: 15ch;
+  max-width: 17ch;
   margin-bottom: 1rem;
-  font-size: clamp(2.35rem, 5vw, 5.2rem);
-  line-height: 0.98;
+  font-size: clamp(1.85rem, 4.35vw, 4.35rem);
+  line-height: 1.04;
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 .hero-subtitle {
