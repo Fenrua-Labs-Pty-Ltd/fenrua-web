@@ -371,37 +371,34 @@ function normalizeRefreshMs(value) {
 
 function cardStatus(chain, previousBlock, delta, outOfOrder) {
   if (chain.status === "wrong-chain") {
-    return { label: "Chain mismatch", state: "wrong-chain" };
+    return { label: "Chain ID mismatch", state: "wrong-chain" };
   }
 
   if (chain.status === "unavailable") {
     return {
-      label: Number.isSafeInteger(previousBlock) ? "Feed delayed" : "Feed unavailable",
+      label: Number.isSafeInteger(previousBlock) ? "Updates delayed" : "Updates unavailable",
       state: "unavailable",
     };
   }
 
   if (chain.status === "delayed") {
-    return { label: "Head delayed", state: "delayed" };
+    return { label: "Block feed delayed", state: "delayed" };
   }
 
   if (outOfOrder) {
-    return { label: "Awaiting a newer sample", state: "delayed" };
+    return { label: "Waiting for fresh data", state: "delayed" };
   }
 
   if (delta !== null && delta > 0) {
-    return { label: "New block confirmed", state: "advanced" };
+    return { label: "New block observed", state: "advanced" };
   }
 
-  if (Number.isSafeInteger(previousBlock)) {
-    return { label: "Awaiting next block", state: "waiting" };
-  }
-
-  return { label: "Head confirmed", state: "confirmed" };
+  return { label: "Chain live", state: "confirmed" };
 }
 
 function progressLabel(state) {
-  if (state === "advanced" || state === "confirmed" || state === "waiting") return "live";
+  if (state === "advanced") return "updated";
+  if (state === "confirmed" || state === "waiting") return "active";
   if (state === "delayed") return "delayed";
   if (state === "wrong-chain") return "mismatch";
   return "offline";
@@ -413,12 +410,22 @@ function updateProgressRail(selector, value) {
   });
 }
 
-function blockProgressWidth(chain, hasCurrentBlock, delta) {
-  if (hasCurrentBlock && chain.status !== "wrong-chain") {
-    return Math.min(100, 42 + (delta ?? 0) * 18);
-  }
+function verificationProgressWidth() {
+  if (!chainProbe.nextAt || !chainProbe.refreshMs) return 4;
+  const startedAt = chainProbe.nextAt - chainProbe.refreshMs;
+  const elapsed = Date.now() - startedAt;
+  return Math.min(100, Math.max(4, Math.round((elapsed / chainProbe.refreshMs) * 100)));
+}
 
-  return chainProbe.controller ? 22 : 18;
+function updateVerificationRails() {
+  const width = verificationProgressWidth();
+  Object.values(chainFieldMap).forEach((fields) => updateProgressRail(fields.progressRail, width));
+}
+
+function formatChainIdentity(chain) {
+  if (chain.chainId === chain.expectedChainId) return `${chain.chainId} · verified`;
+  if (Number.isSafeInteger(chain.chainId)) return `${chain.chainId} · expected ${chain.expectedChainId}`;
+  return `Expected ${chain.expectedChainId}`;
 }
 
 function formatCountdown() {
@@ -429,6 +436,7 @@ function formatCountdown() {
 
 function updateChainCountdown() {
   setText('[data-chain-meta="countdown"]', formatCountdown());
+  updateVerificationRails();
   Object.entries(lastChainHeadAges).forEach(([chainId, reportedAge]) => {
     const fields = chainFieldMap[chainId];
     const elapsed = secondsSince(lastChainCheckedAt[chainId]);
@@ -448,14 +456,14 @@ function updateChainMeta(payload, cardStates) {
 
   const healthy = cardStates.filter((state) => state === "confirmed" || state === "waiting" || state === "advanced");
   const feedStatus = healthy.length
-    ? "observations confirmed"
+    ? "live"
     : cardStates.every((state) => state === "wrong-chain")
       ? "chain mismatch"
       : cardStates.every((state) => state === "unavailable")
-        ? "feed unavailable"
-        : "feed delayed";
+        ? "unavailable"
+        : "delayed";
   setText('[data-chain-meta="feed-status"]', feedStatus);
-  setText('[data-chain-meta="announcer"]', `Chain feed ${feedStatus}.`);
+  setText('[data-chain-meta="announcer"]', `Chain feed is ${feedStatus}.`);
   setText('[data-chain-meta="generated"]', formatCheckedAt(payload.generatedAt));
   updateChainCountdown();
 }
@@ -492,18 +500,17 @@ function updateChainCard(chain, payload) {
 
   setText(fields.status, status.label);
   setText(fields.progress, progressLabel(status.state));
-  updateProgressRail(fields.progressRail, blockProgressWidth(displayChain, hasCurrentBlock, delta));
-  setText(fields.chainId, `${chain.chainId ?? "unavailable"} / expected 0x${chain.expectedChainId.toString(16)}`);
+  setText(fields.chainId, formatChainIdentity(chain));
   if (hasCurrentBlock) {
     setText(fields.block, formatNumber(chain.blockNumber));
     setText(
       fields.delta,
-      delta === null ? "Head confirmed" : delta > 0 ? `+${delta} blocks` : "No new block this read"
+      delta === null ? "Initial read confirmed" : delta > 0 ? `+${delta} blocks since last check` : "No new block since last check"
     );
     setText(fields.headAge, formatHeadAge(displayChain.blockAgeSeconds));
     setText(fields.checked, formatCheckedAt(chain.checkedAt));
   } else if (Number.isSafeInteger(previousBlock)) {
-    setText(fields.delta, "Last confirmed value retained");
+    setText(fields.delta, "Last verified value retained");
   }
 
   if (hasCurrentBlock && displayChain.status === "live" && !outOfOrder) {
@@ -531,13 +538,13 @@ function scheduleChainRead(delay) {
 
 function showFeedFailure() {
   chainProbe.nextAt = Date.now() + chainProbe.retryMs;
-  setText('[data-chain-meta="feed-status"]', "retrying safely");
+  setText('[data-chain-meta="feed-status"]', "retrying");
   updateChainCountdown();
 
   Object.values(chainFieldMap).forEach((fields) => {
     const hasLastBlock = Number.isSafeInteger(lastChainBlocks[fields.chainKey]);
-    setText(fields.status, hasLastBlock ? "Feed delayed" : "Feed unavailable");
-    if (hasLastBlock) setText(fields.delta, "Last confirmed value retained");
+    setText(fields.status, hasLastBlock ? "Updates delayed" : "Updates unavailable");
+    if (hasLastBlock) setText(fields.delta, "Last verified value retained");
     document.querySelectorAll(fields.card).forEach((card) => {
       card.dataset.status = "unavailable";
     });
