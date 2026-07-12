@@ -70,14 +70,14 @@
 <tr><th scope="row">Maturity</th><td>Read-only live</td></tr>
 <tr><th scope="row">Severity</th><td>Public-trust boundary</td></tr>
 <tr><th scope="row">Problem statement</th><td>Public telemetry could be mistaken for contract assurance.</td></tr>
-<tr><th scope="row">Claim</th><td>Chain 978 and Chain N521 are exposed as sanitized read-only observations.</td></tr>
+<tr><th scope="row">Claim</th><td>Chain 978 is exposed as a signed, bounded read-only observation; Chain N521 telemetry is intentionally not published.</td></tr>
 <tr><th scope="row">Non-claim</th><td>A chain observation does not prove contract safety, bytecode identity, reserve state, or deployment correctness.</td></tr>
 <tr><th scope="row">Assumptions</th><td>Public page exposes only sanitized, source-linked evidence. Private endpoints, secrets, and raw witness material remain out of scope.</td></tr>
 <tr><th scope="row">Threat</th><td>Public telemetry could be mistaken for contract assurance.</td></tr>
-<tr><th scope="row">Invariant</th><td>No private endpoint, admin URL, RPC credential, or signing material appears in browser payloads.</td></tr>
-<tr><th scope="row">Trigger</th><td>Query requests are rejected and endpoint fields are excluded.</td></tr>
+<tr><th scope="row">Invariant</th><td>No private endpoint, admin URL, RPC credential, peer detail, validator identity, or signing key appears in browser payloads.</td></tr>
+<tr><th scope="row">Trigger</th><td>Query requests are rejected, private topology fields are excluded, and only the bounded observation schema is accepted.</td></tr>
 <tr><th scope="row">Root cause</th><td>Public claims can drift when evidence, tooling, or telemetry are not adjacent to limitations.</td></tr>
-<tr><th scope="row">Reference implementation</th><td>api/chain-progress.js and scripts/test-chain-progress.mjs.</td></tr>
+<tr><th scope="row">Reference implementation</th><td>api/chain-progress.js, api/chain-observation-key.js, and scripts/test-chain-progress.mjs.</td></tr>
 <tr><th scope="row">Tools used</th><td>Node.js API test harness and sanitized response assertions.</td></tr>
 <tr><th scope="row">Tool versions</th><td>Node.js v24.18.0 plus pinned fenrua-kernel evidence links.</td></tr>
 <tr><th scope="row">Commands</th><td>node scripts/test-chain-progress.mjs</td></tr>
@@ -85,7 +85,7 @@
 <tr><th scope="row">Evidence confirmation</th><td>Browser payload states sanitized read-only observation only; it does not claim contract, bytecode, reserve, or deployment assurance.</td></tr>
 <tr><th scope="row">Evidence hash</th><td>See linked evidence artifact.</td></tr>
 <tr><th scope="row">Fix revision</th><td>Current website route generation.</td></tr>
-<tr><th scope="row">Regression fixture</th><td>Query requests are rejected and endpoint fields are excluded.</td></tr>
+<tr><th scope="row">Regression fixture</th><td>Query requests are rejected, private topology fields are excluded, and only the bounded observation schema is accepted.</td></tr>
 <tr><th scope="row">Kernel impact</th><td>Verification primitive boundary clarified.</td></tr>
 <tr><th scope="row">Utility impact</th><td>Public interface remains maturity-labelled and limitation-adjacent.</td></tr>
 <tr><th scope="row">Remaining limitations</th><td>No stale contract claims are derived from the feed.</td></tr>

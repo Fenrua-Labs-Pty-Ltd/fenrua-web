@@ -8,6 +8,7 @@ build/
 .env.*
 .vercel
 .env*
+!.env.example
 
 # Local Codex task specs and generated promo artifacts are not part of the site.
 FENRUA_*_TASK.md

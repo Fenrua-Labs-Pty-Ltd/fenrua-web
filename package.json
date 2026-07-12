@@ -10,7 +10,7 @@
   "packageManager": "npm@11.18.0",
   "scripts": {
     "generate:static": "node scripts/generate-static-routes.mjs",
-    "validate": "node scripts/require-node24.mjs && node --check kernel-status.js && node --check toolchain/toolchain.js && node --check api/chain-progress.js && node --check scripts/generate-static-routes.mjs && node scripts/check-static-links.mjs && node scripts/test-chain-progress.mjs && node scripts/check-public-discovery.mjs && node scripts/test-kernel-telemetry.mjs && node scripts/test-toolchain-registry.mjs && node scripts/test-verify-examples.mjs && node scripts/test-static-routes.mjs",
+    "validate": "node scripts/require-node24.mjs && node --check kernel-status.js && node --check toolchain/toolchain.js && node --check api/chain-progress.js && node --check api/chain-observation-key.js && node --check scripts/generate-static-routes.mjs && node scripts/check-static-links.mjs && node scripts/test-chain-progress.mjs && node scripts/check-public-discovery.mjs && node scripts/test-kernel-telemetry.mjs && node scripts/test-toolchain-registry.mjs && node scripts/test-verify-examples.mjs && node scripts/test-static-routes.mjs",
     "test:chain-progress": "node scripts/test-chain-progress.mjs",
     "test:kernel-telemetry": "node scripts/test-kernel-telemetry.mjs",
     "test:toolchain-registry": "node scripts/test-toolchain-registry.mjs",

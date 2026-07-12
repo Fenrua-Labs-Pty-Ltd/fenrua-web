@@ -14,7 +14,8 @@ Last reviewed: 2026-07-12
 | Toolchain registry is public | Toolchain | `data/toolchain-registry.json` | `/toolchain/` | 2026-07-12 | Read-only live | Version capture is not security proof |
 | Semgrep detected version is `1.169.0` | Toolchain | `semgrep --version` | toolchain registry | 2026-07-12 | Version inventory | No Semgrep scan result claimed |
 | SnarkJS detected version is `0.7.6` | Toolchain | `snarkjs --version`, kernel package | toolchain lock | 2026-07-12 | Version inventory | Do not confuse with `underscore 1.13.8` |
-| Chain 978 and N521 are read-only observations | Home | `/api/chain-progress` | API tests | 2026-07-12 | Read-only live | Not chain safety, contract state, or reserve proof |
+| Chain 978 is a signed bounded observation | Home | `/api/chain-progress`, `/api/chain-observation-key` | API tests | 2026-07-13 | Read-only live | Not chain safety, contract state, or reserve proof |
+| Chain N521 telemetry is intentionally private | Home | `/api/chain-progress` | API tests | 2026-07-13 | Unavailable by design | No public liveness claim is made |
 | Contract evidence refresh is pending | Home, docs | contract boundary register | placeholder statement | 2026-07-12 | Pending refreshed bundle | Blocks stale contract claims |
 
 ## Flagged Historical Risks
@@ -23,4 +24,3 @@ Last reviewed: 2026-07-12
   broadly. The new interface narrows those claims to pinned public evidence.
 - Contract-derived content is pending refreshed evidence and must not be used as
   current deployment proof.
-

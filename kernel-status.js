@@ -361,6 +361,10 @@ function normalizeRefreshMs(value) {
 }
 
 function cardStatus(chain) {
+  if (chain.confirmation?.evidenceSource === "private-telemetry") {
+    return { label: "Private telemetry not published", state: "unavailable" };
+  }
+
   if (chain.status === "wrong-chain") {
     return { label: "Failure", state: "wrong-chain" };
   }
@@ -374,6 +378,10 @@ function cardStatus(chain) {
 
   if (chain.status === "delayed") {
     return { label: "Stale", state: "delayed" };
+  }
+
+  if (chain.status === "partial") {
+    return { label: "Partial", state: "partial" };
   }
 
   return { label: "Live", state: "confirmed" };
@@ -413,6 +421,10 @@ function formatChainIdentity(chain) {
 }
 
 function formatSource(value) {
+  if (value === "signed-observation") return "Evidence source: signed bounded observation";
+  if (value === "stale-observation") return "Evidence source: signed observation (stale)";
+  if (value === "partial-observation") return "Evidence source: partial observation";
+  if (value === "private-telemetry") return "Evidence source: private telemetry not published";
   if (value === "confirmed") return "Evidence source: live observation confirmed";
   if (value === "stale") return "Evidence source: stale observation";
   if (value === "mismatch") return "Evidence source: chain mismatch";
@@ -515,12 +527,16 @@ function showFeedFailure() {
   updateChainCountdown();
 
   Object.values(chainFieldMap).forEach((fields) => {
-    setText(fields.status, "Failure");
+    const privateTelemetry = fields.chainKey === 521;
+    setText(fields.status, privateTelemetry ? "Private telemetry not published" : "Failure");
     setText(fields.block, "Observation unavailable");
     setText(fields.checked, "not observed");
-    setText(fields.source, "Evidence source: unavailable");
+    setText(
+      fields.source,
+      privateTelemetry ? "Evidence source: private telemetry not published" : "Evidence source: unavailable"
+    );
     setText(fields.confidence, "Confidence: unavailable");
-    setText(fields.progress, "retrying");
+    setText(fields.progress, privateTelemetry ? "offline" : "retrying");
     document.querySelectorAll(fields.card).forEach((card) => {
       card.dataset.status = "unavailable";
     });
