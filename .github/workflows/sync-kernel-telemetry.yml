@@ -1,0 +1,65 @@
+name: Sync kernel telemetry
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      kernel_ref:
+        description: Kernel branch or immutable commit to synchronize
+        required: false
+        default: main
+        type: string
+  repository_dispatch:
+    types: [kernel-evidence-updated]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kernel-telemetry-sync-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Verify and synchronize public kernel telemetry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out public site source
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Check out kernel evidence snapshot
+        uses: actions/checkout@v4
+        with:
+          repository: fenrualabs/fenrua-kernel
+          ref: ${{ inputs.kernel_ref || github.event.client_payload.ref || 'main' }}
+          path: .kernel-source
+          fetch-depth: 1
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          check-latest: true
+
+      - name: Generate only validated public telemetry
+        run: node scripts/sync-kernel-status.mjs --kernel-dir .kernel-source
+
+      - name: Validate the generated static surface
+        run: npm run validate
+
+      - name: Commit a changed verified snapshot
+        shell: bash
+        run: |
+          if git diff --quiet -- kernel-status.js; then
+            echo "Kernel telemetry is already current."
+            exit 0
+          fi
+          git config user.name "fenrua-telemetry-sync[bot]"
+          git config user.email "fenrua-telemetry-sync[bot]@users.noreply.github.com"
+          git add kernel-status.js
+          git commit -m "chore: sync verified kernel telemetry"
+          git push origin HEAD:main

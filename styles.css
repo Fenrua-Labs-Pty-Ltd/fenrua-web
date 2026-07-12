@@ -946,6 +946,21 @@ td:last-child {
   color: var(--text);
 }
 
+.registry td.result-pass {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.registry td.result-fail {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.registry td small {
+  color: var(--dim);
+  font-size: 0.74rem;
+}
+
 td a {
   color: var(--green);
   text-decoration: none;

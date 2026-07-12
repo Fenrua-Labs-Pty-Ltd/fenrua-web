@@ -1,49 +1,119 @@
+/* KERNEL_STATUS_START */
 const kernelStatus = {
-  repositoryUrl: "https://github.com/fenrualabs/fenrua-kernel",
-  auditLogUrl: "docs/SECURITY_AUDIT_LOG.md",
-  genesisManifestUrl: "docs/GENESIS_MANIFEST.md",
-  ciUrl: "https://github.com/fenrualabs/fenrua-kernel/actions",
-  regressionUrl: "docs/REGRESSION_HISTORY.md",
-  versionCommitUrl: "https://github.com/fenrualabs/fenrua-kernel/commit/390f7ae",
-  versionTag: "v.390f7ae",
-  buildStatus: "PASS",
-  auditResolution: "7/7 Findings Resolved",
-  genesisIntegrity: "14/14 Genesis Files Verified",
-  ciOutput: "Hardening: PASS",
-  regressionCoverage: "Active",
-  statusSource: "kernel-status.js",
-  lastSynced: "DayZero static manifest",
-  evidence: [
+  "repositoryUrl": "https://github.com/fenrualabs/fenrua-kernel",
+  "auditLogUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/SECURITY_AUDIT_LOG.md",
+  "genesisManifestUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/manifest.json",
+  "ciUrl": "https://github.com/fenrualabs/fenrua-kernel/actions",
+  "regressionUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/regressions/regression-order-sub-cross-limb-borrow.json",
+  "versionCommitUrl": "https://github.com/fenrualabs/fenrua-kernel/commit/390f7aeef778ce93db12e16028bc3a788b643c2d",
+  "evidenceRevisionUrl": "https://github.com/fenrualabs/fenrua-kernel/commit/85ecc97c026b01b576d735501795951dd293b3ca",
+  "versionTag": "sync 390f7aee…",
+  "evidenceRevisionTag": "evidence 85ecc97c…",
+  "buildStatus": "PASS",
+  "auditResolution": "7/7 Findings Resolved",
+  "genesisIntegrity": "10/10 Genesis Cases Verified",
+  "ciOutput": "Differential: PASS",
+  "regressionCoverage": "1 Permanent Regression: PASS",
+  "statusSource": "Verified kernel snapshot 390f7aee…",
+  "lastSynced": "Evidence report 2026-07-12T11:18:16.000Z",
+  "snapshotCommitShort": "390f7aee…",
+  "differentialSummary": "500,000 field pairs · 200,000 encodings · 100,000 digests",
+  "evidence": [
     {
-      artifact: "Bedrock Source",
-      hashReference: "85ecc97c...",
-      sourceLabel: "Link to Source",
-      sourceUrl: "https://github.com/fenrualabs/fenrua-kernel/commit/85ecc97c",
-      copyValue: "85ecc97c",
+      "artifact": "Repository Sync Snapshot",
+      "hashReference": "390f7aee…",
+      "sourceLabel": "Pinned Snapshot",
+      "sourceUrl": "https://github.com/fenrualabs/fenrua-kernel/commit/390f7aeef778ce93db12e16028bc3a788b643c2d",
+      "copyValue": "390f7aeef778ce93db12e16028bc3a788b643c2d"
     },
     {
-      artifact: "Evidence Commit",
-      hashReference: "dc36d1f2...",
-      sourceLabel: "Link to Evidence",
-      sourceUrl: "https://github.com/fenrualabs/fenrua-kernel/commit/dc36d1f2",
-      copyValue: "dc36d1f2",
+      "artifact": "Frozen Evidence Revision",
+      "hashReference": "85ecc97c…",
+      "sourceLabel": "Evidence Revision",
+      "sourceUrl": "https://github.com/fenrualabs/fenrua-kernel/commit/85ecc97c026b01b576d735501795951dd293b3ca",
+      "copyValue": "85ecc97c026b01b576d735501795951dd293b3ca"
     },
     {
-      artifact: "Genesis Manifest",
-      hashReference: "bd9ec111...",
-      sourceLabel: "Link to Log",
-      sourceUrl: "docs/GENESIS_MANIFEST.md",
-      copyValue: "bd9ec111",
+      "artifact": "Genesis Manifest Record",
+      "hashReference": "bd9ec111…",
+      "sourceLabel": "Manifest",
+      "sourceUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/manifest.json",
+      "copyValue": "bd9ec111888ec32e87a5b60776f0118973848e5c096bbed8f25246e7fd3008cd"
     },
     {
-      artifact: "Audit Report",
-      hashReference: "9d9eeffc...",
-      sourceLabel: "Link to JSON",
-      sourceUrl: "docs/audit-report.json",
-      copyValue: "9d9eeffc",
-    },
+      "artifact": "Differential Validation",
+      "hashReference": "e74a0ad3…",
+      "sourceLabel": "Validation Report",
+      "sourceUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/audit/final-build-validation.json",
+      "copyValue": "e74a0ad32730f5129f3f691eb3c9caab31a98596212594d218056e50a1a26c93"
+    }
   ],
+  "telemetry": {
+    "schemaVersion": "fenrua.web.kernel-telemetry.v1",
+    "snapshotCommit": "390f7aeef778ce93db12e16028bc3a788b643c2d",
+    "frozenEvidenceRevision": "85ecc97c026b01b576d735501795951dd293b3ca",
+    "sourceReport": {
+      "path": "tests/genesis/reports/genesis-report.json",
+      "fileSha256": "5a1a130f33fbf77cfa36ed9771eeba63a570d27fe347a43e2524d404e55b04b3",
+      "recordSha256": "a25a9e1c53b5554fb0b518d0ea54810dcdc7252b8742fe5ca76060f41c4f7960",
+      "reportGeneratedAtUtc": "2026-07-12T11:18:16.000Z",
+      "url": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/genesis-report.json"
+    },
+    "suite": {
+      "id": "fenrua-pn521-genesis-v1",
+      "status": "pass",
+      "caseCount": 10,
+      "passedCount": 10,
+      "failedCount": 0
+    },
+    "differential": {
+      "status": "pass",
+      "native": {
+        "randomizedFieldPairs": 500000,
+        "byteEncodings": 200000,
+        "digestRoundtrips": 100000,
+        "seedHex": "0x46454e525541"
+      },
+      "sanitizer": {
+        "randomizedFieldPairs": 500000,
+        "byteEncodings": 200000,
+        "digestRoundtrips": 100000,
+        "seedHex": "0x46454e525541",
+        "addressSanitizer": true,
+        "undefinedBehaviorSanitizer": true,
+        "leakDetection": true
+      },
+      "source": {
+        "path": "tests/audit/final-build-validation.json",
+        "fileSha256": "e74a0ad32730f5129f3f691eb3c9caab31a98596212594d218056e50a1a26c93",
+        "url": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/audit/final-build-validation.json"
+      }
+    },
+    "regressions": [
+      {
+        "id": "regression-order-sub-cross-limb-borrow",
+        "classification": "permanent-borrow-chain-regression",
+        "domain": "N521_ORDER",
+        "operation": "subtract-mod-n",
+        "status": "pass",
+        "fixture": {
+          "name": "regression_001_p521_sub_overflow.bin",
+          "bytes": 132,
+          "sha256": "7d11e62691085056fde7193c23cc7b3ffbfde2171807f820fc94cecf6f19ee5e",
+          "encoding": "A[66] || B[66], fixed-width unsigned big-endian",
+          "url": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/regressions/regression_001_p521_sub_overflow.bin"
+        },
+        "report": {
+          "recordSha256": "a5c49db6dd40bee3185399b622ff5eb7845501d0a725e7aa561204766a19abfa",
+          "fileSha256": "c7a2de386f54f74de0ff9e8b3147882035d08bf69f1cfbef78467d5099267cc0",
+          "bytes": 2643,
+          "url": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/regressions/regression-order-sub-cross-limb-borrow.json"
+        }
+      }
+    ]
+  }
 };
+/* KERNEL_STATUS_END */
 
 function setText(selector, value) {
   document.querySelectorAll(selector).forEach((node) => {
@@ -125,6 +195,61 @@ function hydrateRegistry() {
   );
 }
 
+function makeExternalLink(label, href) {
+  const link = document.createElement("a");
+  link.href = href;
+  link.textContent = label;
+  return link;
+}
+
+function makeCopyButton(value) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = "Copy";
+  button.addEventListener("click", () => copyHash(value, button));
+  return button;
+}
+
+function hydrateRegressionRegistry() {
+  const registry = document.querySelector("#regression-registry");
+  const regressions = kernelStatus.telemetry?.regressions;
+  if (!registry || !Array.isArray(regressions)) return;
+
+  registry.replaceChildren(
+    ...regressions.map((regression) => {
+      const row = document.createElement("tr");
+      const identity = makeCell(regression.id);
+      const classification = document.createElement("small");
+      const result = makeCell(regression.status.toUpperCase());
+      const fixture = makeCell("");
+      const fixtureHash = document.createElement("code");
+      const fixtureCopy = makeCopyButton(regression.fixture.sha256);
+      const evidence = makeCell("");
+
+      classification.textContent = regression.classification;
+      identity.append(document.createElement("br"), classification);
+      result.classList.add(regression.status === "pass" ? "result-pass" : "result-fail");
+      fixture.append(`${regression.fixture.name} · ${regression.fixture.bytes} bytes`, document.createElement("br"));
+      fixtureHash.textContent = regression.fixture.sha256;
+      fixture.append(fixtureHash, document.createTextNode(" "), fixtureCopy);
+      evidence.append(
+        makeExternalLink("Fixture", regression.fixture.url),
+        document.createTextNode(" · "),
+        makeExternalLink("Regression report", regression.report.url)
+      );
+
+      row.append(
+        identity,
+        makeCell(`${regression.domain} · ${regression.operation}`),
+        result,
+        fixture,
+        evidence
+      );
+      return row;
+    })
+  );
+}
+
 function bindRegistrySearch() {
   const input = document.querySelector("#registry-search");
   const registry = document.querySelector("#evidence-registry");
@@ -151,8 +276,10 @@ function hydrateKernelStatus() {
   setHref('[data-link="ci"]', kernelStatus.ciUrl);
   setHref('[data-link="regression"]', kernelStatus.regressionUrl);
   setHref('[data-link="version"]', kernelStatus.versionCommitUrl);
+  setHref('[data-link="evidence-revision"]', kernelStatus.evidenceRevisionUrl);
 
   hydrateRegistry();
+  hydrateRegressionRegistry();
   bindRegistrySearch();
 }
 

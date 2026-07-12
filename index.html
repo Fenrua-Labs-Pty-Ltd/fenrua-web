@@ -255,19 +255,23 @@ privacy: no analytics, no beacons, no third-party scripts</code></pre>
 
       <section id="kernel" class="section-shell" aria-labelledby="kernel-title">
         <div class="section-heading">
-          <p class="eyebrow">LIVE KERNEL TELEMETRY</p>
+          <p class="eyebrow">VERIFIED KERNEL SNAPSHOT</p>
           <h2 id="kernel-title">State Dashboard</h2>
           <p>
-            This replaces traditional about-page copy with a technical status
-            surface. Values hydrate from the local manifest and can be generated
-            from the kernel repository during a future release pipeline.
+            This technical status surface is generated from a verified public
+            kernel snapshot. The sync revision and frozen evidence revision are
+            intentionally shown as separate records.
           </p>
         </div>
 
         <div class="dashboard-grid">
           <article class="metric">
-            <span>Version Tag</span>
+            <span>Sync Snapshot</span>
             <strong><a data-link="version" href="https://github.com/fenrualabs/fenrua-kernel/commit/390f7ae" data-kernel-field="versionTag">v.390f7ae</a></strong>
+          </article>
+          <article class="metric">
+            <span>Frozen Evidence</span>
+            <strong><a data-link="evidence-revision" href="https://github.com/fenrualabs/fenrua-kernel/commit/85ecc97c" data-kernel-field="evidenceRevisionTag">evidence 85ecc97c</a></strong>
           </article>
           <article class="metric metric-pass">
             <span>Audit Resolution</span>
@@ -287,13 +291,53 @@ privacy: no analytics, no beacons, no third-party scripts</code></pre>
             <small><code>regression_001_p521_sub_overflow.bin</code></small>
           </article>
           <article class="metric metric-wide">
+            <span>Differential Campaign</span>
+            <strong data-kernel-field="differentialSummary">500,000 field pairs · 200,000 encodings · 100,000 digests</strong>
+          </article>
+          <article class="metric metric-wide">
             <span>Telemetry Source</span>
             <strong data-kernel-field="statusSource">kernel-status.js</strong>
+            <small data-kernel-field="lastSynced">Preparing verified snapshot</small>
           </article>
           <article class="metric metric-wide">
             <span>Integrity Boundary</span>
             <strong>Not certified. Not formally verified.</strong>
           </article>
+        </div>
+      </section>
+
+      <section id="regression-telemetry" class="section-shell" aria-labelledby="regression-telemetry-title">
+        <div class="section-heading">
+          <p class="eyebrow">PERMANENT DIFFERENTIAL REGRESSIONS</p>
+          <h2 id="regression-telemetry-title">Regression Evidence Snapshot</h2>
+          <p>
+            Build-time telemetry records the regression result, fixture integrity,
+            and commit-pinned evidence. The public dashboard never renders raw
+            fixture bytes, operands, witnesses, or proving artifacts.
+          </p>
+        </div>
+
+        <div class="registry" role="region" aria-label="Permanent regression evidence" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Permanent Regression</th>
+                <th scope="col">Scope</th>
+                <th scope="col">Result</th>
+                <th scope="col">Fixture Integrity</th>
+                <th scope="col">Evidence</th>
+              </tr>
+            </thead>
+            <tbody id="regression-registry">
+              <tr>
+                <td>regression-order-sub-cross-limb-borrow</td>
+                <td>N521_ORDER · subtract-mod-n</td>
+                <td>Preparing verified result</td>
+                <td><code>regression_001_p521_sub_overflow.bin</code></td>
+                <td>Preparing pinned evidence links</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
