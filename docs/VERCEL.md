@@ -34,6 +34,14 @@ manifest binds only the listed public static artifacts to that source commit;
 it never prints credentials, project identifiers, or protected operational
 data.
 
+`vercel.json` is non-secret, reviewable deployment configuration and remains at
+the project root because Vercel loads project configuration from there. Local
+CLI linkage metadata such as `.vercel/project.json` is not a deployment
+artifact, is excluded from upload, and is rejected by the public-source secret
+boundary. Non-interactive tooling must use externally supplied
+`VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` values so no local linkage file is
+required in this repository.
+
 ## Domain
 
 In Vercel, open the project, go to **Settings -> Domains**, and add:
@@ -41,6 +49,10 @@ In Vercel, open the project, go to **Settings -> Domains**, and add:
 - `fenrua.ai` as the canonical production domain
 - `www.fenrua.ai` as an alias; the committed host-specific redirect sends every
   `www` request permanently to `https://fenrua.ai`
+
+The stable `fenrua-web.vercel.app` hostname also redirects to the canonical
+domain. Branch and unique preview hostnames remain inspectable for release
+review and receive `X-Robots-Tag: noindex, nofollow, noarchive`.
 
 Do not add project IDs, organisation IDs, credentials, tokens, or other project
 internals to this repository.

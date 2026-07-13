@@ -338,6 +338,23 @@ test("Public intro and mobile header stay within the unified geometry contract",
   assertBoundary();
 });
 
+test("Global footer exposes verified profiles and the business contact without overflow", async ({ page }) => {
+  const assertBoundary = protectLiveBoundary(page);
+  await mockPublicMonitor(page, monitorPayload());
+  await page.setViewportSize({ width: 375, height: 812 });
+  await gotoPublic(page, "/");
+  const footer = page.locator(".site-footer");
+  await footer.scrollIntoViewIfNeeded();
+  await expect(footer.locator('a[href="mailto:partnerships@fenrua.ai"]')).toHaveText("partnerships@fenrua.ai");
+  await expect(footer.getByRole("link", { name: "X", exact: true })).toHaveAttribute("href", "https://x.com/FenruaLabs");
+  await expect(footer.getByRole("link", { name: "LinkedIn", exact: true })).toHaveAttribute(
+    "href",
+    "https://www.linkedin.com/in/fenrua-labs-80b679388",
+  );
+  await noHorizontalOverflow(page);
+  assertBoundary();
+});
+
 test("Legal Centre publishes the verified company identity without a transaction surface", async ({ page }) => {
   const assertBoundary = protectLiveBoundary(page);
   const payload = monitorPayload();

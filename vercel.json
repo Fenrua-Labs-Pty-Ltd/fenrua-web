@@ -98,6 +98,21 @@
       ]
     },
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:fenrua-web-[a-z0-9-]+|fenrua-[a-z0-9]+-fenrualabs-projects)\\.vercel\\.app"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
       "source": "/data/(.*)",
       "headers": [
         {
@@ -114,7 +129,7 @@
         {
           "type": "header",
           "key": "host",
-          "value": "(?:fenrua-web(?:-[a-z0-9-]+)?|fenrua-[a-z0-9]+-fenrualabs-projects)\\.vercel\\.app"
+          "value": "fenrua-web\\.vercel\\.app"
         }
       ],
       "destination": "https://fenrua.ai/$1",

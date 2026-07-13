@@ -2204,6 +2204,12 @@ tr:last-child td {
   color: var(--text);
 }
 
+.footer-social p a {
+  color: inherit;
+  overflow-wrap: anywhere;
+  text-underline-offset: 0.18em;
+}
+
 .footer-links {
   display: flex;
   flex-wrap: wrap;

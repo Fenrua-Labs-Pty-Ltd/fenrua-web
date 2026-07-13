@@ -137,7 +137,11 @@ for (const file of htmlArtifacts) {
   assert.equal(organization.address.postalCode, "2007");
   assert.equal(organization.contactPoint.email, "partnerships@fenrua.ai");
   assert.equal(organization.url, `${canonicalOrigin}/`);
-  assert.ok(organization.sameAs?.includes("https://github.com/fenrualabs"));
+  assert.deepEqual(organization.sameAs, [
+    "https://github.com/fenrualabs",
+    "https://x.com/FenruaLabs",
+    "https://www.linkedin.com/in/fenrua-labs-80b679388",
+  ]);
 
   const discovery = JSON.parse(structuredData[1][1]);
   const graphByType = new Map(discovery["@graph"].map((entry) => [entry["@type"], entry]));

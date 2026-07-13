@@ -41,6 +41,13 @@ assert.equal(company.legalName, "FENRUA LABS PTY LTD");
 assert.equal(company.abn, "62 700 182 663");
 assert.equal(company.acn, "700 182 663");
 assert.equal(company.gstStatus, "Registered from 2026-07-13");
+assert.equal(company.publicContact, "partnerships@fenrua.ai");
+assert.deepEqual(company.publicProfiles, [
+  { provider: "github", label: "GitHub", url: "https://github.com/fenrualabs" },
+  { provider: "x", label: "X", url: "https://x.com/FenruaLabs" },
+  { provider: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/fenrua-labs-80b679388" },
+]);
+assert.equal(company.publicProfilesVerifiedAt, "2026-07-14");
 
 assert.equal(register.schemaVersion, "fenrua.public-document-register.v1");
 for (const record of register.records) {
@@ -73,12 +80,25 @@ const wwwRedirect = vercel.redirects.find(
 assert.equal(wwwRedirect?.source, "/(.*)");
 assert.equal(wwwRedirect?.permanent, true);
 assert.deepEqual(wwwRedirect?.has, [{ type: "header", key: "host", value: "www\\.fenrua\\.ai" }]);
-const vercelAliasRedirect = vercel.redirects.find(
-  (entry) => entry.has?.[0]?.value === "(?:fenrua-web(?:-[a-z0-9-]+)?|fenrua-[a-z0-9]+-fenrualabs-projects)\\.vercel\\.app"
+const previewHostPattern = "(?:fenrua-web-[a-z0-9-]+|fenrua-[a-z0-9]+-fenrualabs-projects)\\.vercel\\.app";
+const previewHeader = vercel.headers.find(
+  (entry) => entry.has?.[0]?.type === "host" && entry.has[0].value === previewHostPattern,
 );
-assert.equal(vercelAliasRedirect?.source, "/(.*)");
-assert.equal(vercelAliasRedirect?.destination, "https://fenrua.ai/$1");
-assert.equal(vercelAliasRedirect?.permanent, true);
+assert.ok(previewHeader?.headers.some(
+  (header) => header.key === "X-Robots-Tag" && header.value === "noindex, nofollow, noarchive",
+));
+const stableVercelAliasRedirect = vercel.redirects.find(
+  (entry) => entry.has?.[0]?.value === "fenrua-web\\.vercel\\.app",
+);
+assert.equal(stableVercelAliasRedirect?.source, "/(.*)");
+assert.equal(stableVercelAliasRedirect?.destination, "https://fenrua.ai/$1");
+assert.equal(stableVercelAliasRedirect?.permanent, true);
+assert.equal(
+  vercel.redirects.some((entry) => entry.has?.[0]?.value === previewHostPattern),
+  false,
+  "Preview deployments must remain inspectable and must not redirect to production.",
+);
+assert.match(read(".vercelignore"), /(?:^|\n)\.vercel(?:\n|$)/, "Vercel CLI linkage metadata must never enter deployment input.");
 for (const [source, destination] of [
   ["/nexus", "/architecture"],
   ["/nexus/fenchain", "/status"],

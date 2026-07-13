@@ -24,6 +24,24 @@
   "regulator": "Australian Securities & Investments Commission",
   "nextReviewDate": "2027-07-13",
   "publicContact": "partnerships@fenrua.ai",
+  "publicProfiles": [
+    {
+      "provider": "github",
+      "label": "GitHub",
+      "url": "https://github.com/fenrualabs"
+    },
+    {
+      "provider": "x",
+      "label": "X",
+      "url": "https://x.com/FenruaLabs"
+    },
+    {
+      "provider": "linkedin",
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/fenrua-labs-80b679388"
+    }
+  ],
+  "publicProfilesVerifiedAt": "2026-07-14",
   "registrySources": [
     {
       "authority": "Australian Business Register",

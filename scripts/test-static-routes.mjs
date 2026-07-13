@@ -31,6 +31,17 @@ for (const route of routes) {
   assert.match(html, /<small>by Fenrua Labs Pty Ltd<\/small>/, `${route} must identify the registered operator`);
   assert.match(html, /<a class="nav-legal" href="\/legal"(?: aria-current="page")?>Legal<\/a>\s*<\/nav>/, `${route} must keep Legal as the dedicated final primary-navigation item`);
   assert.match(html, /href="\/#commercial-boundary-title">Service boundary<\/a>/, `${route} must link to the canonical service boundary`);
+  assert.ok(
+    html.includes('Business enquiries: <a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a>'),
+    `${route} must expose the public business contact`,
+  );
+  for (const [label, url] of [
+    ["GitHub", "https://github.com/fenrualabs"],
+    ["X", "https://x.com/FenruaLabs"],
+    ["LinkedIn", "https://www.linkedin.com/in/fenrua-labs-80b679388"],
+  ]) {
+    assert.ok(html.includes(`<a href="${url}" rel="me">${label}</a>`), `${route} must expose the verified ${label} profile`);
+  }
   assert.doesNotMatch(html, />Loading registry</, `${route} must not ship an empty loading registry`);
 }
 

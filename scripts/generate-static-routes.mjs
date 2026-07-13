@@ -15,6 +15,18 @@ const registryHash = createHash("sha256").update(registryRaw).digest("hex");
 const siteEvidenceRaw = readFileSync(siteEvidencePath, "utf8");
 const siteEvidence = JSON.parse(siteEvidenceRaw);
 const company = JSON.parse(readFileSync(companyIdentityPath, "utf8"));
+if (
+  !Array.isArray(company.publicProfiles)
+  || company.publicProfiles.length !== 3
+  || !company.publicProfiles.every((profile) => (
+    typeof profile.provider === "string"
+    && typeof profile.label === "string"
+    && typeof profile.url === "string"
+    && profile.url.startsWith("https://")
+  ))
+) {
+  throw new Error("data/company-identity.json must contain the three verified public profiles.");
+}
 const documentRegister = JSON.parse(readFileSync(documentRegisterPath, "utf8"));
 const kernelStatusSource = readFileSync(kernelStatusPath, "utf8");
 const kernelStatusMatch = kernelStatusSource.match(/\/\* KERNEL_STATUS_START \*\/\s*const kernelStatus = (\{[\s\S]*?\});\s*\/\* KERNEL_STATUS_END \*\//);
@@ -494,7 +506,7 @@ const organizationJsonLd = JSON.stringify(
       email: company.publicContact,
     },
     description: "Fenrua Labs researches, develops, and provides AI efficiency infrastructure software and related technology services.",
-    sameAs: ["https://github.com/fenrualabs"],
+    sameAs: company.publicProfiles.map((profile) => profile.url),
   },
   null,
   2
@@ -624,11 +636,11 @@ ${body}
         <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
       </div>
       <div class="footer-social">
-        <p>Public claims are bounded by public evidence.</p>
-        <div class="footer-links">
+        <p>Business enquiries: <a href="mailto:${attr(company.publicContact)}">${esc(company.publicContact)}</a></p>
+        <div class="footer-links" aria-label="Company links and verified public profiles">
           <a href="/legal">Legal &amp; company</a>
           <a href="/#commercial-boundary-title">Service boundary</a>
-          <a href="mailto:${attr(company.publicContact)}">Contact</a>
+          ${company.publicProfiles.map((profile) => `<a href="${attr(profile.url)}" rel="me">${esc(profile.label)}</a>`).join("\n          ")}
           <a href="/audit">Audit</a>
           <a href="/evidence">Evidence</a>
           <a href="/toolchain">Toolchain</a>
