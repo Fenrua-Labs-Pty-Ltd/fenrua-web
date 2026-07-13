@@ -86,6 +86,11 @@ jobs:
         with:
           node-version: 24.18.0
 
+      - name: Set up exact release npm
+        run: |
+          npm install --global --ignore-scripts npm@11.18.0
+          npm --version
+
       - name: Install locked dependencies without lifecycle scripts
         run: npm ci --ignore-scripts
 
@@ -209,6 +214,11 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 24.18.0
+
+      - name: Set up exact release npm
+        run: |
+          npm install --global --ignore-scripts npm@11.18.0
+          npm --version
 
       - name: Install locked dependencies without lifecycle scripts
         run: npm ci --ignore-scripts

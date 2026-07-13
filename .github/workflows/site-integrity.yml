@@ -29,6 +29,11 @@ jobs:
         with:
           node-version: 24.18.0
 
+      - name: Set up exact release npm
+        run: |
+          npm install --global --ignore-scripts npm@11.18.0
+          npm --version
+
       - name: Install locked dependencies
         run: npm ci --ignore-scripts
 
