@@ -7,73 +7,79 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/architecture/</loc>
+    <loc>https://fenrua.ai/architecture</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/kernel/</loc>
+    <loc>https://fenrua.ai/kernel</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/utilities/</loc>
+    <loc>https://fenrua.ai/utilities</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/research/</loc>
+    <loc>https://fenrua.ai/research</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/research/pn521-cross-limb-borrow/</loc>
+    <loc>https://fenrua.ai/research/pn521-cross-limb-borrow</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/research/toolchain-evidence-lock/</loc>
+    <loc>https://fenrua.ai/research/toolchain-evidence-lock</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/research/read-only-chain-observation/</loc>
+    <loc>https://fenrua.ai/research/read-only-chain-observation</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/verify/</loc>
+    <loc>https://fenrua.ai/verify</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/developers/</loc>
+    <loc>https://fenrua.ai/developers</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/toolchain/</loc>
+    <loc>https://fenrua.ai/toolchain</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/evidence/</loc>
+    <loc>https://fenrua.ai/evidence</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fenrua.ai/status/</loc>
+    <loc>https://fenrua.ai/audit</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fenrua.ai/status</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

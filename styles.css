@@ -109,6 +109,11 @@ main {
   z-index: 1;
 }
 
+/* Keep live chain-observation cards unchanged while meeting AA contrast on static content. */
+main > section:not(#chain-progress) {
+  --dim: #7d8581;
+}
+
 .site-header {
   display: flex;
   align-items: center;
@@ -1101,7 +1106,7 @@ h3 {
 }
 
 .flow-grid article span,
-.toolchain-summary span {
+.toolchain-summary > article > span {
   display: inline-flex;
   margin-bottom: 1rem;
   color: var(--blue);
@@ -1275,6 +1280,10 @@ h3 {
   color: var(--text);
   font-size: 1.45rem;
   line-height: 1;
+}
+
+.state-grid {
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 }
 
 .status-badge {
@@ -1793,9 +1802,17 @@ h3 {
   min-height: 12rem;
 }
 
-.state-grid article p,
-.state-grid article small {
+.state-grid article p {
   color: var(--muted);
+}
+
+.state-grid article small {
+  display: block;
+  color: var(--muted);
+}
+
+.state-grid .timestamp-inline {
+  margin: 0.4rem 0;
 }
 
 .registry-tools input:focus {
@@ -1809,6 +1826,12 @@ h3 {
   border: 1px solid var(--line);
   border-radius: 8px;
   scrollbar-color: var(--line-strong) transparent;
+}
+
+.registry[tabindex]:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  scrollbar-color: var(--blue) transparent;
 }
 
 table {
@@ -2124,9 +2147,12 @@ tr:last-child td {
   .doc-grid,
   .route-grid,
   .toolchain-meta,
-  .toolchain-summary,
   .lifecycle-list {
     grid-template-columns: 1fr;
+  }
+
+  .toolchain-summary:not(.state-grid) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .spec-panel-wide {
@@ -2139,6 +2165,10 @@ tr:last-child td {
 }
 
 @media (max-width: 700px) {
+  .toolchain-summary:not(.state-grid) {
+    grid-template-columns: 1fr;
+  }
+
   .mobile-data-notice {
     display: block;
     margin: 0 0 0.85rem;
@@ -2310,6 +2340,7 @@ tr:last-child td {
 
   .evidence-table td:nth-child(3),
   .evidence-table td:nth-child(5) {
+    min-width: 0;
     padding-right: 0.85rem;
   }
 }
@@ -2392,68 +2423,6 @@ tr:last-child td {
     padding: 1.25rem;
   }
 
-  .evidence-table,
-  .status-table {
-    overflow-x: visible;
-    border: 0;
-  }
-
-  .evidence-table table,
-  .evidence-table tbody,
-  .evidence-table tr,
-  .evidence-table td,
-  .status-table table,
-  .status-table tbody,
-  .status-table tr,
-  .status-table td {
-    display: block;
-    width: 100%;
-    min-width: 0;
-  }
-
-  .evidence-table table,
-  .status-table table {
-    background: transparent;
-  }
-
-  .evidence-table thead,
-  .status-table thead {
-    display: none;
-  }
-
-  .evidence-table tr,
-  .status-table tr {
-    margin-bottom: 0.75rem;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--panel);
-    padding: 0.35rem 0;
-  }
-
-  .evidence-table td,
-  .status-table td {
-    border-bottom: 0;
-    padding: 0.62rem 0.85rem;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  .evidence-table td::before,
-  .status-table td::before {
-    display: block;
-    margin-bottom: 0.2rem;
-    color: var(--blue);
-    content: attr(data-label);
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  .evidence-table td:nth-child(3),
-  .evidence-table td:nth-child(5) {
-    padding-right: 0.85rem;
-  }
-
   .filter-groups button {
     flex: 1 1 10rem;
     width: auto;
@@ -2477,5 +2446,41 @@ tr:last-child td {
     scroll-behavior: auto !important;
     transition: none !important;
     animation: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .registry,
+  .utility-table,
+  .spec-table,
+  .toolchain-summary article,
+  .state-grid article {
+    border-color: CanvasText;
+    background: Canvas;
+  }
+
+  .registry :is(th, td),
+  .utility-table :is(th, td),
+  .spec-table :is(th, td) {
+    border-color: CanvasText;
+  }
+
+  .registry a,
+  .utility-table a,
+  .spec-table a {
+    color: LinkText;
+    text-decoration: underline;
+  }
+
+  .registry :is(button, input),
+  .utility-table :is(button, input),
+  .spec-table :is(button, input) {
+    border-color: ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .registry[tabindex]:focus-visible {
+    outline-color: Highlight;
   }
 }

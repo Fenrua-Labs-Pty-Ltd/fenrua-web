@@ -1,0 +1,180 @@
+{
+  "schemaVersion": "fenrua.public-document-register.v1",
+  "generatedAt": "2026-07-13T06:50:00Z",
+  "canonicalAuditPath": "/audit",
+  "records": [
+    {
+      "id": "site-evidence-input",
+      "status": "active",
+      "path": "data/site-evidence.json",
+      "replacementPath": "/audit",
+      "contentSha256": "70d3cd489e3529af1b6fb8ddc1f7bd79513871963272bb9721ad541063fcb0f8"
+    },
+    {
+      "id": "access-only-commercial-boundary",
+      "status": "active",
+      "path": "docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md",
+      "replacementPath": "/audit",
+      "contentSha256": "634cf690f4d8dac5750e9c0d8d7d315ff851a2663651e6065615e47ae3add3d1"
+    },
+    {
+      "id": "public-document-register",
+      "status": "active",
+      "path": "data/public-document-register.json",
+      "replacementPath": "/audit"
+    },
+    {
+      "id": "legacy-security-audit-log",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/SECURITY_AUDIT_LOG.md",
+      "formerPath": "docs/SECURITY_AUDIT_LOG.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "05d8c9accc2d7ce7f6f3222d88803ad5e8ce18a0c7177bca651996d88141eb69"
+    },
+    {
+      "id": "legacy-genesis-manifest",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/GENESIS_MANIFEST.md",
+      "formerPath": "docs/GENESIS_MANIFEST.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "0e76ab9bcec2294737d98ba8033a338fa722f4b0b5b959cb91e1e87796161c75"
+    },
+    {
+      "id": "legacy-regression-history",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/REGRESSION_HISTORY.md",
+      "formerPath": "docs/REGRESSION_HISTORY.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "9ad315370166fbe34f85b29c6171320ea2dd6fbae64fc75b56753fe3cda466b4"
+    },
+    {
+      "id": "legacy-audit-report-json",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/audit-report.json",
+      "formerPath": "docs/audit-report.json",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "9fabc47936cfd3c0a10c4ae571cd74fc857c0167baf20fd6efe151148e52e927"
+    },
+    {
+      "id": "legacy-deployment-notes",
+      "status": "superseded",
+      "path": "docs/archive/2026-07-13/DEPLOYMENT.md",
+      "formerPath": "docs/DEPLOYMENT.md",
+      "replacementPath": "docs/VERCEL.md",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "4080bd89b4ebaa08061db5d05e1e1c72f0c9d7f99f86154367f0d21afe726256"
+    },
+    {
+      "id": "legacy-contract-evidence-boundary",
+      "status": "superseded",
+      "path": "docs/archive/2026-07-13/FENRUA_CONTRACT_EVIDENCE_REFRESH_BOUNDARY.md",
+      "formerPath": "docs/FENRUA_CONTRACT_EVIDENCE_REFRESH_BOUNDARY.md",
+      "replacementPath": "docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "448b8af5179ad9dbd15076512663c63fe04b5b4c00d26bf01e074b930050e8bf"
+    },
+    {
+      "id": "legacy-public-claim-evidence-register",
+      "status": "superseded",
+      "path": "docs/archive/2026-07-13/FENRUA_PUBLIC_CLAIM_EVIDENCE_REGISTER.md",
+      "formerPath": "docs/FENRUA_PUBLIC_CLAIM_EVIDENCE_REGISTER.md",
+      "replacementPath": "data/site-evidence.json",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "9df5426f43cde253a6e352b889e6f68b19289fe09109ef8e1fe204b76703718a"
+    },
+    {
+      "id": "legacy-evidence-reconciliation",
+      "status": "superseded",
+      "path": "docs/archive/2026-07-13/FENRUA_V2_EVIDENCE_RECONCILIATION.md",
+      "formerPath": "docs/FENRUA_V2_EVIDENCE_RECONCILIATION.md",
+      "replacementPath": "data/site-evidence.json",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "64cccc790f7693403164da0977e45e63820071258f21d29a0a9e676525a6b561"
+    },
+    {
+      "id": "legacy-layer0-implementation-report",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md",
+      "formerPath": "docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "987644bfdc81067f800aeeec6e1a21724306d28ea94b8d8bd63c31623266961a"
+    },
+    {
+      "id": "legacy-current-live-reaudit",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/FENRUA_CURRENT_LIVE_REAUDIT_2026-07-13.md",
+      "formerPath": "docs/FENRUA_CURRENT_LIVE_REAUDIT_2026-07-13.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "460b9934556113c6efc8401fdef9012e90f7ffbb98e8e3dd29d84fe5dd6385dc"
+    },
+    {
+      "id": "legacy-final-implementation-report",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/FENRUA_FINAL_IMPLEMENTATION_REPORT.md",
+      "formerPath": "docs/FENRUA_FINAL_IMPLEMENTATION_REPORT.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "6cb500e559269294cede47d05eebb9e88513d014221a73cca23d410cda8b0fef"
+    },
+    {
+      "id": "legacy-v2-final-audit-gate",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/FENRUA_V2_FINAL_AUDIT_GATE.md",
+      "formerPath": "docs/FENRUA_V2_FINAL_AUDIT_GATE.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "7d5b915103e366c0926050dfe4176ea5be84e56e9abb6a560cc65dd9faae278f"
+    },
+    {
+      "id": "legacy-v2-remaining-limitations",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/FENRUA_V2_REMAINING_LIMITATIONS.md",
+      "formerPath": "docs/FENRUA_V2_REMAINING_LIMITATIONS.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "848dbcf9fc1ae2908c882316aaad8bbd79f8db50171bb93ac3f1d4c29ec0cf4e"
+    },
+    {
+      "id": "legacy-v2-roadmap",
+      "status": "superseded",
+      "path": "docs/archive/2026-07-13/FENRUA_V2_ROADMAP_TO_TRUE_10.md",
+      "formerPath": "docs/FENRUA_V2_ROADMAP_TO_TRUE_10.md",
+      "replacementPath": "docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "0b8bb640f7fc14a331ac3f2de5e83300bb11ce14924222c3a813fe5045f57233"
+    },
+    {
+      "id": "legacy-v2-architecture-report",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/FENRUA_V2_ARCHITECTURE_REPORT.md",
+      "formerPath": "docs/FENRUA_V2_ARCHITECTURE_REPORT.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "9d7a31c68a981aa55b4b1983a00663f782652b1ac4c2cbd3b08076f45d5c3a88"
+    },
+    {
+      "id": "legacy-v2-ux-report",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/FENRUA_V2_UX_REPORT.md",
+      "formerPath": "docs/FENRUA_V2_UX_REPORT.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "f1f6be8f0eb99c5a0c17941547fdebc35e93362441e95959c86c6cef923b5401"
+    },
+    {
+      "id": "legacy-v2-accessibility-report",
+      "status": "archived",
+      "path": "docs/archive/2026-07-13/FENRUA_V2_ACCESSIBILITY_REPORT.md",
+      "formerPath": "docs/FENRUA_V2_ACCESSIBILITY_REPORT.md",
+      "replacementPath": "/audit",
+      "archivedAt": "2026-07-13T06:50:00Z",
+      "contentSha256": "eb40a0b3ec0991e7d791fd47e16abe6b747e8f8bbb32aa736303dae7ad0ae919"
+    }
+  ]
+}

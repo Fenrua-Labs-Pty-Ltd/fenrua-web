@@ -1,5 +1,5 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { resolve, dirname, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -9,7 +9,7 @@ const missing = [];
 function htmlFiles(dir = root) {
   const files = [];
   for (const entry of readdirSync(dir)) {
-    if (entry === ".git" || entry === "deliverables") continue;
+    if (entry === ".git" || entry === "deliverables" || entry === "node_modules" || entry === "playwright-report" || entry === "test-results") continue;
     const full = resolve(dir, entry);
     const stat = statSync(full);
     if (stat.isDirectory()) files.push(...htmlFiles(full));
@@ -26,6 +26,10 @@ for (const htmlPath of htmlFiles()) {
   for (const match of html.matchAll(linkPattern)) {
     const target = match[1];
 
+    // This file is intentionally generated only by the release build, after
+    // the deterministic static-surface checks have passed.
+    if (target === "/.well-known/fenrua-release.json") continue;
+
     if (
       target === "/" ||
       target.startsWith("#") ||
@@ -38,7 +42,10 @@ for (const htmlPath of htmlFiles()) {
 
     const [path] = target.split("#");
     const resolvedPath = path.endsWith("/") ? `${path}index.html` : path;
-    const resolved = resolvedPath.startsWith("/") ? resolve(root, `.${resolvedPath}`) : resolve(base, resolvedPath);
+    let resolved = resolvedPath.startsWith("/") ? resolve(root, `.${resolvedPath}`) : resolve(base, resolvedPath);
+    if (!existsSync(resolved) && resolvedPath.startsWith("/") && !extname(resolvedPath)) {
+      resolved = resolve(root, `.${resolvedPath}`, "index.html");
+    }
     if (!existsSync(resolved)) {
       missing.push(`${htmlFile}: ${target}`);
     }

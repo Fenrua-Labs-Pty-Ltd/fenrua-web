@@ -18,11 +18,11 @@ const requiredStatuses = [
 assert.equal(registry.schemaVersion, "fenrua.toolchain-registry.v1");
 assert.ok(Array.isArray(registry.tools) && registry.tools.length > 80, "tool registry must include the public inventory");
 assert.deepEqual(registry.statusVocabulary, requiredStatuses);
-assert.equal(registry.evidenceLockIntegrityPolicy.postEvidenceMutation.toolchainUpdatesPerformed, false);
 assert.match(
   registry.evidenceLockIntegrityPolicy.projectDependencyReview.fenruaWebDependencyDrift,
-  /No dependency drift observed/
+  /Pinned Playwright and Vercel development dependencies/
 );
+assert.equal(registry.evidenceLockIntegrityPolicy.postEvidenceMutation.toolchainUpdatesPerformed, true);
 
 const byName = new Map(registry.tools.map((tool) => [tool.tool, tool]));
 
@@ -39,6 +39,12 @@ assert.doesNotMatch(snarkjs.detectedVersion, /1\.13\.8/);
 
 const node = byName.get("Node.js");
 assert.equal(node?.evidenceProduced, true);
+
+const playwright = byName.get("Playwright");
+assert.equal(playwright?.detectedVersion, "@playwright/test 1.61.1");
+assert.equal(playwright?.status, "INSTALLED_EXECUTED_EVIDENCE_PRODUCING");
+assert.equal(playwright?.evidenceProduced, true);
+assert.match(playwright?.limitations ?? "", /homepage live cards, APIs, and protected systems are excluded/i);
 
 const serialized = JSON.stringify(registry);
 for (const forbidden of ["/home/", "/mnt/d/", "samue", "FENCHAIN_RPC_URL", "ghp_", "sk-", "AKIA"]) {

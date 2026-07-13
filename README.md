@@ -1,19 +1,43 @@
 # fenrua-web
 
-Canonical static Protocol Explorer for `fenrua.ai`.
+Canonical public website and evidence interface for `fenrua.ai`.
 
-## First Evidence Link
+## Current Public Evidence
 
-- [Security Audit Log](docs/SECURITY_AUDIT_LOG.md)
+- [Current public audit](/audit)
+- [Release manifest](/.well-known/fenrua-release.json)
+- [Site-evidence input](data/site-evidence.json)
+- [Public document register](data/public-document-register.json)
 
 This repo is a standalone website for Fenrua Labs and the `fenrua-kernel`
 evidence surface. It uses plain HTML, one CSS file, a local SVG asset, and one
 local JavaScript manifest for status hydration.
 
+## Commercial Boundary
+
+Fenrua Labs Pty Ltd provides access to AI security infrastructure software,
+related technology services, and evidence-aware intelligence workflows through
+tiered service subscriptions and client-specific business agreements only.
+
+Fenrua Labs Pty Ltd does not offer investments, token crowdfunding, securities,
+bonds, equity, debt, managed investment interests, profit-sharing arrangements,
+revenue-sharing arrangements, yield products, exchange products, trading
+products, or any financial-return scheme. Neither a subscription nor a
+client-specific business agreement gives, promises, expects, entitles, or
+represents profit, return, token appreciation, token allocation, liquidity,
+resale value, dividends, buyback rights, or ownership in Fenrua Labs Pty Ltd.
+
+Fenrua Labs Pty Ltd does not operate a market, exchange, order book, trading
+venue, or public swap product. It does not provide financial, investment, legal,
+tax, professional, or other advice, or any recommendation to buy, sell, hold,
+trade, or rely on an asset for financial gain. See the full
+[access-only commercial boundary](docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md).
+
 The public site now exposes Fenrua's Layer 0 AI security architecture,
 security-kernel model, standalone route system, toolchain registry, claim
-register, maturity register, verifier foundation, evidence registry, and
-contract evidence refresh boundary.
+register, maturity register, verifier foundation, and evidence registry. Its
+current non-live commercial and document boundaries are recorded separately from
+the live block-card surfaces.
 
 Collaboration contact: `partnerships@fenrua.ai`.
 
@@ -33,44 +57,63 @@ the server-only variable names from `.env.example`; never commit their values.
 ## Canonical Website
 
 `fenrua-web` is the canonical public website for Fenrua Labs. Production
-publishes through the existing Vercel project `fenrua-commons`, which owns
+publishes through the existing Vercel project `fenrua-web`, which owns
 `fenrua.ai`.
 
 ## Utility Standard
 
 - `fenrua-kernel` is the bedrock research artifact.
-- `fenrua-web` is the reproducible protocol interface.
-- Releases are identified by evidence commit, not marketing name.
-- `bedrock-source` and `evidence-commit` stay separated for future releases.
+- `fenrua-web` is the reproducible public website and evidence interface.
+- Public release evidence is limited to the static artifacts listed in its
+  release manifest and audit scope.
+- `bedrock-source` and release provenance stay separated from marketing claims.
 - Do not claim "Certified" or "Formally Verified" until the math is complete
   and external audits are signed.
 
 ## Local Validation
 
-No build step is required.
-
-Open `index.html` directly in a browser, or serve the folder with any static
-file server.
-
-Use Node 24 for validation and publishing:
+Use Node 24 and the committed lockfile:
 
 ```bash
+npm ci
+npm run generate:static
 npm run validate
 ```
 
-Regenerate the static routes after changing route data or the toolchain
-registry:
+`npm run validate` rejects stale generated routes and validates only the
+permitted public/static scope. `npm run release:check` additionally generates
+and verifies the release manifest, then runs browser checks only for Evidence,
+Status, Toolchain, and Verify. It never loads the homepage live-card surface.
+
+## Owner-only Release
+
+An owner approves the validated `main` commit, confirms that Vercel exposes
+`VERCEL_GIT_COMMIT_SHA`, and runs the pinned production command from a clean
+checkout. The production command refuses any branch other than `main`, and the
+manifest generator refuses a dirty checkout except for explicit local,
+non-deployment validation.
+
+After deployment, run the read-only public observation:
 
 ```bash
-npm run generate:static
+npm run audit:live-release -- --url https://fenrua.ai --expected-commit <40-character-commit>
 ```
+
+The receipt proves only the observed public static artifact set at that time;
+it is not evidence for live cards, APIs, private systems, or a perpetual
+production assertion.
 
 ## Files
 
 - `index.html` - protocol explorer
 - `styles.css` - terminal-grade dark-mode reset and interface styling
 - `kernel-status.js` - local telemetry and registry manifest
+- `data/site-evidence.json` - deterministic non-live commercial and evidence input
+- `data/public-document-register.json` - public active/archive document register
 - `data/toolchain-registry.json` - public machine-readable toolchain registry
+- `scripts/generate-release-manifest.mjs` - release-only public static artifact manifest
+- `scripts/audit-live-release.mjs` - read-only post-deploy public artifact audit
+- `tests/browser/non-live-public-surface.spec.mjs` - non-live browser regression coverage
 - `toolchain/index.html` - searchable public toolchain route
 - `architecture/index.html` - standalone architecture route
 - `kernel/index.html` - standalone security-kernel route
@@ -85,17 +128,11 @@ npm run generate:static
 - `api/chain-observation-key.js` - Chain 978 public Ed25519 verification metadata endpoint
 - `api/chain-n521-observation-key.js` - Chain N521 public Ed25519 verification metadata endpoint
 - `assets/sigil.svg` - local Fenrua mark
-- `docs/SECURITY_AUDIT_LOG.md` - audit log
-- `docs/GENESIS_MANIFEST.md` - Genesis Manifest Record
-- `docs/REGRESSION_HISTORY.md` - regression coverage record
-- `docs/audit-report.json` - machine-readable audit summary
-- `docs/DEPLOYMENT.md` - hosting notes
+- `docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md` - access-only service statement
+- `docs/archive/2026-07-13/` - superseded, noindex public-document records
 - `docs/VERCEL.md` - Vercel publishing notes for `fenrua.ai`
 - `docs/UTILITY_STANDARD.md` - repository operating standard
 - `docs/FENRUA_TOOLCHAIN_LOCK.md` - public toolchain lock
-- `docs/FENRUA_PUBLIC_CLAIM_EVIDENCE_REGISTER.md` - public claim register
-- `docs/FENRUA_CONTRACT_EVIDENCE_REFRESH_BOUNDARY.md` - contract evidence freeze boundary
-- `docs/FENRUA_V2_FINAL_AUDIT_GATE.md` - V2 evidence matrix and remaining gaps
 
 ## Tracking Policy
 
@@ -104,16 +141,18 @@ tracking scripts. If traffic data is needed, use raw server logs from the host.
 
 ## Production Domain
 
-Publish through Vercel with `fenrua.ai` as the production domain:
+Publish only after the owner-only release checks pass and the source checkout is
+clean. The pinned command targets the canonical `fenrua-web` Vercel project:
 
 ```bash
 npm run deploy:production:node24
 ```
 
-The typo-safe alias also works:
+The typo-safe alias remains available for compatibility:
 
 ```bash
 npm run deploy:prodction:node24
 ```
 
-See [Vercel Publishing](docs/VERCEL.md).
+See [Vercel Publishing](docs/VERCEL.md) and the
+[access-only commercial boundary](docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md).

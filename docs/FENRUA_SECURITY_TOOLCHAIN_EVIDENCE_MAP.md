@@ -17,7 +17,7 @@ The public route is:
 
 | Category | Evidence Role | Public Boundary |
 | --- | --- | --- |
-| Solidity and EVM | Compilation, fuzzing, invariant testing, symbolic execution, static analysis | Contract evidence refresh is pending |
+| Solidity and EVM | Compilation, fuzzing, invariant testing, symbolic execution, static analysis | No public contract or financial-offering evidence is published |
 | ZK and cryptography | Circuit compilation, inspection, witness/proof tooling, cryptographic utilities | Setup and ceremony assumptions must be stated |
 | Application and web | Node validation, static links, public discovery, telemetry tests | Static website validation only |
 | Native compilation | Compiler and runtime inventory for kernel research environment | Version capture is not production assurance |
@@ -41,4 +41,3 @@ website validation pipeline.
 
 Local `snarkjs` version capture and the inspected kernel manifest both report
 `0.7.6`. The adjacent `1.13.8` version in the kernel package is `underscore`.
-

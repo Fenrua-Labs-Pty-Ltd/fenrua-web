@@ -14,6 +14,7 @@ const routes = [
   "developers/index.html",
   "toolchain/index.html",
   "evidence/index.html",
+  "audit/index.html",
   "status/index.html",
 ];
 
@@ -93,12 +94,14 @@ for (const state of ["loading", "success", "partial", "stale", "failure", "pause
   assert.match(status, new RegExp(`data-state="${state}"`), `status page must document ${state}`);
 }
 assert.match(status, /Operational state/);
-assert.match(status, /pending evidence/);
-assert.match(status, /<time datetime="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z">/);
+assert.match(status, /Commercial access/);
+assert.match(status, /Access-only services/);
+assert.match(status, /<time datetime="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z">/);
 assert.match(status, /\d{2}:\d{2}:\d{2} UTC/);
 assert.match(status, /data-relative-time="/);
 assert.match(status, /status-table/);
 assert.match(status, /data-label="Timestamp"/);
+assert.doesNotMatch(status, /<script>\s*\(\(\) =>/, "Status must not ship a CSP-blocked inline relative-time script.");
 
 const evidence = await readFile(new URL("../evidence/index.html", import.meta.url), "utf8");
 assert.match(evidence, /class="hash-copy"/);
@@ -106,6 +109,12 @@ assert.match(evidence, /class="hash-value"/);
 assert.match(evidence, /data-label="Hash"/);
 assert.match(evidence, /data-label="Limitation"/);
 assert.match(evidence, /data-copy-label="Full SHA copied"/);
+
+const audit = await readFile(new URL("../audit/index.html", import.meta.url), "utf8");
+assert.match(audit, /CURRENT PUBLIC RELEASE/);
+assert.match(audit, /STATIC RELEASE SCOPE/);
+assert.match(audit, /\.well-known\/fenrua-release\.json/);
+assert.match(audit, /Fenrua Labs Pty Ltd — access-only services/);
 
 const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
 for (const route of legacyRoutes) {

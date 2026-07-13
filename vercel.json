@@ -1,6 +1,9 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "installCommand": "npm ci --omit=dev",
+  "buildCommand": "npm run build:release",
   "headers": [
     {
       "source": "/(.*)",
@@ -42,6 +45,15 @@
       ]
     },
     {
+      "source": "/docs/archive/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
       "source": "/data/(.*)",
       "headers": [
         {
@@ -51,18 +63,101 @@
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/audit",
-      "destination": "/docs/SECURITY_AUDIT_LOG.md"
-    },
+  "redirects": [
     {
       "source": "/genesis",
-      "destination": "/docs/GENESIS_MANIFEST.md"
+      "destination": "/audit",
+      "permanent": true
     },
     {
       "source": "/regression",
-      "destination": "/docs/REGRESSION_HISTORY.md"
+      "destination": "/audit",
+      "permanent": true
+    },
+    {
+      "source": "/docs/SECURITY_AUDIT_LOG.md",
+      "destination": "/docs/archive/2026-07-13/SECURITY_AUDIT_LOG.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/GENESIS_MANIFEST.md",
+      "destination": "/docs/archive/2026-07-13/GENESIS_MANIFEST.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/REGRESSION_HISTORY.md",
+      "destination": "/docs/archive/2026-07-13/REGRESSION_HISTORY.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/audit-report.json",
+      "destination": "/docs/archive/2026-07-13/audit-report.json",
+      "permanent": true
+    },
+    {
+      "source": "/docs/DEPLOYMENT.md",
+      "destination": "/docs/archive/2026-07-13/DEPLOYMENT.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_CONTRACT_EVIDENCE_REFRESH_BOUNDARY.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_CONTRACT_EVIDENCE_REFRESH_BOUNDARY.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_PUBLIC_CLAIM_EVIDENCE_REGISTER.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_PUBLIC_CLAIM_EVIDENCE_REGISTER.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_V2_EVIDENCE_RECONCILIATION.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_V2_EVIDENCE_RECONCILIATION.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_CURRENT_LIVE_REAUDIT_2026-07-13.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_CURRENT_LIVE_REAUDIT_2026-07-13.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_FINAL_IMPLEMENTATION_REPORT.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_FINAL_IMPLEMENTATION_REPORT.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_V2_FINAL_AUDIT_GATE.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_V2_FINAL_AUDIT_GATE.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_V2_REMAINING_LIMITATIONS.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_V2_REMAINING_LIMITATIONS.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_V2_ROADMAP_TO_TRUE_10.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_V2_ROADMAP_TO_TRUE_10.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_V2_ARCHITECTURE_REPORT.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_V2_ARCHITECTURE_REPORT.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_V2_UX_REPORT.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_V2_UX_REPORT.md",
+      "permanent": true
+    },
+    {
+      "source": "/docs/FENRUA_V2_ACCESSIBILITY_REPORT.md",
+      "destination": "/docs/archive/2026-07-13/FENRUA_V2_ACCESSIBILITY_REPORT.md",
+      "permanent": true
     }
   ]
 }

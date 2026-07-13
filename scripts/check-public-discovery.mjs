@@ -29,8 +29,10 @@ for (const crawler of [
 
 assert.match(robots, /Sitemap: https:\/\/fenrua\.ai\/sitemap\.xml/);
 assert.match(sitemap, /<loc>https:\/\/fenrua\.ai\/<\/loc>/);
-assert.match(sitemap, /<loc>https:\/\/fenrua\.ai\/architecture\/<\/loc>/);
-assert.match(sitemap, /<loc>https:\/\/fenrua\.ai\/toolchain\/<\/loc>/);
+assert.match(sitemap, /<loc>https:\/\/fenrua\.ai\/architecture<\/loc>/);
+assert.match(sitemap, /<loc>https:\/\/fenrua\.ai\/toolchain<\/loc>/);
+assert.match(sitemap, /<loc>https:\/\/fenrua\.ai\/audit<\/loc>/);
+assert.doesNotMatch(sitemap, /<loc>https:\/\/fenrua\.ai\/[^<]+\/<\/loc>/, "Non-root sitemap URLs must be slashless.");
 assert.match(html, /<link rel="canonical" href="https:\/\/fenrua\.ai\/" \/>/);
 
 console.log(

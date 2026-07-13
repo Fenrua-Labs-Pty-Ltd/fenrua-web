@@ -10,14 +10,30 @@
   "packageManager": "npm@11.18.0",
   "scripts": {
     "generate:static": "node scripts/generate-static-routes.mjs",
-    "validate": "node scripts/require-node24.mjs && node --check kernel-status.js && node --check toolchain/toolchain.js && node --check api/chain-progress.js && node --check api/chain-observation-key.js && node --check api/chain-n521-observation-key.js && node --check scripts/generate-static-routes.mjs && node scripts/check-static-links.mjs && node scripts/test-chain-progress.mjs && node scripts/check-public-discovery.mjs && node scripts/test-kernel-telemetry.mjs && node scripts/test-toolchain-registry.mjs && node scripts/test-verify-examples.mjs && node scripts/test-static-routes.mjs",
+    "check:generated": "node scripts/generate-static-routes.mjs --check",
+    "validate": "node scripts/require-node24.mjs && node --check kernel-status.js && node --check technical-data.js && node --check toolchain/toolchain.js && node --check api/chain-progress.js && node --check api/chain-observation-key.js && node --check api/chain-n521-observation-key.js && node --check scripts/generate-static-routes.mjs && node --check scripts/generate-release-manifest.mjs && node --check scripts/audit-live-release.mjs && node --check scripts/require-main-branch.mjs && node --check scripts/test-deterministic-static-generation.mjs && node --check scripts/test-release-source-commit.mjs && npm run check:generated && node scripts/test-deterministic-static-generation.mjs && node scripts/test-release-source-commit.mjs && node scripts/check-static-links.mjs && node scripts/test-chain-progress.mjs && node scripts/check-public-discovery.mjs && node scripts/test-kernel-telemetry.mjs && node scripts/test-toolchain-registry.mjs && node scripts/test-verify-examples.mjs && node scripts/test-static-routes.mjs && node scripts/test-live-card-boundary.mjs && node scripts/test-public-boundary.mjs && node scripts/test-visual-contracts.mjs",
     "test:chain-progress": "node scripts/test-chain-progress.mjs",
     "test:kernel-telemetry": "node scripts/test-kernel-telemetry.mjs",
     "test:toolchain-registry": "node scripts/test-toolchain-registry.mjs",
     "test:verify-examples": "node scripts/test-verify-examples.mjs",
     "test:static-routes": "node scripts/test-static-routes.mjs",
+    "test:live-card-boundary": "node scripts/test-live-card-boundary.mjs",
+    "test:public-boundary": "node scripts/test-public-boundary.mjs",
+    "test:visual-contracts": "node scripts/test-visual-contracts.mjs",
+    "test:deterministic-static-generation": "node scripts/test-deterministic-static-generation.mjs",
+    "generate:release-manifest": "node scripts/generate-release-manifest.mjs",
+    "test:release-manifest": "node scripts/test-release-manifest.mjs",
+    "test:release-source-commit": "node scripts/test-release-source-commit.mjs",
+    "test:browser": "playwright test",
+    "build:release": "npm run validate && npm run generate:release-manifest && npm run test:release-manifest",
+    "release:check": "npm run build:release && npm run test:browser",
+    "audit:live-release": "node scripts/audit-live-release.mjs",
     "sync:kernel-status": "node scripts/sync-kernel-status.mjs",
-    "deploy:production:node24": "node scripts/require-node24.mjs && npx --yes vercel@latest deploy --prod --yes --project fenrua-web",
+    "deploy:production:node24": "node scripts/require-node24.mjs && node scripts/require-main-branch.mjs && npm run release:check && npm exec --no -- vercel deploy --prod --yes --project fenrua-web",
     "deploy:prodction:node24": "npm run deploy:production:node24"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "vercel": "^55.0.0"
   }
 }

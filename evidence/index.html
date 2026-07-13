@@ -7,7 +7,7 @@
     <meta name="description" content="Fenrua public evidence registry with claims, hashes, provenance, supersession, maturity, and limitations." />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0d0d0d" />
-    <link rel="canonical" href="https://fenrua.ai/evidence/" />
+    <link rel="canonical" href="https://fenrua.ai/evidence" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
     <script src="/toolchain/toolchain.js" defer></script>
+
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
@@ -39,29 +40,42 @@
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="/">Overview</a>
-        <a href="/architecture/">Architecture</a>
-        <a href="/kernel/">Kernel</a>
-        <a href="/utilities/">Utilities</a>
-        <a href="/research/">Research</a>
-        <a href="/verify/">Verify</a>
-        <a href="/developers/">Developers</a>
-        <a href="/toolchain/">Toolchain</a>
-        <a href="/evidence/" aria-current="page">Evidence</a>
-        <a href="/status/">Status</a>
+        <a href="/architecture">Architecture</a>
+        <a href="/kernel">Kernel</a>
+        <a href="/utilities">Utilities</a>
+        <a href="/research">Research</a>
+        <a href="/verify">Verify</a>
+        <a href="/developers">Developers</a>
+        <a href="/toolchain">Toolchain</a>
+        <a href="/evidence" aria-current="page">Evidence</a>
+        <a href="/audit">Audit</a>
+        <a href="/status">Status</a>
       </nav>
     </header>
     <main id="content">
       <section class="route-hero" aria-labelledby="page-title">
         <p class="eyebrow">PUBLIC EVIDENCE</p>
         <h1 id="page-title">Evidence Registry</h1>
-        <p>Every significant claim is tied to source, timestamp, maturity, limitation, provenance, and copyable hash.</p>
-        
+        <p>Current public release evidence is separated from historical source evidence and every record states its limitation.</p>
+        <div class="cta-row"><a class="button button-primary" href="/audit">Read current audit</a><a class="button button-secondary" href="/.well-known/fenrua-release.json">Release manifest</a></div>
       </section>
       <section class="section-shell">
-        <div class="registry evidence-table" role="region" tabindex="0">
+        <div class="registry evidence-table" role="region" tabindex="0" aria-label="Public evidence registry">
           <table>
             <thead><tr><th scope="col">Artifact</th><th scope="col">Claim</th><th scope="col">Hash</th><th scope="col">Source</th><th scope="col">Revisions</th><th scope="col">Producer</th><th scope="col">Command</th><th scope="col">Verified / Revocation</th><th scope="col">Supersession</th><th scope="col">Limitation</th></tr></thead>
             <tbody>
+<tr id="current-public-release-evidence">
+      <td data-label="Artifact"><code>current-public-release-evidence</code><br>Current Public Release Evidence<br><small>static release scope</small></td>
+      <td data-label="Claim">The current public static site is bound to a source commit and content-hashed artifact set at release build time.</td>
+      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">70d3cd489e3529af1b6fb8ddc1f7bd79513871963272bb9721ad541063fcb0f8</code><button type="button" data-copy="70d3cd489e3529af1b6fb8ddc1f7bd79513871963272bb9721ad541063fcb0f8" data-copy-label="Full SHA copied">Copy hash</button></div></td>
+      <td data-label="Source"><a href="/data/site-evidence.json">data/site-evidence.json</a><br><small>fenrua-web public static surface</small></td>
+      <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">generated at release build</code><small>Evidence: <code class="hash-value">see /.well-known/fenrua-release.json</code></small></div></td>
+      <td data-label="Producer">generate-release-manifest.mjs<br><small>Node.js, deterministic static validation</small></td>
+      <td data-label="Command"><code>npm run build:release</code></td>
+      <td data-label="Verified / Revocation">2026-07-13<br><small>Maturity: Current public release · Revocation: active</small></td>
+      <td data-label="Supersession">legacy placeholder audit records / none</td>
+      <td data-label="Limitation">This evidence excludes dynamic observations, APIs, live block cards, and all protected systems.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: current-public-release-evidence&#10;Hash: 70d3cd489e3529af1b6fb8ddc1f7bd79513871963272bb9721ad541063fcb0f8&#10;Source revision: generated at release build&#10;Evidence revision: see /.well-known/fenrua-release.json&#10;Verified: 2026-07-13&#10;Scope: This evidence excludes dynamic observations, APIs, live block cards, and all protected systems." data-copy-label="Evidence citation copied">Copy citation</button></td>
+    </tr>
 <tr id="repository-sync-snapshot">
       <td data-label="Artifact"><code>repository-sync-snapshot</code><br>Repository Sync Snapshot<br><small>kernel snapshot</small></td>
       <td data-label="Claim">Public kernel telemetry is pinned to an immutable source commit.</td>
@@ -70,9 +84,9 @@
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">390f7aeef778ce93db12e16028bc3a788b643c2d</code><small>Evidence: <code class="hash-value">85ecc97c026b01b576d735501795951dd293b3ca</code></small></div></td>
       <td data-label="Producer">sync-kernel-status.mjs<br><small>git, Node.js</small></td>
       <td data-label="Command"><code>node scripts/test-kernel-telemetry.mjs</code></td>
-      <td data-label="Verified / Revocation">2026-07-12<br><small>Maturity: Read-only live · Revocation: active</small></td>
+      <td data-label="Verified / Revocation">2026-07-12<br><small>Maturity: Historical public evidence · Revocation: historical</small></td>
       <td data-label="Supersession">none / none</td>
-      <td data-label="Limitation">Snapshot evidence does not prove future revisions.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: repository-sync-snapshot&#10;Hash: 390f7aeef778ce93db12e16028bc3a788b643c2d&#10;Source revision: 390f7aeef778ce93db12e16028bc3a788b643c2d&#10;Evidence revision: 85ecc97c026b01b576d735501795951dd293b3ca&#10;Verified: 2026-07-12&#10;Scope: Snapshot evidence does not prove future revisions." data-copy-label="Evidence citation copied">Copy citation</button></td>
+      <td data-label="Limitation">Historical source evidence; current public release proof is published at /audit.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: repository-sync-snapshot&#10;Hash: 390f7aeef778ce93db12e16028bc3a788b643c2d&#10;Source revision: 390f7aeef778ce93db12e16028bc3a788b643c2d&#10;Evidence revision: 85ecc97c026b01b576d735501795951dd293b3ca&#10;Verified: 2026-07-12&#10;Scope: Historical source evidence; current public release proof is published at /audit." data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>
 <tr id="frozen-evidence-revision">
       <td data-label="Artifact"><code>frozen-evidence-revision</code><br>Frozen Evidence Revision<br><small>evidence commit</small></td>
@@ -82,9 +96,9 @@
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">390f7aeef778ce93db12e16028bc3a788b643c2d</code><small>Evidence: <code class="hash-value">85ecc97c026b01b576d735501795951dd293b3ca</code></small></div></td>
       <td data-label="Producer">sync-kernel-status.mjs<br><small>git, Node.js</small></td>
       <td data-label="Command"><code>node scripts/test-kernel-telemetry.mjs</code></td>
-      <td data-label="Verified / Revocation">2026-07-12<br><small>Maturity: Evidence surface · Revocation: active</small></td>
+      <td data-label="Verified / Revocation">2026-07-12<br><small>Maturity: Historical public evidence · Revocation: historical</small></td>
       <td data-label="Supersession">none / none</td>
-      <td data-label="Limitation">Scope is the public frozen report, not production runtime attestation.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: frozen-evidence-revision&#10;Hash: 85ecc97c026b01b576d735501795951dd293b3ca&#10;Source revision: 390f7aeef778ce93db12e16028bc3a788b643c2d&#10;Evidence revision: 85ecc97c026b01b576d735501795951dd293b3ca&#10;Verified: 2026-07-12&#10;Scope: Scope is the public frozen report, not production runtime attestation." data-copy-label="Evidence citation copied">Copy citation</button></td>
+      <td data-label="Limitation">Historical source evidence; current public release proof is published at /audit.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: frozen-evidence-revision&#10;Hash: 85ecc97c026b01b576d735501795951dd293b3ca&#10;Source revision: 390f7aeef778ce93db12e16028bc3a788b643c2d&#10;Evidence revision: 85ecc97c026b01b576d735501795951dd293b3ca&#10;Verified: 2026-07-12&#10;Scope: Historical source evidence; current public release proof is published at /audit." data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>
 <tr id="genesis-manifest-record">
       <td data-label="Artifact"><code>genesis-manifest-record</code><br>Genesis Manifest Record<br><small>manifest</small></td>
@@ -94,9 +108,9 @@
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">390f7aeef778ce93db12e16028bc3a788b643c2d</code><small>Evidence: <code class="hash-value">85ecc97c026b01b576d735501795951dd293b3ca</code></small></div></td>
       <td data-label="Producer">fenrua-kernel genesis report<br><small>Node.js, native P/N521 tests</small></td>
       <td data-label="Command"><code>node scripts/test-kernel-telemetry.mjs</code></td>
-      <td data-label="Verified / Revocation">2026-07-12<br><small>Maturity: Evidence surface · Revocation: active</small></td>
+      <td data-label="Verified / Revocation">2026-07-12<br><small>Maturity: Historical public evidence · Revocation: historical</small></td>
       <td data-label="Supersession">none / none</td>
-      <td data-label="Limitation">Manifest scope is limited to listed genesis records.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: genesis-manifest-record&#10;Hash: bd9ec111888ec32e87a5b60776f0118973848e5c096bbed8f25246e7fd3008cd&#10;Source revision: 390f7aeef778ce93db12e16028bc3a788b643c2d&#10;Evidence revision: 85ecc97c026b01b576d735501795951dd293b3ca&#10;Verified: 2026-07-12&#10;Scope: Manifest scope is limited to listed genesis records." data-copy-label="Evidence citation copied">Copy citation</button></td>
+      <td data-label="Limitation">Historical source evidence; current public release proof is published at /audit.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: genesis-manifest-record&#10;Hash: bd9ec111888ec32e87a5b60776f0118973848e5c096bbed8f25246e7fd3008cd&#10;Source revision: 390f7aeef778ce93db12e16028bc3a788b643c2d&#10;Evidence revision: 85ecc97c026b01b576d735501795951dd293b3ca&#10;Verified: 2026-07-12&#10;Scope: Historical source evidence; current public release proof is published at /audit." data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>
 <tr id="differential-validation">
       <td data-label="Artifact"><code>differential-validation</code><br>Differential Validation<br><small>validation report</small></td>
@@ -106,24 +120,36 @@
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">390f7aeef778ce93db12e16028bc3a788b643c2d</code><small>Evidence: <code class="hash-value">85ecc97c026b01b576d735501795951dd293b3ca</code></small></div></td>
       <td data-label="Producer">fenrua-kernel audit suite<br><small>CMake, native tests, sanitizer differential tests</small></td>
       <td data-label="Command"><code>node scripts/test-kernel-telemetry.mjs</code></td>
-      <td data-label="Verified / Revocation">2026-07-12<br><small>Maturity: Evidence surface · Revocation: active</small></td>
+      <td data-label="Verified / Revocation">2026-07-12<br><small>Maturity: Historical public evidence · Revocation: historical</small></td>
       <td data-label="Supersession">none / none</td>
-      <td data-label="Limitation">Differential testing is not production certification.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: differential-validation&#10;Hash: e74a0ad32730f5129f3f691eb3c9caab31a98596212594d218056e50a1a26c93&#10;Source revision: 390f7aeef778ce93db12e16028bc3a788b643c2d&#10;Evidence revision: 85ecc97c026b01b576d735501795951dd293b3ca&#10;Verified: 2026-07-12&#10;Scope: Differential testing is not production certification." data-copy-label="Evidence citation copied">Copy citation</button></td>
+      <td data-label="Limitation">Historical source evidence; current public release proof is published at /audit.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: differential-validation&#10;Hash: e74a0ad32730f5129f3f691eb3c9caab31a98596212594d218056e50a1a26c93&#10;Source revision: 390f7aeef778ce93db12e16028bc3a788b643c2d&#10;Evidence revision: 85ecc97c026b01b576d735501795951dd293b3ca&#10;Verified: 2026-07-12&#10;Scope: Historical source evidence; current public release proof is published at /audit." data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>
 <tr id="toolchain-evidence-lock">
       <td data-label="Artifact"><code>toolchain-evidence-lock</code><br>Toolchain Evidence Lock<br><small>toolchain registry</small></td>
       <td data-label="Claim">Detected tool versions are preserved to match the inspected evidence environment.</td>
-      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9</code><button type="button" data-copy="98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9" data-copy-label="Full SHA copied">Copy hash</button></div></td>
+      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">41046f7242afdfd602f9c2f2e9e081fe050d9226a3cdce35f14ebf7542b7038e</code><button type="button" data-copy="41046f7242afdfd602f9c2f2e9e081fe050d9226a3cdce35f14ebf7542b7038e" data-copy-label="Full SHA copied">Copy hash</button></div></td>
       <td data-label="Source"><a href="/data/toolchain-registry.json">data/toolchain-registry.json</a><br><small>fenrua-web public registry</small></td>
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">845187ca3dea57723b31ec5306fed1c275fcdcb7</code><small>Evidence: <code class="hash-value">toolchain-lock-2026-07-12</code></small></div></td>
       <td data-label="Producer">data/toolchain-registry.json<br><small>Node.js, Semgrep 1.169.0, SnarkJS snarkjs@0.7.6</small></td>
       <td data-label="Command"><code>node scripts/test-toolchain-registry.mjs</code></td>
-      <td data-label="Verified / Revocation">2026-07-13<br><small>Maturity: Read-only live · Revocation: active</small></td>
+      <td data-label="Verified / Revocation">2026-07-13<br><small>Maturity: Historical toolchain evidence · Revocation: historical</small></td>
       <td data-label="Supersession">none / none</td>
-      <td data-label="Limitation">Version capture is not security proof.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: toolchain-evidence-lock&#10;Hash: 98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9&#10;Source revision: 845187ca3dea57723b31ec5306fed1c275fcdcb7&#10;Evidence revision: toolchain-lock-2026-07-12&#10;Verified: 2026-07-13&#10;Scope: Version capture is not security proof." data-copy-label="Evidence citation copied">Copy citation</button></td>
+      <td data-label="Limitation">Frozen toolchain capture; it is not current deployment provenance or security proof.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: toolchain-evidence-lock&#10;Hash: 41046f7242afdfd602f9c2f2e9e081fe050d9226a3cdce35f14ebf7542b7038e&#10;Source revision: 845187ca3dea57723b31ec5306fed1c275fcdcb7&#10;Evidence revision: toolchain-lock-2026-07-12&#10;Verified: 2026-07-13&#10;Scope: Frozen toolchain capture; it is not current deployment provenance or security proof." data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>
             </tbody>
           </table>
+        </div>
+      </section>
+      <section class="section-shell split-section commercial-boundary" aria-labelledby="commercial-boundary-title">
+        <div>
+          <p class="eyebrow">ACCESS-ONLY SERVICES</p>
+          <h2 id="commercial-boundary-title">Fenrua Labs Pty Ltd — access-only services</h2>
+        </div>
+        <div class="constraint-list">
+          <p>Fenrua Labs Pty Ltd provides access to AI security infrastructure software, related technology services, and evidence-aware intelligence workflows through tiered service subscriptions and client-specific business agreements only.</p>
+          <p>Fenrua Labs Pty Ltd does not offer investments, token crowdfunding, securities, bonds, equity, debt, managed investment interests, profit-sharing arrangements, revenue-sharing arrangements, yield products, exchange products, trading products, or any financial-return scheme. Neither a subscription nor a client-specific business agreement gives, promises, expects, entitles, or represents profit, return, token appreciation, token allocation, liquidity, resale value, dividends, buyback rights, or ownership in Fenrua Labs Pty Ltd.</p>
+          <p>Fenrua Labs Pty Ltd does not operate a market, exchange, order book, trading venue, or public swap product. It does not provide financial, investment, legal, tax, professional, or other advice, or any recommendation to buy, sell, hold, trade, or rely on an asset for financial gain.</p>
+          <p><a href="/docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md">Read the public service and agreement boundary</a>.</p>
         </div>
       </section>
     </main>
@@ -135,9 +161,10 @@
       <div class="footer-social">
         <p>Public claims are bounded by public evidence.</p>
         <div class="footer-links">
-          <a href="/evidence/">Evidence</a>
-          <a href="/toolchain/">Toolchain</a>
-          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="/audit">Audit</a>
+          <a href="/evidence">Evidence</a>
+          <a href="/toolchain">Toolchain</a>
+          <a href="/.well-known/fenrua-release.json">Release manifest</a>
           <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
         </div>
       </div>

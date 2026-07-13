@@ -13,3 +13,8 @@ build/
 # Local Codex task specs and generated promo artifacts are not part of the site.
 FENRUA_*_TASK.md
 deliverables/
+
+# Generated at release-build time and intentionally bound to the deploying commit.
+.well-known/fenrua-release.json
+playwright-report/
+test-results/

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "fenrua.site-evidence.v1",
+  "generatedAt": "2026-07-13T07:56:58Z",
+  "canonicalDomain": "https://fenrua.ai",
+  "commercialBoundary": {
+    "title": "Fenrua Labs Pty Ltd — access-only services",
+    "paragraphs": [
+      "Fenrua Labs Pty Ltd provides access to AI security infrastructure software, related technology services, and evidence-aware intelligence workflows through tiered service subscriptions and client-specific business agreements only.",
+      "Fenrua Labs Pty Ltd does not offer investments, token crowdfunding, securities, bonds, equity, debt, managed investment interests, profit-sharing arrangements, revenue-sharing arrangements, yield products, exchange products, trading products, or any financial-return scheme. Neither a subscription nor a client-specific business agreement gives, promises, expects, entitles, or represents profit, return, token appreciation, token allocation, liquidity, resale value, dividends, buyback rights, or ownership in Fenrua Labs Pty Ltd.",
+      "Fenrua Labs Pty Ltd does not operate a market, exchange, order book, trading venue, or public swap product. It does not provide financial, investment, legal, tax, professional, or other advice, or any recommendation to buy, sell, hold, trade, or rely on an asset for financial gain."
+    ]
+  },
+  "scope": {
+    "included": [
+      "Public, non-live static website artifacts generated from this repository.",
+      "The current public audit route and release manifest when generated for a release.",
+      "The public document register and non-live documentation listed there."
+    ],
+    "excluded": [
+      "Live block cards and their markup, styling, scripts, data, APIs, key endpoints, refresh behaviour, and signed observations.",
+      "Signing keys, gateways, validators, private meshes, cryptography, infrastructure, Vercel secrets, and Vercel project internals.",
+      "Public standard-form business contracts, token materials, investment materials, trading features, and financial-return claims."
+    ]
+  },
+  "releaseEvidence": {
+    "auditPath": "/audit",
+    "manifestPath": "/.well-known/fenrua-release.json",
+    "binding": "A release manifest is generated from the exact release checkout. It binds only the listed public static artifacts, their validation scope, and stated limitations; it does not attest to protected systems or live block-card data."
+  },
+  "documentRegisterPath": "data/public-document-register.json"
+}

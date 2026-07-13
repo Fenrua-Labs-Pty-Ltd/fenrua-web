@@ -25,5 +25,4 @@ Last reviewed: 2026-07-13
 
 - No external penetration test was performed for this V2 pass.
 - No Semgrep scan output is claimed; only Semgrep version capture is public.
-- Contract evidence refresh remains pending.
-
+- No public contract, token, investment, exchange, trading, or financial-return product is offered or claimed.

@@ -26,5 +26,11 @@ jobs:
           node-version: 24
           check-latest: true
 
-      - name: Validate static site and discovery metadata
-        run: npm run validate
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Install Chromium for non-live browser checks
+        run: npm exec --no -- playwright install --with-deps chromium
+
+      - name: Validate the public release surface
+        run: npm run release:check

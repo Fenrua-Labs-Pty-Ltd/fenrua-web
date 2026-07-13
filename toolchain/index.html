@@ -7,7 +7,7 @@
     <meta name="description" content="Server-rendered Fenrua toolchain registry with exact detected versions, filters, pagination, downloads, timestamp, and integrity hash." />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0d0d0d" />
-    <link rel="canonical" href="https://fenrua.ai/toolchain/" />
+    <link rel="canonical" href="https://fenrua.ai/toolchain" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
     <script src="/toolchain/toolchain.js" defer></script>
+
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
@@ -39,15 +40,16 @@
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="/">Overview</a>
-        <a href="/architecture/">Architecture</a>
-        <a href="/kernel/">Kernel</a>
-        <a href="/utilities/">Utilities</a>
-        <a href="/research/">Research</a>
-        <a href="/verify/">Verify</a>
-        <a href="/developers/">Developers</a>
-        <a href="/toolchain/" aria-current="page">Toolchain</a>
-        <a href="/evidence/">Evidence</a>
-        <a href="/status/">Status</a>
+        <a href="/architecture">Architecture</a>
+        <a href="/kernel">Kernel</a>
+        <a href="/utilities">Utilities</a>
+        <a href="/research">Research</a>
+        <a href="/verify">Verify</a>
+        <a href="/developers">Developers</a>
+        <a href="/toolchain" aria-current="page">Toolchain</a>
+        <a href="/evidence">Evidence</a>
+        <a href="/audit">Audit</a>
+        <a href="/status">Status</a>
       </nav>
     </header>
     <main id="content">
@@ -61,11 +63,11 @@
         <div class="toolchain-meta toolchain-summary">
           <article>
           <span>Generated</span>
-          <strong>2026-07-12T19:49:17Z</strong>
+          <strong>2026-07-13T07:56:58Z</strong>
         </article>
         <article>
           <span>Registry SHA-256</span>
-          <strong><code>98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9</code></strong>
+          <strong><code>41046f7242afdfd602f9c2f2e9e081fe050d9226a3cdce35f14ebf7542b7038e</code></strong>
         </article>
         <article>
           <span>Records</span>
@@ -77,23 +79,23 @@
         </article>
         <article>
           <span>Installed</span>
-          <strong>115</strong>
+          <strong>116</strong>
         </article>
         <article>
           <span>Version verified</span>
-          <strong>110</strong>
+          <strong>111</strong>
         </article>
         <article>
           <span>Smoke tested</span>
-          <strong>7</strong>
+          <strong>8</strong>
         </article>
         <article>
           <span>Campaign executed</span>
-          <strong>5</strong>
+          <strong>6</strong>
         </article>
         <article>
           <span>Evidence producing</span>
-          <strong>5</strong>
+          <strong>6</strong>
         </article>
         <article>
           <span>Canonical pipeline</span>
@@ -117,14 +119,14 @@
         </article>
         <article>
           <span>Unavailable</span>
-          <strong>14</strong>
+          <strong>13</strong>
         </article>
           <article>
             <span>Evidence-lock</span>
             <strong>no post-evidence updates</strong>
           </article>
         </div>
-        <p class="table-note"><button type="button" data-copy="98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9" data-copy-label="Full SHA copied">Copy registry hash</button> The displayed taxonomy is derived from frozen registry fields. A version or list command is <strong>VERSION_VERIFIED</strong>, not campaign execution.</p>
+        <p class="table-note"><button type="button" data-copy="41046f7242afdfd602f9c2f2e9e081fe050d9226a3cdce35f14ebf7542b7038e" data-copy-label="Full SHA copied">Copy registry hash</button> The displayed taxonomy is derived from frozen registry fields. A version or list command is <strong>VERSION_VERIFIED</strong>, not campaign execution.</p>
       </section>
       <section class="section-shell">
         <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Desktop offers the full comparison layout. All evidence remains available here.</p>
@@ -173,7 +175,7 @@
             <button type="button" data-page-action="next">Next</button>
           </div>
         </div>
-        <div class="registry toolchain-table" role="region" tabindex="0">
+        <div class="registry toolchain-table" role="region" tabindex="0" aria-label="Data table">
           <table>
             <thead><tr><th scope="col">Tool</th><th scope="col">Detected Version</th><th scope="col">Category</th><th scope="col">Mode</th><th scope="col">Delivery Tags</th><th scope="col">Evidence</th><th scope="col">Command</th><th scope="col">Limitations</th></tr></thead>
             <tbody>
@@ -197,7 +199,7 @@
       <td><div class="command-list"><code>solc-select versions</code></div></td>
       <td><div class="table-prose">The tool does not expose a simple --version output in this environment.</div></td>
     </tr>
-<tr data-tool-row data-page="1" data-search="forge forge version: 1.7.1; commit sha: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8 solidity, evm, and contract security unit and integration testing native installed_and_executed detected version_verified canonical_pipeline version captured only; contract evidence refresh is pending. solidity-security version-inventory forge --version" data-status="INSTALLED_AND_EXECUTED" data-tags="DETECTED VERSION_VERIFIED CANONICAL_PIPELINE" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-evidence="false" data-tool-name="forge">
+<tr data-tool-row data-page="1" data-search="forge forge version: 1.7.1; commit sha: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8 solidity, evm, and contract security unit and integration testing native installed_and_executed detected version_verified canonical_pipeline version captured only; no public contract or financial-offering evidence is published. solidity-security version-inventory forge --version" data-status="INSTALLED_AND_EXECUTED" data-tags="DETECTED VERSION_VERIFIED CANONICAL_PIPELINE" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-evidence="false" data-tool-name="forge">
       <td>forge<br><small>Unit and integration testing</small></td>
       <td><code>forge Version: 1.7.1; Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8</code><button type="button" data-copy="forge Version: 1.7.1; Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8" data-copy-label="Full version copied">Copy version</button></td>
       <td>Solidity, EVM, and contract security</td>
@@ -205,7 +207,7 @@
       <td><div class="tag-stack"><span class="status-badge">DETECTED</span><span class="status-badge">VERSION_VERIFIED</span><span class="status-badge">CANONICAL_PIPELINE</span></div></td>
       <td>no<br><small>data/toolchain-registry.json</small></td>
       <td><div class="command-list"><code>forge --version</code></div></td>
-      <td><div class="table-prose">Version captured only; contract evidence refresh is pending.</div></td>
+      <td><div class="table-prose">Version captured only; no public contract or financial-offering evidence is published.</div></td>
     </tr>
 <tr data-tool-row data-page="1" data-search="cast cast version: 1.7.1; commit sha: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8 solidity, evm, and contract security deployment inspection native installed_and_executed detected version_verified canonical_pipeline no live contract-state claim is published from this version capture. solidity-security version-inventory cast --version" data-status="INSTALLED_AND_EXECUTED" data-tags="DETECTED VERSION_VERIFIED CANONICAL_PIPELINE" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-evidence="false" data-tool-name="cast">
       <td>cast<br><small>Deployment inspection</small></td>
@@ -707,15 +709,15 @@
       <td><div class="command-list"><code>prettier --version</code></div></td>
       <td><div class="table-prose">Version captured only; no formatting run was required.</div></td>
     </tr>
-<tr data-tool-row data-page="3" data-search="playwright unavailable in path application and web security browser validation unavailable unavailable unavailable canonical_pipeline no playwright binary was detected, so browser coverage was not added in this pass. application-security playwright --version" data-status="UNAVAILABLE" data-tags="UNAVAILABLE CANONICAL_PIPELINE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-evidence="false" data-tool-name="playwright">
+<tr data-tool-row data-page="3" data-search="playwright @playwright/test 1.61.1 application and web security browser validation npm devdependency installed_executed_evidence_producing detected version_verified smoke_tested evidence_producing canonical_pipeline covers only static evidence, status, toolchain, and verify; homepage live cards, apis, and protected systems are excluded. application-security npm exec --no -- playwright --version npm run test:browser" data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-tags="DETECTED VERSION_VERIFIED SMOKE_TESTED EVIDENCE_PRODUCING CANONICAL_PIPELINE" data-mode="npm devDependency" data-category="Application and web security" data-installed="true" data-evidence="true" data-tool-name="playwright">
       <td>Playwright<br><small>Browser validation</small></td>
-      <td><code>Unavailable in PATH</code><button type="button" data-copy="Unavailable in PATH" data-copy-label="Full version copied">Copy version</button></td>
+      <td><code>@playwright/test 1.61.1</code><button type="button" data-copy="@playwright/test 1.61.1" data-copy-label="Full version copied">Copy version</button></td>
       <td>Application and web security</td>
-      <td>unavailable</td>
-      <td><div class="tag-stack"><span class="status-badge">UNAVAILABLE</span><span class="status-badge">CANONICAL_PIPELINE</span></div></td>
-      <td>no<br><small>data/toolchain-registry.json</small></td>
-      <td><div class="command-list"><code>playwright --version</code></div></td>
-      <td><div class="table-prose">No Playwright binary was detected, so browser coverage was not added in this pass.</div></td>
+      <td>npm devDependency</td>
+      <td><div class="tag-stack"><span class="status-badge">DETECTED</span><span class="status-badge">VERSION_VERIFIED</span><span class="status-badge">SMOKE_TESTED</span><span class="status-badge">EVIDENCE_PRODUCING</span><span class="status-badge">CANONICAL_PIPELINE</span></div></td>
+      <td>yes<br><small>tests/browser/non-live-public-surface.spec.mjs</small></td>
+      <td><div class="command-list"><code>npm exec --no -- playwright --version</code><code>npm run test:browser</code></div></td>
+      <td><div class="table-prose">Covers only static Evidence, Status, Toolchain, and Verify; homepage live cards, APIs, and protected systems are excluded.</div></td>
     </tr>
 <tr data-tool-row data-page="3" data-search="supabase javascript sdk unavailable in fenrua-web package inventory application and web security database and edge api client unavailable unavailable unavailable canonical_pipeline the public website exposes no browser supabase credentials or client. application-security npm list --depth=0 --json" data-status="UNAVAILABLE" data-tags="UNAVAILABLE CANONICAL_PIPELINE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-evidence="false" data-tool-name="supabase javascript sdk">
       <td>Supabase JavaScript SDK<br><small>Database and edge API client</small></td>
@@ -1273,7 +1275,7 @@
       <td>Editor, AI, and source control</td>
       <td>native</td>
       <td><div class="tag-stack"><span class="status-badge">DETECTED</span><span class="status-badge">VERSION_VERIFIED</span><span class="status-badge">EVIDENCE_PRODUCING</span><span class="status-badge">CANONICAL_PIPELINE</span></div></td>
-      <td>yes<br><small>docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md</small></td>
+      <td>yes<br><small>data/site-evidence.json</small></td>
       <td><div class="command-list"><code>git --version</code><code>git status --short</code><code>git rev-parse HEAD</code></div></td>
       <td><div class="table-prose">Git records repository state; it does not prove deployed bytecode or production safety.</div></td>
     </tr>
@@ -1333,7 +1335,7 @@
       <td>Supporting command-line tools</td>
       <td>native</td>
       <td><div class="tag-stack"><span class="status-badge">DETECTED</span><span class="status-badge">VERSION_VERIFIED</span><span class="status-badge">EVIDENCE_PRODUCING</span><span class="status-badge">CANONICAL_PIPELINE</span></div></td>
-      <td>yes<br><small>docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md</small></td>
+      <td>yes<br><small>data/site-evidence.json</small></td>
       <td><div class="command-list"><code>rg --version</code><code>rg ...</code></div></td>
       <td><div class="table-prose">Search results inform discovery; they are not security proof.</div></td>
     </tr>
@@ -1523,7 +1525,7 @@
           </div>
         </details>
       </article>
-        <article class="tool-record-card" data-tool-card data-page="1" data-search="forge forge version: 1.7.1; commit sha: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8 solidity, evm, and contract security unit and integration testing native installed_and_executed detected version_verified canonical_pipeline version captured only; contract evidence refresh is pending. solidity-security version-inventory forge --version" data-status="INSTALLED_AND_EXECUTED" data-tags="DETECTED VERSION_VERIFIED CANONICAL_PIPELINE" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-evidence="false" data-tool-name="forge">
+        <article class="tool-record-card" data-tool-card data-page="1" data-search="forge forge version: 1.7.1; commit sha: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8 solidity, evm, and contract security unit and integration testing native installed_and_executed detected version_verified canonical_pipeline version captured only; no public contract or financial-offering evidence is published. solidity-security version-inventory forge --version" data-status="INSTALLED_AND_EXECUTED" data-tags="DETECTED VERSION_VERIFIED CANONICAL_PIPELINE" data-mode="native" data-category="Solidity, EVM, and contract security" data-installed="true" data-evidence="false" data-tool-name="forge">
         <details>
           <summary>
             <span class="tool-record-title">forge</span>
@@ -1544,7 +1546,7 @@
             <div><strong>Verification command</strong><div class="command-list"><code>forge --version</code></div></div>
             <details class="limitation-disclosure">
               <summary>Known limitations</summary>
-              <p>Version captured only; contract evidence refresh is pending.</p>
+              <p>Version captured only; no public contract or financial-offering evidence is published.</p>
             </details>
           </div>
         </details>
@@ -2849,28 +2851,28 @@
           </div>
         </details>
       </article>
-        <article class="tool-record-card" data-tool-card data-page="3" data-search="playwright unavailable in path application and web security browser validation unavailable unavailable unavailable canonical_pipeline no playwright binary was detected, so browser coverage was not added in this pass. application-security playwright --version" data-status="UNAVAILABLE" data-tags="UNAVAILABLE CANONICAL_PIPELINE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-evidence="false" data-tool-name="playwright">
+        <article class="tool-record-card" data-tool-card data-page="3" data-search="playwright @playwright/test 1.61.1 application and web security browser validation npm devdependency installed_executed_evidence_producing detected version_verified smoke_tested evidence_producing canonical_pipeline covers only static evidence, status, toolchain, and verify; homepage live cards, apis, and protected systems are excluded. application-security npm exec --no -- playwright --version npm run test:browser" data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-tags="DETECTED VERSION_VERIFIED SMOKE_TESTED EVIDENCE_PRODUCING CANONICAL_PIPELINE" data-mode="npm devDependency" data-category="Application and web security" data-installed="true" data-evidence="true" data-tool-name="playwright">
         <details>
           <summary>
             <span class="tool-record-title">Playwright</span>
             <span class="tool-record-function">Browser validation</span>
             <span class="tool-record-summary-grid">
-              <span><strong>Version</strong><code>Unavailable in PATH</code></span>
-              <span><strong>Status</strong>Unavailable</span>
-              <span><strong>Evidence</strong>No</span>
+              <span><strong>Version</strong><code>@playwright/test 1.61.1</code></span>
+              <span><strong>Status</strong>Version verified</span>
+              <span><strong>Evidence</strong>Yes</span>
             </span>
             <span class="tool-record-action">View details</span>
           </summary>
           <div class="tool-record-details">
-            <div><strong>Full detected version</strong><code>Unavailable in PATH</code><button type="button" data-copy="Unavailable in PATH" data-copy-label="Full version copied">Copy version</button></div>
+            <div><strong>Full detected version</strong><code>@playwright/test 1.61.1</code><button type="button" data-copy="@playwright/test 1.61.1" data-copy-label="Full version copied">Copy version</button></div>
             <div><strong>Category</strong>Application and web security</div>
-            <div><strong>Installation mode</strong>unavailable</div>
-            <div><strong>Delivery tags</strong><div class="tag-stack"><span class="status-badge">UNAVAILABLE</span><span class="status-badge">CANONICAL_PIPELINE</span></div></div>
-            <div><strong>Evidence state</strong>No evidence artifact produced<br><small>data/toolchain-registry.json</small></div>
-            <div><strong>Verification command</strong><div class="command-list"><code>playwright --version</code></div></div>
+            <div><strong>Installation mode</strong>npm devDependency</div>
+            <div><strong>Delivery tags</strong><div class="tag-stack"><span class="status-badge">DETECTED</span><span class="status-badge">VERSION_VERIFIED</span><span class="status-badge">SMOKE_TESTED</span><span class="status-badge">EVIDENCE_PRODUCING</span><span class="status-badge">CANONICAL_PIPELINE</span></div></div>
+            <div><strong>Evidence state</strong>Evidence-producing<br><small>tests/browser/non-live-public-surface.spec.mjs</small></div>
+            <div><strong>Verification command</strong><div class="command-list"><code>npm exec --no -- playwright --version</code><code>npm run test:browser</code></div></div>
             <details class="limitation-disclosure">
               <summary>Known limitations</summary>
-              <p>No Playwright binary was detected, so browser coverage was not added in this pass.</p>
+              <p>Covers only static Evidence, Status, Toolchain, and Verify; homepage live cards, APIs, and protected systems are excluded.</p>
             </details>
           </div>
         </details>
@@ -4322,7 +4324,7 @@
             <div><strong>Category</strong>Editor, AI, and source control</div>
             <div><strong>Installation mode</strong>native</div>
             <div><strong>Delivery tags</strong><div class="tag-stack"><span class="status-badge">DETECTED</span><span class="status-badge">VERSION_VERIFIED</span><span class="status-badge">EVIDENCE_PRODUCING</span><span class="status-badge">CANONICAL_PIPELINE</span></div></div>
-            <div><strong>Evidence state</strong>Evidence-producing<br><small>docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md</small></div>
+            <div><strong>Evidence state</strong>Evidence-producing<br><small>data/site-evidence.json</small></div>
             <div><strong>Verification command</strong><div class="command-list"><code>git --version</code><code>git status --short</code><code>git rev-parse HEAD</code></div></div>
             <details class="limitation-disclosure">
               <summary>Known limitations</summary>
@@ -4478,7 +4480,7 @@
             <div><strong>Category</strong>Supporting command-line tools</div>
             <div><strong>Installation mode</strong>native</div>
             <div><strong>Delivery tags</strong><div class="tag-stack"><span class="status-badge">DETECTED</span><span class="status-badge">VERSION_VERIFIED</span><span class="status-badge">EVIDENCE_PRODUCING</span><span class="status-badge">CANONICAL_PIPELINE</span></div></div>
-            <div><strong>Evidence state</strong>Evidence-producing<br><small>docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md</small></div>
+            <div><strong>Evidence state</strong>Evidence-producing<br><small>data/site-evidence.json</small></div>
             <div><strong>Verification command</strong><div class="command-list"><code>rg --version</code><code>rg ...</code></div></div>
             <details class="limitation-disclosure">
               <summary>Known limitations</summary>
@@ -4828,6 +4830,18 @@
         </div>
         <p class="empty-state" id="toolchain-empty" hidden>No tools match the active filter.</p>
       </section>
+      <section class="section-shell split-section commercial-boundary" aria-labelledby="commercial-boundary-title">
+        <div>
+          <p class="eyebrow">ACCESS-ONLY SERVICES</p>
+          <h2 id="commercial-boundary-title">Fenrua Labs Pty Ltd — access-only services</h2>
+        </div>
+        <div class="constraint-list">
+          <p>Fenrua Labs Pty Ltd provides access to AI security infrastructure software, related technology services, and evidence-aware intelligence workflows through tiered service subscriptions and client-specific business agreements only.</p>
+          <p>Fenrua Labs Pty Ltd does not offer investments, token crowdfunding, securities, bonds, equity, debt, managed investment interests, profit-sharing arrangements, revenue-sharing arrangements, yield products, exchange products, trading products, or any financial-return scheme. Neither a subscription nor a client-specific business agreement gives, promises, expects, entitles, or represents profit, return, token appreciation, token allocation, liquidity, resale value, dividends, buyback rights, or ownership in Fenrua Labs Pty Ltd.</p>
+          <p>Fenrua Labs Pty Ltd does not operate a market, exchange, order book, trading venue, or public swap product. It does not provide financial, investment, legal, tax, professional, or other advice, or any recommendation to buy, sell, hold, trade, or rely on an asset for financial gain.</p>
+          <p><a href="/docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md">Read the public service and agreement boundary</a>.</p>
+        </div>
+      </section>
     </main>
     <footer class="site-footer">
       <div>
@@ -4837,9 +4851,10 @@
       <div class="footer-social">
         <p>Public claims are bounded by public evidence.</p>
         <div class="footer-links">
-          <a href="/evidence/">Evidence</a>
-          <a href="/toolchain/">Toolchain</a>
-          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="/audit">Audit</a>
+          <a href="/evidence">Evidence</a>
+          <a href="/toolchain">Toolchain</a>
+          <a href="/.well-known/fenrua-release.json">Release manifest</a>
           <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
         </div>
       </div>

@@ -1,6 +1,8 @@
 # Fenrua Utility Standard
 
-Fenrua Labs is a high-assurance protocol repository, not a marketing surface.
+Fenrua Labs is a research, development, and technology-services organisation.
+This repository is a public evidence interface, not a marketing, investment, or
+trading surface.
 
 ## Core Repositories
 
@@ -8,20 +10,23 @@ Fenrua Labs is a high-assurance protocol repository, not a marketing surface.
 
 - Bedrock research artifact.
 - README acts as the Genesis Landing Page.
-- `SECURITY_AUDIT_LOG.md` is the first evidence link.
+- The current public audit route and its release manifest are the active public
+  evidence links.
 - `bedrock-source` and `evidence-commit` stay separated for future releases.
 
 ### `fenrua-web`
 
-- Static protocol explorer for `fenrua.ai`.
-- Publishes protocol specifications and evidence dashboards.
-- Links public claims to kernel commits and audit records.
+- Static public website and evidence interface for `fenrua.ai`.
+- Publishes non-live evidence records with stated scope and limitations.
+- Links public artifacts to release provenance without exposing protected
+  systems or treating research records as production assurance.
 
-## Day Zero Release Requirements
+## Public Release-Evidence Requirements
 
-- Genesis receipts with SHA-256 mapped proofs for critical arithmetic circuits.
-- Regression history with explicit counterexamples.
-- Immutable audit log entries from discovery to resolution.
+- A current audit route and public document register.
+- A release manifest that binds only its listed static artifacts and validation
+  scope.
+- Clear archival status for superseded public evidence material.
 
 ## Social Distribution Rule
 
@@ -31,6 +36,12 @@ They do not replace GitHub as the primary interface.
 
 ## Positioning Statement
 
-"Fenrua Labs: Building verifiable infrastructure for autonomous AI. We
-prioritize mathematical transparency and limb-based arithmetic. All research is
-audit-sealed, evidence-backed, and repository-first."
+Fenrua Labs Pty Ltd provides access to AI security infrastructure software,
+related technology services, and evidence-aware intelligence workflows through
+tiered service subscriptions and client-specific business agreements only. It
+does not offer investments, token crowdfunding, securities, bonds, equity, debt,
+managed investment interests, profit-sharing arrangements, revenue-sharing
+arrangements, yield products, exchange products, trading products, or any
+financial-return scheme. See
+[`ACCESS_ONLY_COMMERCIAL_BOUNDARY.md`](ACCESS_ONLY_COMMERCIAL_BOUNDARY.md) for
+the complete public boundary.

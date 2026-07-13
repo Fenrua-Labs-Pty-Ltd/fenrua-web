@@ -1,0 +1,10 @@
+{
+  "archiveSchemaVersion": "fenrua.public-document-archive.v1",
+  "status": "superseded",
+  "archivedAt": "2026-07-13T06:50:00Z",
+  "formerPath": "docs/audit-report.json",
+  "replacementPath": "/audit",
+  "originalContentSha256": "9fabc47936cfd3c0a10c4ae571cd74fc857c0167baf20fd6efe151148e52e927",
+  "notice": "The former JSON document contained stale placeholder assurance fields. This redacted archival envelope preserves its identity without republishing claims as current release evidence.",
+  "scope": "No protected operational, infrastructure, client, or live block-card data is included."
+}

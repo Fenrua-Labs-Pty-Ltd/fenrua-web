@@ -1,37 +1,72 @@
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registryPath = path.join(root, "data", "toolchain-registry.json");
+const siteEvidencePath = path.join(root, "data", "site-evidence.json");
+const documentRegisterPath = path.join(root, "data", "public-document-register.json");
 const registryRaw = readFileSync(registryPath, "utf8");
 const registry = JSON.parse(registryRaw);
 const registryHash = createHash("sha256").update(registryRaw).digest("hex");
-const generatedIso = new Date().toISOString();
+const siteEvidenceRaw = readFileSync(siteEvidencePath, "utf8");
+const siteEvidence = JSON.parse(siteEvidenceRaw);
+const documentRegister = JSON.parse(readFileSync(documentRegisterPath, "utf8"));
+const siteEvidenceHash = createHash("sha256").update(siteEvidenceRaw).digest("hex");
+const generatedIso = siteEvidence.generatedAt;
+if (typeof generatedIso !== "string" || !Number.isFinite(Date.parse(generatedIso))) {
+  throw new Error("data/site-evidence.json must contain a valid generatedAt timestamp.");
+}
 const generatedDate = generatedIso.slice(0, 10);
+const checkMode = process.argv.includes("--check");
+const staleGeneratedFiles = [];
 
 const nav = [
   ["Overview", "/"],
-  ["Architecture", "/architecture/"],
-  ["Kernel", "/kernel/"],
-  ["Utilities", "/utilities/"],
-  ["Research", "/research/"],
-  ["Verify", "/verify/"],
-  ["Developers", "/developers/"],
-  ["Toolchain", "/toolchain/"],
-  ["Evidence", "/evidence/"],
-  ["Status", "/status/"],
+  ["Architecture", "/architecture"],
+  ["Kernel", "/kernel"],
+  ["Utilities", "/utilities"],
+  ["Research", "/research"],
+  ["Verify", "/verify"],
+  ["Developers", "/developers"],
+  ["Toolchain", "/toolchain"],
+  ["Evidence", "/evidence"],
+  ["Audit", "/audit"],
+  ["Status", "/status"],
 ];
 
 const evidenceRecords = [
+  {
+    id: "current-public-release-evidence",
+    artifact: "Current Public Release Evidence",
+    type: "static release scope",
+    claim: "The current public static site is bound to a source commit and content-hashed artifact set at release build time.",
+    status: "active",
+    maturity: "Current public release",
+    source: "data/site-evidence.json",
+    hash: siteEvidenceHash,
+    sourceUrl: "/data/site-evidence.json",
+    created: generatedDate,
+    verified: generatedDate,
+    environment: "fenrua-web public static surface",
+    sourceCommit: "generated at release build",
+    evidenceCommit: "see /.well-known/fenrua-release.json",
+    producer: "generate-release-manifest.mjs",
+    toolchainSubset: "Node.js, deterministic static validation",
+    command: "npm run build:release",
+    supersedes: "legacy placeholder audit records",
+    supersededBy: "none",
+    revocationState: "active",
+    limitation: "This evidence excludes dynamic observations, APIs, live block cards, and all protected systems.",
+  },
   {
     id: "repository-sync-snapshot",
     artifact: "Repository Sync Snapshot",
     type: "kernel snapshot",
     claim: "Public kernel telemetry is pinned to an immutable source commit.",
     status: "active",
-    maturity: "Read-only live",
+    maturity: "Historical public evidence",
     source: "kernel-status.js",
     hash: "390f7aeef778ce93db12e16028bc3a788b643c2d",
     sourceUrl: "https://github.com/fenrualabs/fenrua-kernel/commit/390f7aeef778ce93db12e16028bc3a788b643c2d",
@@ -45,8 +80,8 @@ const evidenceRecords = [
     command: "node scripts/test-kernel-telemetry.mjs",
     supersedes: "none",
     supersededBy: "none",
-    revocationState: "active",
-    limitation: "Snapshot evidence does not prove future revisions.",
+    revocationState: "historical",
+    limitation: "Historical source evidence; current public release proof is published at /audit.",
   },
   {
     id: "frozen-evidence-revision",
@@ -54,7 +89,7 @@ const evidenceRecords = [
     type: "evidence commit",
     claim: "Genesis report source revision is separated from the sync snapshot.",
     status: "active",
-    maturity: "Evidence surface",
+    maturity: "Historical public evidence",
     source: "kernel-status.js",
     hash: "85ecc97c026b01b576d735501795951dd293b3ca",
     sourceUrl: "https://github.com/fenrualabs/fenrua-kernel/commit/85ecc97c026b01b576d735501795951dd293b3ca",
@@ -68,8 +103,8 @@ const evidenceRecords = [
     command: "node scripts/test-kernel-telemetry.mjs",
     supersedes: "none",
     supersededBy: "none",
-    revocationState: "active",
-    limitation: "Scope is the public frozen report, not production runtime attestation.",
+    revocationState: "historical",
+    limitation: "Historical source evidence; current public release proof is published at /audit.",
   },
   {
     id: "genesis-manifest-record",
@@ -77,7 +112,7 @@ const evidenceRecords = [
     type: "manifest",
     claim: "Genesis manifest integrity is publicly linked.",
     status: "active",
-    maturity: "Evidence surface",
+    maturity: "Historical public evidence",
     source: "kernel-status.js",
     hash: "bd9ec111888ec32e87a5b60776f0118973848e5c096bbed8f25246e7fd3008cd",
     sourceUrl: "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/manifest.json",
@@ -91,8 +126,8 @@ const evidenceRecords = [
     command: "node scripts/test-kernel-telemetry.mjs",
     supersedes: "none",
     supersededBy: "none",
-    revocationState: "active",
-    limitation: "Manifest scope is limited to listed genesis records.",
+    revocationState: "historical",
+    limitation: "Historical source evidence; current public release proof is published at /audit.",
   },
   {
     id: "differential-validation",
@@ -100,7 +135,7 @@ const evidenceRecords = [
     type: "validation report",
     claim: "Native and sanitizer differential campaigns passed for the published evidence revision.",
     status: "active",
-    maturity: "Evidence surface",
+    maturity: "Historical public evidence",
     source: "kernel-status.js",
     hash: "e74a0ad32730f5129f3f691eb3c9caab31a98596212594d218056e50a1a26c93",
     sourceUrl: "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/audit/final-build-validation.json",
@@ -114,16 +149,16 @@ const evidenceRecords = [
     command: "node scripts/test-kernel-telemetry.mjs",
     supersedes: "none",
     supersededBy: "none",
-    revocationState: "active",
-    limitation: "Differential testing is not production certification.",
+    revocationState: "historical",
+    limitation: "Historical source evidence; current public release proof is published at /audit.",
   },
   {
     id: "toolchain-evidence-lock",
     artifact: "Toolchain Evidence Lock",
     type: "toolchain registry",
     claim: "Detected tool versions are preserved to match the inspected evidence environment.",
-    status: "active",
-    maturity: "Read-only live",
+    status: "historical",
+    maturity: "Historical toolchain evidence",
     source: "data/toolchain-registry.json",
     hash: registryHash,
     sourceUrl: "/data/toolchain-registry.json",
@@ -137,8 +172,8 @@ const evidenceRecords = [
     command: "node scripts/test-toolchain-registry.mjs",
     supersedes: "none",
     supersededBy: "none",
-    revocationState: "active",
-    limitation: "Version capture is not security proof.",
+    revocationState: "historical",
+    limitation: "Frozen toolchain capture; it is not current deployment provenance or security proof.",
   },
 ];
 
@@ -193,7 +228,7 @@ const researchItems = [
     commands: ["node scripts/test-chain-progress.mjs"],
     evidence: "chain-progress public-feed test output.",
     regression: "Query requests are rejected, private topology fields are excluded, and only the bounded observation schema is accepted.",
-    supersession: "Active; contract evidence refresh remains pending.",
+    supersession: "Active; bounded observations remain separate from public release evidence.",
     maturity: "Read-only live",
     limitations: "No stale contract claims are derived from the feed.",
   },
@@ -263,7 +298,7 @@ function statusTimestamp(iso) {
   const time = esc(iso.slice(11, 19));
   return `<div class="timestamp-stack">
       <time datetime="${safeIso}"><span>${date}</span><span>${time} UTC</span></time>
-      <small data-relative-time="${safeIso}">Updated at build time</small>
+      <small data-relative-time="${safeIso}">Evidence timestamp</small>
     </div>`;
 }
 
@@ -271,34 +306,7 @@ function statusTimestampInline(iso) {
   const safeIso = attr(iso);
   const date = esc(iso.slice(0, 10));
   const time = esc(iso.slice(11, 19));
-  return `<span class="timestamp-inline"><time datetime="${safeIso}">${date} ${time} UTC</time><span data-relative-time="${safeIso}">Updated at build time</span></span>`;
-}
-
-function relativeTimeScript() {
-  return `<script>
-      (() => {
-        const labels = (seconds) => {
-          if (seconds < 5) return "Updated just now";
-          if (seconds < 60) return \`Updated \${seconds} seconds ago\`;
-          const minutes = Math.floor(seconds / 60);
-          if (minutes < 60) return \`Updated \${minutes} minute\${minutes === 1 ? "" : "s"} ago\`;
-          const hours = Math.floor(minutes / 60);
-          if (hours < 48) return \`Updated \${hours} hour\${hours === 1 ? "" : "s"} ago\`;
-          const days = Math.floor(hours / 24);
-          return \`Updated \${days} day\${days === 1 ? "" : "s"} ago\`;
-        };
-        const update = () => {
-          document.querySelectorAll("[data-relative-time]").forEach((node) => {
-            const timestamp = Date.parse(node.dataset.relativeTime || "");
-            if (!Number.isFinite(timestamp)) return;
-            const seconds = Math.max(0, Math.floor((Date.now() - timestamp) / 1000));
-            node.textContent = labels(seconds);
-          });
-        };
-        update();
-        window.setInterval(update, 30000);
-      })();
-    </script>`;
+  return `<span class="timestamp-inline"><time datetime="${safeIso}">${date} ${time} UTC</time><span data-relative-time="${safeIso}">Evidence timestamp</span></span>`;
 }
 
 function toolchainDisplayTags(tool) {
@@ -414,8 +422,23 @@ function chainRail(className, label = "Live block updates") {
       </div>`;
 }
 
-function layout({ title, description, current, body, scripts = "", canonicalPath, headerLive = false, robots = "index,follow" }) {
-  const canonical = canonicalPath ?? (current === "Overview" ? "/" : `/${current.toLowerCase()}/`);
+function commercialBoundarySection() {
+  const boundary = siteEvidence.commercialBoundary;
+  if (!boundary || !Array.isArray(boundary.paragraphs)) throw new Error("site-evidence.json must define commercialBoundary paragraphs.");
+  return `      <section class="section-shell split-section commercial-boundary" aria-labelledby="commercial-boundary-title">
+        <div>
+          <p class="eyebrow">ACCESS-ONLY SERVICES</p>
+          <h2 id="commercial-boundary-title">${esc(boundary.title)}</h2>
+        </div>
+        <div class="constraint-list">
+          ${boundary.paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("\n          ")}
+          <p><a href="/docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md">Read the public service and agreement boundary</a>.</p>
+        </div>
+      </section>`;
+}
+
+function layout({ title, description, current, body, scripts = "", canonicalPath, headerLive = false, robots = "index,follow", includeCommercialBoundary = !headerLive }) {
+  const canonical = canonicalPath ?? (current === "Overview" ? "/" : `/${current.toLowerCase()}`);
   const navHtml = nav
     .map(([label, href]) => `<a href="${href}"${current === label ? ' aria-current="page"' : ""}>${label}</a>`)
     .join("\n        ");
@@ -447,7 +470,7 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
     <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
-    ${scripts}
+${scripts ? `    ${scripts}\n` : ""}
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
@@ -465,7 +488,7 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
       </nav>${headerRail}
     </header>
     <main id="content">
-${body}
+${body}${includeCommercialBoundary ? `\n${commercialBoundarySection()}` : ""}
     </main>
     <footer class="site-footer">
       <div>
@@ -475,9 +498,10 @@ ${body}
       <div class="footer-social">
         <p>Public claims are bounded by public evidence.</p>
         <div class="footer-links">
-          <a href="/evidence/">Evidence</a>
-          <a href="/toolchain/">Toolchain</a>
-          <a href="/docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md">Implementation report</a>
+          <a href="/audit">Audit</a>
+          <a href="/evidence">Evidence</a>
+          <a href="/toolchain">Toolchain</a>
+          <a href="/.well-known/fenrua-release.json">Release manifest</a>
           <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
         </div>
       </div>
@@ -496,10 +520,18 @@ function routeHero(eyebrow, title, text, cta = "") {
       </section>`;
 }
 
+function writeGenerated(file, contents) {
+  if (checkMode) {
+    if (!existsSync(file) || readFileSync(file, "utf8") !== contents) staleGeneratedFiles.push(path.relative(root, file));
+    return;
+  }
+  mkdirSync(path.dirname(file), { recursive: true });
+  writeFileSync(file, contents);
+}
+
 function writeRoute(route, html) {
   const file = route === "" ? path.join(root, "index.html") : path.join(root, route, "index.html");
-  mkdirSync(path.dirname(file), { recursive: true });
-  writeFileSync(file, html);
+  writeGenerated(file, html);
 }
 
 function cardGrid(items) {
@@ -515,8 +547,8 @@ function cardGrid(items) {
     .join("\n        ")}</div>`;
 }
 
-function table(headers, rows, extraClass = "") {
-  return `<div class="registry ${extraClass}" role="region" tabindex="0">
+function table(headers, rows, extraClass = "", label = "Data table") {
+  return `<div class="registry ${extraClass}" role="region" tabindex="0" aria-label="${attr(label)}">
           <table>
             <thead><tr>${headers.map((h) => `<th scope="col">${esc(h)}</th>`).join("")}</tr></thead>
             <tbody>
@@ -612,7 +644,7 @@ function home() {
       "LAYER 0 AI SECURITY UTILITY INFRASTRUCTURE",
       "The security kernel beneath autonomous AI.",
       "Fenrua provides identity, authority, integrity, policy, evidence, verification, containment, and recovery primitives for AI agents, models, tools, runtimes, applications, chains, and infrastructure.",
-      `<div class="cta-row"><a class="button button-primary" href="/architecture/">Explore architecture</a><a class="button button-secondary" href="/verify/">Verify locally</a><a class="button button-secondary" href="/toolchain/">Inspect toolchain</a></div>`
+      `<div class="cta-row"><a class="button button-primary" href="/architecture">Explore architecture</a><a class="button button-secondary" href="/verify">Verify locally</a><a class="button button-secondary" href="/toolchain">Inspect toolchain</a></div>`
     )}
       ${chainProgressSection()}
       <section class="section-shell" aria-labelledby="home-answers">
@@ -622,11 +654,11 @@ function home() {
           <p>The homepage is intentionally a routing surface. Deep technical detail lives on dedicated pages so evidence, maturity, and limitations stay inspectable.</p>
         </div>
         ${cardGrid([
-          { kicker: "WHAT", title: "Fenrua is a security substrate", text: "It is not a chatbot, marketplace, generic chain, wallet surface, or certification authority.", href: "/architecture/", link: "Architecture" },
-          { kicker: "WHY LAYER 0", title: "It sits beneath AI execution", text: "Independent systems need identity, authority, integrity, policy, evidence, verification, containment, and recovery before autonomous execution can be trusted.", href: "/kernel/", link: "Kernel primitives" },
-          { kicker: "TODAY", title: "Reference surfaces are public", text: "The website, evidence registry, toolchain lock, telemetry checks, and schema foundations are available with maturity labels.", href: "/status/", link: "Status" },
-          { kicker: "EVIDENCE", title: "Claims are source-linked", text: "Every significant public claim points to a source, timestamp, maturity label, and limitation.", href: "/evidence/", link: "Evidence registry" },
-          { kicker: "NEXT", title: "Developers start locally", text: "The verifier page and developer quick-start show the local workflow without pretending a live verifier exists.", href: "/developers/", link: "Quick start" },
+          { kicker: "WHAT", title: "Fenrua is a security substrate", text: "It is not a chatbot, marketplace, generic chain, wallet surface, or certification authority.", href: "/architecture", link: "Architecture" },
+          { kicker: "WHY LAYER 0", title: "It sits beneath AI execution", text: "Independent systems need identity, authority, integrity, policy, evidence, verification, containment, and recovery before autonomous execution can be trusted.", href: "/kernel", link: "Kernel primitives" },
+          { kicker: "TODAY", title: "Reference surfaces are public", text: "The website, evidence registry, toolchain lock, telemetry checks, and schema foundations are available with maturity labels.", href: "/status", link: "Status" },
+          { kicker: "EVIDENCE", title: "Claims are source-linked", text: "Every significant public claim points to a source, timestamp, maturity label, and limitation.", href: "/evidence", link: "Evidence registry" },
+          { kicker: "NEXT", title: "Developers start locally", text: "The verifier page and developer quick-start show the local workflow without pretending a live verifier exists.", href: "/developers", link: "Quick start" },
         ])}
       </section>
       <section class="section-shell split-section" aria-labelledby="home-boundary">
@@ -638,7 +670,7 @@ function home() {
         <div class="constraint-list">
           <p><strong>Semgrep:</strong> detected <code>1.169.0</code>.</p>
           <p><strong>SnarkJS:</strong> detected <code>0.7.6</code>; <code>1.13.8</code> is <code>underscore</code>.</p>
-          <p><strong>Contract boundary:</strong> refreshed contract evidence is pending; no stale deployment claim is finalized.</p>
+          <p><strong>Commercial boundary:</strong> Fenrua provides access-only services through tiers and client-specific agreements; no public financial product or offering is made.</p>
         </div>
       </section>`,
   });
@@ -651,6 +683,7 @@ function architecture() {
     current: "Architecture",
     body: `${routeHero("OPERATING-SYSTEM MODEL", "Architecture", "Fenrua is organized as kernel space and user space, with stable machine-readable interfaces and public evidence boundaries.")}
       <section class="section-shell">
+        <div class="section-heading"><p class="eyebrow">CONTROL FLOW</p><h2>Security workflow</h2></div>
         <div class="stack-diagram" role="img" aria-label="Fenrua stack diagram">
           <span>USERS, OPERATORS, ORGANISATIONS</span>
           <span>AI APPLICATIONS AND WORKFLOWS</span>
@@ -679,6 +712,7 @@ function kernel() {
     current: "Kernel",
     body: `${routeHero("KERNEL SPACE", "Security Kernel", "The kernel owns the security primitives beneath autonomous AI execution. Each primitive carries its own maturity label and evidence boundary.")}
       <section class="section-shell">
+        <div class="section-heading"><p class="eyebrow">PRIMITIVES</p><h2>Kernel responsibilities</h2></div>
         ${cardGrid([
           { kicker: "Specification", title: "Identity", text: "AI entities, artifacts, builds, models, tools, operators, deployments, and evidence bundles." },
           { kicker: "Specification", title: "Authority", text: "Allow, deny, approval, scope, expiry, delegation, and revocation." },
@@ -708,7 +742,7 @@ function utilities() {
     ["Fenrua Trace", "Preserve action, tool-call, approval, and incident lineage.", "Trace integrity, not prediction.", "Research"],
     ["Fenrua Gate", "Fail closed on unsafe execution state.", "Requires runtime adapter.", "Planned"],
     ["Fenrua Revoke", "Publish revocation and quarantine state.", "No live service claimed.", "Doctrine"],
-    ["Fenrua Registry", "Anchor entity, evidence, and release state.", "Contract refresh pending.", "Research"],
+    ["Fenrua Registry", "Anchor entity, evidence, and release state.", "No public contract or financial offering is claimed.", "Research"],
   ].map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join("")}</tr>`);
   return layout({
     title: "Fenrua Utilities",
@@ -728,7 +762,7 @@ function researchDate(item) {
 function researchIndex() {
   const rows = researchItems.map(
     (item) => `<tr>
-      <td><a href="/research/${item.slug}/">${esc(item.title)}</a><br><small>${esc(item.category)}</small></td>
+      <td><a href="/research/${item.slug}">${esc(item.title)}</a><br><small>${esc(item.category)}</small></td>
       <td>${esc(item.claim)}</td>
       <td>${esc(item.nonClaim)}</td>
       <td>${esc(item.primitive)}</td>
@@ -737,7 +771,7 @@ function researchIndex() {
   );
   const cards = researchItems.map((item) => `<article class="research-record-card">
         <p class="eyebrow">${esc(item.category)}</p>
-        <h2><a href="/research/${item.slug}/">${esc(item.title)}</a></h2>
+        <h2><a href="/research/${item.slug}">${esc(item.title)}</a></h2>
         <dl>
           <div><dt>Record ID</dt><dd><code>fenrua-research:${esc(item.slug)}</code></dd></div>
           <div><dt>Maturity</dt><dd>${esc(item.maturity)}</dd></div>
@@ -745,7 +779,7 @@ function researchIndex() {
         </dl>
         <p><strong>Claim:</strong> ${esc(item.claim)}</p>
         <p><strong>Primary limitation:</strong> ${esc(item.limitations)}</p>
-        <a href="/research/${item.slug}/">Open record</a>
+        <a href="/research/${item.slug}">Open record</a>
       </article>`).join("\n        ");
   return layout({
     title: "Fenrua Research Registry",
@@ -807,7 +841,7 @@ function researchPage(item) {
     title: `${item.title} | Fenrua Research`,
     description: `${item.title} research record.`,
     current: "Research",
-    canonicalPath: `/research/${item.slug}/`,
+    canonicalPath: `/research/${item.slug}`,
     body: `${routeHero("RESEARCH RECORD", item.title, `${item.category} · ${item.primitive}`)}
       <section class="section-shell research-record-shell">
         <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Use the section menu below; desktop keeps the full route context visible.</p>
@@ -961,13 +995,14 @@ function developers() {
     current: "Developers",
     body: `${routeHero("TEN-MINUTE QUICK START", "Developers", "Start with the architecture, inspect schemas, run local validation, then map claims to evidence.")}
       <section class="section-shell">
+        <div class="section-heading"><p class="eyebrow">WORKFLOW</p><h2>Developer workflow</h2></div>
         ${cardGrid([
           { kicker: "01", title: "Install", text: "Use Node 24 and the repository package manager. This website has no runtime package dependencies." },
           { kicker: "02", title: "Validate", text: "Run npm run validate to check static links, public discovery, chain API sanitization, kernel telemetry, and toolchain registry." },
-          { kicker: "03", title: "Read schemas", text: "Entity manifest, authority policy, evidence bundle, and verification result specs are public.", href: "/verify/", link: "Schemas and examples" },
-          { kicker: "04", title: "Inspect evidence", text: "Use the evidence registry and toolchain lock to connect claims to source, timestamp, maturity, and limitations.", href: "/evidence/", link: "Evidence" },
+          { kicker: "03", title: "Read schemas", text: "Entity manifest, authority policy, evidence bundle, and verification result specs are public.", href: "/verify", link: "Schemas and examples" },
+          { kicker: "04", title: "Inspect evidence", text: "Use the evidence registry and release manifest to connect claims to source, timestamp, maturity, and limitations.", href: "/evidence", link: "Evidence" },
           { kicker: "05", title: "Respect compatibility", text: "Unsupported schema versions fail closed with UNSUPPORTED_SCHEMA rather than partial interpretation." },
-          { kicker: "06", title: "Do not overclaim", text: "No SDK, live verifier, policy engine, runtime gate, or contract assurance is claimed until evidence exists." },
+          { kicker: "06", title: "Respect the service boundary", text: "No public token, investment, trading, or financial-return product is claimed." },
         ])}
       </section>
       <section class="section-shell split-section">
@@ -975,7 +1010,7 @@ function developers() {
         ${codeBlock("Clean checkout baseline", `git clone https://github.com/fenrualabs/fenrua-web.git
 cd fenrua-web
 node --version  # v24 required
-npm install
+npm ci
 npm run validate
 node scripts/test-toolchain-registry.mjs
 node scripts/test-verify-examples.mjs`, "bash")}
@@ -1015,9 +1050,68 @@ function evidence() {
     description: "Fenrua public evidence registry with claims, hashes, provenance, supersession, maturity, and limitations.",
     current: "Evidence",
     scripts: '<script src="/toolchain/toolchain.js" defer></script>',
-    body: `${routeHero("PUBLIC EVIDENCE", "Evidence Registry", "Every significant claim is tied to source, timestamp, maturity, limitation, provenance, and copyable hash.")}
+    body: `${routeHero("PUBLIC EVIDENCE", "Evidence Registry", "Current public release evidence is separated from historical source evidence and every record states its limitation.", `<div class="cta-row"><a class="button button-primary" href="/audit">Read current audit</a><a class="button button-secondary" href="/.well-known/fenrua-release.json">Release manifest</a></div>`)}
       <section class="section-shell">
-        ${table(["Artifact", "Claim", "Hash", "Source", "Revisions", "Producer", "Command", "Verified / Revocation", "Supersession", "Limitation"], rows, "evidence-table")}
+        ${table(["Artifact", "Claim", "Hash", "Source", "Revisions", "Producer", "Command", "Verified / Revocation", "Supersession", "Limitation"], rows, "evidence-table", "Public evidence registry")}
+      </section>`,
+  });
+}
+
+function documentUrl(value) {
+  return value.startsWith("/") ? value : `/${value}`;
+}
+
+function audit() {
+  const records = documentRegister.records;
+  if (!Array.isArray(records)) throw new Error("public-document-register.json must contain a records array.");
+  const rows = records.map((record) => {
+    const replacement = record.replacementPath ? `<a href="${attr(documentUrl(record.replacementPath))}">${esc(record.replacementPath)}</a>` : "—";
+    const archive = record.path ? `<a href="${attr(documentUrl(record.path))}"><code>${esc(record.path)}</code></a>` : "—";
+    return `<tr>
+      <td data-label="Record"><code>${esc(record.id)}</code></td>
+      <td data-label="Status">${statusBadge(record.status)}</td>
+      <td data-label="Current / archive">${archive}</td>
+      <td data-label="Replacement">${replacement}</td>
+      <td data-label="Archived">${esc(record.archivedAt ?? "Current")}</td>
+      <td data-label="Content hash"><code class="hash-value">${esc(record.contentSha256 ?? "Included in release manifest")}</code></td>
+    </tr>`;
+  });
+  const scope = siteEvidence.scope ?? {};
+  return layout({
+    title: "Fenrua Public Audit",
+    description: "Current public static release evidence, document status, access-only commercial boundary, and explicit limitations.",
+    current: "Audit",
+    canonicalPath: "/audit",
+    includeCommercialBoundary: false,
+    body: `${routeHero("CURRENT PUBLIC RELEASE", "Audit and Release Evidence", "This page identifies the current public static release evidence and its limits. It does not attest to dynamic observations, live block cards, or protected systems.", `<div class="cta-row"><a class="button button-primary" href="/.well-known/fenrua-release.json">Open release manifest</a><a class="button button-secondary" href="/data/public-document-register.json">Download document register</a></div>`)}
+      <section class="section-shell split-section">
+        <div>
+          <p class="eyebrow">STATIC RELEASE SCOPE</p>
+          <h2>What this evidence binds</h2>
+          <p>The release manifest is generated from the exact release checkout. It contains only a source commit, public static artifacts, content hashes, validation scope, and stated limitations.</p>
+        </div>
+        <div class="constraint-list">
+          ${(scope.included ?? []).map((item) => `<p>${esc(item)}</p>`).join("\n          ")}
+          <p><strong>Site evidence SHA-256:</strong> <code>${esc(siteEvidenceHash)}</code></p>
+        </div>
+      </section>
+      ${commercialBoundarySection()}
+      <section class="section-shell split-section">
+        <div>
+          <p class="eyebrow">EXCLUSIONS</p>
+          <h2>What remains outside public release proof</h2>
+        </div>
+        <div class="constraint-list">
+          ${(scope.excluded ?? []).map((item) => `<p>${esc(item)}</p>`).join("\n          ")}
+        </div>
+      </section>
+      <section class="section-shell">
+        <div class="section-heading">
+          <p class="eyebrow">DOCUMENT STATUS</p>
+          <h2>Current, archived, and superseded public records</h2>
+          <p>Archived records are retained only for continuity and are not current release evidence.</p>
+        </div>
+        ${table(["Record", "Status", "Current / archive", "Replacement", "Archived", "Content hash"], rows, "evidence-table", "Public document register")}
       </section>`,
   });
 }
@@ -1025,17 +1119,17 @@ function evidence() {
 function status() {
   const rows = [
     ["Homepage", "success", "Routing surface", "index.html", generatedIso, "static route validation", "npm run validate", "Live chain observations remain read-only public telemetry.", "Browser viewport matrix"],
-    ["Architecture", "success", "Specification", "/architecture/", generatedIso, "static route validation", "npm run validate", "Architecture is descriptive, not a deployed control plane.", "Independent architecture review"],
-    ["Kernel", "success", "Specification/reference mix", "/kernel/", generatedIso, "static route validation", "npm run validate", "Primitive maturity varies by row.", "Per-primitive evidence expansion"],
-    ["Utilities", "success", "Catalogue", "/utilities/", generatedIso, "static route validation", "npm run validate", "No fake live utility service is claimed.", "SDK or CLI evidence"],
-    ["Research registry", "success", "Evidence surface", "/research/", generatedIso, "static route validation", "npm run validate", "Dedicated pages expose current reproduction limits.", "Independent reproduction"],
-    ["Verify examples", "partial", "Prototype foundation", "/verify/", generatedIso, "fixture corpus validation", "node scripts/test-verify-examples.mjs", "No hosted verifier or upload model exists.", "Real verifier implementation"],
-    ["Developer quick start", "success", "Reproducibility guide", "/developers/", generatedIso, "clean checkout report", "npm run validate", "Node 24 required.", "Tagged release reproduction"],
+    ["Architecture", "success", "Specification", "/architecture", generatedIso, "static route validation", "npm run validate", "Architecture is descriptive, not a deployed control plane.", "Independent architecture review"],
+    ["Kernel", "success", "Specification/reference mix", "/kernel", generatedIso, "static route validation", "npm run validate", "Primitive maturity varies by row.", "Per-primitive evidence expansion"],
+    ["Utilities", "success", "Catalogue", "/utilities", generatedIso, "static route validation", "npm run validate", "No fake live utility service is claimed.", "SDK or CLI evidence"],
+    ["Research registry", "success", "Evidence surface", "/research", generatedIso, "static route validation", "npm run validate", "Dedicated pages expose current reproduction limits.", "Independent reproduction"],
+    ["Verify examples", "partial", "Prototype foundation", "/verify", generatedIso, "fixture corpus validation", "node scripts/test-verify-examples.mjs", "No hosted verifier or upload model exists.", "Real verifier implementation"],
+    ["Developer quick start", "success", "Reproducibility guide", "/developers", generatedIso, "clean checkout report", "npm run validate", "Node 24 required.", "Tagged release reproduction"],
     ["Toolchain registry", "success", "Read-only live", "data/toolchain-registry.json", generatedIso, "registry validation", "node scripts/test-toolchain-registry.mjs", "Version capture is not security proof.", "New frozen evidence bundle"],
-    ["Evidence registry", "success", "Evidence surface", "/evidence/", generatedIso, "static route validation", "npm run validate", "Evidence provenance is scoped to public artifacts.", "External evidence review"],
-    ["Chain 978 observation", "success", "Signed bounded observation", "/api/chain-progress", generatedIso, "5 second public cache; 20 second refresh; 90 second freshness", "node scripts/test-chain-progress.mjs", "Public status is a signed bounded observation; not contract, bytecode, reserve, or deployment assurance.", "Contract evidence refresh boundary"],
+    ["Evidence registry", "success", "Evidence surface", "/evidence", generatedIso, "static route validation", "npm run validate", "Evidence provenance is scoped to public artifacts.", "External evidence review"],
+    ["Chain 978 observation", "success", "Signed bounded observation", "/api/chain-progress", generatedIso, "5 second public cache; 20 second refresh; 90 second freshness", "node scripts/test-chain-progress.mjs", "Public status is a signed bounded observation; not contract, bytecode, reserve, or deployment assurance.", "Independent bounded observation review"],
     ["Chain N521 observation", "success", "Signed bounded observation", "/api/chain-progress", generatedIso, "5 second public cache; 20 second refresh; 90 second freshness", "node scripts/test-chain-progress.mjs", "Public status is an independent signed bounded observation; not contract, bytecode, reserve, or deployment assurance.", "Independent bounded observation gateway"],
-    ["Contract evidence", "pending evidence", "Pending refreshed bundle", "docs/FENRUA_CONTRACT_EVIDENCE_REFRESH_BOUNDARY.md", generatedIso, "manual evidence gate", "none", "No current contract, bytecode, reserve, or deployment claim.", "Frozen contract evidence bundle"],
+    ["Commercial access", "success", "Access-only services", "/docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md", generatedIso, "public boundary review", "data/site-evidence.json", "Subscriptions and client-specific agreements do not create a financial product, token entitlement, or return expectation.", "Designated business-owner review"],
     ["Public repository", "success", "Source surface", "https://github.com/fenrualabs/fenrua-web", generatedIso, "git provenance", "git rev-parse HEAD", "Repository state changes after each deployment.", "Tagged release"],
     ["Schema set", "success", "Specification", "/docs/", generatedIso, "example corpus validation", "node scripts/test-verify-examples.mjs", "Schemas are examples/specifications, not a hosted validator.", "Schema validator package"],
   ].map(
@@ -1055,7 +1149,6 @@ function status() {
     title: "Fenrua Status",
     description: "Fenrua status system with loading, success, partial, stale, failure, paused, and maintenance states.",
     current: "Status",
-    scripts: relativeTimeScript(),
     body: `${routeHero("STATE SYSTEM", "Status", "Every telemetry widget must expose state, timestamp, source, retry behavior, and explanation.")}
       <section class="section-shell">
         <div class="toolchain-summary state-grid">
@@ -1065,7 +1158,7 @@ function status() {
                 <span>${esc(state)}</span>
                 <strong>${esc(label)}</strong>
                 <p>${esc(explanation)}</p>
-                <small>Source: status contract · ${statusTimestampInline(generatedIso)} · Retry: ${esc(retry)}</small>
+                <small>Source: status definition · ${statusTimestampInline(generatedIso)} · Retry: ${esc(retry)}</small>
               </article>`
             )
             .join("\n")}
@@ -1073,7 +1166,7 @@ function status() {
       </section>
       <section class="section-shell">
         <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Each status row remains complete, including UTC seconds and freshness.</p>
-        ${table(["Component", "Operational state", "Maturity", "Source", "Timestamp", "Freshness policy", "Last successful check", "Current limitation", "Next evidence gate"], rows, "status-table")}
+        ${table(["Component", "Operational state", "Maturity", "Source", "Timestamp", "Freshness policy", "Last successful check", "Current limitation", "Next evidence gate"], rows, "status-table", "Public status records")}
       </section>`,
   });
 }
@@ -1233,7 +1326,7 @@ function legacyPage(route) {
     title: `Legacy Fenrua ${route} Route`,
     description: "Superseded Fenrua public route archive notice.",
     current: "Overview",
-    canonicalPath: `/${route}/`,
+    canonicalPath: `/${route}`,
     robots: "noindex,nofollow",
     body: `${routeHero("LEGACY / SUPERSEDED", "Legacy route", "This route belongs to a superseded Fenrua public estate and has no current applicability. The canonical current site is the Layer 0 AI Security Utility Infrastructure interface.")}
       <section class="section-shell split-section">
@@ -1262,19 +1355,20 @@ for (const item of researchItems) writeRoute(path.join("research", item.slug), r
 writeRoute("verify", verify());
 writeRoute("developers", developers());
 writeRoute("evidence", evidence());
+writeRoute("audit", audit());
 writeRoute("status", status());
 writeRoute("toolchain", toolchain());
 for (const route of legacyRoutes) writeRoute(route, legacyPage(route));
 
-const sitemapRoutes = ["", "architecture", "kernel", "utilities", "research", ...researchItems.map((item) => `research/${item.slug}`), "verify", "developers", "toolchain", "evidence", "status"];
-writeFileSync(
+const sitemapRoutes = ["", "architecture", "kernel", "utilities", "research", ...researchItems.map((item) => `research/${item.slug}`), "verify", "developers", "toolchain", "evidence", "audit", "status"];
+writeGenerated(
   path.join(root, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemapRoutes
   .map(
     (route) => `  <url>
-    <loc>https://fenrua.ai/${route ? `${route}/` : ""}</loc>
+    <loc>https://fenrua.ai/${route}</loc>
     <lastmod>${generatedDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${route === "" ? "1.0" : "0.8"}</priority>
@@ -1285,9 +1379,15 @@ ${sitemapRoutes
 `
 );
 
+if (checkMode && staleGeneratedFiles.length > 0) {
+  console.error(`Generated static files are stale:\n${staleGeneratedFiles.map((file) => `- ${file}`).join("\n")}`);
+  process.exit(1);
+}
+
 console.log(
   JSON.stringify({
     status: "ok",
+    mode: checkMode ? "check" : "write",
     routes: sitemapRoutes.length,
     tools: registry.tools.length,
     registryHash,

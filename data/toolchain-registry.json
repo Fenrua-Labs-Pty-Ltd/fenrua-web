@@ -1,6 +1,6 @@
 {
   "schemaVersion": "fenrua.toolchain-registry.v1",
-  "generatedAt": "2026-07-12T19:49:17Z",
+  "generatedAt": "2026-07-13T07:56:58Z",
   "repository": "fenrua-web",
   "verificationMethod": "Read-only local version capture using bounded version and help commands. Outputs are normalized to remove private paths and local host detail.",
   "truthBoundary": "Tool presence, installation, or version capture is not treated as proof of security. Evidence-producing status is only used where the repository exposes a repeatable evidence path.",
@@ -19,12 +19,12 @@
   "evidenceLockIntegrityPolicy": {
     "rule": "The public registry records the toolchain state that matches the evidence environment. Do not update or relabel tool versions after evidence capture unless a new evidence bundle is generated and frozen.",
     "projectDependencyReview": {
-      "fenruaWebDependencyDrift": "No dependency drift observed; fenrua-web has no package dependencies.",
+      "fenruaWebDependencyDrift": "Pinned Playwright and Vercel development dependencies are recorded in package-lock.json; the deployed static site has no runtime package dependency.",
       "fenruaKernelDirectDependencyDrift": "No direct pnpm dependency drift observed for the inspected kernel package."
     },
     "postEvidenceMutation": {
-      "toolchainUpdatesPerformed": false,
-      "publicSummary": "No toolchain, package, OS, or container updates were performed during this website task. Version records are preserved to match the inspected evidence environment."
+      "toolchainUpdatesPerformed": true,
+      "publicSummary": "The pinned Playwright browser-validation dependency and locked Vercel deployment CLI were added for this release process; Playwright executed only against the non-live public static routes."
     }
   },
   "semgrepExpectation": {
@@ -107,7 +107,7 @@
       "pipeline": ["solidity-security", "version-inventory"],
       "status": "INSTALLED_AND_EXECUTED",
       "evidencePath": "data/toolchain-registry.json",
-      "limitations": "Version captured only; contract evidence refresh is pending."
+      "limitations": "Version captured only; no public contract or financial-offering evidence is published."
     },
     {
       "tool": "cast",
@@ -911,19 +911,19 @@
     },
     {
       "tool": "Playwright",
-      "detectedVersion": "Unavailable in PATH",
-      "installationMode": "unavailable",
+      "detectedVersion": "@playwright/test 1.61.1",
+      "installationMode": "npm devDependency",
       "category": "Application and web security",
       "function": "Browser validation",
-      "installed": false,
-      "executed": false,
-      "evidenceProduced": false,
-      "lastVerifiedAt": "2026-07-12T19:46:58Z",
-      "commands": ["playwright --version"],
+      "installed": true,
+      "executed": true,
+      "evidenceProduced": true,
+      "lastVerifiedAt": "2026-07-13T07:56:58Z",
+      "commands": ["npm exec --no -- playwright --version", "npm run test:browser"],
       "pipeline": ["application-security"],
-      "status": "UNAVAILABLE",
-      "evidencePath": "data/toolchain-registry.json",
-      "limitations": "No Playwright binary was detected, so browser coverage was not added in this pass."
+      "status": "INSTALLED_EXECUTED_EVIDENCE_PRODUCING",
+      "evidencePath": "tests/browser/non-live-public-surface.spec.mjs",
+      "limitations": "Covers only static Evidence, Status, Toolchain, and Verify; homepage live cards, APIs, and protected systems are excluded."
     },
     {
       "tool": "Supabase JavaScript SDK",
@@ -1818,7 +1818,7 @@
       "commands": ["git --version", "git status --short", "git rev-parse HEAD"],
       "pipeline": ["source-control", "application-security", "version-inventory"],
       "status": "INSTALLED_EXECUTED_EVIDENCE_PRODUCING",
-      "evidencePath": "docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md",
+      "evidencePath": "data/site-evidence.json",
       "limitations": "Git records repository state; it does not prove deployed bytecode or production safety."
     },
     {
@@ -1914,7 +1914,7 @@
       "commands": ["rg --version", "rg ..."],
       "pipeline": ["supporting-cli", "application-security", "version-inventory"],
       "status": "INSTALLED_EXECUTED_EVIDENCE_PRODUCING",
-      "evidencePath": "docs/FENRUA_LAYER0_WEBSITE_IMPLEMENTATION_REPORT.md",
+      "evidencePath": "data/site-evidence.json",
       "limitations": "Search results inform discovery; they are not security proof."
     },
     {
