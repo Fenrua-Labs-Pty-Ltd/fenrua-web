@@ -25,17 +25,21 @@ assert.match(runtimeGuard, /nodeMajor !== 24/);
 assert.match(runtimeGuard, /npmMajor !== 11/);
 assert.doesNotMatch(deploymentNotes, /deploy:production:node24|locked `vercel` CLI/i);
 
-const runRuntimeGuard = (npmUserAgent) =>
-  spawnSync(process.execPath, [runtimeGuardPath], {
+const runRuntimeGuard = (npmUserAgent, { vercel = true } = {}) => {
+  const env = {
+    ...process.env,
+    VERCEL: vercel ? "1" : "0",
+    VERCEL_GIT_COMMIT_SHA: vercel ? "a".repeat(40) : "",
+  };
+  if (npmUserAgent === undefined) delete env.npm_config_user_agent;
+  else env.npm_config_user_agent = npmUserAgent;
+
+  return spawnSync(process.execPath, [runtimeGuardPath], {
     cwd: root,
     encoding: "utf8",
-    env: {
-      ...process.env,
-      VERCEL: "1",
-      VERCEL_GIT_COMMIT_SHA: "a".repeat(40),
-      npm_config_user_agent: npmUserAgent,
-    },
+    env,
   });
+};
 
 const supportedVercelRuntime = runRuntimeGuard("npm/11.12.1 node/v24.15.0 linux x64");
 assert.equal(supportedVercelRuntime.status, 0, supportedVercelRuntime.stderr);
@@ -44,5 +48,17 @@ assert.match(supportedVercelRuntime.stdout, /Bound Vercel runtime OK/);
 const unsupportedVercelNpm = runRuntimeGuard("npm/12.0.0 node/v24.15.0 linux x64");
 assert.notEqual(unsupportedVercelNpm.status, 0);
 assert.match(unsupportedVercelNpm.stderr, /Vercel npm 11\.x required/);
+
+for (const [label, npmUserAgent] of [
+  ["missing", undefined],
+  ["malformed", "pnpm/10.0.0 node/v24.15.0 linux x64"],
+]) {
+  const rejected = runRuntimeGuard(npmUserAgent);
+  assert.notEqual(rejected.status, 0, `A ${label} Vercel npm identity must fail closed.`);
+  assert.match(rejected.stderr, /Vercel npm 11\.x required/);
+}
+
+const missingExactNpm = runRuntimeGuard(undefined, { vercel: false });
+assert.notEqual(missingExactNpm.status, 0, "The exact release path must reject an unknown npm identity.");
 
 console.log(JSON.stringify({ status: "ok", scope: "production-git-deployment-binding" }));

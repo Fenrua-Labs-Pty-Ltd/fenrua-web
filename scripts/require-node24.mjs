@@ -15,8 +15,8 @@ if (isBoundVercelBuild) {
     process.exit(1);
   }
 
-  if (npmMajor !== null && npmMajor !== 11) {
-    console.error(`Vercel npm 11.x required. Current runtime: ${npmVersion}`);
+  if (npmMajor !== 11) {
+    console.error(`Vercel npm 11.x required. Current runtime: ${npmVersion ?? "unavailable"}`);
     process.exit(1);
   }
 
@@ -27,8 +27,8 @@ if (isBoundVercelBuild) {
     process.exit(1);
   }
 
-  if (npmVersion && npmVersion !== requiredNpm) {
-    console.error(`npm ${requiredNpm} required. Current runtime: ${npmVersion}`);
+  if (npmVersion !== requiredNpm) {
+    console.error(`npm ${requiredNpm} required. Current runtime: ${npmVersion ?? "unavailable"}`);
     process.exit(1);
   }
 
