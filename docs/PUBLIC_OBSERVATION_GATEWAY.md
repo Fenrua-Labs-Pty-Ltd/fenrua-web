@@ -60,8 +60,9 @@ forwarding, or operator/customer metadata is returned.
 - Quorum loss produces `partial`; the UI does not show an unconfirmed block as
   a live head.
 - A confirmed record older than 90 seconds is shown as `Stale`. The ceiling
-  allows for a 15-second watcher/poll cadence plus bounded cache and timer
-  jitter; it is not a claim of immediate finality.
+  allows for the 15-second private watcher/publisher cadence, a 20-second
+  browser refresh, and the bounded cache; it is not a claim of immediate
+  finality.
 - No current observation produces `unavailable`, never a false success.
 - A chain with no configured independent publisher is `Awaiting signed
   observation`; no block, sequence, or live state is fabricated.
@@ -74,7 +75,8 @@ forwarding, or operator/customer metadata is returned.
   unavailable records must also pass Ed25519 verification against the configured public key;
   otherwise the adapter fails closed to `unavailable`.
 - The public status endpoint uses a 5-second CDN cache with no stale-on-error
-  serving. The browser refreshes every 15 seconds.
+  serving. The browser refreshes every 20 seconds while the private signed
+  publisher continues every 15 seconds.
 - A salted, in-memory, best-effort limit of 60 requests per minute per client
   is applied per warm serverless isolate. It does not replace edge-level DDoS
   protection.

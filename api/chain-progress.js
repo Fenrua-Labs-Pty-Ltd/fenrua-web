@@ -3,7 +3,7 @@ import { createHash, createPublicKey, randomBytes, verify as verifySignature } f
 // This route is intentionally a bounded public adapter. It never forwards a
 // browser request to JSON-RPC and never includes an endpoint, peer, hash, or
 // operator detail in its response.
-const refreshMs = 15_000;
+const refreshMs = 20_000;
 const maxFreshObservationAgeSeconds = 90;
 const gatewayTimeoutMs = 5_000;
 const maxGatewayResponseBytes = 2_048;

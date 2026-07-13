@@ -312,7 +312,7 @@ const chainFieldMap = {
   },
 };
 
-const chainRefreshMs = 15_000;
+const chainRefreshMs = 20_000;
 const chainFetchTimeoutMs = 8_000;
 const chainMaxBackoffMs = 60_000;
 const maxSnapshotAgeSeconds = 30;

@@ -204,6 +204,8 @@ try {
   assert.match(chainPage, /data-chain-field="521-activity"/);
   assert.doesNotMatch(chainClient, /"0 blocks"|lastChainBlocks|lastChainCheckedAt|Private telemetry not published/);
   assert.match(chainClient, /secondsSince\(payload\.generatedAt\)/);
+  assert.match(chainClient, /const chainRefreshMs = 20_000/);
+  assert.match(chainApi, /const refreshMs = 20_000/);
   assert.doesNotMatch(chainApi, /FENCHAIN_(?:N521_)?RPC_URL|eth_getBlockByNumber|eth_chainId|jsonrpc/);
 
   configureGateways();
@@ -221,7 +223,7 @@ try {
     "public, s-maxage=5, stale-while-revalidate=0, stale-if-error=0"
   );
   assert.equal(gatewayCalls, 2);
-  assert.equal(healthy.body.refreshMs, 15_000);
+  assert.equal(healthy.body.refreshMs, 20_000);
   assert.equal(healthy.body.freshnessSeconds, 90);
   assert.equal(healthy.body.chains[0].status, "live");
   assert.equal(healthy.body.chains[0].observationSequence, 41);
