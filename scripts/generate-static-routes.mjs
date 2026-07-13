@@ -27,6 +27,14 @@ const generatedIso = siteEvidence.generatedAt;
 if (typeof generatedIso !== "string" || !Number.isFinite(Date.parse(generatedIso))) {
   throw new Error("data/site-evidence.json must contain a valid generatedAt timestamp.");
 }
+const contentModifiedDate = siteEvidence.contentModifiedDate;
+if (
+  typeof contentModifiedDate !== "string"
+  || !/^\d{4}-\d{2}-\d{2}$/.test(contentModifiedDate)
+  || !Number.isFinite(Date.parse(`${contentModifiedDate}T00:00:00Z`))
+) {
+  throw new Error("data/site-evidence.json must contain a valid contentModifiedDate.");
+}
 if (
   !Array.isArray(siteEvidence.legalOperatingRecord?.offerings)
   || siteEvidence.legalOperatingRecord.offerings.length !== 7
@@ -35,7 +43,7 @@ if (
 ) {
   throw new Error("data/site-evidence.json must contain the approved seven-row Legal operating record and supporting factual sections.");
 }
-const generatedDate = generatedIso.slice(0, 10);
+const generatedDate = contentModifiedDate;
 const checkMode = process.argv.includes("--check");
 const staleGeneratedFiles = [];
 
@@ -523,7 +531,7 @@ function pageDiscoveryJsonLd({ title, description, canonical, current }) {
       name: title,
       description,
       inLanguage: "en-AU",
-      dateModified: siteEvidence.generatedAt.slice(0, 10),
+      dateModified: contentModifiedDate,
       isPartOf: { "@id": "https://fenrua.ai/#website" },
       about: { "@id": "https://fenrua.ai/#organization" },
       breadcrumb: { "@id": `${pageUrl}#breadcrumb` },

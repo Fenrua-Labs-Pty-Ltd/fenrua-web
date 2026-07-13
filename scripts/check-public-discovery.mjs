@@ -3,13 +3,16 @@ import { readFile } from "node:fs/promises";
 import { publicArtifactFiles, publicRouteFor } from "./public-output-lib.mjs";
 
 const canonicalOrigin = "https://fenrua.ai";
-const [robots, sitemap, llms, securityText, vercelSource] = await Promise.all([
+const [robots, sitemap, llms, securityText, vercelSource, siteEvidenceSource] = await Promise.all([
   readFile(new URL("../robots.txt", import.meta.url), "utf8"),
   readFile(new URL("../sitemap.xml", import.meta.url), "utf8"),
   readFile(new URL("../llms.txt", import.meta.url), "utf8"),
   readFile(new URL("../.well-known/security.txt", import.meta.url), "utf8"),
   readFile(new URL("../vercel.json", import.meta.url), "utf8"),
+  readFile(new URL("../data/site-evidence.json", import.meta.url), "utf8"),
 ]);
+const siteEvidence = JSON.parse(siteEvidenceSource);
+assert.match(siteEvidence.contentModifiedDate, /^\d{4}-\d{2}-\d{2}$/, "Site evidence must declare a content modification date.");
 
 function decodeXml(value) {
   return value
@@ -61,6 +64,7 @@ for (const { loc, lastmod } of sitemapRecords) {
   assert.ok(parsed.pathname === "/" || !parsed.pathname.endsWith("/"), `Sitemap URL must be slashless: ${loc}`);
   assert.match(lastmod, /^\d{4}-\d{2}-\d{2}$/, `Sitemap lastmod must be an honest date: ${loc}`);
   assert.ok(Number.isFinite(Date.parse(`${lastmod}T00:00:00Z`)), `Sitemap lastmod must parse: ${loc}`);
+  assert.equal(lastmod, siteEvidence.contentModifiedDate, `Sitemap lastmod must match current site evidence: ${loc}`);
 }
 
 const htmlArtifacts = publicArtifactFiles().filter(
@@ -145,6 +149,7 @@ for (const file of htmlArtifacts) {
   assert.equal(webPage?.description, description, `${file} structured description must match the meta description.`);
   assert.equal(webPage?.inLanguage, "en-AU");
   assert.equal(webPage?.dateModified, sitemapByUrl.get(canonicalUrl)?.lastmod, `${file} lastmod signals must agree.`);
+  assert.equal(webPage?.dateModified, siteEvidence.contentModifiedDate, `${file} dateModified must match current site evidence.`);
   const breadcrumb = graphByType.get("BreadcrumbList");
   assert.deepEqual(breadcrumb?.itemListElement?.[0], {
     "@type": "ListItem",
