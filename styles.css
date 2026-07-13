@@ -2091,7 +2091,8 @@ tr:last-child td {
     display: grid;
   }
 
-  .site-header-live {
+  .site-header-live,
+  .site-header-mobile-live {
     grid-template-columns: minmax(9rem, 0.45fr) minmax(0, 1fr);
     grid-template-areas:
       "brand brand"
@@ -2100,18 +2101,21 @@ tr:last-child td {
     row-gap: 0.85rem;
   }
 
-  .site-header-live .site-nav {
+  .site-header-live .site-nav,
+  .site-header-mobile-live .site-nav {
     display: grid;
     grid-template-columns: 1fr;
     align-content: start;
     gap: 0.18rem;
   }
 
-  .site-header-live .site-nav a {
+  .site-header-live .site-nav a,
+  .site-header-mobile-live .site-nav a {
     padding: 0.38rem 0;
   }
 
-  .site-header-live .header-chain-rail {
+  .site-header-live .header-chain-rail,
+  .site-header-mobile-live .header-chain-rail {
     grid-template-columns: 1fr;
     justify-self: stretch;
     width: 100%;
@@ -2356,46 +2360,56 @@ tr:last-child td {
     width: min(100% - 1rem, var(--max));
   }
 
-  .site-header-live {
+  .site-header-live,
+  .site-header-mobile-live {
     grid-template-columns: 8.4rem minmax(0, 1fr);
     column-gap: 0.65rem;
   }
 
-  .site-header-live .brand {
+  .site-header-live .brand,
+  .site-header-mobile-live .brand {
     min-width: 0;
   }
 
-  .site-header-live .brand img {
+  .site-header-live .brand img,
+  .site-header-mobile-live .brand img {
     width: 2.2rem;
     height: 2.2rem;
   }
 
-  .site-header-live .site-nav a {
+  .site-header-live .site-nav a,
+  .site-header-mobile-live .site-nav a {
     min-height: 2rem;
     padding: 0.24rem 0;
     font-size: 0.72rem;
   }
 
-  .site-header-live .header-chain-card {
+  .site-header-live .header-chain-card,
+  .site-header-mobile-live .header-chain-card {
     gap: 0.46rem;
     padding: 0.58rem;
   }
 
-  .site-header-live .header-chain-card .chain-card-top {
+  .site-header-live .header-chain-card .chain-card-top,
+  .site-header-mobile-live .header-chain-card .chain-card-top {
     gap: 0.35rem;
   }
 
   .site-header-live .header-chain-card .chain-card-top span,
-  .site-header-live .header-chain-card .chain-card-top strong {
+  .site-header-live .header-chain-card .chain-card-top strong,
+  .site-header-mobile-live .header-chain-card .chain-card-top span,
+  .site-header-mobile-live .header-chain-card .chain-card-top strong {
     font-size: 0.62rem;
   }
 
-  .site-header-live .header-chain-block {
+  .site-header-live .header-chain-block,
+  .site-header-mobile-live .header-chain-block {
     grid-template-columns: 1fr;
     gap: 0.12rem;
   }
 
-  .site-header-live .header-chain-block strong {
+  .site-header-live .header-chain-block strong,
+  .site-header-mobile-live .header-chain-block strong {
     font-size: 1.05rem;
   }
 
@@ -2430,7 +2444,8 @@ tr:last-child td {
 }
 
 @media (max-width: 380px) {
-  .site-header-live {
+  .site-header-live,
+  .site-header-mobile-live {
     grid-template-columns: 1fr;
     grid-template-areas:
       "brand"

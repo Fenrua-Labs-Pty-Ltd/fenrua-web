@@ -58,7 +58,7 @@ const evidenceRecords = [
     supersedes: "legacy placeholder audit records",
     supersededBy: "none",
     revocationState: "active",
-    limitation: "This evidence excludes dynamic observations, APIs, live block cards, and all protected systems.",
+    limitation: "This evidence excludes dynamic observations, APIs, live block-card data, and all protected systems.",
   },
   {
     id: "repository-sync-snapshot",
@@ -437,13 +437,18 @@ function commercialBoundarySection() {
       </section>`;
 }
 
-function layout({ title, description, current, body, scripts = "", canonicalPath, headerLive = false, robots = "index,follow", includeCommercialBoundary = !headerLive }) {
+function layout({ title, description, current, body, scripts = "", canonicalPath, headerLive = false, mobileLive = true, robots = "index,follow", includeCommercialBoundary = !headerLive }) {
   const canonical = canonicalPath ?? (current === "Overview" ? "/" : `/${current.toLowerCase()}`);
   const navHtml = nav
     .map(([label, href]) => `<a href="${href}"${current === label ? ' aria-current="page"' : ""}>${label}</a>`)
     .join("\n        ");
-  const headerClass = headerLive ? "site-header site-header-live" : "site-header";
-  const headerRail = headerLive ? `\n      ${chainRail("header-chain-rail mobile-chain-rail")}` : "";
+  const headerClass = headerLive ? "site-header site-header-live" : mobileLive ? "site-header site-header-mobile-live" : "site-header";
+  const headerRail = headerLive || mobileLive ? `\n      ${chainRail("header-chain-rail mobile-chain-rail")}` : "";
+  const pageScripts = [
+    headerLive ? '<script src="/kernel-status.js" defer></script>' : "",
+    scripts,
+    mobileLive && !headerLive ? '<script src="/mobile-chain-status.js" defer></script>' : "",
+  ].filter(Boolean).join("\n    ");
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -470,7 +475,7 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
     <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
-${scripts ? `    ${scripts}\n` : ""}
+${pageScripts ? `    ${pageScripts}\n` : ""}
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
@@ -638,8 +643,8 @@ function home() {
     title: "Fenrua | Layer 0 AI Security Infrastructure",
     description: "Fenrua is the public evidence surface for the open security kernel beneath autonomous AI systems.",
     current: "Overview",
-    scripts: '<script src="/kernel-status.js" defer></script>',
     headerLive: true,
+    includeCommercialBoundary: false,
     body: `${routeHero(
       "LAYER 0 AI SECURITY UTILITY INFRASTRUCTURE",
       "The security kernel beneath autonomous AI.",
@@ -1083,7 +1088,7 @@ function audit() {
     current: "Audit",
     canonicalPath: "/audit",
     includeCommercialBoundary: false,
-    body: `${routeHero("CURRENT PUBLIC RELEASE", "Audit and Release Evidence", "This page identifies the current public static release evidence and its limits. It does not attest to dynamic observations, live block cards, or protected systems.", `<div class="cta-row"><a class="button button-primary" href="/.well-known/fenrua-release.json">Open release manifest</a><a class="button button-secondary" href="/data/public-document-register.json">Download document register</a></div>`)}
+    body: `${routeHero("CURRENT PUBLIC RELEASE", "Audit and Release Evidence", "This page identifies the current public static release evidence and its limits. It does not attest to dynamic observations, live block-card data, or protected systems.", `<div class="cta-row"><a class="button button-primary" href="/.well-known/fenrua-release.json">Open release manifest</a><a class="button button-secondary" href="/data/public-document-register.json">Download document register</a></div>`)}
       <section class="section-shell split-section">
         <div>
           <p class="eyebrow">STATIC RELEASE SCOPE</p>

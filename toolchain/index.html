@@ -25,12 +25,13 @@
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
     <script src="/toolchain/toolchain.js" defer></script>
+    <script src="/mobile-chain-status.js" defer></script>
 
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
-    <header class="site-header" aria-label="Site header">
+    <header class="site-header site-header-mobile-live" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
         <span>
@@ -51,6 +52,42 @@
         <a href="/audit">Audit</a>
         <a href="/status">Status</a>
       </nav>
+      <div class="header-chain-rail mobile-chain-rail" aria-label="Live block updates">
+        <article class="header-chain-card" data-chain-card="978">
+          <div class="chain-card-top">
+            <span>FENc978</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="978-block">Loading</strong>
+            <small data-chain-field="978-checked">loading</small>
+            <small data-chain-field="978-source">Evidence source: loading</small>
+            <small data-chain-field="978-confidence">Confidence: loading</small>
+            <small data-chain-field="978-activity">Signed activity: loading</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <article class="header-chain-card" data-chain-card="521">
+          <div class="chain-card-top">
+            <span>FENn521</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="521-block">Loading</strong>
+            <small data-chain-field="521-checked">loading</small>
+            <small data-chain-field="521-source">Evidence source: loading</small>
+            <small data-chain-field="521-confidence">Confidence: loading</small>
+            <small data-chain-field="521-activity">Signed activity: loading</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <span class="sr-only" data-chain-meta="feed-status">loading</span>
+        <span class="sr-only" data-chain-meta="generated">loading</span>
+        <span class="sr-only" data-chain-meta="countdown">loading</span>
+        <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
+      </div>
     </header>
     <main id="content">
       <section class="route-hero" aria-labelledby="page-title">
@@ -67,7 +104,7 @@
         </article>
         <article>
           <span>Registry SHA-256</span>
-          <strong><code>41046f7242afdfd602f9c2f2e9e081fe050d9226a3cdce35f14ebf7542b7038e</code></strong>
+          <strong><code>44f7d669a61aa1a990acc94aecabc4a9be6d59063353684c64e29f5e094bcf2f</code></strong>
         </article>
         <article>
           <span>Records</span>
@@ -126,7 +163,7 @@
             <strong>no post-evidence updates</strong>
           </article>
         </div>
-        <p class="table-note"><button type="button" data-copy="41046f7242afdfd602f9c2f2e9e081fe050d9226a3cdce35f14ebf7542b7038e" data-copy-label="Full SHA copied">Copy registry hash</button> The displayed taxonomy is derived from frozen registry fields. A version or list command is <strong>VERSION_VERIFIED</strong>, not campaign execution.</p>
+        <p class="table-note"><button type="button" data-copy="44f7d669a61aa1a990acc94aecabc4a9be6d59063353684c64e29f5e094bcf2f" data-copy-label="Full SHA copied">Copy registry hash</button> The displayed taxonomy is derived from frozen registry fields. A version or list command is <strong>VERSION_VERIFIED</strong>, not campaign execution.</p>
       </section>
       <section class="section-shell">
         <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Desktop offers the full comparison layout. All evidence remains available here.</p>
@@ -709,7 +746,7 @@
       <td><div class="command-list"><code>prettier --version</code></div></td>
       <td><div class="table-prose">Version captured only; no formatting run was required.</div></td>
     </tr>
-<tr data-tool-row data-page="3" data-search="playwright @playwright/test 1.61.1 application and web security browser validation npm devdependency installed_executed_evidence_producing detected version_verified smoke_tested evidence_producing canonical_pipeline covers only static evidence, status, toolchain, and verify; homepage live cards, apis, and protected systems are excluded. application-security npm exec --no -- playwright --version npm run test:browser" data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-tags="DETECTED VERSION_VERIFIED SMOKE_TESTED EVIDENCE_PRODUCING CANONICAL_PIPELINE" data-mode="npm devDependency" data-category="Application and web security" data-installed="true" data-evidence="true" data-tool-name="playwright">
+<tr data-tool-row data-page="3" data-search="playwright @playwright/test 1.61.1 application and web security browser validation npm devdependency installed_executed_evidence_producing detected version_verified smoke_tested evidence_producing canonical_pipeline covers evidence, status, toolchain, and verify including their mobile header rail; overview desktop cards, live api responses, and protected systems are excluded. application-security npm exec --no -- playwright --version npm run test:browser" data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-tags="DETECTED VERSION_VERIFIED SMOKE_TESTED EVIDENCE_PRODUCING CANONICAL_PIPELINE" data-mode="npm devDependency" data-category="Application and web security" data-installed="true" data-evidence="true" data-tool-name="playwright">
       <td>Playwright<br><small>Browser validation</small></td>
       <td><code>@playwright/test 1.61.1</code><button type="button" data-copy="@playwright/test 1.61.1" data-copy-label="Full version copied">Copy version</button></td>
       <td>Application and web security</td>
@@ -717,7 +754,7 @@
       <td><div class="tag-stack"><span class="status-badge">DETECTED</span><span class="status-badge">VERSION_VERIFIED</span><span class="status-badge">SMOKE_TESTED</span><span class="status-badge">EVIDENCE_PRODUCING</span><span class="status-badge">CANONICAL_PIPELINE</span></div></td>
       <td>yes<br><small>tests/browser/non-live-public-surface.spec.mjs</small></td>
       <td><div class="command-list"><code>npm exec --no -- playwright --version</code><code>npm run test:browser</code></div></td>
-      <td><div class="table-prose">Covers only static Evidence, Status, Toolchain, and Verify; homepage live cards, APIs, and protected systems are excluded.</div></td>
+      <td><div class="table-prose">Covers Evidence, Status, Toolchain, and Verify including their mobile header rail; Overview desktop cards, live API responses, and protected systems are excluded.</div></td>
     </tr>
 <tr data-tool-row data-page="3" data-search="supabase javascript sdk unavailable in fenrua-web package inventory application and web security database and edge api client unavailable unavailable unavailable canonical_pipeline the public website exposes no browser supabase credentials or client. application-security npm list --depth=0 --json" data-status="UNAVAILABLE" data-tags="UNAVAILABLE CANONICAL_PIPELINE" data-mode="unavailable" data-category="Application and web security" data-installed="false" data-evidence="false" data-tool-name="supabase javascript sdk">
       <td>Supabase JavaScript SDK<br><small>Database and edge API client</small></td>
@@ -2851,7 +2888,7 @@
           </div>
         </details>
       </article>
-        <article class="tool-record-card" data-tool-card data-page="3" data-search="playwright @playwright/test 1.61.1 application and web security browser validation npm devdependency installed_executed_evidence_producing detected version_verified smoke_tested evidence_producing canonical_pipeline covers only static evidence, status, toolchain, and verify; homepage live cards, apis, and protected systems are excluded. application-security npm exec --no -- playwright --version npm run test:browser" data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-tags="DETECTED VERSION_VERIFIED SMOKE_TESTED EVIDENCE_PRODUCING CANONICAL_PIPELINE" data-mode="npm devDependency" data-category="Application and web security" data-installed="true" data-evidence="true" data-tool-name="playwright">
+        <article class="tool-record-card" data-tool-card data-page="3" data-search="playwright @playwright/test 1.61.1 application and web security browser validation npm devdependency installed_executed_evidence_producing detected version_verified smoke_tested evidence_producing canonical_pipeline covers evidence, status, toolchain, and verify including their mobile header rail; overview desktop cards, live api responses, and protected systems are excluded. application-security npm exec --no -- playwright --version npm run test:browser" data-status="INSTALLED_EXECUTED_EVIDENCE_PRODUCING" data-tags="DETECTED VERSION_VERIFIED SMOKE_TESTED EVIDENCE_PRODUCING CANONICAL_PIPELINE" data-mode="npm devDependency" data-category="Application and web security" data-installed="true" data-evidence="true" data-tool-name="playwright">
         <details>
           <summary>
             <span class="tool-record-title">Playwright</span>
@@ -2872,7 +2909,7 @@
             <div><strong>Verification command</strong><div class="command-list"><code>npm exec --no -- playwright --version</code><code>npm run test:browser</code></div></div>
             <details class="limitation-disclosure">
               <summary>Known limitations</summary>
-              <p>Covers only static Evidence, Status, Toolchain, and Verify; homepage live cards, APIs, and protected systems are excluded.</p>
+              <p>Covers Evidence, Status, Toolchain, and Verify including their mobile header rail; Overview desktop cards, live API responses, and protected systems are excluded.</p>
             </details>
           </div>
         </details>

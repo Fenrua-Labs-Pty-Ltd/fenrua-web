@@ -24,6 +24,7 @@ export const publicEntries = [
   "kernel",
   "kernel-status.js",
   "legal",
+  "mobile-chain-status.js",
   "nexus",
   "privacy",
   "research",

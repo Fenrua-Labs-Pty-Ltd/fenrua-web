@@ -14,6 +14,7 @@ assert.match(styles, /\.state-grid\s*\{\s*grid-template-columns: repeat\(auto-fi
 assert.match(styles, /\.toolchain-summary:not\(\.state-grid\)\s*\{\s*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/, "Toolchain must keep tablet columns.");
 assert.match(styles, /\.evidence-table td:nth-child\(3\),\s*\.evidence-table td:nth-child\(5\)\s*\{\s*min-width: 0;/, "Mobile evidence hash cells must reset desktop min-width.");
 assert.match(styles, /@media \(forced-colors: active\)/, "Static pages need forced-colors support.");
+assert.match(styles, /\.site-header-live,\s*\.site-header-mobile-live/, "Mobile header rails must use the Overview layout without changing desktop headers.");
 assert.match(styles, /\.registry\[tabindex\]:focus-visible/, "Scrollable table regions need visible keyboard focus.");
 assert.match(status, /<script src="\/technical-data\.js" defer><\/script>/, "Status must use the allowed external script.");
 assert.doesNotMatch(status, /<script>\s*\(\(\) =>/, "Status must not ship a CSP-blocked inline script.");

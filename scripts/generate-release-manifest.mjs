@@ -52,14 +52,15 @@ if (typeof evidence.generatedAt !== "string" || !Number.isFinite(Date.parse(evid
   throw new Error("data/site-evidence.json must contain a valid generatedAt timestamp.");
 }
 
-// Dynamic observations, APIs, and the homepage live-card surface are
-// deliberately excluded from this public static artifact set.
+// Dynamic observations, API responses, and live-card data are deliberately
+// excluded from this public static artifact set.
 const artifacts = [
   ["/audit", "audit/index.html"],
   ["/architecture", "architecture/index.html"],
   ["/developers", "developers/index.html"],
   ["/evidence", "evidence/index.html"],
   ["/kernel", "kernel/index.html"],
+  ["/mobile-chain-status.js", "mobile-chain-status.js"],
   ["/research", "research/index.html"],
   ["/status", "status/index.html"],
   ["/toolchain", "toolchain/index.html"],
@@ -95,7 +96,7 @@ const record = {
   },
   limitations: [
     "This file is not a signature, deployment attestation, or statement about live runtime state.",
-    "Dynamic observations, APIs, live block cards, private infrastructure, keys, gateways, validators, and mesh systems are excluded.",
+    "Dynamic observations, APIs, live block-card data, private infrastructure, keys, gateways, validators, and mesh systems are excluded.",
   ],
 };
 const manifest = {

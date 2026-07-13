@@ -24,12 +24,13 @@
     <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
+    <script src="/mobile-chain-status.js" defer></script>
 
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
-    <header class="site-header" aria-label="Site header">
+    <header class="site-header site-header-mobile-live" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
         <span>
@@ -50,6 +51,42 @@
         <a href="/audit">Audit</a>
         <a href="/status">Status</a>
       </nav>
+      <div class="header-chain-rail mobile-chain-rail" aria-label="Live block updates">
+        <article class="header-chain-card" data-chain-card="978">
+          <div class="chain-card-top">
+            <span>FENc978</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="978-block">Loading</strong>
+            <small data-chain-field="978-checked">loading</small>
+            <small data-chain-field="978-source">Evidence source: loading</small>
+            <small data-chain-field="978-confidence">Confidence: loading</small>
+            <small data-chain-field="978-activity">Signed activity: loading</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <article class="header-chain-card" data-chain-card="521">
+          <div class="chain-card-top">
+            <span>FENn521</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="521-block">Loading</strong>
+            <small data-chain-field="521-checked">loading</small>
+            <small data-chain-field="521-source">Evidence source: loading</small>
+            <small data-chain-field="521-confidence">Confidence: loading</small>
+            <small data-chain-field="521-activity">Signed activity: loading</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <span class="sr-only" data-chain-meta="feed-status">loading</span>
+        <span class="sr-only" data-chain-meta="generated">loading</span>
+        <span class="sr-only" data-chain-meta="countdown">loading</span>
+        <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
+      </div>
     </header>
     <main id="content">
       <section class="route-hero" aria-labelledby="page-title">

@@ -51,6 +51,6 @@ const audit = read("audit/index.html");
 assert.match(audit, /Fenrua Labs Pty Ltd — access-only services/);
 assert.match(audit, /does not offer investments, token crowdfunding, securities/i);
 assert.match(audit, /does not operate a market, exchange, order book, trading venue, or public swap product/i);
-assert.match(audit, /does not attest to dynamic observations, live block cards, or protected systems/i);
+assert.match(audit, /does not attest to dynamic observations, live block-card data, or protected systems/i);
 
 console.log(JSON.stringify({ status: "ok", scope: "access-only-boundary-and-archive-policy", documents: register.records.length }));

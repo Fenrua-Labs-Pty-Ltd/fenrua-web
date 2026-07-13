@@ -24,12 +24,13 @@
     <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
+    <script src="/mobile-chain-status.js" defer></script>
 
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
-    <header class="site-header" aria-label="Site header">
+    <header class="site-header site-header-mobile-live" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
         <span>
@@ -50,12 +51,48 @@
         <a href="/audit" aria-current="page">Audit</a>
         <a href="/status">Status</a>
       </nav>
+      <div class="header-chain-rail mobile-chain-rail" aria-label="Live block updates">
+        <article class="header-chain-card" data-chain-card="978">
+          <div class="chain-card-top">
+            <span>FENc978</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="978-block">Loading</strong>
+            <small data-chain-field="978-checked">loading</small>
+            <small data-chain-field="978-source">Evidence source: loading</small>
+            <small data-chain-field="978-confidence">Confidence: loading</small>
+            <small data-chain-field="978-activity">Signed activity: loading</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <article class="header-chain-card" data-chain-card="521">
+          <div class="chain-card-top">
+            <span>FENn521</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="521-block">Loading</strong>
+            <small data-chain-field="521-checked">loading</small>
+            <small data-chain-field="521-source">Evidence source: loading</small>
+            <small data-chain-field="521-confidence">Confidence: loading</small>
+            <small data-chain-field="521-activity">Signed activity: loading</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <span class="sr-only" data-chain-meta="feed-status">loading</span>
+        <span class="sr-only" data-chain-meta="generated">loading</span>
+        <span class="sr-only" data-chain-meta="countdown">loading</span>
+        <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
+      </div>
     </header>
     <main id="content">
       <section class="route-hero" aria-labelledby="page-title">
         <p class="eyebrow">CURRENT PUBLIC RELEASE</p>
         <h1 id="page-title">Audit and Release Evidence</h1>
-        <p>This page identifies the current public static release evidence and its limits. It does not attest to dynamic observations, live block cards, or protected systems.</p>
+        <p>This page identifies the current public static release evidence and its limits. It does not attest to dynamic observations, live block-card data, or protected systems.</p>
         <div class="cta-row"><a class="button button-primary" href="/.well-known/fenrua-release.json">Open release manifest</a><a class="button button-secondary" href="/data/public-document-register.json">Download document register</a></div>
       </section>
       <section class="section-shell split-section">
@@ -68,7 +105,7 @@
           <p>Public, non-live static website artifacts generated from this repository.</p>
           <p>The current public audit route and release manifest when generated for a release.</p>
           <p>The public document register and non-live documentation listed there.</p>
-          <p><strong>Site evidence SHA-256:</strong> <code>70d3cd489e3529af1b6fb8ddc1f7bd79513871963272bb9721ad541063fcb0f8</code></p>
+          <p><strong>Site evidence SHA-256:</strong> <code>0d596ff635db4c9be6eed98e00fc83666f34b01dbfe3b26ea1af6b72ce308ddd</code></p>
         </div>
       </section>
             <section class="section-shell split-section commercial-boundary" aria-labelledby="commercial-boundary-title">
@@ -89,7 +126,7 @@
           <h2>What remains outside public release proof</h2>
         </div>
         <div class="constraint-list">
-          <p>Live block cards and their markup, styling, scripts, data, APIs, key endpoints, refresh behaviour, and signed observations.</p>
+          <p>Dynamic live block-card data, endpoint responses, refresh state, signed observations, and all protected operational surfaces.</p>
           <p>Signing keys, gateways, validators, private meshes, cryptography, infrastructure, Vercel secrets, and Vercel project internals.</p>
           <p>Public standard-form business contracts, token materials, investment materials, trading features, and financial-return claims.</p>
         </div>

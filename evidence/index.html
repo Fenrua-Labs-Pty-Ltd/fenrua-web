@@ -25,12 +25,13 @@
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
     <script src="/toolchain/toolchain.js" defer></script>
+    <script src="/mobile-chain-status.js" defer></script>
 
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
-    <header class="site-header" aria-label="Site header">
+    <header class="site-header site-header-mobile-live" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
         <span>
@@ -51,6 +52,42 @@
         <a href="/audit">Audit</a>
         <a href="/status">Status</a>
       </nav>
+      <div class="header-chain-rail mobile-chain-rail" aria-label="Live block updates">
+        <article class="header-chain-card" data-chain-card="978">
+          <div class="chain-card-top">
+            <span>FENc978</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="978-block">Loading</strong>
+            <small data-chain-field="978-checked">loading</small>
+            <small data-chain-field="978-source">Evidence source: loading</small>
+            <small data-chain-field="978-confidence">Confidence: loading</small>
+            <small data-chain-field="978-activity">Signed activity: loading</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <article class="header-chain-card" data-chain-card="521">
+          <div class="chain-card-top">
+            <span>FENn521</span>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
+          </div>
+          <div class="header-chain-block">
+            <span>Latest block</span>
+            <strong data-chain-field="521-block">Loading</strong>
+            <small data-chain-field="521-checked">loading</small>
+            <small data-chain-field="521-source">Evidence source: loading</small>
+            <small data-chain-field="521-confidence">Confidence: loading</small>
+            <small data-chain-field="521-activity">Signed activity: loading</small>
+          </div>
+          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        </article>
+        <span class="sr-only" data-chain-meta="feed-status">loading</span>
+        <span class="sr-only" data-chain-meta="generated">loading</span>
+        <span class="sr-only" data-chain-meta="countdown">loading</span>
+        <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
+      </div>
     </header>
     <main id="content">
       <section class="route-hero" aria-labelledby="page-title">
@@ -67,14 +104,14 @@
 <tr id="current-public-release-evidence">
       <td data-label="Artifact"><code>current-public-release-evidence</code><br>Current Public Release Evidence<br><small>static release scope</small></td>
       <td data-label="Claim">The current public static site is bound to a source commit and content-hashed artifact set at release build time.</td>
-      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">70d3cd489e3529af1b6fb8ddc1f7bd79513871963272bb9721ad541063fcb0f8</code><button type="button" data-copy="70d3cd489e3529af1b6fb8ddc1f7bd79513871963272bb9721ad541063fcb0f8" data-copy-label="Full SHA copied">Copy hash</button></div></td>
+      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">0d596ff635db4c9be6eed98e00fc83666f34b01dbfe3b26ea1af6b72ce308ddd</code><button type="button" data-copy="0d596ff635db4c9be6eed98e00fc83666f34b01dbfe3b26ea1af6b72ce308ddd" data-copy-label="Full SHA copied">Copy hash</button></div></td>
       <td data-label="Source"><a href="/data/site-evidence.json">data/site-evidence.json</a><br><small>fenrua-web public static surface</small></td>
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">generated at release build</code><small>Evidence: <code class="hash-value">see /.well-known/fenrua-release.json</code></small></div></td>
       <td data-label="Producer">generate-release-manifest.mjs<br><small>Node.js, deterministic static validation</small></td>
       <td data-label="Command"><code>npm run build:release</code></td>
       <td data-label="Verified / Revocation">2026-07-13<br><small>Maturity: Current public release · Revocation: active</small></td>
       <td data-label="Supersession">legacy placeholder audit records / none</td>
-      <td data-label="Limitation">This evidence excludes dynamic observations, APIs, live block cards, and all protected systems.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: current-public-release-evidence&#10;Hash: 70d3cd489e3529af1b6fb8ddc1f7bd79513871963272bb9721ad541063fcb0f8&#10;Source revision: generated at release build&#10;Evidence revision: see /.well-known/fenrua-release.json&#10;Verified: 2026-07-13&#10;Scope: This evidence excludes dynamic observations, APIs, live block cards, and all protected systems." data-copy-label="Evidence citation copied">Copy citation</button></td>
+      <td data-label="Limitation">This evidence excludes dynamic observations, APIs, live block-card data, and all protected systems.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: current-public-release-evidence&#10;Hash: 0d596ff635db4c9be6eed98e00fc83666f34b01dbfe3b26ea1af6b72ce308ddd&#10;Source revision: generated at release build&#10;Evidence revision: see /.well-known/fenrua-release.json&#10;Verified: 2026-07-13&#10;Scope: This evidence excludes dynamic observations, APIs, live block-card data, and all protected systems." data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>
 <tr id="repository-sync-snapshot">
       <td data-label="Artifact"><code>repository-sync-snapshot</code><br>Repository Sync Snapshot<br><small>kernel snapshot</small></td>
@@ -127,14 +164,14 @@
 <tr id="toolchain-evidence-lock">
       <td data-label="Artifact"><code>toolchain-evidence-lock</code><br>Toolchain Evidence Lock<br><small>toolchain registry</small></td>
       <td data-label="Claim">Detected tool versions are preserved to match the inspected evidence environment.</td>
-      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">41046f7242afdfd602f9c2f2e9e081fe050d9226a3cdce35f14ebf7542b7038e</code><button type="button" data-copy="41046f7242afdfd602f9c2f2e9e081fe050d9226a3cdce35f14ebf7542b7038e" data-copy-label="Full SHA copied">Copy hash</button></div></td>
+      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">44f7d669a61aa1a990acc94aecabc4a9be6d59063353684c64e29f5e094bcf2f</code><button type="button" data-copy="44f7d669a61aa1a990acc94aecabc4a9be6d59063353684c64e29f5e094bcf2f" data-copy-label="Full SHA copied">Copy hash</button></div></td>
       <td data-label="Source"><a href="/data/toolchain-registry.json">data/toolchain-registry.json</a><br><small>fenrua-web public registry</small></td>
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">845187ca3dea57723b31ec5306fed1c275fcdcb7</code><small>Evidence: <code class="hash-value">toolchain-lock-2026-07-12</code></small></div></td>
       <td data-label="Producer">data/toolchain-registry.json<br><small>Node.js, Semgrep 1.169.0, SnarkJS snarkjs@0.7.6</small></td>
       <td data-label="Command"><code>node scripts/test-toolchain-registry.mjs</code></td>
       <td data-label="Verified / Revocation">2026-07-13<br><small>Maturity: Historical toolchain evidence · Revocation: historical</small></td>
       <td data-label="Supersession">none / none</td>
-      <td data-label="Limitation">Frozen toolchain capture; it is not current deployment provenance or security proof.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: toolchain-evidence-lock&#10;Hash: 41046f7242afdfd602f9c2f2e9e081fe050d9226a3cdce35f14ebf7542b7038e&#10;Source revision: 845187ca3dea57723b31ec5306fed1c275fcdcb7&#10;Evidence revision: toolchain-lock-2026-07-12&#10;Verified: 2026-07-13&#10;Scope: Frozen toolchain capture; it is not current deployment provenance or security proof." data-copy-label="Evidence citation copied">Copy citation</button></td>
+      <td data-label="Limitation">Frozen toolchain capture; it is not current deployment provenance or security proof.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: toolchain-evidence-lock&#10;Hash: 44f7d669a61aa1a990acc94aecabc4a9be6d59063353684c64e29f5e094bcf2f&#10;Source revision: 845187ca3dea57723b31ec5306fed1c275fcdcb7&#10;Evidence revision: toolchain-lock-2026-07-12&#10;Verified: 2026-07-13&#10;Scope: Frozen toolchain capture; it is not current deployment provenance or security proof." data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>
             </tbody>
           </table>

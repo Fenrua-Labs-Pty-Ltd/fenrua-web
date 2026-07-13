@@ -44,7 +44,7 @@ const playwright = byName.get("Playwright");
 assert.equal(playwright?.detectedVersion, "@playwright/test 1.61.1");
 assert.equal(playwright?.status, "INSTALLED_EXECUTED_EVIDENCE_PRODUCING");
 assert.equal(playwright?.evidenceProduced, true);
-assert.match(playwright?.limitations ?? "", /homepage live cards, APIs, and protected systems are excluded/i);
+assert.match(playwright?.limitations ?? "", /Overview desktop cards, live API responses, and protected systems are excluded/i);
 
 const serialized = JSON.stringify(registry);
 for (const forbidden of ["/home/", "/mnt/d/", "samue", "FENCHAIN_RPC_URL", "ghp_", "sk-", "AKIA"]) {

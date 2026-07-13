@@ -25,7 +25,7 @@ for (const artifact of manifest.record.publicArtifactSet.artifacts) {
   assert.match(artifact.sha256, /^[0-9a-f]{64}$/);
   assert.ok(Number.isInteger(artifact.bytes) && artifact.bytes > 0);
 }
-assert.ok(manifest.record.limitations.some((item) => /live block cards/i.test(item)));
+assert.ok(manifest.record.limitations.some((item) => /live block-card data/i.test(item)));
 for (const forbidden of ["FENCHAIN_RPC_URL", "VERCEL_TOKEN", "ghp_", "sk-", "AKIA"]) {
   assert.ok(!JSON.stringify(manifest).includes(forbidden), `Release manifest must not expose ${forbidden}.`);
 }

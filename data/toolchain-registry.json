@@ -923,7 +923,7 @@
       "pipeline": ["application-security"],
       "status": "INSTALLED_EXECUTED_EVIDENCE_PRODUCING",
       "evidencePath": "tests/browser/non-live-public-surface.spec.mjs",
-      "limitations": "Covers only static Evidence, Status, Toolchain, and Verify; homepage live cards, APIs, and protected systems are excluded."
+      "limitations": "Covers Evidence, Status, Toolchain, and Verify including their mobile header rail; Overview desktop cards, live API responses, and protected systems are excluded."
     },
     {
       "tool": "Supabase JavaScript SDK",

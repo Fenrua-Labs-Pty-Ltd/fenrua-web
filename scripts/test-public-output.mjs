@@ -13,7 +13,7 @@ for (const privateEntry of ["api", "scripts", "tests", "node_modules", "package.
   assert.ok(!existsSync(resolve(outputDirectory, privateEntry)), `Static output must not expose ${privateEntry}.`);
 }
 
-for (const relativePath of ["index.html", "kernel-status.js", "styles.css", "technical-data.js", ".well-known/fenrua-release.json"]) {
+for (const relativePath of ["index.html", "kernel-status.js", "mobile-chain-status.js", "styles.css", "technical-data.js", ".well-known/fenrua-release.json"]) {
   assert.deepEqual(
     readFileSync(resolve(outputDirectory, relativePath)),
     readFileSync(resolve(root, relativePath)),

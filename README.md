@@ -83,7 +83,8 @@ npm run validate
 `npm run validate` rejects stale generated routes and validates only the
 permitted public/static scope. `npm run release:check` additionally generates
 and verifies the release manifest, then runs browser checks only for Evidence,
-Status, Toolchain, and Verify. It never loads the homepage live-card surface.
+Status, Toolchain, and Verify, including their mobile header rail. It does not
+exercise the Overview desktop live-card surface or live production APIs.
 
 ## Owner-only Release
 
