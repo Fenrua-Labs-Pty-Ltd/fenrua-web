@@ -624,7 +624,11 @@ ${pageScripts ? `    ${pageScripts}\n` : ""}
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         ${navHtml}
-      </nav>${headerRail}
+      </nav>
+      <div class="mobile-nav-hint" aria-hidden="true">
+        <span>Swipe left for more</span>
+        <i class="mobile-nav-hint-track"><i></i></i>
+      </div>${headerRail}
     </header>
     <main id="content">
 ${body}

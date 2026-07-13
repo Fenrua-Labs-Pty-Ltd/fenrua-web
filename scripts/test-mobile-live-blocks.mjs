@@ -29,6 +29,11 @@ const mobileRailSha256 = {
 
 for (const route of routes) {
   const html = await readFile(new URL(`../${route}`, import.meta.url), "utf8");
+  assert.equal(
+    [...html.matchAll(/<span>Swipe left for more<\/span>/g)].length,
+    1,
+    `${route} must expose one mobile navigation overflow cue.`,
+  );
   const railStart = html.indexOf('<div class="header-chain-rail mobile-chain-rail"');
   const headerEnd = html.indexOf("    </header>", railStart);
   assert.ok(railStart >= 0 && headerEnd > railStart, `${route} must include the mobile live-block rail.`);

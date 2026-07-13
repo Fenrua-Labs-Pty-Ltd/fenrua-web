@@ -58,7 +58,7 @@ async function expectUnifiedMobileHeaderPlacement(page) {
   expect(placement.horizontalNav).toBe(true);
   expect(placement.scrollableNav).toBe(true);
   expect(placement.minimumTargetHeight).toBeGreaterThanOrEqual(44);
-  expect(placement.headerHeight).toBeLessThanOrEqual(430);
+  expect(placement.headerHeight).toBeLessThanOrEqual(455);
 }
 
 async function noHorizontalOverflow(page) {
@@ -322,7 +322,7 @@ test("Public intro and mobile header stay within the unified geometry contract",
     ),
     navOverflow: getComputedStyle(header.querySelector(".site-nav")).overflowX,
   }));
-  expect(mobile.headerHeight).toBeLessThanOrEqual(430);
+  expect(mobile.headerHeight).toBeLessThanOrEqual(455);
   expect(mobile.minimumNavTarget).toBeGreaterThanOrEqual(44);
   expect(["auto", "scroll"]).toContain(mobile.navOverflow);
   await page.locator(".brand").focus();
