@@ -33,18 +33,27 @@ handler({ method: "GET" }, get);
 assert.equal(get.statusCode, 410);
 assert.equal(get.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
 assert.match(get.headers.get("content-type"), /^text\/html/);
-assert.match(get.body, /permanently retired/i);
-assert.doesNotMatch(get.body, /presale|swap|staking|yield|wallet/i);
+assert.equal(get.headers.get("cache-control"), "no-store, max-age=0");
+assert.match(get.body, /<title>Retired route \| Fenrua Protocol<\/title>/);
+assert.match(get.body, /<h1>This route has been retired\.<\/h1>/);
+assert.match(get.body, /Fenrua Labs Pty Ltd/);
+assert.match(get.body, /<nav aria-label="Current Fenrua links">/);
+assert.doesNotMatch(get.body, /legacy|presale|swap|staking|yield|wallet|market|investment|account|token|trading/i);
+assert.doesNotMatch(get.body, /<(?:script|style|iframe|object|embed)\b|\son[a-z]+\s*=|javascript:/i);
 
 const head = responseRecorder();
 handler({ method: "HEAD" }, head);
 assert.equal(head.statusCode, 410);
+assert.equal(head.headers.get("cache-control"), "no-store, max-age=0");
+assert.equal(head.headers.get("content-type"), get.headers.get("content-type"));
+assert.equal(head.headers.get("x-robots-tag"), get.headers.get("x-robots-tag"));
 assert.equal(head.body, "");
 
 const post = responseRecorder();
 handler({ method: "POST" }, post);
 assert.equal(post.statusCode, 405);
 assert.equal(post.headers.get("allow"), "GET, HEAD");
+assert.equal(post.body, "");
 
 const rewrites = new Map(vercel.rewrites.map(({ source, destination }) => [source, destination]));
 for (const source of [
