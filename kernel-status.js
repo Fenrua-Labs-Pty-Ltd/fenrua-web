@@ -290,7 +290,8 @@ const chainFieldMap = {
     chainId: '[data-chain-field="978-chain-id"]',
     block: '[data-chain-field="978-block"]',
     checked: '[data-chain-field="978-checked"]',
-    source: '[data-chain-field="978-source"]',
+    sourceHeader: '.header-chain-card [data-chain-field="978-source"]',
+    sourceResult: '.desktop-chain-progress [data-chain-field="978-source"]',
     confidence: '[data-chain-field="978-confidence"]',
     activity: '[data-chain-field="978-activity"]',
     progress: '[data-chain-field="978-progress"]',
@@ -303,7 +304,8 @@ const chainFieldMap = {
     chainId: '[data-chain-field="521-chain-id"]',
     block: '[data-chain-field="521-block"]',
     checked: '[data-chain-field="521-checked"]',
-    source: '[data-chain-field="521-source"]',
+    sourceHeader: '.header-chain-card [data-chain-field="521-source"]',
+    sourceResult: '.desktop-chain-progress [data-chain-field="521-source"]',
     confidence: '[data-chain-field="521-confidence"]',
     activity: '[data-chain-field="521-activity"]',
     progress: '[data-chain-field="521-progress"]',
@@ -433,15 +435,19 @@ function formatChainIdentity(chain) {
   return `Expected ${chain.expectedChainId}`;
 }
 
+function formatSourceValue(value) {
+  if (value === "awaiting-signed-observation") return "awaiting signed observation";
+  if (value === "signed-observation") return "signed bounded observation";
+  if (value === "stale-observation") return "signed observation (stale)";
+  if (value === "partial-observation") return "partial observation";
+  if (value === "confirmed") return "live observation confirmed";
+  if (value === "stale") return "stale observation";
+  if (value === "mismatch") return "chain mismatch";
+  return "unavailable";
+}
+
 function formatSource(value) {
-  if (value === "awaiting-signed-observation") return "Evidence source: awaiting signed observation";
-  if (value === "signed-observation") return "Evidence source: signed bounded observation";
-  if (value === "stale-observation") return "Evidence source: signed observation (stale)";
-  if (value === "partial-observation") return "Evidence source: partial observation";
-  if (value === "confirmed") return "Evidence source: live observation confirmed";
-  if (value === "stale") return "Evidence source: stale observation";
-  if (value === "mismatch") return "Evidence source: chain mismatch";
-  return "Evidence source: unavailable";
+  return `Evidence source: ${formatSourceValue(value)}`;
 }
 
 function describeSignedActivity(chain) {
@@ -542,7 +548,8 @@ function updateChainCard(chain, payload) {
   setText(fields.chainId, formatChainIdentity(chain));
   setText(fields.block, formatNumber(chain.blockNumber));
   setText(fields.checked, hasCurrentBlock ? formatCheckedAt(chain.checkedAt) : "not observed");
-  setText(fields.source, formatSource(confirmation.evidenceSource));
+  setText(fields.sourceHeader, formatSource(confirmation.evidenceSource));
+  setText(fields.sourceResult, formatSourceValue(confirmation.evidenceSource));
   setText(fields.confidence, formatConfidence(confirmation.confidence));
   setText(fields.activity, activity.label);
 
@@ -575,10 +582,9 @@ function showFeedFailure() {
       setText(fields.status, awaiting ? "Awaiting signed observation" : "Failure");
       setText(fields.block, "Observation unavailable");
       setText(fields.checked, "not observed");
-      setText(
-        fields.source,
-        awaiting ? "Evidence source: awaiting signed observation" : "Evidence source: unavailable"
-      );
+      const evidenceSource = awaiting ? "awaiting-signed-observation" : undefined;
+      setText(fields.sourceHeader, formatSource(evidenceSource));
+      setText(fields.sourceResult, formatSourceValue(evidenceSource));
       setText(fields.confidence, "Confidence: unavailable");
       setText(fields.activity, awaiting ? "Awaiting signed observation" : "No verified sequence");
       setText(fields.progress, awaiting ? "loading" : "retrying");

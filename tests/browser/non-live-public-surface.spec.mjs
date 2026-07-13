@@ -29,6 +29,27 @@ async function expectMobileLiveBlocks(page) {
   await expect(page.locator("[data-chain-card]")).toHaveCount(2);
 }
 
+async function expectOverviewMobileHeaderPlacement(page) {
+  const placement = await page.locator(".site-header-mobile-live").evaluate((header) => {
+    const box = (selector) => header.querySelector(selector).getBoundingClientRect();
+    const brand = box(".brand");
+    const nav = box(".site-nav");
+    const rail = box(".mobile-chain-rail");
+    return {
+      brandAboveNav: brand.bottom <= nav.top,
+      brandAboveRail: brand.bottom <= rail.top,
+      navLeftOfRail: nav.left < rail.left,
+      navAndRailShareRow: Math.abs(nav.top - rail.top) <= 1,
+    };
+  });
+  expect(placement).toEqual({
+    brandAboveNav: true,
+    brandAboveRail: true,
+    navLeftOfRail: true,
+    navAndRailShareRow: true,
+  });
+}
+
 async function noHorizontalOverflow(page) {
   const geometry = await page.evaluate(() => ({
     clientWidth: document.documentElement.clientWidth,
@@ -49,6 +70,8 @@ test("Evidence keeps the Overview mobile live blocks without extra API access", 
   await expect(page.locator(".evidence-table")).toBeVisible();
   await expectMobileLiveBlocks(page);
   await noHorizontalOverflow(page);
+  await page.setViewportSize({ width: 390, height: 900 });
+  await expectOverviewMobileHeaderPlacement(page);
   assertBoundary();
 });
 

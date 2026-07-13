@@ -128,7 +128,7 @@ production assertion.
 - `api/chain-progress.js` - bounded signed Chain 978 and Chain N521 observation adapter
 - `api/chain-observation-key.js` - Chain 978 public Ed25519 verification metadata endpoint
 - `api/chain-n521-observation-key.js` - Chain N521 public Ed25519 verification metadata endpoint
-- `assets/sigil.svg` - local Fenrua mark
+- `assets/fenrua-header-logo.jpg` - shared Fenrua header and favicon mark
 - `docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md` - access-only service statement
 - `docs/archive/2026-07-13/` - superseded, noindex public-document records
 - `docs/VERCEL.md` - Vercel publishing notes for `fenrua.ai`

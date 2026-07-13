@@ -2,7 +2,10 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
-const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const [html, kernelStatus] = await Promise.all([
+  readFile(new URL("../index.html", import.meta.url), "utf8"),
+  readFile(new URL("../kernel-status.js", import.meta.url), "utf8"),
+]);
 const boundaries = [
   {
     name: "header live block cards",
@@ -25,5 +28,21 @@ for (const boundary of boundaries) {
   const digest = createHash("sha256").update(html.slice(start, end)).digest("hex");
   assert.equal(digest, boundary.sha256, `${boundary.name} is a frozen public boundary.`);
 }
+
+assert.match(
+  kernelStatus,
+  /sourceHeader: '\.header-chain-card \[data-chain-field="978-source"\]'/,
+  "Header cards must retain their labeled Evidence source field."
+);
+assert.match(
+  kernelStatus,
+  /sourceResult: '\.desktop-chain-progress \[data-chain-field="978-source"\]'/,
+  "Overview result rows must have their own Evidence source target."
+);
+assert.match(
+  kernelStatus,
+  /setText\(fields\.sourceResult, formatSourceValue\(confirmation\.evidenceSource\)\);/,
+  "Overview result values must not repeat their Evidence source label."
+);
 
 console.log(JSON.stringify({ status: "ok", scope: "frozen-live-card-boundary", boundaries: boundaries.length }));

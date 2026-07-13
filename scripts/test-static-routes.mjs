@@ -56,6 +56,8 @@ assert.match(overview, /class="header-chain-rail mobile-chain-rail"/, "overview 
 assert.match(overview, /class="section-shell chain-progress desktop-chain-progress"/, "overview must render desktop live blocks under the intro card");
 assert.match(overview, /data-chain-card="978"/, "overview must render Chain 978 live block card");
 assert.match(overview, /data-chain-card="521"/, "overview must render Chain N521 live block card");
+assert.match(overview, /<link rel="icon" href="\/assets\/fenrua-header-logo\.jpg" type="image\/jpeg" \/>/, "overview must use the approved logo as its favicon");
+assert.match(overview, /<img src="\/assets\/fenrua-header-logo\.jpg" width="40" height="40" alt="" \/>/, "overview must use the approved logo in its header");
 assert.match(overview, /data-chain-meta="feed-status"/, "overview must expose live chain feed status");
 assert.equal([...overview.matchAll(/data-chain-card="/g)].length, 4, "overview must render two responsive pairs of live block cards");
 assert.match(overview, /Evidence source/);

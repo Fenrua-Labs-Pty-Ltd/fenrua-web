@@ -472,7 +472,7 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
       }
     </script>
     <title>${esc(title)}</title>
-    <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/fenrua-header-logo.jpg" type="image/jpeg" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
 ${pageScripts ? `    ${pageScripts}\n` : ""}
@@ -482,7 +482,7 @@ ${pageScripts ? `    ${pageScripts}\n` : ""}
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
     <header class="${headerClass}" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
-        <img src="/assets/sigil.svg" width="40" height="40" alt="" />
+        <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
         <span>
           <strong>Fenrua</strong>
           <small>Layer 0 AI security infrastructure</small>

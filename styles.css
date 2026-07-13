@@ -135,6 +135,7 @@ main > section:not(#chain-progress) {
 .brand img {
   width: 2.5rem;
   height: 2.5rem;
+  border-radius: 50%;
 }
 
 .brand span {
@@ -2105,6 +2106,15 @@ tr:last-child td {
       "nav chain";
     column-gap: 0.85rem;
     row-gap: 0.85rem;
+  }
+
+  /* Keep every non-Overview mobile header on the same explicit grid as Overview. */
+  .site-header-mobile-live .brand {
+    grid-area: brand;
+  }
+
+  .site-header-mobile-live .site-nav {
+    grid-area: nav;
   }
 
   .site-header-live .site-nav,

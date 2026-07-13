@@ -15,6 +15,8 @@ assert.match(styles, /\.toolchain-summary:not\(\.state-grid\)\s*\{\s*grid-templa
 assert.match(styles, /\.evidence-table td:nth-child\(3\),\s*\.evidence-table td:nth-child\(5\)\s*\{\s*min-width: 0;/, "Mobile evidence hash cells must reset desktop min-width.");
 assert.match(styles, /@media \(forced-colors: active\)/, "Static pages need forced-colors support.");
 assert.match(styles, /\.site-header-live,\s*\.site-header-mobile-live/, "Mobile header rails must use the Overview layout without changing desktop headers.");
+assert.match(styles, /\.site-header-mobile-live \.brand\s*\{\s*grid-area: brand;/, "Non-Overview mobile headers must place the brand in Overview's top grid row.");
+assert.match(styles, /\.site-header-mobile-live \.site-nav\s*\{\s*grid-area: nav;/, "Non-Overview mobile headers must place navigation beside the mobile live rail.");
 assert.match(styles, /\.registry\[tabindex\]:focus-visible/, "Scrollable table regions need visible keyboard focus.");
 assert.match(styles, /\.constraint-list code\s*\{\s*white-space: normal;\s*overflow-wrap: anywhere;\s*word-break: break-word;/, "Audit hashes must wrap inside mobile constraint lists.");
 assert.match(status, /<script src="\/technical-data\.js" defer><\/script>/, "Status must use the allowed external script.");
