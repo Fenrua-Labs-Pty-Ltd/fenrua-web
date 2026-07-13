@@ -2362,6 +2362,10 @@ tr:last-child td {
     word-break: break-word;
   }
 
+  .status-monitor-table td:nth-child(8) {
+    min-width: 0;
+  }
+
   .evidence-table td::before,
   .status-table td::before {
     display: block;

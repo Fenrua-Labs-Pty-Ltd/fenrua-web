@@ -14,6 +14,7 @@ assert.match(styles, /main > section:not\(#chain-progress\)\s*\{\s*--dim: #7d858
 assert.match(styles, /\.state-grid\s*\{\s*grid-template-columns: repeat\(auto-fit, minmax\(15rem, 1fr\)\);/, "Status needs an independent responsive grid.");
 assert.match(styles, /\.toolchain-summary:not\(\.state-grid\)\s*\{\s*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/, "Toolchain must keep tablet columns.");
 assert.match(styles, /\.evidence-table td:nth-child\(3\),\s*\.evidence-table td:nth-child\(5\)\s*\{\s*min-width: 0;/, "Mobile evidence hash cells must reset desktop min-width.");
+assert.match(styles, /\.status-monitor-table td:nth-child\(8\)\s*\{\s*min-width: 0;/, "Mobile status-monitor limitation cells must reset their desktop min-width.");
 assert.match(styles, /@media \(forced-colors: active\)/, "Static pages need forced-colors support.");
 assert.match(styles, /\.site-header-live,\s*\.site-header-mobile-live/, "Mobile header rails must use the Overview layout without changing desktop headers.");
 assert.match(styles, /\.site-header-mobile-live \.brand\s*\{\s*grid-area: brand;/, "Non-Overview mobile headers must place the brand in Overview's top grid row.");

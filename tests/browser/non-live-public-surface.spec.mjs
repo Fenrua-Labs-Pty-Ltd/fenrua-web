@@ -154,7 +154,9 @@ test("Status uses the permitted external relative-time script and responsive gri
   await expect(page.locator('[data-status-monitor-row="521"] [data-status-monitor-state]')).toHaveText("Live");
   await expect(page.locator('[data-status-monitor-row="978"] [data-status-monitor-time] time')).toHaveAttribute("datetime", payload.observations[0].observed_at);
   await expect(page.locator('[data-status-monitor-row="521"] [data-status-monitor-time] time')).toHaveAttribute("datetime", payload.observations[1].observed_at);
-  await expect(page.locator('[data-status-monitor-row="978"] [data-status-monitor-sequence]')).toContainText(String(payload.observations[0].sequence));
+  await expect(page.locator('[data-status-monitor-row="978"] [data-status-monitor-sequence]')).toContainText(
+    new Intl.NumberFormat("en-US").format(payload.observations[0].sequence)
+  );
   await expect(page.locator("[data-status-monitor-meta]")).toContainText("not an activation event");
   expect(await page.locator("[data-relative-time]").count()).toBe(0);
   await noHorizontalOverflow(page);
