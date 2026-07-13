@@ -249,6 +249,10 @@ function attr(value) {
   return esc(value).replaceAll("'", "&#39;");
 }
 
+function copyAttr(value) {
+  return attr(value).replaceAll("\n", "&#10;");
+}
+
 function statusBadge(value) {
   return `<span class="status-badge status-${attr(value.toLowerCase().replaceAll(" ", "-"))}">${esc(value)}</span>`;
 }
@@ -442,10 +446,12 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
     <title>${esc(title)}</title>
     <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/technical-data.js" defer></script>
     ${scripts}
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
+    <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
     <header class="${headerClass}" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
@@ -517,6 +523,19 @@ function table(headers, rows, extraClass = "") {
 ${rows.join("\n")}
             </tbody>
           </table>
+        </div>`;
+}
+
+function codeBlock(label, code, language = "text") {
+  return `<div class="code-panel" data-code-panel data-wrap="false">
+          <div class="code-panel-toolbar">
+            <span>${esc(label)}</span>
+            <div>
+              <button type="button" data-copy="${copyAttr(code)}" data-copy-label="Code copied">Copy</button>
+              <button type="button" data-wrap-toggle aria-pressed="false">Wrap lines</button>
+            </div>
+          </div>
+          <pre data-language="${attr(language)}"><code data-code-value>${esc(code)}</code></pre>
         </div>`;
 }
 
@@ -673,9 +692,9 @@ function kernel() {
       </section>
       <section class="section-shell split-section">
         <div><p class="eyebrow">STATE TRANSITION</p><h2>Kernel lifecycle</h2></div>
-        <pre><code>unregistered -> registered -> policy_bound -> evidence_required
+        ${codeBlock("Lifecycle state machine", `unregistered -> registered -> policy_bound -> evidence_required
 -> verified_with_limitations -> active
--> revoked | quarantined | superseded -> recovered</code></pre>
+-> revoked | quarantined | superseded -> recovered`, "text")}
       </section>`,
   });
 }
@@ -702,6 +721,10 @@ function utilities() {
   });
 }
 
+function researchDate(item) {
+  return item.slug === "toolchain-evidence-lock" ? generatedDate : "2026-07-12";
+}
+
 function researchIndex() {
   const rows = researchItems.map(
     (item) => `<tr>
@@ -712,13 +735,29 @@ function researchIndex() {
       <td>${esc(item.maturity)}</td>
     </tr>`
   );
+  const cards = researchItems.map((item) => `<article class="research-record-card">
+        <p class="eyebrow">${esc(item.category)}</p>
+        <h2><a href="/research/${item.slug}/">${esc(item.title)}</a></h2>
+        <dl>
+          <div><dt>Record ID</dt><dd><code>fenrua-research:${esc(item.slug)}</code></dd></div>
+          <div><dt>Maturity</dt><dd>${esc(item.maturity)}</dd></div>
+          <div><dt>Date</dt><dd>${esc(researchDate(item))}</dd></div>
+        </dl>
+        <p><strong>Claim:</strong> ${esc(item.claim)}</p>
+        <p><strong>Primary limitation:</strong> ${esc(item.limitations)}</p>
+        <a href="/research/${item.slug}/">Open record</a>
+      </article>`).join("\n        ");
   return layout({
     title: "Fenrua Research Registry",
     description: "Fenrua research records with claims, non-claims, threats, tooling, evidence, and limitations.",
     current: "Research",
     body: `${routeHero("RESEARCH TO INFRASTRUCTURE", "Research Registry", "Research appears publicly only when its claim, non-claim, threat, invariant, evidence, tooling, maturity, and limitations are adjacent.")}
       <section class="section-shell">
-        ${table(["Research", "Claim", "Non-Claim", "Primitive", "Maturity"], rows)}
+        <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Desktop offers the full comparison layout. All evidence remains available here.</p>
+        ${table(["Research", "Claim", "Non-Claim", "Primitive", "Maturity"], rows, "research-table")}
+        <div class="research-card-list" aria-label="Research mobile records">
+          ${cards}
+        </div>
       </section>`,
   });
 }
@@ -726,7 +765,7 @@ function researchIndex() {
 function researchPage(item) {
   const recordId = `fenrua-research:${item.slug}`;
   const defaults = {
-    date: item.slug === "toolchain-evidence-lock" ? generatedDate : "2026-07-12",
+    date: researchDate(item),
     sourceRevision: "390f7aeef778ce93db12e16028bc3a788b643c2d",
     evidenceRevision: item.slug === "toolchain-evidence-lock" ? registryHash : "85ecc97c026b01b576d735501795951dd293b3ca",
     severity: item.slug === "pn521-cross-limb-borrow" ? "High regression severity; evidence surface only" : "Public-trust boundary",
@@ -752,47 +791,103 @@ function researchPage(item) {
     utilityImpact: "Public interface remains maturity-labelled and limitation-adjacent.",
     reproduction: item.commands.join("\n"),
   };
-  const fields = [
-    ["Record ID", recordId],
-    ["Title", item.title],
-    ["Category", item.category],
-    ["Date", defaults.date],
-    ["Source revision", defaults.sourceRevision],
-    ["Evidence revision", defaults.evidenceRevision],
-    ["Primitive affected", item.primitive],
-    ["Maturity", item.maturity],
-    ["Severity", defaults.severity],
-    ["Problem statement", defaults.problem],
-    ["Claim", item.claim],
-    ["Non-claim", item.nonClaim],
-    ["Assumptions", defaults.assumptions],
-    ["Threat", item.threat],
-    ["Invariant", item.invariant],
-    ["Trigger", defaults.trigger],
-    ["Root cause", defaults.rootCause],
-    ["Reference implementation", defaults.referenceImplementation],
-    ["Tools used", defaults.toolsUsed],
-    ["Tool versions", defaults.toolVersions],
-    ["Commands", item.commands.join("; ")],
-    ["Results", defaults.results],
-    ["Evidence confirmation", defaults.evidenceConfirmation],
-    ["Evidence hash", defaults.evidenceHash],
-    ["Fix revision", defaults.fixRevision],
-    ["Regression fixture", defaults.regressionFixture],
-    ["Kernel impact", defaults.kernelImpact],
-    ["Utility impact", defaults.utilityImpact],
-    ["Remaining limitations", item.limitations],
-    ["Supersession", item.supersession],
-    ["Reproduction instructions", defaults.reproduction],
-  ].map(([k, v]) => `<tr><th scope="row">${esc(k)}</th><td>${esc(v)}</td></tr>`);
+  const tocItems = [
+    ["summary", "Summary"],
+    ["claim", "Claim"],
+    ["non-claim", "Non-claim"],
+    ["threat", "Threat / invariant"],
+    ["tooling", "Tooling"],
+    ["commands", "Commands"],
+    ["evidence", "Evidence"],
+    ["regression", "Regression"],
+    ["limitations", "Limitations"],
+    ["reproduction", "Reproduction"],
+  ];
   return layout({
     title: `${item.title} | Fenrua Research`,
     description: `${item.title} research record.`,
     current: "Research",
     canonicalPath: `/research/${item.slug}/`,
     body: `${routeHero("RESEARCH RECORD", item.title, `${item.category} · ${item.primitive}`)}
-      <section class="section-shell">
-        ${table(["Field", "Record"], fields)}
+      <section class="section-shell research-record-shell">
+        <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Use the section menu below; desktop keeps the full route context visible.</p>
+        <details class="record-toc">
+          <summary>Record sections</summary>
+          <nav aria-label="Research record sections">
+            ${tocItems.map(([id, label]) => `<a href="#${attr(id)}">${esc(label)}</a>`).join("")}
+          </nav>
+        </details>
+        <article class="record-section" id="summary">
+          <p class="eyebrow">SUMMARY</p>
+          <h2>Record summary</h2>
+          <dl class="record-facts">
+            <div><dt>Record ID</dt><dd><code>${esc(recordId)}</code></dd></div>
+            <div><dt>Category</dt><dd>${esc(item.category)}</dd></div>
+            <div><dt>Date</dt><dd>${esc(defaults.date)}</dd></div>
+            <div><dt>Source revision</dt><dd><code>${esc(defaults.sourceRevision)}</code></dd></div>
+            <div><dt>Evidence revision</dt><dd><code>${esc(defaults.evidenceRevision)}</code></dd></div>
+            <div><dt>Primitive</dt><dd>${esc(item.primitive)}</dd></div>
+            <div><dt>Maturity</dt><dd>${esc(item.maturity)}</dd></div>
+            <div><dt>Severity</dt><dd>${esc(defaults.severity)}</dd></div>
+          </dl>
+        </article>
+        <article class="record-section" id="claim">
+          <p class="eyebrow">CLAIM</p>
+          <h2>Primary claim</h2>
+          <p>${esc(item.claim)}</p>
+        </article>
+        <article class="record-section" id="non-claim">
+          <p class="eyebrow">NON-CLAIM</p>
+          <h2>Boundary</h2>
+          <p>${esc(item.nonClaim)}</p>
+          <p>${esc(defaults.assumptions)}</p>
+        </article>
+        <article class="record-section" id="threat">
+          <p class="eyebrow">THREAT / INVARIANT</p>
+          <h2>Threat model</h2>
+          <p><strong>Threat:</strong> ${esc(item.threat)}</p>
+          <p><strong>Invariant:</strong> ${esc(item.invariant)}</p>
+          <p><strong>Trigger:</strong> ${esc(defaults.trigger)}</p>
+          <p><strong>Root cause:</strong> ${esc(defaults.rootCause)}</p>
+        </article>
+        <article class="record-section" id="tooling">
+          <p class="eyebrow">TOOLING</p>
+          <h2>Tools and implementation</h2>
+          <p><strong>Reference implementation:</strong> ${esc(defaults.referenceImplementation)}</p>
+          <p><strong>Tools used:</strong> ${esc(defaults.toolsUsed)}</p>
+          <p><strong>Tool versions:</strong> ${esc(defaults.toolVersions)}</p>
+        </article>
+        <article class="record-section" id="commands">
+          <p class="eyebrow">COMMANDS</p>
+          <h2>Verification commands</h2>
+          ${codeBlock("Research commands", item.commands.join("\n"), "bash")}
+        </article>
+        <article class="record-section" id="evidence">
+          <p class="eyebrow">EVIDENCE</p>
+          <h2>Evidence and result</h2>
+          <p><strong>Results:</strong> ${esc(defaults.results)}</p>
+          <p><strong>Evidence confirmation:</strong> ${esc(defaults.evidenceConfirmation)}</p>
+          <p><strong>Evidence hash:</strong> <code>${esc(defaults.evidenceHash)}</code></p>
+          <p><strong>Fix revision:</strong> <code>${esc(defaults.fixRevision)}</code></p>
+        </article>
+        <article class="record-section" id="regression">
+          <p class="eyebrow">REGRESSION</p>
+          <h2>Regression fixture</h2>
+          <p>${esc(defaults.regressionFixture)}</p>
+          <p><strong>Kernel impact:</strong> ${esc(defaults.kernelImpact)}</p>
+          <p><strong>Utility impact:</strong> ${esc(defaults.utilityImpact)}</p>
+        </article>
+        <article class="record-section" id="limitations">
+          <p class="eyebrow">LIMITATIONS</p>
+          <h2>Remaining limitations</h2>
+          <p>${esc(item.limitations)}</p>
+          <p><strong>Supersession:</strong> ${esc(item.supersession)}</p>
+        </article>
+        <article class="record-section" id="reproduction">
+          <p class="eyebrow">REPRODUCTION</p>
+          <h2>Reproduction instructions</h2>
+          ${codeBlock("Reproduction", defaults.reproduction, "bash")}
+        </article>
       </section>`,
   });
 }
@@ -815,14 +910,14 @@ function verify() {
           <h2>Run the current checks</h2>
           <p>Use the repository validation suite and schema examples. The example verifier output is deterministic and explicitly marks runtime attestation as unverified.</p>
         </div>
-        <pre><code>npm run validate
+        ${codeBlock("Local verifier commands", `npm run validate
 node scripts/test-toolchain-registry.mjs
 
 # Example artifacts
 examples/entity-manifest.example.json
 examples/authority-policy.example.json
 examples/evidence-bundle.example.json
-examples/verification-result.example.json</code></pre>
+examples/verification-result.example.json`, "bash")}
       </section>
       <section class="section-shell">
         <div class="doc-grid">
@@ -841,7 +936,7 @@ examples/verification-result.example.json</code></pre>
       </section>
       <section class="section-shell split-section">
         <div><p class="eyebrow">DETERMINISTIC OUTPUT</p><h2>Example result</h2></div>
-        <pre><code>{
+        ${codeBlock("Verification result JSON", `{
   "result": "PASS_WITH_LIMITATIONS",
   "manifestSchema": "valid",
   "identity": "verified",
@@ -851,7 +946,7 @@ examples/verification-result.example.json</code></pre>
   "evidenceCompleteness": "partial",
   "runtimeConformity": "unverified",
   "revocationStatus": "active"
-}</code></pre>
+}`, "json")}
       </section>
       <section class="section-shell">
         ${table(["Code", "Meaning", "Fixture", "Safety consequence"], corpusRows)}
@@ -877,13 +972,13 @@ function developers() {
       </section>
       <section class="section-shell split-section">
         <div><p class="eyebrow">COMMANDS</p><h2>Local baseline</h2></div>
-        <pre><code>git clone https://github.com/fenrualabs/fenrua-web.git
+        ${codeBlock("Clean checkout baseline", `git clone https://github.com/fenrualabs/fenrua-web.git
 cd fenrua-web
 node --version  # v24 required
 npm install
 npm run validate
 node scripts/test-toolchain-registry.mjs
-node scripts/test-verify-examples.mjs</code></pre>
+node scripts/test-verify-examples.mjs`, "bash")}
       </section>
       <section class="section-shell split-section">
         <div>
@@ -905,14 +1000,14 @@ function evidence() {
     (record) => `<tr id="${attr(record.id)}">
       <td data-label="Artifact"><code>${esc(record.id)}</code><br>${esc(record.artifact)}<br><small>${esc(record.type)}</small></td>
       <td data-label="Claim">${esc(record.claim)}</td>
-      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">${esc(record.hash)}</code><button type="button" data-copy="${attr(record.hash)}">Copy hash</button></div></td>
+      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">${esc(record.hash)}</code><button type="button" data-copy="${copyAttr(record.hash)}" data-copy-label="Full SHA copied">Copy hash</button></div></td>
       <td data-label="Source"><a href="${attr(record.sourceUrl)}">${esc(record.source)}</a><br><small>${esc(record.environment)}</small></td>
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">${esc(record.sourceCommit)}</code><small>Evidence: <code class="hash-value">${esc(record.evidenceCommit)}</code></small></div></td>
       <td data-label="Producer">${esc(record.producer)}<br><small>${esc(record.toolchainSubset)}</small></td>
       <td data-label="Command"><code>${esc(record.command)}</code></td>
       <td data-label="Verified / Revocation">${esc(record.verified)}<br><small>Maturity: ${esc(record.maturity)} · Revocation: ${esc(record.revocationState)}</small></td>
       <td data-label="Supersession">${esc(record.supersedes)} / ${esc(record.supersededBy)}</td>
-      <td data-label="Limitation">${esc(record.limitation)}<button type="button" data-copy="${attr(evidenceCitation(record))}">Copy citation</button></td>
+      <td data-label="Limitation">${esc(record.limitation)}<button type="button" data-copy="${copyAttr(evidenceCitation(record))}" data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>`
   );
   return layout({
@@ -944,7 +1039,17 @@ function status() {
     ["Public repository", "success", "Source surface", "https://github.com/fenrualabs/fenrua-web", generatedIso, "git provenance", "git rev-parse HEAD", "Repository state changes after each deployment.", "Tagged release"],
     ["Schema set", "success", "Specification", "/docs/", generatedIso, "example corpus validation", "node scripts/test-verify-examples.mjs", "Schemas are examples/specifications, not a hosted validator.", "Schema validator package"],
   ].map(
-    (r) => `<tr><td>${esc(r[0])}</td><td>${statusBadge(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${statusTimestamp(r[4])}</td><td>${esc(r[5])}</td><td><code>${esc(r[6])}</code></td><td>${esc(r[7])}</td><td>${esc(r[8])}</td></tr>`
+    (r) => `<tr>
+      <td data-label="Component">${esc(r[0])}</td>
+      <td data-label="Operational state">${statusBadge(r[1])}</td>
+      <td data-label="Maturity">${esc(r[2])}</td>
+      <td data-label="Source">${esc(r[3])}</td>
+      <td data-label="Timestamp">${statusTimestamp(r[4])}</td>
+      <td data-label="Freshness policy">${esc(r[5])}</td>
+      <td data-label="Last successful check"><code>${esc(r[6])}</code></td>
+      <td data-label="Current limitation">${esc(r[7])}</td>
+      <td data-label="Next evidence gate">${esc(r[8])}</td>
+    </tr>`
   );
   return layout({
     title: "Fenrua Status",
@@ -967,13 +1072,16 @@ function status() {
         </div>
       </section>
       <section class="section-shell">
-        ${table(["Component", "Operational state", "Maturity", "Source", "Timestamp", "Freshness policy", "Last successful check", "Current limitation", "Next evidence gate"], rows)}
+        <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Each status row remains complete, including UTC seconds and freshness.</p>
+        ${table(["Component", "Operational state", "Maturity", "Source", "Timestamp", "Freshness policy", "Last successful check", "Current limitation", "Next evidence gate"], rows, "status-table")}
       </section>`,
   });
 }
 
 function toolchain() {
   const tools = registry.tools;
+  const rowAttributes = (tool, index, tags, search) =>
+    `data-page="${Math.floor(index / 25) + 1}" data-search="${attr(search.toLowerCase())}" data-status="${attr(tool.status)}" data-tags="${attr(tags.join(" "))}" data-mode="${attr(tool.installationMode)}" data-category="${attr(tool.category)}" data-installed="${tool.installed}" data-evidence="${tool.evidenceProduced}" data-tool-name="${attr(tool.tool.toLowerCase())}"`;
   const rows = tools.map((tool, index) => {
     const tags = toolchainDisplayTags(tool);
     const search = [
@@ -988,9 +1096,9 @@ function toolchain() {
       ...(tool.pipeline ?? []),
       ...(tool.commands ?? []),
     ].join(" ");
-    return `<tr data-tool-row data-page="${Math.floor(index / 25) + 1}" data-search="${attr(search.toLowerCase())}" data-status="${attr(tool.status)}" data-tags="${attr(tags.join(" "))}" data-mode="${attr(tool.installationMode)}" data-category="${attr(tool.category)}" data-installed="${tool.installed}" data-evidence="${tool.evidenceProduced}">
+    return `<tr data-tool-row ${rowAttributes(tool, index, tags, search)}>
       <td>${esc(tool.tool)}<br><small>${esc(tool.function)}</small></td>
-      <td><code>${esc(tool.detectedVersion)}</code><button type="button" data-copy="${attr(tool.detectedVersion)}">Copy version</button></td>
+      <td><code>${esc(tool.detectedVersion)}</code><button type="button" data-copy="${copyAttr(tool.detectedVersion)}" data-copy-label="Full version copied">Copy version</button></td>
       <td>${esc(tool.category)}</td>
       <td>${esc(tool.installationMode)}</td>
       <td><div class="tag-stack">${tags.map((tag) => `<span class="status-badge">${esc(tag)}</span>`).join("")}</div></td>
@@ -999,6 +1107,54 @@ function toolchain() {
       <td><div class="table-prose">${esc(tool.limitations)}</div></td>
     </tr>`;
   });
+  const mobileCards = tools.map((tool, index) => {
+    const tags = toolchainDisplayTags(tool);
+    const search = [
+      tool.tool,
+      tool.detectedVersion,
+      tool.category,
+      tool.function,
+      tool.installationMode,
+      tool.status,
+      ...tags,
+      tool.limitations,
+      ...(tool.pipeline ?? []),
+      ...(tool.commands ?? []),
+    ].join(" ");
+    const primaryStatus = tags.includes("VERSION_VERIFIED")
+      ? "Version verified"
+      : tags.includes("UNAVAILABLE")
+        ? "Unavailable"
+        : tags.includes("DETECTED")
+          ? "Detected"
+          : tool.status.replaceAll("_", " ").toLowerCase();
+    return `<article class="tool-record-card" data-tool-card ${rowAttributes(tool, index, tags, search)}>
+        <details>
+          <summary>
+            <span class="tool-record-title">${esc(tool.tool)}</span>
+            <span class="tool-record-function">${esc(tool.function)}</span>
+            <span class="tool-record-summary-grid">
+              <span><strong>Version</strong><code>${esc(tool.detectedVersion)}</code></span>
+              <span><strong>Status</strong>${esc(primaryStatus)}</span>
+              <span><strong>Evidence</strong>${tool.evidenceProduced ? "Yes" : "No"}</span>
+            </span>
+            <span class="tool-record-action">View details</span>
+          </summary>
+          <div class="tool-record-details">
+            <div><strong>Full detected version</strong><code>${esc(tool.detectedVersion)}</code><button type="button" data-copy="${copyAttr(tool.detectedVersion)}" data-copy-label="Full version copied">Copy version</button></div>
+            <div><strong>Category</strong>${esc(tool.category)}</div>
+            <div><strong>Installation mode</strong>${esc(tool.installationMode)}</div>
+            <div><strong>Delivery tags</strong><div class="tag-stack">${tags.map((tag) => `<span class="status-badge">${esc(tag)}</span>`).join("")}</div></div>
+            <div><strong>Evidence state</strong>${tool.evidenceProduced ? "Evidence-producing" : "No evidence artifact produced"}<br><small>${esc(tool.evidencePath)}</small></div>
+            <div><strong>Verification command</strong><div class="command-list">${(tool.commands ?? []).map((command) => `<code>${esc(command)}</code>`).join("")}</div></div>
+            <details class="limitation-disclosure">
+              <summary>Known limitations</summary>
+              <p>${esc(tool.limitations)}</p>
+            </details>
+          </div>
+        </details>
+      </article>`;
+  }).join("\n        ");
   const categories = [...new Set(tools.map((tool) => tool.category))].sort();
   const statCards = toolchainStats()
     .map(([label, value]) => `<article>
@@ -1020,28 +1176,43 @@ function toolchain() {
             <strong>no post-evidence updates</strong>
           </article>
         </div>
-        <p class="table-note"><button type="button" data-copy="${attr(registryHash)}">Copy registry hash</button> The displayed taxonomy is derived from frozen registry fields. A version or list command is <strong>VERSION_VERIFIED</strong>, not campaign execution.</p>
+        <p class="table-note"><button type="button" data-copy="${copyAttr(registryHash)}" data-copy-label="Full SHA copied">Copy registry hash</button> The displayed taxonomy is derived from frozen registry fields. A version or list command is <strong>VERSION_VERIFIED</strong>, not campaign execution.</p>
       </section>
       <section class="section-shell">
+        <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Desktop offers the full comparison layout. All evidence remains available here.</p>
         <div class="registry-tools toolchain-tools">
           <label for="tool-search">Search tools</label>
           <input id="tool-search" type="search" autocomplete="off" placeholder="Search tool, command, category, status, or limitation..." />
-          <div class="filter-groups" aria-label="Toolchain filters">
-            <button type="button" data-filter="all" aria-pressed="true">All</button>
-            <button type="button" data-filter="detected">Detected</button>
-            <button type="button" data-filter="version-verified">Version verified</button>
-            <button type="button" data-filter="smoke-tested">Smoke tested</button>
-            <button type="button" data-filter="campaign-executed">Campaign executed</button>
-            <button type="button" data-filter="evidence">Evidence-producing</button>
-            <button type="button" data-filter="canonical-pipeline">Canonical pipeline</button>
-            <button type="button" data-filter="container">Container-only</button>
-            <button type="button" data-filter="project-local">Project-local</button>
-            <button type="button" data-filter="exploratory">Exploratory</button>
-            <button type="button" data-filter="superseded">Superseded</button>
-            <button type="button" data-filter="version-review">Version review required</button>
-            <button type="button" data-filter="unavailable">Unavailable</button>
-            ${categories.map((category) => `<button type="button" data-category-filter="${attr(category)}">${esc(category.replace(" and ", " & "))}</button>`).join("\n            ")}
+          <div class="tool-sort-row">
+            <label for="tool-sort">Sort</label>
+            <select id="tool-sort">
+              <option value="source">Registry order</option>
+              <option value="tool">Tool name</option>
+              <option value="category">Category</option>
+              <option value="status">Status</option>
+            </select>
+            <button type="button" data-clear-filters>Clear filters</button>
+            <span data-active-filter-count>0 active filters</span>
           </div>
+          <details class="filter-disclosure" data-filter-disclosure>
+            <summary>Filters <span data-active-filter-count>0 active filters</span></summary>
+            <div class="filter-groups" aria-label="Toolchain filters">
+              <button type="button" data-filter="all" aria-pressed="true">All</button>
+              <button type="button" data-filter="detected">Detected</button>
+              <button type="button" data-filter="version-verified">Version verified</button>
+              <button type="button" data-filter="smoke-tested">Smoke tested</button>
+              <button type="button" data-filter="campaign-executed">Campaign executed</button>
+              <button type="button" data-filter="evidence">Evidence-producing</button>
+              <button type="button" data-filter="canonical-pipeline">Canonical pipeline</button>
+              <button type="button" data-filter="container">Container-only</button>
+              <button type="button" data-filter="project-local">Project-local</button>
+              <button type="button" data-filter="exploratory">Exploratory</button>
+              <button type="button" data-filter="superseded">Superseded</button>
+              <button type="button" data-filter="version-review">Version review required</button>
+              <button type="button" data-filter="unavailable">Unavailable</button>
+              ${categories.map((category) => `<button type="button" data-category-filter="${attr(category)}">${esc(category.replace(" and ", " & "))}</button>`).join("\n              ")}
+            </div>
+          </details>
           <div class="pagination-controls" aria-label="Toolchain pagination">
             <button type="button" data-page-action="prev">Previous</button>
             <span data-page-status>Page 1</span>
@@ -1049,6 +1220,9 @@ function toolchain() {
           </div>
         </div>
         ${table(["Tool", "Detected Version", "Category", "Mode", "Delivery Tags", "Evidence", "Command", "Limitations"], rows, "toolchain-table")}
+        <div class="toolchain-mobile-list" aria-label="Toolchain mobile records">
+          ${mobileCards}
+        </div>
         <p class="empty-state" id="toolchain-empty" hidden>No tools match the active filter.</p>
       </section>`,
   });

@@ -23,6 +23,7 @@ for (const route of routes) {
   const html = await readFile(new URL(`../${route}`, import.meta.url), "utf8");
   assert.match(html, /<main id="content">/, `${route} must contain a main landmark`);
   assert.match(html, /Skip to content/, `${route} must include a skip link`);
+  assert.match(html, /technical-data\.js/, `${route} must load technical data controls`);
   assert.doesNotMatch(html, />Loading registry</, `${route} must not ship an empty loading registry`);
 }
 
@@ -37,6 +38,12 @@ assert.match(toolchain, /Smoke tested/);
 assert.match(toolchain, /Campaign executed/);
 assert.match(toolchain, /VERSION_VERIFIED/);
 assert.match(toolchain, /class="tag-stack"/);
+assert.match(toolchain, /class="toolchain-mobile-list"/);
+assert.match(toolchain, /data-tool-card/);
+assert.match(toolchain, /data-filter-disclosure/);
+assert.match(toolchain, /data-clear-filters/);
+assert.match(toolchain, /id="tool-sort"/);
+assert.match(toolchain, /Known limitations/);
 assert.equal([...toolchain.matchAll(/class="registry-tools toolchain-tools"/g)].length, 1, "toolchain controls must not render duplicate wrappers");
 assert.doesNotMatch(toolchain, /<span class="status-badge">[^<]+<\/span><br>/, "delivery tags must use chip groups, not line-break stacks");
 assert.doesNotMatch(toolchain, />Executed</);
@@ -60,6 +67,26 @@ for (const code of ["PASS", "PASS_WITH_LIMITATIONS", "FAIL_CLOSED", "UNSUPPORTED
   assert.match(verify, new RegExp(code), `verify page must list ${code}`);
 }
 assert.match(verify, /examples\/verification-results\/pass\.example\.json/);
+assert.match(verify, /class="code-panel"/);
+assert.match(verify, /data-wrap-toggle/);
+
+const research = await readFile(new URL("../research/index.html", import.meta.url), "utf8");
+assert.match(research, /class="research-card-list"/);
+assert.match(research, /Open record/);
+assert.match(research, /Primary limitation/);
+
+for (const route of [
+  "research/pn521-cross-limb-borrow/index.html",
+  "research/toolchain-evidence-lock/index.html",
+  "research/read-only-chain-observation/index.html",
+]) {
+  const record = await readFile(new URL(`../${route}`, import.meta.url), "utf8");
+  for (const section of ["summary", "claim", "non-claim", "threat", "tooling", "commands", "evidence", "regression", "limitations", "reproduction"]) {
+    assert.match(record, new RegExp(`id="${section}"`), `${route} must expose ${section}`);
+  }
+  assert.match(record, /class="record-toc"/);
+  assert.match(record, /class="code-panel"/);
+}
 
 const status = await readFile(new URL("../status/index.html", import.meta.url), "utf8");
 for (const state of ["loading", "success", "partial", "stale", "failure", "paused", "maintenance"]) {
@@ -70,12 +97,15 @@ assert.match(status, /pending evidence/);
 assert.match(status, /<time datetime="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z">/);
 assert.match(status, /\d{2}:\d{2}:\d{2} UTC/);
 assert.match(status, /data-relative-time="/);
+assert.match(status, /status-table/);
+assert.match(status, /data-label="Timestamp"/);
 
 const evidence = await readFile(new URL("../evidence/index.html", import.meta.url), "utf8");
 assert.match(evidence, /class="hash-copy"/);
 assert.match(evidence, /class="hash-value"/);
 assert.match(evidence, /data-label="Hash"/);
 assert.match(evidence, /data-label="Limitation"/);
+assert.match(evidence, /data-copy-label="Full SHA copied"/);
 
 const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
 for (const route of legacyRoutes) {

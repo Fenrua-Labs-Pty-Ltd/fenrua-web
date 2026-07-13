@@ -23,10 +23,12 @@
     <title>Fenrua Verify</title>
     <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/technical-data.js" defer></script>
     
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
+    <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
     <header class="site-header" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
@@ -61,7 +63,15 @@
           <h2>Run the current checks</h2>
           <p>Use the repository validation suite and schema examples. The example verifier output is deterministic and explicitly marks runtime attestation as unverified.</p>
         </div>
-        <pre><code>npm run validate
+        <div class="code-panel" data-code-panel data-wrap="false">
+          <div class="code-panel-toolbar">
+            <span>Local verifier commands</span>
+            <div>
+              <button type="button" data-copy="npm run validate&#10;node scripts/test-toolchain-registry.mjs&#10;&#10;# Example artifacts&#10;examples/entity-manifest.example.json&#10;examples/authority-policy.example.json&#10;examples/evidence-bundle.example.json&#10;examples/verification-result.example.json" data-copy-label="Code copied">Copy</button>
+              <button type="button" data-wrap-toggle aria-pressed="false">Wrap lines</button>
+            </div>
+          </div>
+          <pre data-language="bash"><code data-code-value>npm run validate
 node scripts/test-toolchain-registry.mjs
 
 # Example artifacts
@@ -69,6 +79,7 @@ examples/entity-manifest.example.json
 examples/authority-policy.example.json
 examples/evidence-bundle.example.json
 examples/verification-result.example.json</code></pre>
+        </div>
       </section>
       <section class="section-shell">
         <div class="doc-grid">
@@ -87,17 +98,26 @@ examples/verification-result.example.json</code></pre>
       </section>
       <section class="section-shell split-section">
         <div><p class="eyebrow">DETERMINISTIC OUTPUT</p><h2>Example result</h2></div>
-        <pre><code>{
-  "result": "PASS_WITH_LIMITATIONS",
-  "manifestSchema": "valid",
-  "identity": "verified",
-  "signatures": "verified",
-  "artifactIntegrity": "verified",
-  "policyIntegrity": "verified",
-  "evidenceCompleteness": "partial",
-  "runtimeConformity": "unverified",
-  "revocationStatus": "active"
+        <div class="code-panel" data-code-panel data-wrap="false">
+          <div class="code-panel-toolbar">
+            <span>Verification result JSON</span>
+            <div>
+              <button type="button" data-copy="{&#10;  &quot;result&quot;: &quot;PASS_WITH_LIMITATIONS&quot;,&#10;  &quot;manifestSchema&quot;: &quot;valid&quot;,&#10;  &quot;identity&quot;: &quot;verified&quot;,&#10;  &quot;signatures&quot;: &quot;verified&quot;,&#10;  &quot;artifactIntegrity&quot;: &quot;verified&quot;,&#10;  &quot;policyIntegrity&quot;: &quot;verified&quot;,&#10;  &quot;evidenceCompleteness&quot;: &quot;partial&quot;,&#10;  &quot;runtimeConformity&quot;: &quot;unverified&quot;,&#10;  &quot;revocationStatus&quot;: &quot;active&quot;&#10;}" data-copy-label="Code copied">Copy</button>
+              <button type="button" data-wrap-toggle aria-pressed="false">Wrap lines</button>
+            </div>
+          </div>
+          <pre data-language="json"><code data-code-value>{
+  &quot;result&quot;: &quot;PASS_WITH_LIMITATIONS&quot;,
+  &quot;manifestSchema&quot;: &quot;valid&quot;,
+  &quot;identity&quot;: &quot;verified&quot;,
+  &quot;signatures&quot;: &quot;verified&quot;,
+  &quot;artifactIntegrity&quot;: &quot;verified&quot;,
+  &quot;policyIntegrity&quot;: &quot;verified&quot;,
+  &quot;evidenceCompleteness&quot;: &quot;partial&quot;,
+  &quot;runtimeConformity&quot;: &quot;unverified&quot;,
+  &quot;revocationStatus&quot;: &quot;active&quot;
 }</code></pre>
+        </div>
       </section>
       <section class="section-shell">
         <div class="registry " role="region" tabindex="0">

@@ -23,6 +23,7 @@
     <title>Fenrua Status</title>
     <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/technical-data.js" defer></script>
     <script>
       (() => {
         const labels = (seconds) => {
@@ -50,6 +51,7 @@
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
+    <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
     <header class="site-header" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
@@ -84,107 +86,248 @@
                 <span>loading</span>
                 <strong>Loading</strong>
                 <p>Request started; verified status not yet available.</p>
-                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T00:57:51.864Z">2026-07-13 00:57:51 UTC</time><span data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</span></span> · Retry: Retry after the configured refresh interval.</small>
+                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T01:37:06.223Z">2026-07-13 01:37:06 UTC</time><span data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</span></span> · Retry: Retry after the configured refresh interval.</small>
               </article>
 <article data-state="success">
                 <span>success</span>
                 <strong>Success</strong>
                 <p>Source responded and supplied evidence within the freshness window.</p>
-                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T00:57:51.864Z">2026-07-13 00:57:51 UTC</time><span data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</span></span> · Retry: Next check follows normal cadence.</small>
+                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T01:37:06.223Z">2026-07-13 01:37:06 UTC</time><span data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</span></span> · Retry: Next check follows normal cadence.</small>
               </article>
 <article data-state="partial">
                 <span>partial</span>
                 <strong>Partial</strong>
                 <p>Some required evidence is present but one or more declared checks remain incomplete.</p>
-                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T00:57:51.864Z">2026-07-13 00:57:51 UTC</time><span data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</span></span> · Retry: Retry with scoped confidence.</small>
+                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T01:37:06.223Z">2026-07-13 01:37:06 UTC</time><span data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</span></span> · Retry: Retry with scoped confidence.</small>
               </article>
 <article data-state="stale">
                 <span>stale</span>
                 <strong>Stale</strong>
                 <p>Last evidence is older than the freshness policy.</p>
-                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T00:57:51.864Z">2026-07-13 00:57:51 UTC</time><span data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</span></span> · Retry: Retry and keep previous value labelled stale.</small>
+                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T01:37:06.223Z">2026-07-13 01:37:06 UTC</time><span data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</span></span> · Retry: Retry and keep previous value labelled stale.</small>
               </article>
 <article data-state="failure">
                 <span>failure</span>
                 <strong>Failure</strong>
                 <p>Source failed or returned invalid evidence.</p>
-                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T00:57:51.864Z">2026-07-13 00:57:51 UTC</time><span data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</span></span> · Retry: Retry with backoff and fail closed for decisions.</small>
+                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T01:37:06.223Z">2026-07-13 01:37:06 UTC</time><span data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</span></span> · Retry: Retry with backoff and fail closed for decisions.</small>
               </article>
 <article data-state="paused">
                 <span>paused</span>
                 <strong>Paused</strong>
                 <p>Source is intentionally paused.</p>
-                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T00:57:51.864Z">2026-07-13 00:57:51 UTC</time><span data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</span></span> · Retry: No automatic retry until pause is lifted.</small>
+                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T01:37:06.223Z">2026-07-13 01:37:06 UTC</time><span data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</span></span> · Retry: No automatic retry until pause is lifted.</small>
               </article>
 <article data-state="maintenance">
                 <span>maintenance</span>
                 <strong>Maintenance</strong>
                 <p>Source is undergoing maintenance.</p>
-                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T00:57:51.864Z">2026-07-13 00:57:51 UTC</time><span data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</span></span> · Retry: Retry after the published maintenance window.</small>
+                <small>Source: status contract · <span class="timestamp-inline"><time datetime="2026-07-13T01:37:06.223Z">2026-07-13 01:37:06 UTC</time><span data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</span></span> · Retry: Retry after the published maintenance window.</small>
               </article>
         </div>
       </section>
       <section class="section-shell">
-        <div class="registry " role="region" tabindex="0">
+        <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Each status row remains complete, including UTC seconds and freshness.</p>
+        <div class="registry status-table" role="region" tabindex="0">
           <table>
             <thead><tr><th scope="col">Component</th><th scope="col">Operational state</th><th scope="col">Maturity</th><th scope="col">Source</th><th scope="col">Timestamp</th><th scope="col">Freshness policy</th><th scope="col">Last successful check</th><th scope="col">Current limitation</th><th scope="col">Next evidence gate</th></tr></thead>
             <tbody>
-<tr><td>Homepage</td><td><span class="status-badge status-success">success</span></td><td>Routing surface</td><td>index.html</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>static route validation</td><td><code>npm run validate</code></td><td>Live chain observations remain read-only public telemetry.</td><td>Browser viewport matrix</td></tr>
-<tr><td>Architecture</td><td><span class="status-badge status-success">success</span></td><td>Specification</td><td>/architecture/</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>static route validation</td><td><code>npm run validate</code></td><td>Architecture is descriptive, not a deployed control plane.</td><td>Independent architecture review</td></tr>
-<tr><td>Kernel</td><td><span class="status-badge status-success">success</span></td><td>Specification/reference mix</td><td>/kernel/</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>static route validation</td><td><code>npm run validate</code></td><td>Primitive maturity varies by row.</td><td>Per-primitive evidence expansion</td></tr>
-<tr><td>Utilities</td><td><span class="status-badge status-success">success</span></td><td>Catalogue</td><td>/utilities/</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>static route validation</td><td><code>npm run validate</code></td><td>No fake live utility service is claimed.</td><td>SDK or CLI evidence</td></tr>
-<tr><td>Research registry</td><td><span class="status-badge status-success">success</span></td><td>Evidence surface</td><td>/research/</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>static route validation</td><td><code>npm run validate</code></td><td>Dedicated pages expose current reproduction limits.</td><td>Independent reproduction</td></tr>
-<tr><td>Verify examples</td><td><span class="status-badge status-partial">partial</span></td><td>Prototype foundation</td><td>/verify/</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>fixture corpus validation</td><td><code>node scripts/test-verify-examples.mjs</code></td><td>No hosted verifier or upload model exists.</td><td>Real verifier implementation</td></tr>
-<tr><td>Developer quick start</td><td><span class="status-badge status-success">success</span></td><td>Reproducibility guide</td><td>/developers/</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>clean checkout report</td><td><code>npm run validate</code></td><td>Node 24 required.</td><td>Tagged release reproduction</td></tr>
-<tr><td>Toolchain registry</td><td><span class="status-badge status-success">success</span></td><td>Read-only live</td><td>data/toolchain-registry.json</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>registry validation</td><td><code>node scripts/test-toolchain-registry.mjs</code></td><td>Version capture is not security proof.</td><td>New frozen evidence bundle</td></tr>
-<tr><td>Evidence registry</td><td><span class="status-badge status-success">success</span></td><td>Evidence surface</td><td>/evidence/</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>static route validation</td><td><code>npm run validate</code></td><td>Evidence provenance is scoped to public artifacts.</td><td>External evidence review</td></tr>
-<tr><td>Chain 978 observation</td><td><span class="status-badge status-success">success</span></td><td>Signed bounded observation</td><td>/api/chain-progress</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>5 second public cache; 20 second refresh; 90 second freshness</td><td><code>node scripts/test-chain-progress.mjs</code></td><td>Public status is a signed bounded observation; not contract, bytecode, reserve, or deployment assurance.</td><td>Contract evidence refresh boundary</td></tr>
-<tr><td>Chain N521 observation</td><td><span class="status-badge status-success">success</span></td><td>Signed bounded observation</td><td>/api/chain-progress</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>5 second public cache; 20 second refresh; 90 second freshness</td><td><code>node scripts/test-chain-progress.mjs</code></td><td>Public status is an independent signed bounded observation; not contract, bytecode, reserve, or deployment assurance.</td><td>Independent bounded observation gateway</td></tr>
-<tr><td>Contract evidence</td><td><span class="status-badge status-pending-evidence">pending evidence</span></td><td>Pending refreshed bundle</td><td>docs/FENRUA_CONTRACT_EVIDENCE_REFRESH_BOUNDARY.md</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>manual evidence gate</td><td><code>none</code></td><td>No current contract, bytecode, reserve, or deployment claim.</td><td>Frozen contract evidence bundle</td></tr>
-<tr><td>Public repository</td><td><span class="status-badge status-success">success</span></td><td>Source surface</td><td>https://github.com/fenrualabs/fenrua-web</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>git provenance</td><td><code>git rev-parse HEAD</code></td><td>Repository state changes after each deployment.</td><td>Tagged release</td></tr>
-<tr><td>Schema set</td><td><span class="status-badge status-success">success</span></td><td>Specification</td><td>/docs/</td><td><div class="timestamp-stack">
-      <time datetime="2026-07-13T00:57:51.864Z"><span>2026-07-13</span><span>00:57:51 UTC</span></time>
-      <small data-relative-time="2026-07-13T00:57:51.864Z">Updated at build time</small>
-    </div></td><td>example corpus validation</td><td><code>node scripts/test-verify-examples.mjs</code></td><td>Schemas are examples/specifications, not a hosted validator.</td><td>Schema validator package</td></tr>
+<tr>
+      <td data-label="Component">Homepage</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Routing surface</td>
+      <td data-label="Source">index.html</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">static route validation</td>
+      <td data-label="Last successful check"><code>npm run validate</code></td>
+      <td data-label="Current limitation">Live chain observations remain read-only public telemetry.</td>
+      <td data-label="Next evidence gate">Browser viewport matrix</td>
+    </tr>
+<tr>
+      <td data-label="Component">Architecture</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Specification</td>
+      <td data-label="Source">/architecture/</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">static route validation</td>
+      <td data-label="Last successful check"><code>npm run validate</code></td>
+      <td data-label="Current limitation">Architecture is descriptive, not a deployed control plane.</td>
+      <td data-label="Next evidence gate">Independent architecture review</td>
+    </tr>
+<tr>
+      <td data-label="Component">Kernel</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Specification/reference mix</td>
+      <td data-label="Source">/kernel/</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">static route validation</td>
+      <td data-label="Last successful check"><code>npm run validate</code></td>
+      <td data-label="Current limitation">Primitive maturity varies by row.</td>
+      <td data-label="Next evidence gate">Per-primitive evidence expansion</td>
+    </tr>
+<tr>
+      <td data-label="Component">Utilities</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Catalogue</td>
+      <td data-label="Source">/utilities/</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">static route validation</td>
+      <td data-label="Last successful check"><code>npm run validate</code></td>
+      <td data-label="Current limitation">No fake live utility service is claimed.</td>
+      <td data-label="Next evidence gate">SDK or CLI evidence</td>
+    </tr>
+<tr>
+      <td data-label="Component">Research registry</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Evidence surface</td>
+      <td data-label="Source">/research/</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">static route validation</td>
+      <td data-label="Last successful check"><code>npm run validate</code></td>
+      <td data-label="Current limitation">Dedicated pages expose current reproduction limits.</td>
+      <td data-label="Next evidence gate">Independent reproduction</td>
+    </tr>
+<tr>
+      <td data-label="Component">Verify examples</td>
+      <td data-label="Operational state"><span class="status-badge status-partial">partial</span></td>
+      <td data-label="Maturity">Prototype foundation</td>
+      <td data-label="Source">/verify/</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">fixture corpus validation</td>
+      <td data-label="Last successful check"><code>node scripts/test-verify-examples.mjs</code></td>
+      <td data-label="Current limitation">No hosted verifier or upload model exists.</td>
+      <td data-label="Next evidence gate">Real verifier implementation</td>
+    </tr>
+<tr>
+      <td data-label="Component">Developer quick start</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Reproducibility guide</td>
+      <td data-label="Source">/developers/</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">clean checkout report</td>
+      <td data-label="Last successful check"><code>npm run validate</code></td>
+      <td data-label="Current limitation">Node 24 required.</td>
+      <td data-label="Next evidence gate">Tagged release reproduction</td>
+    </tr>
+<tr>
+      <td data-label="Component">Toolchain registry</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Read-only live</td>
+      <td data-label="Source">data/toolchain-registry.json</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">registry validation</td>
+      <td data-label="Last successful check"><code>node scripts/test-toolchain-registry.mjs</code></td>
+      <td data-label="Current limitation">Version capture is not security proof.</td>
+      <td data-label="Next evidence gate">New frozen evidence bundle</td>
+    </tr>
+<tr>
+      <td data-label="Component">Evidence registry</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Evidence surface</td>
+      <td data-label="Source">/evidence/</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">static route validation</td>
+      <td data-label="Last successful check"><code>npm run validate</code></td>
+      <td data-label="Current limitation">Evidence provenance is scoped to public artifacts.</td>
+      <td data-label="Next evidence gate">External evidence review</td>
+    </tr>
+<tr>
+      <td data-label="Component">Chain 978 observation</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Signed bounded observation</td>
+      <td data-label="Source">/api/chain-progress</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">5 second public cache; 20 second refresh; 90 second freshness</td>
+      <td data-label="Last successful check"><code>node scripts/test-chain-progress.mjs</code></td>
+      <td data-label="Current limitation">Public status is a signed bounded observation; not contract, bytecode, reserve, or deployment assurance.</td>
+      <td data-label="Next evidence gate">Contract evidence refresh boundary</td>
+    </tr>
+<tr>
+      <td data-label="Component">Chain N521 observation</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Signed bounded observation</td>
+      <td data-label="Source">/api/chain-progress</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">5 second public cache; 20 second refresh; 90 second freshness</td>
+      <td data-label="Last successful check"><code>node scripts/test-chain-progress.mjs</code></td>
+      <td data-label="Current limitation">Public status is an independent signed bounded observation; not contract, bytecode, reserve, or deployment assurance.</td>
+      <td data-label="Next evidence gate">Independent bounded observation gateway</td>
+    </tr>
+<tr>
+      <td data-label="Component">Contract evidence</td>
+      <td data-label="Operational state"><span class="status-badge status-pending-evidence">pending evidence</span></td>
+      <td data-label="Maturity">Pending refreshed bundle</td>
+      <td data-label="Source">docs/FENRUA_CONTRACT_EVIDENCE_REFRESH_BOUNDARY.md</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">manual evidence gate</td>
+      <td data-label="Last successful check"><code>none</code></td>
+      <td data-label="Current limitation">No current contract, bytecode, reserve, or deployment claim.</td>
+      <td data-label="Next evidence gate">Frozen contract evidence bundle</td>
+    </tr>
+<tr>
+      <td data-label="Component">Public repository</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Source surface</td>
+      <td data-label="Source">https://github.com/fenrualabs/fenrua-web</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">git provenance</td>
+      <td data-label="Last successful check"><code>git rev-parse HEAD</code></td>
+      <td data-label="Current limitation">Repository state changes after each deployment.</td>
+      <td data-label="Next evidence gate">Tagged release</td>
+    </tr>
+<tr>
+      <td data-label="Component">Schema set</td>
+      <td data-label="Operational state"><span class="status-badge status-success">success</span></td>
+      <td data-label="Maturity">Specification</td>
+      <td data-label="Source">/docs/</td>
+      <td data-label="Timestamp"><div class="timestamp-stack">
+      <time datetime="2026-07-13T01:37:06.223Z"><span>2026-07-13</span><span>01:37:06 UTC</span></time>
+      <small data-relative-time="2026-07-13T01:37:06.223Z">Updated at build time</small>
+    </div></td>
+      <td data-label="Freshness policy">example corpus validation</td>
+      <td data-label="Last successful check"><code>node scripts/test-verify-examples.mjs</code></td>
+      <td data-label="Current limitation">Schemas are examples/specifications, not a hosted validator.</td>
+      <td data-label="Next evidence gate">Schema validator package</td>
+    </tr>
             </tbody>
           </table>
         </div>

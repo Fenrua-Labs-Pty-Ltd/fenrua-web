@@ -23,10 +23,12 @@
     <title>Toolchain Evidence Lock | Fenrua Research</title>
     <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/technical-data.js" defer></script>
     
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
+    <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
     <header class="site-header" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
@@ -55,46 +57,105 @@
         <p>Evidence systems · Evidence</p>
         
       </section>
-      <section class="section-shell">
-        <div class="registry " role="region" tabindex="0">
-          <table>
-            <thead><tr><th scope="col">Field</th><th scope="col">Record</th></tr></thead>
-            <tbody>
-<tr><th scope="row">Record ID</th><td>fenrua-research:toolchain-evidence-lock</td></tr>
-<tr><th scope="row">Title</th><td>Toolchain Evidence Lock</td></tr>
-<tr><th scope="row">Category</th><td>Evidence systems</td></tr>
-<tr><th scope="row">Date</th><td>2026-07-13</td></tr>
-<tr><th scope="row">Source revision</th><td>390f7aeef778ce93db12e16028bc3a788b643c2d</td></tr>
-<tr><th scope="row">Evidence revision</th><td>98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9</td></tr>
-<tr><th scope="row">Primitive affected</th><td>Evidence</td></tr>
-<tr><th scope="row">Maturity</th><td>Read-only live</td></tr>
-<tr><th scope="row">Severity</th><td>Public-trust boundary</td></tr>
-<tr><th scope="row">Problem statement</th><td>Post-evidence dependency drift can make public claims unreproducible.</td></tr>
-<tr><th scope="row">Claim</th><td>Toolchain versions are published as detected and remain locked to the inspected evidence environment.</td></tr>
-<tr><th scope="row">Non-claim</th><td>The registry does not claim the newest possible version of every tool.</td></tr>
-<tr><th scope="row">Assumptions</th><td>Public page exposes only sanitized, source-linked evidence. Private endpoints, secrets, and raw witness material remain out of scope.</td></tr>
-<tr><th scope="row">Threat</th><td>Post-evidence dependency drift can make public claims unreproducible.</td></tr>
-<tr><th scope="row">Invariant</th><td>A public claim must refer to a tool version and evidence bundle that were captured together.</td></tr>
-<tr><th scope="row">Trigger</th><td>Toolchain registry test prevents Semgrep and SnarkJS drift.</td></tr>
-<tr><th scope="row">Root cause</th><td>Public claims can drift when evidence, tooling, or telemetry are not adjacent to limitations.</td></tr>
-<tr><th scope="row">Reference implementation</th><td>data/toolchain-registry.json and docs/FENRUA_TOOLCHAIN_LOCK.md.</td></tr>
-<tr><th scope="row">Tools used</th><td>Version commands, package inventory, Docker image inventory, registry validation.</td></tr>
-<tr><th scope="row">Tool versions</th><td>See /data/toolchain-registry.json; Semgrep 1.169.0; SnarkJS snarkjs@0.7.6.</td></tr>
-<tr><th scope="row">Commands</th><td>node scripts/test-toolchain-registry.mjs; npm run validate</td></tr>
-<tr><th scope="row">Results</th><td>Registry SHA-256 98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9</td></tr>
-<tr><th scope="row">Evidence confirmation</th><td>Review confidence is represented only where linked public evidence exists.</td></tr>
-<tr><th scope="row">Evidence hash</th><td>98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9</td></tr>
-<tr><th scope="row">Fix revision</th><td>Current website route generation.</td></tr>
-<tr><th scope="row">Regression fixture</th><td>Toolchain registry test prevents Semgrep and SnarkJS drift.</td></tr>
-<tr><th scope="row">Kernel impact</th><td>Evidence primitive boundary clarified.</td></tr>
-<tr><th scope="row">Utility impact</th><td>Public interface remains maturity-labelled and limitation-adjacent.</td></tr>
-<tr><th scope="row">Remaining limitations</th><td>Version capture does not prove security findings.</td></tr>
-<tr><th scope="row">Supersession</th><td>Active; future updates require a new frozen evidence bundle.</td></tr>
-<tr><th scope="row">Reproduction instructions</th><td>node scripts/test-toolchain-registry.mjs
-npm run validate</td></tr>
-            </tbody>
-          </table>
+      <section class="section-shell research-record-shell">
+        <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Use the section menu below; desktop keeps the full route context visible.</p>
+        <details class="record-toc">
+          <summary>Record sections</summary>
+          <nav aria-label="Research record sections">
+            <a href="#summary">Summary</a><a href="#claim">Claim</a><a href="#non-claim">Non-claim</a><a href="#threat">Threat / invariant</a><a href="#tooling">Tooling</a><a href="#commands">Commands</a><a href="#evidence">Evidence</a><a href="#regression">Regression</a><a href="#limitations">Limitations</a><a href="#reproduction">Reproduction</a>
+          </nav>
+        </details>
+        <article class="record-section" id="summary">
+          <p class="eyebrow">SUMMARY</p>
+          <h2>Record summary</h2>
+          <dl class="record-facts">
+            <div><dt>Record ID</dt><dd><code>fenrua-research:toolchain-evidence-lock</code></dd></div>
+            <div><dt>Category</dt><dd>Evidence systems</dd></div>
+            <div><dt>Date</dt><dd>2026-07-13</dd></div>
+            <div><dt>Source revision</dt><dd><code>390f7aeef778ce93db12e16028bc3a788b643c2d</code></dd></div>
+            <div><dt>Evidence revision</dt><dd><code>98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9</code></dd></div>
+            <div><dt>Primitive</dt><dd>Evidence</dd></div>
+            <div><dt>Maturity</dt><dd>Read-only live</dd></div>
+            <div><dt>Severity</dt><dd>Public-trust boundary</dd></div>
+          </dl>
+        </article>
+        <article class="record-section" id="claim">
+          <p class="eyebrow">CLAIM</p>
+          <h2>Primary claim</h2>
+          <p>Toolchain versions are published as detected and remain locked to the inspected evidence environment.</p>
+        </article>
+        <article class="record-section" id="non-claim">
+          <p class="eyebrow">NON-CLAIM</p>
+          <h2>Boundary</h2>
+          <p>The registry does not claim the newest possible version of every tool.</p>
+          <p>Public page exposes only sanitized, source-linked evidence. Private endpoints, secrets, and raw witness material remain out of scope.</p>
+        </article>
+        <article class="record-section" id="threat">
+          <p class="eyebrow">THREAT / INVARIANT</p>
+          <h2>Threat model</h2>
+          <p><strong>Threat:</strong> Post-evidence dependency drift can make public claims unreproducible.</p>
+          <p><strong>Invariant:</strong> A public claim must refer to a tool version and evidence bundle that were captured together.</p>
+          <p><strong>Trigger:</strong> Toolchain registry test prevents Semgrep and SnarkJS drift.</p>
+          <p><strong>Root cause:</strong> Public claims can drift when evidence, tooling, or telemetry are not adjacent to limitations.</p>
+        </article>
+        <article class="record-section" id="tooling">
+          <p class="eyebrow">TOOLING</p>
+          <h2>Tools and implementation</h2>
+          <p><strong>Reference implementation:</strong> data/toolchain-registry.json and docs/FENRUA_TOOLCHAIN_LOCK.md.</p>
+          <p><strong>Tools used:</strong> Version commands, package inventory, Docker image inventory, registry validation.</p>
+          <p><strong>Tool versions:</strong> See /data/toolchain-registry.json; Semgrep 1.169.0; SnarkJS snarkjs@0.7.6.</p>
+        </article>
+        <article class="record-section" id="commands">
+          <p class="eyebrow">COMMANDS</p>
+          <h2>Verification commands</h2>
+          <div class="code-panel" data-code-panel data-wrap="false">
+          <div class="code-panel-toolbar">
+            <span>Research commands</span>
+            <div>
+              <button type="button" data-copy="node scripts/test-toolchain-registry.mjs&#10;npm run validate" data-copy-label="Code copied">Copy</button>
+              <button type="button" data-wrap-toggle aria-pressed="false">Wrap lines</button>
+            </div>
+          </div>
+          <pre data-language="bash"><code data-code-value>node scripts/test-toolchain-registry.mjs
+npm run validate</code></pre>
         </div>
+        </article>
+        <article class="record-section" id="evidence">
+          <p class="eyebrow">EVIDENCE</p>
+          <h2>Evidence and result</h2>
+          <p><strong>Results:</strong> Registry SHA-256 98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9</p>
+          <p><strong>Evidence confirmation:</strong> Review confidence is represented only where linked public evidence exists.</p>
+          <p><strong>Evidence hash:</strong> <code>98ff822190553ef631df43b00fa8ec5003ab757124b522b51c7d5ae8ad7d21e9</code></p>
+          <p><strong>Fix revision:</strong> <code>Current website route generation.</code></p>
+        </article>
+        <article class="record-section" id="regression">
+          <p class="eyebrow">REGRESSION</p>
+          <h2>Regression fixture</h2>
+          <p>Toolchain registry test prevents Semgrep and SnarkJS drift.</p>
+          <p><strong>Kernel impact:</strong> Evidence primitive boundary clarified.</p>
+          <p><strong>Utility impact:</strong> Public interface remains maturity-labelled and limitation-adjacent.</p>
+        </article>
+        <article class="record-section" id="limitations">
+          <p class="eyebrow">LIMITATIONS</p>
+          <h2>Remaining limitations</h2>
+          <p>Version capture does not prove security findings.</p>
+          <p><strong>Supersession:</strong> Active; future updates require a new frozen evidence bundle.</p>
+        </article>
+        <article class="record-section" id="reproduction">
+          <p class="eyebrow">REPRODUCTION</p>
+          <h2>Reproduction instructions</h2>
+          <div class="code-panel" data-code-panel data-wrap="false">
+          <div class="code-panel-toolbar">
+            <span>Reproduction</span>
+            <div>
+              <button type="button" data-copy="node scripts/test-toolchain-registry.mjs&#10;npm run validate" data-copy-label="Code copied">Copy</button>
+              <button type="button" data-wrap-toggle aria-pressed="false">Wrap lines</button>
+            </div>
+          </div>
+          <pre data-language="bash"><code data-code-value>node scripts/test-toolchain-registry.mjs
+npm run validate</code></pre>
+        </div>
+        </article>
       </section>
     </main>
     <footer class="site-footer">

@@ -23,10 +23,12 @@
     <title>Fenrua Security Kernel</title>
     <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/technical-data.js" defer></script>
     
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
+    <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
     <header class="site-header" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
@@ -107,9 +109,18 @@
       </section>
       <section class="section-shell split-section">
         <div><p class="eyebrow">STATE TRANSITION</p><h2>Kernel lifecycle</h2></div>
-        <pre><code>unregistered -> registered -> policy_bound -> evidence_required
--> verified_with_limitations -> active
--> revoked | quarantined | superseded -> recovered</code></pre>
+        <div class="code-panel" data-code-panel data-wrap="false">
+          <div class="code-panel-toolbar">
+            <span>Lifecycle state machine</span>
+            <div>
+              <button type="button" data-copy="unregistered -&gt; registered -&gt; policy_bound -&gt; evidence_required&#10;-&gt; verified_with_limitations -&gt; active&#10;-&gt; revoked | quarantined | superseded -&gt; recovered" data-copy-label="Code copied">Copy</button>
+              <button type="button" data-wrap-toggle aria-pressed="false">Wrap lines</button>
+            </div>
+          </div>
+          <pre data-language="text"><code data-code-value>unregistered -&gt; registered -&gt; policy_bound -&gt; evidence_required
+-&gt; verified_with_limitations -&gt; active
+-&gt; revoked | quarantined | superseded -&gt; recovered</code></pre>
+        </div>
       </section>
     </main>
     <footer class="site-footer">

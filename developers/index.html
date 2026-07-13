@@ -23,10 +23,12 @@
     <title>Fenrua Developers</title>
     <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/technical-data.js" defer></script>
     
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
+    <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
     <header class="site-header" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua home">
         <img src="/assets/sigil.svg" width="40" height="40" alt="" />
@@ -95,13 +97,22 @@
       </section>
       <section class="section-shell split-section">
         <div><p class="eyebrow">COMMANDS</p><h2>Local baseline</h2></div>
-        <pre><code>git clone https://github.com/fenrualabs/fenrua-web.git
+        <div class="code-panel" data-code-panel data-wrap="false">
+          <div class="code-panel-toolbar">
+            <span>Clean checkout baseline</span>
+            <div>
+              <button type="button" data-copy="git clone https://github.com/fenrualabs/fenrua-web.git&#10;cd fenrua-web&#10;node --version  # v24 required&#10;npm install&#10;npm run validate&#10;node scripts/test-toolchain-registry.mjs&#10;node scripts/test-verify-examples.mjs" data-copy-label="Code copied">Copy</button>
+              <button type="button" data-wrap-toggle aria-pressed="false">Wrap lines</button>
+            </div>
+          </div>
+          <pre data-language="bash"><code data-code-value>git clone https://github.com/fenrualabs/fenrua-web.git
 cd fenrua-web
 node --version  # v24 required
 npm install
 npm run validate
 node scripts/test-toolchain-registry.mjs
 node scripts/test-verify-examples.mjs</code></pre>
+        </div>
       </section>
       <section class="section-shell split-section">
         <div>
