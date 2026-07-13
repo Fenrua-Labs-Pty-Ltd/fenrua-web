@@ -2306,6 +2306,7 @@ tr:last-child td {
     width: auto;
     min-height: 2.75rem;
     flex: 0 0 auto;
+    scroll-margin-inline: 1rem;
     padding: 0.5rem 0.65rem;
   }
 

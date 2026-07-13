@@ -425,40 +425,39 @@ Verified: ${record.verified}
 Scope: ${record.limitation}`;
 }
 
-function chainRail(className, label = "Live block updates", announce = true) {
+function chainRail(className, label = "Live block updates") {
   return `<div class="${attr(className)}" aria-label="${attr(label)}">
         <article class="header-chain-card" data-chain-card="978">
           <div class="chain-card-top">
             <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Awaiting signed observation</span></strong>
           </div>
           <div class="header-chain-block">
             <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
+            <strong data-chain-field="978-block">No current observation</strong>
+            <small data-chain-field="978-checked">No current signed observation</small>
+            <small data-chain-field="978-source">Evidence source: not asserted in static output</small>
+            <small data-chain-field="978-activity">Signed activity: not asserted in static output</small>
           </div>
           <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
         </article>
         <article class="header-chain-card" data-chain-card="521">
           <div class="chain-card-top">
             <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Awaiting signed observation</span></strong>
           </div>
           <div class="header-chain-block">
             <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
+            <strong data-chain-field="521-block">No current observation</strong>
+            <small data-chain-field="521-checked">No current signed observation</small>
+            <small data-chain-field="521-source">Evidence source: not asserted in static output</small>
+            <small data-chain-field="521-activity">Signed activity: not asserted in static output</small>
           </div>
           <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
         </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-        ${announce ? '<span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>' : ""}
+        <span class="sr-only" data-chain-meta="feed-status">awaiting signed observation</span>
+        <span class="sr-only" data-chain-meta="generated">no current observation asserted</span>
+        <span class="sr-only" data-chain-meta="countdown">no refresh without JavaScript</span>
       </div>`;
 }
 
@@ -568,7 +567,10 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
     .join("\n        ");
   const headerClass = headerLive ? "site-header site-header-live" : mobileLive ? "site-header site-header-mobile-live" : "site-header";
   const headerRail = headerLive || mobileLive
-    ? `\n      ${chainRail("header-chain-rail mobile-chain-rail", "Live block updates", !headerLive && current !== "Status")}`
+    ? `\n      ${chainRail("header-chain-rail mobile-chain-rail", "Live block updates")}`
+    : "";
+  const liveAnnouncer = (headerLive || mobileLive) && current !== "Status"
+    ? '<span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>'
     : "";
   const pageScripts = [
     headerLive ? '<script src="/kernel-status.js" defer></script>' : "",
@@ -614,6 +616,7 @@ ${pageScripts ? `    ${pageScripts}\n` : ""}
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
+    ${liveAnnouncer}
     <header class="${headerClass}" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua Protocol home">
         <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
@@ -667,7 +670,7 @@ function routeHero(eyebrow, title, text, cta = "", includeChainRail = true) {
           <p>${esc(text)}</p>
           ${cta}
         </div>
-        ${includeChainRail ? chainRail("route-hero-chain-rail", "Current signed chain observations", false) : ""}
+        ${includeChainRail ? chainRail("route-hero-chain-rail", "Current signed chain observations") : ""}
       </section>`;
 }
 
@@ -737,30 +740,29 @@ function chainProgressSection() {
           <p>Each chain is presented from its own independently signed bounded observation when one validates; otherwise its state remains waiting or unavailable. An observation does not prove contract safety, bytecode identity, reserve state, or deployment correctness.</p>
         </div>
         <div class="status-band" aria-label="Live chain feed status">
-          <span>Feed <strong data-chain-meta="feed-status">loading</strong></span>
-          <span>Generated <strong data-chain-meta="generated">loading</strong></span>
-          <span>Refresh <strong data-chain-meta="countdown">loading</strong></span>
-          <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
+          <span>Feed <strong data-chain-meta="feed-status">awaiting signed observation</strong></span>
+          <span>Generated <strong data-chain-meta="generated">no current observation asserted</strong></span>
+          <span>Refresh <strong data-chain-meta="countdown">no refresh without JavaScript</strong></span>
         </div>
         <div class="chain-grid">
           <article class="chain-card" data-chain-card="978">
             <div class="chain-card-top">
               <span>FENc978</span>
-              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
+              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Awaiting signed observation</span></strong>
             </div>
             <h3>Chain 978</h3>
             <dl>
               <div><dt>Chain identity</dt><dd data-chain-field="978-chain-id">978 - pending</dd></div>
-              <div><dt>Latest observed block</dt><dd data-chain-field="978-block">Loading</dd></div>
-              <div><dt>Evidence source</dt><dd data-chain-field="978-source">loading</dd></div>
-              <div><dt>Confidence</dt><dd data-chain-field="978-confidence">loading</dd></div>
-              <div><dt>Observed</dt><dd data-chain-field="978-checked">loading</dd></div>
-              <div><dt>Signed activity</dt><dd data-chain-field="978-activity">loading</dd></div>
+              <div><dt>Latest observed block</dt><dd data-chain-field="978-block">No current observation</dd></div>
+              <div><dt>Evidence source</dt><dd data-chain-field="978-source">Not asserted in static output</dd></div>
+              <div><dt>Confidence</dt><dd data-chain-field="978-confidence">Not asserted</dd></div>
+              <div><dt>Observed</dt><dd data-chain-field="978-checked">No current signed observation</dd></div>
+              <div><dt>Signed activity</dt><dd data-chain-field="978-activity">Not asserted in static output</dd></div>
             </dl>
             <div class="chain-progress-meter" aria-label="Chain 978 next signed observation progress">
               <div class="chain-progress-meter-top">
                 <span><i class="chain-progress-glyph" aria-hidden="true"></i>Next verification</span>
-                <strong data-chain-field="978-progress">loading</strong>
+                <strong data-chain-field="978-progress">awaiting signed observation</strong>
               </div>
               <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
             </div>
@@ -768,21 +770,21 @@ function chainProgressSection() {
           <article class="chain-card" data-chain-card="521">
             <div class="chain-card-top">
               <span>FENn521</span>
-              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
+              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Awaiting signed observation</span></strong>
             </div>
             <h3>Chain N521</h3>
             <dl>
               <div><dt>Chain identity</dt><dd data-chain-field="521-chain-id">521 - pending</dd></div>
-              <div><dt>Latest observed block</dt><dd data-chain-field="521-block">Loading</dd></div>
-              <div><dt>Evidence source</dt><dd data-chain-field="521-source">loading</dd></div>
-              <div><dt>Confidence</dt><dd data-chain-field="521-confidence">loading</dd></div>
-              <div><dt>Observed</dt><dd data-chain-field="521-checked">loading</dd></div>
-              <div><dt>Signed activity</dt><dd data-chain-field="521-activity">loading</dd></div>
+              <div><dt>Latest observed block</dt><dd data-chain-field="521-block">No current observation</dd></div>
+              <div><dt>Evidence source</dt><dd data-chain-field="521-source">Not asserted in static output</dd></div>
+              <div><dt>Confidence</dt><dd data-chain-field="521-confidence">Not asserted</dd></div>
+              <div><dt>Observed</dt><dd data-chain-field="521-checked">No current signed observation</dd></div>
+              <div><dt>Signed activity</dt><dd data-chain-field="521-activity">Not asserted in static output</dd></div>
             </dl>
             <div class="chain-progress-meter" aria-label="Chain N521 next signed observation progress">
               <div class="chain-progress-meter-top">
                 <span><i class="chain-progress-glyph" aria-hidden="true"></i>Next verification</span>
-                <strong data-chain-field="521-progress">loading</strong>
+                <strong data-chain-field="521-progress">awaiting signed observation</strong>
               </div>
               <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
             </div>
@@ -1335,6 +1337,10 @@ function support() {
     canonicalPath: "/support",
     body: `${routeHero("PUBLIC CONTACT", "Support and Contact", "Use the channel that matches the request and keep protected material out of public messages.")}
       <section class="section-shell">
+        <div class="section-heading">
+          <p class="eyebrow">CONTACT ROUTES</p>
+          <h2>Choose a public channel</h2>
+        </div>
         ${cardGrid([
           { kicker: "BUSINESS", title: "Partnerships and service enquiries", text: company.publicContact, href: `mailto:${company.publicContact}`, link: "Email Fenrua Labs" },
           { kicker: "WEBSITE SECURITY", title: "Private vulnerability report", text: "Use GitHub private vulnerability reporting for fenrua-web. Do not place exploit details in a public issue.", href: "https://github.com/fenrualabs/fenrua-web/security/advisories/new", link: "Open private report" },
@@ -1384,6 +1390,10 @@ function accessibility() {
     canonicalPath: "/accessibility",
     body: `${routeHero("PUBLIC ACCESS", "Accessibility", "The public technical estate is designed for keyboard access, responsive inspection, readable contrast, and explicit status language.")}
       <section class="section-shell">
+        <div class="section-heading">
+          <p class="eyebrow">ACCESS FEATURES</p>
+          <h2>Public interface practices</h2>
+        </div>
         ${cardGrid([
           { kicker: "NAVIGATION", title: "Keyboard-first structure", text: "Skip links, landmarks, focus-visible controls, and keyboard-scrollable technical tables are part of the tested interface." },
           { kicker: "VIEWPORTS", title: "Responsive evidence", text: "Technical records preserve labels and limitations on narrow screens instead of hiding evidence columns." },
@@ -1681,7 +1691,7 @@ function toolchain() {
           </details>
           <div class="pagination-controls" aria-label="Toolchain pagination">
             <button type="button" data-page-action="prev">Previous</button>
-            <span data-page-status>Page 1</span>
+            <span data-page-status role="status" aria-live="polite" aria-atomic="true">Page 1</span>
             <button type="button" data-page-action="next">Next</button>
           </div>
         </div>

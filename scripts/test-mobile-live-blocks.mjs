@@ -22,10 +22,7 @@ const routes = [
   "utilities/index.html",
   "verify/index.html",
 ];
-const mobileRailSha256 = {
-  withoutAnnouncer: "9bfc88ca41ebd4e5e07163eda320c7f3fa3ce0e904c8f4778029d269ac260d78",
-  withAnnouncer: "a42178d905ac7f21db729e23a7f0dd8f2dce5b314175911e4503f14113eaeed7",
-};
+const mobileRailSha256 = "f5a001aa54e05a08addb6f105690ebdc8556dc8b83adf91e1c8fbdff1aa54cf6";
 
 for (const route of routes) {
   const html = await readFile(new URL(`../${route}`, import.meta.url), "utf8");
@@ -38,12 +35,13 @@ for (const route of routes) {
   const headerEnd = html.indexOf("    </header>", railStart);
   assert.ok(railStart >= 0 && headerEnd > railStart, `${route} must include the mobile live-block rail.`);
   const rail = html.slice(railStart, headerEnd);
-  const ownsAnnouncer = route !== "index.html" && route !== "status/index.html";
   assert.equal(
     createHash("sha256").update(rail).digest("hex"),
-    ownsAnnouncer ? mobileRailSha256.withAnnouncer : mobileRailSha256.withoutAnnouncer,
+    mobileRailSha256,
     `${route} must reuse the frozen Overview mobile live-block markup.`,
   );
+  assert.match(rail, /Awaiting signed observation/, `${route} must keep an honest static observation fallback.`);
+  assert.doesNotMatch(rail, />Loading</, `${route} must not retain an indefinite static loading state.`);
   assert.doesNotMatch(
     rail,
     /data-chain-field="(?:978|521)-confidence"/,
@@ -51,6 +49,11 @@ for (const route of routes) {
   );
   const isOverview = route === "index.html";
   const isStatus = route === "status/index.html";
+  assert.equal(
+    [...html.matchAll(/data-chain-meta="announcer"/g)].length,
+    isStatus ? 0 : 1,
+    `${route} must expose one live-update announcement region outside responsive rails when a chain poller is present.`,
+  );
   assert.match(
     html,
     isOverview ? /<header class="site-header site-header-live"/ : /<header class="site-header site-header-mobile-live"/,

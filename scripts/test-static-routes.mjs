@@ -68,6 +68,7 @@ assert.match(toolchain, /data-tool-card/);
 assert.match(toolchain, /data-filter-disclosure/);
 assert.match(toolchain, /data-clear-filters/);
 assert.match(toolchain, /id="tool-sort"/);
+assert.match(toolchain, /data-page-status role="status" aria-live="polite" aria-atomic="true"/, "Toolchain filter results must expose a bounded live status.");
 assert.match(toolchain, /Known limitations/);
 assert.equal([...toolchain.matchAll(/class="registry-tools toolchain-tools"/g)].length, 1, "toolchain controls must not render duplicate wrappers");
 assert.doesNotMatch(toolchain, /<span class="status-badge">[^<]+<\/span><br>/, "delivery tags must use chip groups, not line-break stacks");

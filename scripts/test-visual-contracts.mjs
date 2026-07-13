@@ -36,6 +36,7 @@ assert.match(styles, /@media \(max-width: 900px\)[\s\S]*?\.route-hero-chain-rail
 assert.match(styles, /\.site-header-live \.site-nav,\s*\.site-header-mobile-live \.site-nav\s*\{[\s\S]*?flex-wrap: nowrap;[\s\S]*?overflow-x: auto;/, "Mobile navigation must remain a single keyboard-scrollable row.");
 assert.match(styles, /\.site-header-live \.site-nav,\s*\.site-header-mobile-live \.site-nav\s*\{[\s\S]*?scroll-padding-inline: 1rem;/, "Mobile navigation must fully reveal the terminal Legal item on keyboard focus.");
 assert.match(styles, /\.site-header-live \.site-nav a,\s*\.site-header-mobile-live \.site-nav a\s*\{[\s\S]*?min-height: 2\.75rem;/, "Mobile navigation targets must remain at least 44 CSS pixels high.");
+assert.match(styles, /\.site-header-live \.site-nav a,\s*\.site-header-mobile-live \.site-nav a\s*\{[\s\S]*?scroll-margin-inline: 1rem;/, "Mobile navigation focus must preserve an inline reveal margin.");
 assert.match(styles, /\.site-header-live \.mobile-nav-hint,\s*\.site-header-mobile-live \.mobile-nav-hint\s*\{[\s\S]*?grid-area: hint;[\s\S]*?display: flex;/, "Mobile navigation must expose its horizontal overflow cue below the controls.");
 assert.match(styles, /@keyframes mobile-nav-swipe-cue/, "The mobile overflow cue must visually indicate the swipe direction.");
 assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.mobile-nav-hint-track > i\s*\{[\s\S]*?animation: none;/, "The mobile overflow cue must respect reduced-motion preferences.");
