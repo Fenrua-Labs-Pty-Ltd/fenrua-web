@@ -1,0 +1,588 @@
+{
+  "schemaVersion": "fenrua.public-estate-quality-gates.v1",
+  "title": "Fenrua Public Estate Quality Gate Definition",
+  "targetScore": 95,
+  "hardBlockerPolicy": "A failed hard-blocker gate prevents a 9.5 public-estate classification regardless of weighted score.",
+  "domains": [
+    {
+      "id": "truth-claims-maturity",
+      "title": "Truth, claims, maturity, and non-claims",
+      "weight": 15,
+      "minimumScore": 14,
+      "gates": [
+        {
+          "id": "claim-records",
+          "points": 4,
+          "hardBlocker": true,
+          "requirement": "Every significant public claim has a valid canonical claim record.",
+          "checks": [
+            { "kind": "file", "path": "data/claim-register.json" },
+            { "kind": "file", "path": "schemas/claim-register.v1.schema.json" },
+            { "kind": "node", "script": "scripts/check-claim-capability-consistency.mjs" }
+          ]
+        },
+        {
+          "id": "capability-maturity",
+          "points": 3,
+          "hardBlocker": true,
+          "requirement": "Every capability has an explicit, evidence-bound lifecycle, maturity, and availability state.",
+          "checks": [
+            { "kind": "file", "path": "data/capability-register.json" },
+            { "kind": "file", "path": "schemas/capability-register.v1.schema.json" },
+            { "kind": "node", "script": "scripts/check-capability-register.mjs" }
+          ]
+        },
+        {
+          "id": "limitations-and-non-claims",
+          "points": 3,
+          "hardBlocker": true,
+          "requirement": "Capabilities expose limitations and non-claims from the canonical model.",
+          "checks": [
+            { "kind": "node", "script": "scripts/check-capability-register.mjs" },
+            { "kind": "node", "script": "scripts/check-claim-capability-consistency.mjs" }
+          ]
+        },
+        {
+          "id": "assurance-language-contract",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Strong assurance language is mechanically governed by evidence contracts.",
+          "checks": [
+            { "kind": "file", "path": "data/assurance-language.json" },
+            { "kind": "file", "path": "schemas/assurance-language.v1.schema.json" },
+            { "kind": "node", "script": "scripts/check-assurance-language.mjs" }
+          ]
+        },
+        {
+          "id": "deprecated-name-control",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Deprecated product language is rejected outside scoped historical contexts.",
+          "checks": [
+            { "kind": "file", "path": "data/product-ontology.json" },
+            { "kind": "node", "script": "scripts/check-product-ontology.mjs" }
+          ]
+        },
+        {
+          "id": "claim-review-metadata",
+          "points": 1,
+          "hardBlocker": false,
+          "requirement": "Claim records include dates, owner, and supersession state.",
+          "checks": [
+            { "kind": "node", "script": "scripts/check-claim-capability-consistency.mjs" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "routes-lifecycle-indexing",
+      "title": "Production routes, lifecycle, cache, and indexing",
+      "weight": 12,
+      "minimumScore": 12,
+      "gates": [
+        {
+          "id": "route-lifecycle-register",
+          "points": 4,
+          "hardBlocker": true,
+          "requirement": "Every known public route has one valid lifecycle record and expected response.",
+          "checks": [
+            { "kind": "file", "path": "data/route-lifecycle.json" },
+            { "kind": "file", "path": "schemas/route-lifecycle.v1.schema.json" },
+            { "kind": "node", "script": "scripts/check-route-lifecycle.mjs" },
+            { "kind": "node", "script": "scripts/test-route-lifecycle.mjs" }
+          ]
+        },
+        {
+          "id": "live-route-lifecycle",
+          "points": 3,
+          "hardBlocker": true,
+          "requirement": "The live edge matches the route lifecycle register.",
+          "checks": [
+            { "kind": "node", "script": "scripts/audit-live-route-lifecycle.mjs" }
+          ]
+        },
+        {
+          "id": "discovery-alignment",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Sitemap, robots, canonical metadata, and index directives agree for current routes.",
+          "checks": [
+            { "kind": "node", "script": "scripts/check-public-discovery.mjs" }
+          ]
+        },
+        {
+          "id": "cache-class-contract",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Route cache classes are explicit and tested.",
+          "checks": [
+            { "kind": "node", "script": "scripts/check-route-lifecycle.mjs" }
+          ]
+        },
+        {
+          "id": "canonical-host-contract",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Canonical, www, and approved aliases have the expected index and redirect behaviour.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-public-boundary.mjs" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evidence-provenance-assurance",
+      "title": "Evidence, provenance, and assurance semantics",
+      "weight": 12,
+      "minimumScore": 11,
+      "gates": [
+        {
+          "id": "evidence-taxonomy",
+          "points": 3,
+          "hardBlocker": true,
+          "requirement": "Evidence classes, authority, freshness, revocation, and non-claims are defined.",
+          "checks": [
+            { "kind": "file", "path": "data/evidence-taxonomy.json" },
+            { "kind": "file", "path": "schemas/evidence-taxonomy.v1.schema.json" },
+            { "kind": "node", "script": "scripts/check-evidence-taxonomy.mjs" }
+          ]
+        },
+        {
+          "id": "claim-to-release-provenance",
+          "points": 3,
+          "hardBlocker": true,
+          "requirement": "Claims link through canonical evidence, build, test, and release records.",
+          "checks": [
+            { "kind": "node", "script": "scripts/check-claim-capability-consistency.mjs" },
+            { "kind": "node", "script": "scripts/test-release-manifest.mjs" }
+          ]
+        },
+        {
+          "id": "freshness-revocation-supersession",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Freshness, expiry, revocation, and supersession are represented consistently.",
+          "checks": [
+            { "kind": "node", "script": "scripts/check-evidence-taxonomy.mjs" }
+          ]
+        },
+        {
+          "id": "release-runtime-observation-separation",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Release, runtime, observation, and independent evidence are visually distinct.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-status-observation-monitor.mjs" }
+          ]
+        },
+        {
+          "id": "verifier-limitations",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "Verifier outcomes and limitations are consistent with supported fixtures.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-verify-examples.mjs" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "architecture-category-clarity",
+      "title": "Architecture and category clarity",
+      "weight": 10,
+      "minimumScore": 9,
+      "gates": [
+        {
+          "id": "architecture-context-logical-runtime-deployment",
+          "points": 4,
+          "hardBlocker": false,
+          "requirement": "Context, logical, runtime, and deployment viewpoints have accessible text equivalents.",
+          "checks": [
+            { "kind": "file", "path": "architecture/context/index.html" },
+            { "kind": "file", "path": "architecture/components/index.html" },
+            { "kind": "file", "path": "architecture/runtime/index.html" },
+            { "kind": "file", "path": "architecture/deployment/index.html" }
+          ]
+        },
+        {
+          "id": "architecture-trust-data-provenance",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "Trust boundaries, data classes, and evidence provenance are explicit.",
+          "checks": [
+            { "kind": "file", "path": "architecture/trust-boundaries/index.html" },
+            { "kind": "file", "path": "architecture/data-and-provenance/index.html" }
+          ]
+        },
+        {
+          "id": "architecture-recovery-evolution",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "Failure, containment, revocation, recovery, and current-to-future evolution are explicit.",
+          "checks": [
+            { "kind": "file", "path": "architecture/recovery/index.html" },
+            { "kind": "file", "path": "architecture/evolution/index.html" }
+          ]
+        },
+        {
+          "id": "chain-free-deployment-profile",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "A complete chain-free reference profile is public and distinguishes optional observations.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-architecture-trust.mjs" }
+          ]
+        },
+        {
+          "id": "category-and-state-separation",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Current, candidate, planned, research, and external components cannot be confused.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-architecture-trust.mjs" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "developer-usefulness-reproducibility",
+      "title": "Developer usefulness and reproducibility",
+      "weight": 12,
+      "minimumScore": 11,
+      "gates": [
+        {
+          "id": "clean-start",
+          "points": 3,
+          "hardBlocker": false,
+          "requirement": "The documented clean-start path passes from a fresh checkout.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-clean-start.mjs" }
+          ]
+        },
+        {
+          "id": "schemas-and-examples",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "Schemas and examples are discoverable, versioned, and validated.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-verify-examples.mjs" }
+          ]
+        },
+        {
+          "id": "copy-safe-commands",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "Displayed developer commands are tested and copy-safe.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-developer-commands.mjs" }
+          ]
+        },
+        {
+          "id": "local-trust-workflow",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "One complete local trust workflow is demonstrated or accurately gated as unavailable.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-developer-product-boundary.mjs" }
+          ]
+        },
+        {
+          "id": "machine-readable-public-model",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "Capability and claim records are downloadable and documented.",
+          "checks": [
+            { "kind": "file", "path": "data/claim-register.json" },
+            { "kind": "file", "path": "data/capability-register.json" }
+          ]
+        },
+        {
+          "id": "contribution-and-compatibility",
+          "points": 1,
+          "hardBlocker": false,
+          "requirement": "Contribution and compatibility guidance is explicit.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-developer-commands.mjs" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessibility-responsive-information-architecture",
+      "title": "Accessibility, responsive UX, and information architecture",
+      "weight": 12,
+      "minimumScore": 11,
+      "gates": [
+        {
+          "id": "understandable-primary-navigation",
+          "points": 3,
+          "hardBlocker": true,
+          "requirement": "Primary navigation is understandable without horizontal discovery.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-information-architecture.mjs" }
+          ]
+        },
+        {
+          "id": "keyboard-and-focus",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Keyboard and focus behaviour pass across current routes.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-information-architecture.mjs" }
+          ]
+        },
+        {
+          "id": "automated-wcag",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Automated WCAG checks report no serious or critical issues.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-accessibility.mjs" }
+          ]
+        },
+        {
+          "id": "responsive-viewport-matrix",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "The defined viewport matrix has no page-level overflow or inaccessible terminal navigation.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-information-architecture.mjs" }
+          ]
+        },
+        {
+          "id": "user-preferences",
+          "points": 1,
+          "hardBlocker": false,
+          "requirement": "Reduced motion and forced-colour/high-contrast modes are respected.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-accessibility.mjs" }
+          ]
+        },
+        {
+          "id": "dense-record-mobile-fallback",
+          "points": 1,
+          "hardBlocker": false,
+          "requirement": "Dense records have usable small-screen representations.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-information-architecture.mjs" }
+          ]
+        },
+        {
+          "id": "javascript-disabled-core-content",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Core content and navigation remain usable without JavaScript.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-javascript-disabled.mjs" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "security-privacy-legal-data-flow",
+      "title": "Security, privacy, legal boundary, and data-flow clarity",
+      "weight": 10,
+      "minimumScore": 9,
+      "gates": [
+        {
+          "id": "strict-security-headers",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Strict public security headers remain valid.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-public-boundary.mjs" }
+          ]
+        },
+        {
+          "id": "secret-and-artifact-boundaries",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Secret and external-artifact boundaries pass.",
+          "checks": [
+            { "kind": "node", "script": "scripts/check-secret-boundary.mjs" },
+            { "kind": "node", "script": "scripts/check-report-boundary.mjs" }
+          ]
+        },
+        {
+          "id": "data-flow-documentation",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "Public data flows and provider boundaries are documented factually.",
+          "checks": [
+            { "kind": "file", "path": "docs/PUBLIC_DATA_FLOW.md" },
+            { "kind": "node", "script": "scripts/test-public-data-flow.mjs" }
+          ]
+        },
+        {
+          "id": "legal-route-state",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Canonical legal routes are approved-current or safely retired.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-legacy-index-retirement.mjs" }
+          ]
+        },
+        {
+          "id": "security-reporting",
+          "points": 1,
+          "hardBlocker": false,
+          "requirement": "Security reporting and security.txt are coherent.",
+          "checks": [
+            { "kind": "node", "script": "scripts/check-public-discovery.mjs" }
+          ]
+        },
+        {
+          "id": "no-third-party-runtime",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "No unnecessary data collection or third-party runtime execution is introduced.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-public-data-flow.mjs" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "operational-transparency",
+      "title": "Operational transparency",
+      "weight": 7,
+      "minimumScore": 6,
+      "gates": [
+        {
+          "id": "status-plane-separation",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "Publication, platform, dependency, observation, incident, and maintenance states are distinct.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-status-planes.mjs" }
+          ]
+        },
+        {
+          "id": "service-catalogue",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "Only real services are listed in a public service catalogue.",
+          "checks": [
+            { "kind": "file", "path": "data/public-service-catalogue.json" },
+            { "kind": "node", "script": "scripts/check-public-service-catalogue.mjs" }
+          ]
+        },
+        {
+          "id": "release-and-rollback-history",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Release and rollback history is visible and safely actionable.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-release-rollback.mjs" }
+          ]
+        },
+        {
+          "id": "no-invented-reliability-claims",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "No invented uptime, SLO, SLA, or capacity claim is present.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-status-planes.mjs" }
+          ]
+        },
+        {
+          "id": "degraded-and-unavailable-states",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Degraded and unavailable states are explicit and fail closed.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-status-observation-monitor.mjs" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "performance-delivery-reliability",
+      "title": "Performance and delivery reliability",
+      "weight": 5,
+      "minimumScore": 4,
+      "gates": [
+        {
+          "id": "resource-budgets",
+          "points": 2,
+          "hardBlocker": true,
+          "requirement": "Static resource budgets pass for all public routes.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-performance-budgets.mjs" }
+          ]
+        },
+        {
+          "id": "status-layout-stability",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Status hydration does not cause preventable layout shift.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-performance-budgets.mjs" }
+          ]
+        },
+        {
+          "id": "static-without-javascript",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Static content remains usable without client JavaScript.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-javascript-disabled.mjs" }
+          ]
+        },
+        {
+          "id": "preview-production-manifest-binding",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Preview and production checks bind to the release manifest.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-production-deploy-binding.mjs" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maintainability-release-engineering",
+      "title": "Maintainability and release engineering",
+      "weight": 5,
+      "minimumScore": 5,
+      "gates": [
+        {
+          "id": "modular-generator-contract",
+          "points": 2,
+          "hardBlocker": false,
+          "requirement": "Generator inputs, validation, and rendering are modular and tested.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-generator-modularity.mjs" }
+          ]
+        },
+        {
+          "id": "deterministic-generation",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Two isolated static generations are byte-identical.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-deterministic-static-generation.mjs" }
+          ]
+        },
+        {
+          "id": "pinned-toolchain-and-actions",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Dependencies and workflow actions are exact-pinned.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-release-toolchain.mjs" }
+          ]
+        },
+        {
+          "id": "rollback-route-retirement",
+          "points": 1,
+          "hardBlocker": true,
+          "requirement": "Rollback and route retirement are testable.",
+          "checks": [
+            { "kind": "node", "script": "scripts/test-release-rollback.mjs" }
+          ]
+        }
+      ]
+    }
+  ]
+}
