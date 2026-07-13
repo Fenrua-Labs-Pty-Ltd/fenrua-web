@@ -5,7 +5,7 @@
   "description": "Canonical public website and evidence interface for fenrua.ai.",
   "type": "module",
   "engines": {
-    "node": "24.18.0"
+    "node": "24.x"
   },
   "packageManager": "npm@11.18.0",
   "scripts": {

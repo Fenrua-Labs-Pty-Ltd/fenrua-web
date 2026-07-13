@@ -6,6 +6,13 @@ Canonical Vercel project: `fenrua-web`
 
 Node runtime: `24.x`
 
+Owner and GitHub release validation use exact Node `24.18.0` and npm
+`11.18.0`. Vercel exposes only a managed major-version selector, so a Vercel
+build is accepted only when `VERCEL=1`, `VERCEL_GIT_COMMIT_SHA` is a valid
+40-character commit, and the managed runtime remains on Node `24.x` and npm
+`11.x`. The release manifest binds the resulting static artifact set to that
+commit and explicitly does not claim runtime attestation.
+
 ## Project Settings
 
 Use these settings for the existing Vercel project:
