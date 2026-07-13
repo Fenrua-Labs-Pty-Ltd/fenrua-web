@@ -257,8 +257,8 @@ function assertSanitized(snapshot) {
   for (const secret of [
     "observation-978.example.test",
     "observation-521.example.test",
-    "test-978-read-token",
-    "test-521-read-token",
+    "test-fixture-978-read-token",
+    "test-fixture-521-read-token",
   ]) {
     assert.ok(!encoded.includes(secret), `Public chain payload must not disclose ${secret}.`);
   }
@@ -288,13 +288,13 @@ function assertSanitized(snapshot) {
 
 function configureGateways({ n521 = true } = {}) {
   process.env.FENRUA_OBSERVATION_GATEWAY_URL = "https://observation-978.example.test/status";
-  process.env.FENRUA_OBSERVATION_READ_TOKEN = "test-978-read-token";
+  process.env.FENRUA_OBSERVATION_READ_TOKEN = "test-fixture-978-read-token"; // public-secret-fixture
   process.env.FENRUA_OBSERVATION_PUBLIC_KEY_B64 = publicKeys["978"];
   process.env.FENRUA_OBSERVATION_KEY_ID = "fenchain-978-observation-v1";
 
   if (n521) {
     process.env.FENRUA_N521_OBSERVATION_GATEWAY_URL = "https://observation-521.example.test/status";
-    process.env.FENRUA_N521_OBSERVATION_READ_TOKEN = "test-521-read-token";
+    process.env.FENRUA_N521_OBSERVATION_READ_TOKEN = "test-fixture-521-read-token"; // public-secret-fixture
     process.env.FENRUA_N521_OBSERVATION_PUBLIC_KEY_B64 = publicKeys["521"];
     process.env.FENRUA_N521_OBSERVATION_KEY_ID = "fenchain-521-observation-v1";
   } else {
@@ -311,12 +311,12 @@ function twoGatewayFetch(overrides = {}) {
     assert.equal(options.method, "GET");
     assert.equal(options.body, undefined);
     if (endpoint === "https://observation-978.example.test/status") {
-      assert.equal(options.headers["x-fenrua-observation-read-token"], "test-978-read-token");
+      assert.equal(options.headers["x-fenrua-observation-read-token"], "test-fixture-978-read-token");
       assert.equal(options.headers["x-fenrua-n521-observation-read-token"], undefined);
       return gatewayResponse(observation("978", overrides["978"]));
     }
     if (endpoint === "https://observation-521.example.test/status") {
-      assert.equal(options.headers["x-fenrua-n521-observation-read-token"], "test-521-read-token");
+      assert.equal(options.headers["x-fenrua-n521-observation-read-token"], "test-fixture-521-read-token");
       assert.equal(options.headers["x-fenrua-observation-read-token"], undefined);
       return gatewayResponse(observation("521", overrides["521"]));
     }
@@ -435,7 +435,7 @@ try {
   process.env.FENRUA_OBSERVATION_CHECKPOINT_MODE = "required";
   process.env.FENRUA_OBSERVATION_CHECKPOINT_NAMESPACE = "fenrua-web:test:api-rotation:v1";
   process.env.UPSTASH_REDIS_REST_URL = "https://observation-checkpoint.example.test";
-  process.env.UPSTASH_REDIS_REST_TOKEN = "test-token-at-least-sixteen-bytes";
+  process.env.UPSTASH_REDIS_REST_TOKEN = "test-fixture-token-at-least-sixteen-bytes"; // public-secret-fixture
   const checkpointRecords = new Map();
   const gatewayRecords = {
     "978": observation("978"),
@@ -540,7 +540,7 @@ try {
   configureGateways({ n521: false });
   globalThis.fetch = async (endpoint, options) => {
     assert.equal(endpoint, "https://observation-978.example.test/status");
-    assert.equal(options.headers["x-fenrua-observation-read-token"], "test-978-read-token");
+    assert.equal(options.headers["x-fenrua-observation-read-token"], "test-fixture-978-read-token");
     assert.equal(options.headers["x-fenrua-n521-observation-read-token"], undefined);
     return gatewayResponse(observation("978"));
   };

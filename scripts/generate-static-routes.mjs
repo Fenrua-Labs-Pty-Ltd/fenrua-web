@@ -696,7 +696,7 @@ function chainProgressSection() {
         <div class="section-heading">
           <p class="eyebrow">SIGNED READ-ONLY OBSERVATION</p>
           <h2 id="chain-progress-title">Signed Chain Observation Boundary</h2>
-          <p>Each chain can publish only an independently signed bounded observation. Chain N521 remains awaiting evidence until its own gateway and verification key are configured. Neither state proves contract safety, bytecode identity, reserve state, or deployment correctness.</p>
+          <p>Each chain is presented from its own independently signed bounded observation when one validates; otherwise its state remains waiting or unavailable. An observation does not prove contract safety, bytecode identity, reserve state, or deployment correctness.</p>
         </div>
         <div class="status-band" aria-label="Live chain feed status">
           <span>Feed <strong data-chain-meta="feed-status">loading</strong></span>

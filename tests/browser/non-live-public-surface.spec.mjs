@@ -32,25 +32,31 @@ async function expectMobileLiveBlocks(page) {
   await expect(page.locator("[data-chain-card]")).toHaveCount(2);
 }
 
-async function expectOverviewMobileHeaderPlacement(page) {
+async function expectUnifiedMobileHeaderPlacement(page) {
   const placement = await page.locator(".site-header-mobile-live").evaluate((header) => {
     const box = (selector) => header.querySelector(selector).getBoundingClientRect();
     const brand = box(".brand");
     const nav = box(".site-nav");
     const rail = box(".mobile-chain-rail");
+    const navStyle = getComputedStyle(header.querySelector(".site-nav"));
+    const navLinkHeights = [...header.querySelectorAll(".site-nav a")].map(
+      (link) => link.getBoundingClientRect().height
+    );
     return {
-      brandAboveNav: brand.bottom <= nav.top,
       brandAboveRail: brand.bottom <= rail.top,
-      navLeftOfRail: nav.left < rail.left,
-      navAndRailShareRow: Math.abs(nav.top - rail.top) <= 1,
+      railAboveNav: rail.bottom <= nav.top,
+      horizontalNav: navStyle.display === "flex" && navStyle.flexWrap === "nowrap",
+      scrollableNav: ["auto", "scroll"].includes(navStyle.overflowX),
+      minimumTargetHeight: Math.min(...navLinkHeights),
+      headerHeight: header.getBoundingClientRect().height,
     };
   });
-  expect(placement).toEqual({
-    brandAboveNav: true,
-    brandAboveRail: true,
-    navLeftOfRail: true,
-    navAndRailShareRow: true,
-  });
+  expect(placement.brandAboveRail).toBe(true);
+  expect(placement.railAboveNav).toBe(true);
+  expect(placement.horizontalNav).toBe(true);
+  expect(placement.scrollableNav).toBe(true);
+  expect(placement.minimumTargetHeight).toBeGreaterThanOrEqual(44);
+  expect(placement.headerHeight).toBeLessThanOrEqual(430);
 }
 
 async function noHorizontalOverflow(page) {
@@ -77,7 +83,7 @@ function monitorPayload({
   signature521 = "signed-521",
   keyId978 = "fenchain-978-observation-v1",
   keyId521 = "fenchain-521-observation-v1",
-  keyRotation978 = null,
+  keyRotation978: rotation978 = null,
   refreshMs = 20_000,
 } = {}) {
   const generatedAt = new Date().toISOString();
@@ -103,7 +109,7 @@ function monitorPayload({
       key_id: keyId521,
     },
   ];
-  if (keyRotation978) observations[0].key_rotation = keyRotation978;
+  if (rotation978) observations[0].key_rotation = rotation978;
   return {
     version: 1,
     generatedAt,
@@ -284,7 +290,40 @@ test("Evidence keeps the Overview mobile live blocks without extra API access", 
   await expectMobileLiveBlocks(page);
   await noHorizontalOverflow(page);
   await page.setViewportSize({ width: 390, height: 900 });
-  await expectOverviewMobileHeaderPlacement(page);
+  await expectUnifiedMobileHeaderPlacement(page);
+  assertBoundary();
+});
+
+test("Public intro and mobile header stay within the unified geometry contract", async ({ page }) => {
+  const assertBoundary = protectLiveBoundary(page);
+  await mockPublicMonitor(page, monitorPayload());
+  await page.setViewportSize({ width: 1440, height: 1100 });
+  await gotoPublic(page, "/");
+  const desktop = await page.evaluate(() => {
+    const hero = document.querySelector(".route-hero");
+    const heading = hero.querySelector("h1");
+    const headingStyle = getComputedStyle(heading);
+    return {
+      heroHeight: hero.getBoundingClientRect().height,
+      headingLines: heading.getBoundingClientRect().height / Number.parseFloat(headingStyle.lineHeight),
+    };
+  });
+  expect(desktop.heroHeight).toBeLessThanOrEqual(430);
+  expect(desktop.headingLines).toBeLessThanOrEqual(2.05);
+  await noHorizontalOverflow(page);
+
+  await page.setViewportSize({ width: 375, height: 812 });
+  const mobile = await page.locator(".site-header-live").evaluate((header) => ({
+    headerHeight: header.getBoundingClientRect().height,
+    minimumNavTarget: Math.min(
+      ...[...header.querySelectorAll(".site-nav a")].map((link) => link.getBoundingClientRect().height)
+    ),
+    navOverflow: getComputedStyle(header.querySelector(".site-nav")).overflowX,
+  }));
+  expect(mobile.headerHeight).toBeLessThanOrEqual(430);
+  expect(mobile.minimumNavTarget).toBeGreaterThanOrEqual(44);
+  expect(["auto", "scroll"]).toContain(mobile.navOverflow);
+  await noHorizontalOverflow(page);
   assertBoundary();
 });
 

@@ -17,7 +17,7 @@ const boundaries = [
     name: "desktop live block cards",
     start: '<section id="chain-progress"',
     end: '      <section class="section-shell" aria-labelledby="home-answers">',
-    sha256: "a3e492f502426499e50d846c182b9fb9323e665ae5b13c5c4dea8588ed803f58",
+    sha256: "3d84e7ddbecd02450ff81bd63b3dd7ed64003be20c99b4ad0828410bae7e4dc6",
   },
 ];
 

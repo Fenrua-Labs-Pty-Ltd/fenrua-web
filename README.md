@@ -16,6 +16,8 @@ local JavaScript manifest for status hydration.
 Audit, review, scan-output, test-output, visual-capture, and builder reports are
 stored outside this source repository. The enforced boundary is defined in
 [External audit-artifact policy](docs/EXTERNAL_ARTIFACT_POLICY.md).
+Credentials and encrypted recovery bundles are also prohibited from this
+repository; see the [public repository secret boundary](docs/PUBLIC_SECRET_BOUNDARY.md).
 
 ## Commercial Boundary
 
@@ -134,9 +136,11 @@ cards, APIs, private systems, or a perpetual production assertion.
 - `api/chain-n521-observation-key.js` - Chain N521 public Ed25519 verification metadata endpoint
 - `server/observation-continuity.js` - atomic durable replay, equivocation, and key-rotation checkpoint
 - `scripts/test-observation-continuity.mjs` - deterministic continuity and rotation regression suite
+- `scripts/check-secret-boundary.mjs` - fail-closed public source credential and vault gate
 - `assets/fenrua-header-logo.jpg` - shared Fenrua header and favicon mark
 - `docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md` - access-only service statement
 - `docs/EXTERNAL_ARTIFACT_POLICY.md` - enforced outside-repository report boundary
+- `docs/PUBLIC_SECRET_BOUNDARY.md` - public source and external-vault separation policy
 - `docs/archive/2026-07-13/` - superseded, noindex public-document records
 - `docs/VERCEL.md` - Vercel publishing notes for `fenrua.ai`
 - `docs/UTILITY_STANDARD.md` - repository operating standard

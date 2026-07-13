@@ -61,6 +61,16 @@ assert.match(overview, /data-chain-card="521"/, "overview must render Chain N521
 assert.match(overview, /<link rel="icon" href="\/assets\/fenrua-header-logo\.jpg" type="image\/jpeg" \/>/, "overview must use the approved logo as its favicon");
 assert.match(overview, /<img src="\/assets\/fenrua-header-logo\.jpg" width="40" height="40" alt="" \/>/, "overview must use the approved logo in its header");
 assert.match(overview, /data-chain-meta="feed-status"/, "overview must expose live chain feed status");
+assert.match(
+  overview,
+  /Each chain is presented from its own independently signed bounded observation when one validates; otherwise its state remains waiting or unavailable\./,
+  "overview observation copy must remain conditional on each chain's current signed evidence."
+);
+assert.doesNotMatch(
+  overview,
+  /Chain N521 remains awaiting evidence/,
+  "overview must not freeze Chain N521 in an awaiting state when live signed evidence can change independently."
+);
 assert.equal([...overview.matchAll(/data-chain-card="/g)].length, 4, "overview must render two responsive pairs of live block cards");
 assert.match(overview, /Evidence source/);
 assert.match(overview, /Confidence/);

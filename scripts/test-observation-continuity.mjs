@@ -130,7 +130,7 @@ function environment(overrides = {}) {
     FENRUA_OBSERVATION_PUBLIC_KEY_B64: publicKey(oldKey),
     FENRUA_OBSERVATION_KEY_ID: "observation-v1",
     UPSTASH_REDIS_REST_URL: "https://observation-checkpoint.example.test",
-    UPSTASH_REDIS_REST_TOKEN: "test-token-at-least-sixteen-bytes",
+    UPSTASH_REDIS_REST_TOKEN: "test-fixture-token-at-least-sixteen-bytes", // public-secret-fixture
     VERCEL_ENV: "preview",
     ...overrides,
   };
