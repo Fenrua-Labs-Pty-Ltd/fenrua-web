@@ -21,6 +21,9 @@ const requiredDocuments = [
   "docs/PROMOTION_GATES.md",
   "docs/COMPATIBILITY_POLICY.md",
   "docs/CRYPTOGRAPHIC_PROFILES.md",
+  "docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md",
+  "docs/FENRUA_TRUST_GATE_BOOTSTRAP.md",
+  "docs/API_ERROR_CONTRACT.md",
   "docs/THREAT_MODEL_INDEX.md",
   "docs/FENRUA_INDUSTRIAL_10_INTEGRATION_MANIFEST.md",
   "docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md",
@@ -40,6 +43,45 @@ for (const path of requiredDocuments) {
 requireText("docs/PRODUCT_CONSTITUTION.md", "The Local Trust Gate is currently planned.");
 requireText("docs/PRODUCT_CONSTITUTION.md", "no public-chain requirement");
 requireText("docs/PRODUCT_CONSTITUTION.md", "P/N521 remains research");
+requireText("docs/DECISION_SEMANTICS.md", "A `PASS` verification result is not an `ALLOW` decision.");
+requireText("docs/DECISION_SEMANTICS.md", "`continueExecution`");
+requireText("docs/DECISION_SEMANTICS.md", "not a Trust Gate output field");
+
+for (const command of [
+  "fenrua version [--json]",
+  "fenrua schema list [--json]",
+  "fenrua manifest validate <file> [--json]",
+  "fenrua policy validate <file> [--json]",
+  "fenrua request validate <file> [--json]",
+  "fenrua revocations validate <file> [--json]",
+  "fenrua gate evaluate --manifest <file> --policy <file> --request <file> --revocations <file> --at <RFC3339-UTC> --output <receipt> --evidence-output <bundle>",
+  "fenrua evidence verify <bundle> [--at <RFC3339-UTC>] [--json]",
+  "fenrua receipt inspect <receipt> [--json]",
+  "fenrua doctor [--json]",
+]) {
+  requireText("docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md", command);
+}
+for (const strictRule of [
+  "duplicate JSON keys",
+  "unknown fields in strict schema objects",
+  "No match, ambiguity, unknown requirement",
+  "No file arguments name local, regular files",
+]) {
+  if (strictRule === "No file arguments name local, regular files") {
+    requireText("docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md", "All file arguments name local, regular files.");
+  } else {
+    requireText("docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md", strictRule);
+  }
+}
+for (const field of ["type", "title", "status", "code", "detail", "correlationId", "retryable", "limitations"]) {
+  requireText("docs/API_ERROR_CONTRACT.md", `\`${field}\``);
+}
+requireText("docs/API_ERROR_CONTRACT.md", "No stack trace, SQL, filesystem path");
+requireText("docs/FENRUA_TRUST_GATE_BOOTSTRAP.md", "fenrua-verify/");
+requireText("docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md", "Rust core library and CLI");
+requireText("docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md", "strict parser must reject duplicate JSON keys");
+requireText("docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md", "fenrua.verification-vector.v1");
+requireText("docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md", "roles cannot be substituted for one another.");
 
 for (const entity of [
   "Tenant",

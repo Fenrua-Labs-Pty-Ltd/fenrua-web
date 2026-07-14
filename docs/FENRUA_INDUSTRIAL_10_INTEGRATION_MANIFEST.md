@@ -33,11 +33,11 @@ release, availability, or production maturity.
 | Product vocabulary | A2 | `PRODUCT_CONSTITUTION.md` |
 | Capability maturity | A2 | `PROMOTION_GATES.md` and capability register |
 | Entity identifiers | A2 | `DOMAIN_MODEL.md` |
-| Schema conventions | A4 | future owner-approved specs boundary |
-| Error envelope | A4 | Workstream 5 contract; not yet released |
+| Schema conventions | A4 | `FENRUA_TRUST_GATE_V0_1_CONTRACT.md`; future owner-approved specs boundary |
+| Error envelope | A4 | `API_ERROR_CONTRACT.md`; no hosted API released |
 | Decision result codes | A3 | `DECISION_SEMANTICS.md` |
 | Signature profiles | A6 | `CRYPTOGRAPHIC_PROFILES.md` |
-| Evidence bundle | A7 | Workstream 8 contract; not yet released |
+| Evidence bundle | A7 | `FENRUA_TRUST_GATE_V0_1_CONTRACT.md`; no released evidence artifact |
 | Tenant context | A10 | Workstream 11 contract; not yet released |
 | API versioning | A4 | `COMPATIBILITY_POLICY.md` |
 | Timestamp/freshness | A3 | `DECISION_SEMANTICS.md` |

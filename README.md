@@ -131,10 +131,14 @@ Local Trust Gate implementation is promoted:
 - [Promotion gates](docs/PROMOTION_GATES.md)
 - [Compatibility policy](docs/COMPATIBILITY_POLICY.md)
 - [Cryptographic profiles](docs/CRYPTOGRAPHIC_PROFILES.md)
+- [Trust Gate v0.1 bootstrap contract](docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md)
+- [Trust Gate bootstrap plan](docs/FENRUA_TRUST_GATE_BOOTSTRAP.md)
+- [API error contract](docs/API_ERROR_CONTRACT.md)
 - [Threat model index](docs/THREAT_MODEL_INDEX.md)
 - [Integration manifest](docs/FENRUA_INDUSTRIAL_10_INTEGRATION_MANIFEST.md)
 - [Readiness ledger](docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md)
 - [Trust Gate repository ADR](docs/adr/ADR-0001-TRUST-GATE-REPOSITORY-BOUNDARY.md)
+- [Trust Gate implementation ADR](docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md)
 
 These documents freeze the proposed contracts and record unresolved promotion
 dependencies. They do not change the Local Trust Gate's public availability.

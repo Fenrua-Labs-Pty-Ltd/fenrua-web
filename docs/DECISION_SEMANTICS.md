@@ -30,6 +30,12 @@ Last reviewed: 2026-07-14
 6. Any ambiguity, unknown required field, failed bound, missing required
    evidence, unavailable mandatory state, or unsupported profile is `DENY`.
 
+Verification vectors may state an expected outcome for a test harness, but they
+do not carry an execution instruction. In particular, `continueExecution` is
+not a Trust Gate output field. Only the evaluator's `fenrua.decision.v1`
+`decision` field can be `ALLOW` or `DENY`, and the caller independently chooses
+whether to enforce that result.
+
 ## Evaluation Order
 
 The v0.1 evaluator processes exact bytes in this order: bounded parse; schema
