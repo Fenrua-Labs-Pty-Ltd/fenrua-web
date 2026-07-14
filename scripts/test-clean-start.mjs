@@ -24,6 +24,7 @@ try {
     closeSync(archiveDescriptor);
   }
   execFileSync("tar", ["--extract", "--file", archivePath, "--directory", temporaryDirectory], { stdio: "pipe" });
+  rmSync(archivePath, { force: true });
   execFileSync("npm", ["ci", "--ignore-scripts"], { cwd: temporaryDirectory, stdio: "pipe", timeout: 180_000 });
   execFileSync("npm", ["run", "generate:static"], { cwd: temporaryDirectory, stdio: "pipe", timeout: 120_000 });
   execFileSync("npm", ["run", "validate"], { cwd: temporaryDirectory, stdio: "pipe", timeout: 180_000 });
