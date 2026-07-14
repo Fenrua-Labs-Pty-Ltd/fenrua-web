@@ -50,7 +50,7 @@
     },
     {
       "authority": "Australian Securities & Investments Commission",
-      "url": "https://asic.gov.au/online-services/search-asics-registers/companies-and-organisations/",
+      "url": "https://connectonline.asic.gov.au/RegistrySearch/faces/landing/panelSearch.jspx?searchTab=search&searchText=700+182+663&searchType=OrgAndBusNm",
       "lookup": "700 182 663",
       "scope": "Company status, type, registration date, next review date, and registered-office locality"
     }

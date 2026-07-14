@@ -22,7 +22,7 @@
       "status": "active",
       "path": "data/company-identity.json",
       "replacementPath": "/legal",
-      "artifactSha256": "c186f5fa10d6f3b19442bf2818db855170ee246572955c1b50fc483325425745"
+      "artifactSha256": "1e9ad8fd4da615f8680e91fed42284f481d2e66973595598fd6f02cbea670016"
     },
     {
       "id": "external-artifact-policy",
