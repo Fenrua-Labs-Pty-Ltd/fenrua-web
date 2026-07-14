@@ -1,0 +1,21 @@
+# FENRUA-INDUSTRIAL-10 Readiness Ledger
+
+Status: Canonical programme ledger; contains no provider exports, scan dumps,
+screenshots, credentials, or completion assertion.
+Owner: A0
+Last reviewed: 2026-07-14
+
+| ID | Requirement and source | Classification / impact | Technical solution and owner | Exact operator dependency | Evidence and acceptance test | Status / deferral basis |
+| --- | --- | --- | --- | --- | --- | --- |
+| F10-PT-001 | Source-bound live release, task sections 0 and 10 | Resolved; prevents untraceable public release | Vercel Git deployment and release manifest, A1 | None for read-only verification | `audit:live-release` with commit and independent record digest | Resolved for `63f803c`; receipt retained externally |
+| F10-PT-002 | Live routes/search/legal/canonical lifecycle, section 10 | Resolved; prevents contradictory public estate | Existing lifecycle, search, and retirement controls, A1 | None for read-only verification | `audit:live-routes`, `audit:live-search-surface` | Resolved for current observed edge; external receipts only |
+| F10-PT-003 | LKG rollback rehearsal, section 10 and hard blockers 17-19 | P1; industrial classification blocked until live reversal evidence exists | Owner-controlled Vercel rollback runbook, A9/A1 | Owner must select LKG, authorise and record rollback/cache decision | Source runbook test plus post-rollback three live audits | Pending owner-operated rollback; no false completion claim |
+| F10-CN-001 | Product constitution/domain/semantics/boundary/promotion contracts, section 11 | P1; prevents divergent product claims | Wave 1 documents, A0/A2/A3/A4/A6 | Owner approval of category wording before publication | Document review and contract consistency checks | In progress on isolated branch |
+| F10-RP-001 | Product repository boundary, section 8 | P1; prevents `fenrua-web` becoming main product repo | ADR-0001, A0 | Owner approval before creation of `fenrua-trust-gate` | Approved ADR and repository classification evidence | Pending owner approval; no repository created |
+| F10-TG-001 | Local Trust Gate, CLI, offline deterministic evaluator, section 14 | P1; no first complete workflow yet | Future Trust Gate core, A3 | Owner-approved repository boundary | Golden/negative/fuzz/determinism corpus, signed release, independent verifier | Not started; capability remains planned |
+| F10-SC-001 | Normative schemas, SDK, and compatibility, section 15 | P1; prevents partial/future schema acceptance | Frozen contracts then specs/SDK, A4 | Repository and release approval | Schema positive/negative fixtures, package SBOM/provenance | Not started; no availability claim |
+| F10-EV-001 | Evidence, provenance, separate verification, section 18 | P1; prevents same-path-only assurance | Evidence bundle/verifier/trust export, A7/A12 | Independent reviewer/reproduction environment | Tamper corpus and separate verifier result | Not started |
+| F10-CP-001 | Control plane and tenant isolation, sections 16 and 21 | P1; no hosted service may be exposed first | Separate platform service/tenant boundary, A5/A10 | Hosting, auth, and data-governance approval | Authz/cross-tenant/retention/deletion tests | Not started; hosted service unavailable |
+| F10-SR-001 | Supply chain, SRE, recovery, sections 19-20 and 24 | P1; prevents unsafely promoted release | Signed product artifact, SBOM/provenance, telemetry/runbooks, A8/A9 | CI identity, storage/backup, operator drill | Independent reproduction, restore, canary, rollback drill | Not started beyond website controls |
+| F10-UX-001 | Industrial public experience, sections 12-13 and 26 | P2 until product gate; prevents theatre | Tokenised system and real product fixtures, A11 | Owner approval before product-centred public promotion | External visual matrix, a11y, no-JS, page-contract tests | Deferred until a releasable Trust Gate exists |
+| F10-IA-001 | Independent assurance and owner promotion, sections 25, 38-42 | P1; blocks R5+ classification | Separate review, red team, external completion record, A12/A0 | Independent reviewer, legal/owner approval | Reproduction, security/crypto review, owner release decision | Pending external evidence and approvals |

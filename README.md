@@ -119,6 +119,26 @@ The Local Trust Gate remains a planned research capability. This repository
 does not publish its CLI, SDK, hosted verifier, upload interface, or release
 artifact.
 
+## Industrial Programme Contracts
+
+The 10.0 programme keeps its product and release boundaries explicit before a
+Local Trust Gate implementation is promoted:
+
+- [Product constitution](docs/PRODUCT_CONSTITUTION.md)
+- [Domain model](docs/DOMAIN_MODEL.md)
+- [Decision semantics](docs/DECISION_SEMANTICS.md)
+- [Trust boundary](docs/TRUST_BOUNDARY.md)
+- [Promotion gates](docs/PROMOTION_GATES.md)
+- [Compatibility policy](docs/COMPATIBILITY_POLICY.md)
+- [Cryptographic profiles](docs/CRYPTOGRAPHIC_PROFILES.md)
+- [Threat model index](docs/THREAT_MODEL_INDEX.md)
+- [Integration manifest](docs/FENRUA_INDUSTRIAL_10_INTEGRATION_MANIFEST.md)
+- [Readiness ledger](docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md)
+- [Trust Gate repository ADR](docs/adr/ADR-0001-TRUST-GATE-REPOSITORY-BOUNDARY.md)
+
+These documents freeze the proposed contracts and record unresolved promotion
+dependencies. They do not change the Local Trust Gate's public availability.
+
 ## Owner-approved Git Release
 
 An owner approves and merges a validated `main` commit. The existing Vercel Git
