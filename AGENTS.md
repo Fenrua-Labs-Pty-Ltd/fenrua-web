@@ -111,3 +111,67 @@ Do not determine, redefine, or change the project's roadmap.
 After completing the requested deliverable, recommend at most one logical next step and wait for Sam to decide what work begins next.
 
 Do not automatically continue into roadmap expansion, architecture redesign, compliance programmes, readiness assessments, blocker generation, or launch planning unless Sam explicitly requests those activities.
+
+## Canonical repository
+
+Fenrua has one canonical engineering repository.
+
+Primary repository:
+
+- fenrualabs/fenrua-web
+
+This repository is the default working location for every Fenrua engineering, architecture, website, product, documentation, developer experience, indexing, SEO, UI, API, deployment, and public feature task unless Sam explicitly states otherwise.
+
+All other Fenrua repositories are supporting repositories only.
+
+Do not automatically inspect, compare, synchronize, migrate from, or modify another repository.
+
+If another repository is mentioned, treat it as a protected source repository and wait for explicit authorization before accessing it.
+
+If the current task does not specify a repository, always use:
+
+fenrualabs/fenrua-web
+
+## Repository roles
+
+fenrualabs/fenrua-web
+
+Role:
+Canonical public engineering repository.
+
+Purpose:
+The active product and the only default engineering target.
+
+fenrualabs/fenrua-kernel
+
+Role:
+Public supporting repository.
+
+Purpose:
+Kernel-specific public work only.
+
+All remaining Fenrua repositories
+
+Role:
+Protected private engineering vaults.
+
+Purpose:
+Historical work, sensitive infrastructure, experiments, private implementation, operational tooling, and source material.
+
+Do not inspect or use private repositories unless Sam explicitly authorizes them for the current task.
+
+Never automatically migrate private content into the public repository.
+
+## Repository ambiguity
+
+If multiple repositories appear applicable:
+
+Stop.
+
+Ask one clarification question.
+
+Do not guess.
+
+If no repository is specified, use:
+
+fenrualabs/fenrua-web
