@@ -47,6 +47,7 @@
     "stage:public-output": "node scripts/stage-public-output.mjs",
     "test:public-output": "node scripts/test-public-output.mjs",
     "test:browser": "playwright test",
+    "test:accessibility": "node scripts/test-accessibility.mjs",
     "build:release": "npm run validate && npm run generate:release-manifest && npm run test:release-manifest && npm run stage:public-output && npm run test:performance-budgets && npm run test:public-output",
     "release:check": "npm run build:release && npm run test:browser",
     "audit:live-release": "node scripts/audit-live-release.mjs",
@@ -55,6 +56,7 @@
     "release:production-check": "node scripts/require-node24.mjs && node scripts/require-main-branch.mjs && npm run release:check"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.12.1",
     "@playwright/test": "1.61.1"
   }
 }
