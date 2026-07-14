@@ -213,8 +213,9 @@ requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "provider deploymen
 requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "Resolved 2026-07-14; preview observation states remain preview evidence, not live-chain claims");
 requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "dpl_bL85hoMwEwWKAUF7xZWdS9RY2A1K");
 requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "b374487a4bb389086a3a6f72ca24ffbc0c38bc6e");
-requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "b1c45116d0d35605afaad5a59c814bf789935dce");
-requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "268788e18bb39d69ffed706294d2605878f04c34");
+requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "281e3b08d9a6c6e6a7b56bf4fc815391992a1333");
+requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "5cae1dc4ac80733395dd50915762e1a01dfd7c9e");
+requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "R2 bounded source scope resolved 2026-07-14");
 requireText("docs/FENRUA_TRUST_GATE_BOOTSTRAP.md", "R1 source foundation implemented");
 requireText("docs/FENRUA_TRUST_GATE_BOOTSTRAP.md", "https://github.com/fenrualabs/fenrua-trust-gate");
 requireText("docs/adr/ADR-0001-TRUST-GATE-REPOSITORY-BOUNDARY.md", "## Implementation Record");
