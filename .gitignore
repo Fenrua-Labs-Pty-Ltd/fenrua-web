@@ -32,6 +32,9 @@ deliverables/
 .well-known/fenrua-release.json
 playwright-report/
 test-results/
+visual-baselines/
+visual-captures/
+.visual-regression/
 
 # Audit, review, test-output, and builder reports belong outside this repository.
 reports/

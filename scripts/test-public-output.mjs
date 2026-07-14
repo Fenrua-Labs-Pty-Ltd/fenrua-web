@@ -9,7 +9,21 @@ for (const entry of publicEntries) {
   assert.ok(existsSync(resolve(outputDirectory, entry)), `Staged output is missing ${entry}.`);
 }
 
-for (const privateEntry of ["api", "scripts", "tests", "node_modules", "package.json", "package-lock.json", "README.md", ".env.local"]) {
+for (const privateEntry of [
+  "api",
+  "scripts",
+  "tests",
+  "node_modules",
+  "package.json",
+  "package-lock.json",
+  "README.md",
+  ".env.local",
+  "visual-baselines",
+  "visual-captures",
+  "visual-artifacts",
+  "visual-regression-artifacts",
+  ".visual-regression",
+]) {
   assert.ok(!existsSync(resolve(outputDirectory, privateEntry)), `Static output must not expose ${privateEntry}.`);
 }
 

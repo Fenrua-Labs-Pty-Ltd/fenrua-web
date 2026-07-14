@@ -13,7 +13,13 @@ const runtimeGuard = readFileSync(runtimeGuardPath, "utf8");
 
 assert.equal(packageJson.devDependencies?.vercel, undefined, "The vulnerable Vercel CLI tree must not be installed in this repository.");
 assert.equal(packageJson.engines?.node, "24.x", "Vercel can select only the audited Node major line.");
-assert.equal(packageJson.scripts?.["release:production-check"], "node scripts/require-node24.mjs && node scripts/require-main-branch.mjs && npm run release:check");
+assert.equal(
+  packageJson.scripts?.["release:production-check"],
+  "node scripts/require-node24.mjs && node scripts/require-main-branch.mjs && npm run release:check && npm run test:visual-regression",
+);
+assert.match(packageJson.scripts?.["release:check"] ?? "", /npm run capture:visual-regression/);
+assert.equal(packageJson.scripts?.["capture:visual-regression"], "node scripts/test-visual-regression.mjs --capture");
+assert.equal(packageJson.scripts?.["test:visual-regression"], "node scripts/test-visual-regression.mjs");
 assert.equal(vercel.buildCommand, "npm run build:release");
 assert.equal(vercel.outputDirectory, "public");
 assert.match(deploymentNotes, /Vercel Git integration/i);

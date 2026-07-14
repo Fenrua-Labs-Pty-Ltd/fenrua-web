@@ -22,3 +22,9 @@ remain outside this repository.
 
 The repository validation suite enforces the prohibited report-filename and
 output-directory boundary. There are no implicit exceptions.
+
+A visual-capture run proves only that the external capture path executed. A
+production visual-regression comparison additionally requires an approved
+external baseline created for the pinned rendering environment. Captures,
+baselines, diffs, browser traces, and comparison receipts remain external to
+this repository.

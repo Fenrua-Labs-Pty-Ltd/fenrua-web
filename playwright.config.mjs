@@ -1,11 +1,15 @@
 import { defineConfig } from "@playwright/test";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { requireExternalArtifactDirectory } from "./scripts/external-artifact-paths.mjs";
 
 const testHost = process.env.FENRUA_TEST_HOST || "127.0.0.2";
 const testPort = process.env.FENRUA_TEST_PORT || "4173";
 const testOrigin = `http://${testHost}:${testPort}`;
-const testOutputDir = process.env.FENRUA_TEST_OUTPUT_DIR || join(tmpdir(), "fenrua-web-playwright-results");
+const testOutputDir = requireExternalArtifactDirectory(
+  process.env.FENRUA_TEST_OUTPUT_DIR || join(tmpdir(), "fenrua-web-playwright-results"),
+  "Playwright test output directory",
+);
 
 export default defineConfig({
   testDir: "./tests/browser",
