@@ -1,11 +1,10 @@
 {
-  "schema": "fenrua.verification-result.v1",
+  "schema": "fenrua.legacy-verification-scenario.v1",
   "result": "UNSUPPORTED_SCHEMA",
   "inputFixture": "examples/unsupported-schema.fixture.json",
   "trigger": "Input schema version is unknown or unsupported.",
   "evidenceSupplied": ["inputDocument"],
   "evidenceAbsent": ["supportedSchemaVersion"],
-  "safetyConsequence": "Do not partially interpret unknown schema semantics.",
-  "continueExecution": false,
+  "safetyConsequence": "The scenario records unsupported input; no authorisation decision is expressed.",
   "humanReviewRequired": true
 }

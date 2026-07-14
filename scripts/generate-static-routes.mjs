@@ -1670,18 +1670,18 @@ function verify() {
       <td><code>${esc(code)}</code></td>
       <td>${esc(meaning)}</td>
       <td><a href="/examples/verification-results/${attr(file)}">${esc(file)}</a></td>
-      <td>${code === "PASS" ? "Execution may continue within scope." : "Execution must pause, degrade, fail closed, or require review as declared in the fixture."}</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>`);
   return layout({
     title: "Fenrua Verify",
-    description: "Fenrua public verifier foundation with examples, deterministic output, schemas, and local CLI flow.",
+    description: "Fenrua public verification foundation with historical scenarios, documentation, and repository validation.",
     current: "Verify",
-    body: `${routeHero("PUBLIC VERIFIER FOUNDATION", "Verify", "No live server-side verifier is claimed. The public flow is local, deterministic, schema-first, and limitation-aware.")}
+    body: `${routeHero("LEGACY VERIFICATION CORPUS", "Verify", "No live server-side verifier is claimed. The current scenario corpus is historical reference material, not a Trust Gate result, decision, or execution interface.")}
       <section class="section-shell split-section">
         <div>
-          <p class="eyebrow">LOCAL CLI WALKTHROUGH</p>
-          <h2>Run the current checks</h2>
-          <p>Use the repository validation suite and schema examples. The example verifier output is deterministic and explicitly marks runtime attestation as unverified.</p>
+          <p class="eyebrow">REPOSITORY VALIDATION WALKTHROUGH</p>
+          <h2>Run the current repository checks</h2>
+          <p>Use the repository validation suite and explanatory examples. The foundation result example explicitly marks runtime attestation as unverified; the legacy scenario corpus does not make an authorisation or execution decision.</p>
         </div>
         ${codeBlock("Local verifier commands", `npm run validate
 node scripts/test-toolchain-registry.mjs
@@ -1704,11 +1704,11 @@ examples/verification-result.example.json`, "bash")}
           <a href="/docs/FENRUA_AUTHORITY_POLICY_SPEC.md">Authority policy schema</a>
           <a href="/docs/FENRUA_EVIDENCE_BUNDLE_SPEC.md">Evidence bundle schema</a>
           <a href="/docs/FENRUA_VERIFICATION_RESULT_SPEC.md">Verification result schema</a>
-          <a href="/docs/FENRUA_VERIFY_RESULT_CORPUS.md">Result corpus report</a>
+          <a href="/docs/FENRUA_VERIFY_RESULT_CORPUS.md">Legacy corpus disposition</a>
         </div>
       </section>
       <section class="section-shell split-section">
-        <div><p class="eyebrow">DETERMINISTIC OUTPUT</p><h2>Example result</h2></div>
+        <div><p class="eyebrow">FOUNDATION RESULT EXAMPLE</p><h2>Example verification result</h2></div>
         ${codeBlock("Verification result JSON", `{
   "result": "PASS_WITH_LIMITATIONS",
   "manifestSchema": "valid",
@@ -1722,7 +1722,7 @@ examples/verification-result.example.json`, "bash")}
 }`, "json")}
       </section>
       <section class="section-shell">
-        ${table(["Code", "Meaning", "Fixture", "Safety consequence"], corpusRows)}
+        ${table(["Code", "Scenario meaning", "Legacy fixture", "Contract boundary"], corpusRows)}
       </section>`,
   });
 }

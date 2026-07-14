@@ -190,6 +190,9 @@ for (const code of ["PASS", "PASS_WITH_LIMITATIONS", "FAIL_CLOSED", "UNSUPPORTED
 assert.match(verify, /examples\/verification-results\/pass\.example\.json/);
 assert.match(verify, /class="code-panel"/);
 assert.match(verify, /data-wrap-toggle/);
+assert.match(verify, /LEGACY VERIFICATION CORPUS/);
+assert.match(verify, /does not authorise or instruct execution/i);
+assert.doesNotMatch(verify, /Execution may continue within scope/);
 
 const research = await readFile(new URL("../research/index.html", import.meta.url), "utf8");
 assert.match(research, /class="research-card-list"/);

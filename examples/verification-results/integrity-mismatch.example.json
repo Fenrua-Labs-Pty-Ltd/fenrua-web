@@ -1,11 +1,10 @@
 {
-  "schema": "fenrua.verification-result.v1",
+  "schema": "fenrua.legacy-verification-scenario.v1",
   "result": "INTEGRITY_MISMATCH",
   "inputFixture": "examples/integrity-mismatch.fixture.json",
   "trigger": "Source, build, artifact, dependency, or runtime digest does not match the manifest.",
   "evidenceSupplied": ["manifest", "observedDigest"],
   "evidenceAbsent": ["matchingDigest"],
-  "safetyConsequence": "Fail closed because the artifact identity is not the reviewed identity.",
-  "continueExecution": false,
+  "safetyConsequence": "The scenario records an artifact-identity mismatch; no authorisation decision is expressed.",
   "humanReviewRequired": true
 }

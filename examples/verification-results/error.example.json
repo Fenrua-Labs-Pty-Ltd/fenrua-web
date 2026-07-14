@@ -1,11 +1,10 @@
 {
-  "schema": "fenrua.verification-result.v1",
+  "schema": "fenrua.legacy-verification-scenario.v1",
   "result": "ERROR",
   "inputFixture": "examples/error.fixture.json",
   "trigger": "Verifier failed unexpectedly before a safe result could be produced.",
   "evidenceSupplied": ["errorRecord"],
   "evidenceAbsent": ["verifiedDecision"],
-  "safetyConsequence": "Treat as fail closed and preserve diagnostics.",
-  "continueExecution": false,
+  "safetyConsequence": "Preserve diagnostics; no authorisation or execution instruction is expressed.",
   "humanReviewRequired": true
 }

@@ -1,11 +1,10 @@
 {
-  "schema": "fenrua.verification-result.v1",
+  "schema": "fenrua.legacy-verification-scenario.v1",
   "result": "SIGNATURE_INVALID",
   "inputFixture": "examples/signature-invalid.fixture.json",
   "trigger": "Signature is missing, malformed, expired, revoked, or not made by the declared authority.",
   "evidenceSupplied": ["manifest", "signature"],
   "evidenceAbsent": ["validSignature"],
-  "safetyConsequence": "Reject the evidence bundle and fail closed.",
-  "continueExecution": false,
+  "safetyConsequence": "The scenario records a signature failure; no authorisation decision is expressed.",
   "humanReviewRequired": true
 }

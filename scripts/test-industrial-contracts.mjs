@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -27,6 +27,7 @@ const requiredDocuments = [
   "docs/THREAT_MODEL_INDEX.md",
   "docs/FENRUA_INDUSTRIAL_10_INTEGRATION_MANIFEST.md",
   "docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md",
+  "docs/LEGACY_VERIFIER_CORPUS_DISPOSITION.md",
   "docs/adr/ADR-0001-TRUST-GATE-REPOSITORY-BOUNDARY.md",
 ];
 
@@ -82,6 +83,18 @@ requireText("docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md", "Rust core l
 requireText("docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md", "strict parser must reject duplicate JSON keys");
 requireText("docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md", "fenrua.verification-vector.v1");
 requireText("docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md", "roles cannot be substituted for one another.");
+requireText("docs/LEGACY_VERIFIER_CORPUS_DISPOSITION.md", "not a Trust Gate schema or product output");
+requireText("docs/LEGACY_VERIFIER_CORPUS_DISPOSITION.md", "continueExecution");
+requireText("docs/FENRUA_VERIFICATION_RESULT_SPEC.md", "historical explanatory verifier-result shape");
+requireText("docs/FENRUA_ENTITY_MANIFEST_SPEC.md", "rejects unknown fields in");
+
+const legacyScenarioDirectory = resolve(root, "examples", "verification-results");
+for (const file of readdirSync(legacyScenarioDirectory).filter((entry) => entry.endsWith(".json"))) {
+  const fixture = JSON.parse(readFileSync(resolve(legacyScenarioDirectory, file), "utf8"));
+  assert.equal(fixture.schema, "fenrua.legacy-verification-scenario.v1", `${file} must not claim the reserved verifier-result identifier.`);
+  assert.equal(Object.hasOwn(fixture, "continueExecution"), false, `${file} must not direct execution.`);
+  assert.equal(Object.hasOwn(fixture, "decision"), false, `${file} must not carry an authorisation decision.`);
+}
 
 for (const entity of [
   "Tenant",

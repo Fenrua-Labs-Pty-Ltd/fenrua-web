@@ -1,11 +1,10 @@
 {
-  "schema": "fenrua.verification-result.v1",
+  "schema": "fenrua.legacy-verification-scenario.v1",
   "result": "FAIL_CLOSED",
   "inputFixture": "examples/fail-closed.fixture.json",
   "trigger": "Verifier reaches an unsafe, unsupported, contradictory, or incomplete state.",
   "evidenceSupplied": ["conflictingInputs"],
   "evidenceAbsent": ["safeResolution"],
-  "safetyConsequence": "Stop execution by default.",
-  "continueExecution": false,
+  "safetyConsequence": "The scenario records unsafe or incomplete evidence; no authorisation decision is expressed.",
   "humanReviewRequired": true
 }

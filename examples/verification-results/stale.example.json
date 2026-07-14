@@ -1,11 +1,10 @@
 {
-  "schema": "fenrua.verification-result.v1",
+  "schema": "fenrua.legacy-verification-scenario.v1",
   "result": "STALE",
   "inputFixture": "examples/stale-evidence.fixture.json",
   "trigger": "Evidence timestamp is older than the freshness policy.",
   "evidenceSupplied": ["manifest", "expiredEvidenceBundle"],
   "evidenceAbsent": ["freshEvidenceBundle"],
-  "safetyConsequence": "Use the last value only as historical evidence; do not authorize new execution.",
-  "continueExecution": false,
+  "safetyConsequence": "The scenario records historical-only evidence; no authorisation decision is expressed.",
   "humanReviewRequired": true
 }

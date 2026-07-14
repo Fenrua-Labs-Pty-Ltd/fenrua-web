@@ -1,11 +1,10 @@
 {
-  "schema": "fenrua.verification-result.v1",
+  "schema": "fenrua.legacy-verification-scenario.v1",
   "result": "RUNTIME_UNVERIFIED",
   "inputFixture": "examples/runtime-unverified.fixture.json",
   "trigger": "Runtime attestation is absent or cannot be matched to the reviewed artifact.",
   "evidenceSupplied": ["manifest", "evidenceBundle"],
   "evidenceAbsent": ["runtimeAttestation"],
-  "safetyConsequence": "Do not claim runtime conformity.",
-  "continueExecution": false,
+  "safetyConsequence": "No runtime-conformity claim or execution instruction is expressed.",
   "humanReviewRequired": true
 }

@@ -1,11 +1,10 @@
 {
-  "schema": "fenrua.verification-result.v1",
+  "schema": "fenrua.legacy-verification-scenario.v1",
   "result": "POLICY_VIOLATION",
   "inputFixture": "examples/policy-violation.fixture.json",
   "trigger": "Requested action is outside the authority policy scope.",
   "evidenceSupplied": ["manifest", "authorityPolicy", "requestedAction"],
   "evidenceAbsent": ["allowingPolicyRule"],
-  "safetyConsequence": "Deny the action and preserve the decision record.",
-  "continueExecution": false,
+  "safetyConsequence": "The scenario records policy-mismatch evidence; a separate evaluator is required for any decision.",
   "humanReviewRequired": true
 }

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
-    <meta name="description" content="Fenrua public verifier foundation with examples, deterministic output, schemas, and local CLI flow." />
+    <meta name="description" content="Fenrua public verification foundation with historical scenarios, documentation, and repository validation." />
     <meta name="robots" content="index,follow" />
     <meta name="googlebot" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
     <meta name="bingbot" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
@@ -13,13 +13,13 @@
     <meta property="og:locale" content="en_AU" />
     <meta property="og:site_name" content="Fenrua" />
     <meta property="og:title" content="Fenrua Verify" />
-    <meta property="og:description" content="Fenrua public verifier foundation with examples, deterministic output, schemas, and local CLI flow." />
+    <meta property="og:description" content="Fenrua public verification foundation with historical scenarios, documentation, and repository validation." />
     <meta property="og:url" content="https://fenrua.ai/verify" />
     <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
     <meta property="og:image:alt" content="Fenrua logo" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Fenrua Verify" />
-    <meta name="twitter:description" content="Fenrua public verifier foundation with examples, deterministic output, schemas, and local CLI flow." />
+    <meta name="twitter:description" content="Fenrua public verification foundation with historical scenarios, documentation, and repository validation." />
     <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
     <meta name="twitter:image:alt" content="Fenrua logo" />
     <link rel="canonical" href="https://fenrua.ai/verify" />
@@ -89,7 +89,7 @@
       "@id": "https://fenrua.ai/verify#webpage",
       "url": "https://fenrua.ai/verify",
       "name": "Fenrua Verify",
-      "description": "Fenrua public verifier foundation with examples, deterministic output, schemas, and local CLI flow.",
+      "description": "Fenrua public verification foundation with historical scenarios, documentation, and repository validation.",
       "inLanguage": "en-AU",
       "dateModified": "2026-07-14",
       "isPartOf": {
@@ -168,17 +168,17 @@
       </nav>
       <section class="route-hero route-hero-solo" aria-labelledby="page-title">
         <div class="route-hero-copy">
-          <p class="eyebrow">PUBLIC VERIFIER FOUNDATION</p>
+          <p class="eyebrow">LEGACY VERIFICATION CORPUS</p>
           <h1 id="page-title">Verify</h1>
-          <p>No live server-side verifier is claimed. The public flow is local, deterministic, schema-first, and limitation-aware.</p>
+          <p>No live server-side verifier is claimed. The current scenario corpus is historical reference material, not a Trust Gate result, decision, or execution interface.</p>
 
         </div>
       </section>
       <section class="section-shell split-section">
         <div>
-          <p class="eyebrow">LOCAL CLI WALKTHROUGH</p>
-          <h2>Run the current checks</h2>
-          <p>Use the repository validation suite and schema examples. The example verifier output is deterministic and explicitly marks runtime attestation as unverified.</p>
+          <p class="eyebrow">REPOSITORY VALIDATION WALKTHROUGH</p>
+          <h2>Run the current repository checks</h2>
+          <p>Use the repository validation suite and explanatory examples. The foundation result example explicitly marks runtime attestation as unverified; the legacy scenario corpus does not make an authorisation or execution decision.</p>
         </div>
         <div class="code-panel" data-code-panel data-wrap="false">
           <div class="code-panel-toolbar">
@@ -210,11 +210,11 @@ examples/verification-result.example.json</code></pre>
           <a href="/docs/FENRUA_AUTHORITY_POLICY_SPEC.md">Authority policy schema</a>
           <a href="/docs/FENRUA_EVIDENCE_BUNDLE_SPEC.md">Evidence bundle schema</a>
           <a href="/docs/FENRUA_VERIFICATION_RESULT_SPEC.md">Verification result schema</a>
-          <a href="/docs/FENRUA_VERIFY_RESULT_CORPUS.md">Result corpus report</a>
+          <a href="/docs/FENRUA_VERIFY_RESULT_CORPUS.md">Legacy corpus disposition</a>
         </div>
       </section>
       <section class="section-shell split-section">
-        <div><p class="eyebrow">DETERMINISTIC OUTPUT</p><h2>Example result</h2></div>
+        <div><p class="eyebrow">FOUNDATION RESULT EXAMPLE</p><h2>Example verification result</h2></div>
         <div class="code-panel" data-code-panel data-wrap="false">
           <div class="code-panel-toolbar">
             <span>Verification result JSON</span>
@@ -239,79 +239,79 @@ examples/verification-result.example.json</code></pre>
       <section class="section-shell">
         <div class="registry " role="region" tabindex="0" aria-label="Data table">
           <table>
-            <thead><tr><th scope="col">Code</th><th scope="col">Meaning</th><th scope="col">Fixture</th><th scope="col">Safety consequence</th></tr></thead>
+            <thead><tr><th scope="col">Code</th><th scope="col">Scenario meaning</th><th scope="col">Legacy fixture</th><th scope="col">Contract boundary</th></tr></thead>
             <tbody>
 <tr>
       <td><code>PASS</code></td>
       <td>All supplied checks passed.</td>
       <td><a href="/examples/verification-results/pass.example.json">pass.example.json</a></td>
-      <td>Execution may continue within scope.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>PASS_WITH_LIMITATIONS</code></td>
       <td>Checks passed but runtime or completeness limitations remain.</td>
       <td><a href="/examples/verification-results/pass-with-limitations.example.json">pass-with-limitations.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>INCOMPLETE</code></td>
       <td>Required manifest, policy, or evidence fields are missing.</td>
       <td><a href="/examples/verification-results/incomplete.example.json">incomplete.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>STALE</code></td>
       <td>Evidence is older than the accepted freshness policy.</td>
       <td><a href="/examples/verification-results/stale.example.json">stale.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>POLICY_VIOLATION</code></td>
       <td>Requested action violates policy.</td>
       <td><a href="/examples/verification-results/policy-violation.example.json">policy-violation.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>INTEGRITY_MISMATCH</code></td>
       <td>Hash, build, source, or runtime value does not match.</td>
       <td><a href="/examples/verification-results/integrity-mismatch.example.json">integrity-mismatch.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>SIGNATURE_INVALID</code></td>
       <td>Signature could not be verified.</td>
       <td><a href="/examples/verification-results/signature-invalid.example.json">signature-invalid.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>RUNTIME_UNVERIFIED</code></td>
       <td>Runtime attestation was not supplied or accepted.</td>
       <td><a href="/examples/verification-results/runtime-unverified.example.json">runtime-unverified.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>REVOKED</code></td>
       <td>Artifact, entity, or policy is revoked.</td>
       <td><a href="/examples/verification-results/revoked.example.json">revoked.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>FAIL_CLOSED</code></td>
       <td>Verifier reached an unsafe or unsupported state.</td>
       <td><a href="/examples/verification-results/fail-closed.example.json">fail-closed.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>UNSUPPORTED_SCHEMA</code></td>
       <td>Schema version is not supported.</td>
       <td><a href="/examples/verification-results/unsupported-schema.example.json">unsupported-schema.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
 <tr>
       <td><code>ERROR</code></td>
       <td>Verifier failed unexpectedly.</td>
       <td><a href="/examples/verification-results/error.example.json">error.example.json</a></td>
-      <td>Execution must pause, degrade, fail closed, or require review as declared in the fixture.</td>
+      <td>Legacy scenario only; it does not authorise or instruct execution.</td>
     </tr>
             </tbody>
           </table>

@@ -15,13 +15,19 @@ unsupported schema/profile versions, duplicate JSON keys, and parse ambiguity
 are rejected before policy evaluation.
 
 The existing public verification corpus is not a Trust Gate output contract: it
-uses scenario metadata and `continueExecution` expectations. Its records must
-migrate to `fenrua.verification-vector.v1`. The reserved
+historically used scenario metadata and `continueExecution` expectations. Its
+quarantined form no longer contains continuation instructions, and its records
+must migrate to `fenrua.verification-vector.v1`. The reserved
 `fenrua.verification-result.v1` identifier is for an independently produced
 verification result only. A verification `PASS` never contains or implies an
 authorisation decision; vectors may declare an `expectedDecision` as test
 metadata, but an evaluator alone produces `fenrua.decision.v1` with `ALLOW` or
 `DENY`.
+
+The current website corpus is quarantined by
+`LEGACY_VERIFIER_CORPUS_DISPOSITION.md`. Its local legacy label is not a
+released Trust Gate schema and must never be accepted as a strict v0.1 input or
+output.
 
 ## Exact CLI Surface
 

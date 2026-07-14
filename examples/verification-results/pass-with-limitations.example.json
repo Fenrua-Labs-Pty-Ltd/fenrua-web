@@ -1,11 +1,10 @@
 {
-  "schema": "fenrua.verification-result.v1",
+  "schema": "fenrua.legacy-verification-scenario.v1",
   "result": "PASS_WITH_LIMITATIONS",
   "inputFixture": "examples/verification-result.example.json",
   "trigger": "Core checks pass but runtime attestation or completeness evidence remains absent.",
   "evidenceSupplied": ["manifest", "authorityPolicy", "evidenceBundle"],
   "evidenceAbsent": ["runtimeAttestation"],
-  "safetyConsequence": "Execution may continue only inside the limitation boundary.",
-  "continueExecution": true,
+  "safetyConsequence": "PASS_WITH_LIMITATIONS records verifier scope only; no authorisation or execution instruction is expressed.",
   "humanReviewRequired": true
 }

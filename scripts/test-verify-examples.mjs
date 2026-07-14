@@ -22,18 +22,24 @@ const seen = new Set();
 
 for (const file of files) {
   const fixture = JSON.parse(await readFile(new URL(file, dir), "utf8"));
-  assert.equal(fixture.schema, "fenrua.verification-result.v1", `${file} has wrong schema`);
+  assert.equal(fixture.schema, "fenrua.legacy-verification-scenario.v1", `${file} must use the quarantined legacy corpus label`);
   assert.ok(requiredResults.includes(fixture.result), `${file} result is not recognized`);
   assert.equal(typeof fixture.inputFixture, "string", `${file} must identify input fixture`);
   assert.equal(typeof fixture.trigger, "string", `${file} must identify trigger`);
   assert.ok(Array.isArray(fixture.evidenceSupplied), `${file} must list supplied evidence`);
   assert.ok(Array.isArray(fixture.evidenceAbsent), `${file} must list absent evidence`);
   assert.equal(typeof fixture.safetyConsequence, "string", `${file} must state safety consequence`);
-  assert.equal(typeof fixture.continueExecution, "boolean", `${file} must state execution decision`);
-  assert.equal(typeof fixture.humanReviewRequired, "boolean", `${file} must state review decision`);
+  assert.equal(Object.hasOwn(fixture, "continueExecution"), false, `${file} must not state an execution instruction`);
+  assert.equal(Object.hasOwn(fixture, "decision"), false, `${file} must not state an authorisation decision`);
+  assert.doesNotMatch(
+    fixture.safetyConsequence,
+    /execution may continue|execution must|stop execution|deny execution|authori[sz]e new execution/i,
+    `${file} must not instruct a caller to execute or enforce an action`,
+  );
+  assert.equal(typeof fixture.humanReviewRequired, "boolean", `${file} must state review expectation`);
   seen.add(fixture.result);
 }
 
 assert.deepEqual([...seen].sort(), [...requiredResults].sort());
 
-console.log(JSON.stringify({ status: "ok", scope: "verify-result-corpus", results: seen.size }));
+console.log(JSON.stringify({ status: "ok", scope: "legacy-verification-scenario-corpus", results: seen.size }));

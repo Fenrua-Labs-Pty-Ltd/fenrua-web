@@ -1,11 +1,10 @@
 {
-  "schema": "fenrua.verification-result.v1",
+  "schema": "fenrua.legacy-verification-scenario.v1",
   "result": "REVOKED",
   "inputFixture": "examples/revoked.fixture.json",
   "trigger": "Entity, artifact, policy, key, or evidence bundle is revoked.",
   "evidenceSupplied": ["revocationRecord"],
   "evidenceAbsent": ["activeRevocationState"],
-  "safetyConsequence": "Deny execution and preserve the revocation reference.",
-  "continueExecution": false,
+  "safetyConsequence": "The scenario records revocation evidence; a separate evaluator is required for any decision.",
   "humanReviewRequired": true
 }
