@@ -1,6 +1,6 @@
 # ADR-0001: Local Trust Gate Repository Boundary
 
-Status: Proposed - owner approval required before repository creation
+Status: Accepted - owner authorization recorded; repository creation authorized
 Date: 2026-07-14
 Decision owner: A0 / Fenrua owner
 
@@ -16,6 +16,17 @@ The Local Trust Gate needs a local evaluator, CLI, library, deterministic test
 corpus, evidence generator, independent verifier, release artifacts, and a
 future SDK boundary. Those responsibilities do not fit either existing
 repository without violating its stated boundary.
+
+## Approval Record
+
+Owner approval was required before repository creation. On 2026-07-14, the
+Fenrua owner authorized the implementation needed for
+`FENRUA-INDUSTRIAL-10`, including the staged creation of the public
+`fenrua-specs` and `fenrua-trust-gate` repositories described here.
+
+That authorization permits repository initialization and source implementation.
+It does not promote a Trust Gate capability, approve a production profile,
+replace release evidence, or waive the R3-to-R4 promotion requirements.
 
 ## Proposed Decision
 

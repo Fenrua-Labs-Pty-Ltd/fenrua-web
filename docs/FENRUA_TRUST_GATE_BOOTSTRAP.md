@@ -1,8 +1,13 @@
 # Fenrua Trust Gate Bootstrap Plan
 
-Status: Pre-repository implementation package; no repository has been created
-Owner: A3, pending ADR-0001 owner approval
+Status: Owner-authorized implementation package; public repository initialization in progress
+Owner: A3, under ADR-0001
 Last reviewed: 2026-07-14
+
+The Fenrua owner authorized implementation on 2026-07-14. This permits the
+staged creation of the separate public specifications and Trust Gate source
+repositories. It does not make a Trust Gate interface available or satisfy a
+release, preview, production, or assurance gate.
 
 ## Proposed Repository Shape
 
