@@ -28,14 +28,33 @@ That authorization permits repository initialization and source implementation.
 It does not promote a Trust Gate capability, approve a production profile,
 replace release evidence, or waive the R3-to-R4 promotion requirements.
 
-## Proposed Decision
+## Implementation Record
+
+The approved repository boundary is now implemented:
+
+- `fenrua-trust-gate` main is at
+  `b1c45116d0d35605afaad5a59c814bf789935dce` and contains only the R1 source
+  foundation; and
+- `fenrua-specs` main is at
+  `268788e18bb39d69ffed706294d2605878f04c34` and contains the separate R1
+  strict schema and vector registry.
+
+Both repositories are public source with branch protection, named required CI,
+linear history, admin enforcement, conversation resolution, no force pushes or
+deletion, secret scanning/push protection, and Dependabot security updates.
+Those controls establish a source-governance baseline; they are not evidence of
+a released Trust Gate capability, production key custody, signed artifacts, or
+independent assurance.
+
+## Decision
 
 Create a public `fenrua-trust-gate` repository only after owner approval. It
-will own the Rust core/library and CLI, local evidence generation, verifier,
-adapters, deterministic tests, benchmark harness, release artifacts, SBOM, and
-provenance. A TypeScript package may begin as a carefully isolated package in
-that repository while contracts stabilize; a separate `fenrua-sdk-js`
-repository remains an option after API stability is demonstrated.
+owns the Rust R1 core/library boundary, discovery CLI, deterministic tests, and
+future release-artifact boundary. Evidence generation, a full verifier,
+adapters, benchmark harness, signed artifacts, SBOM, and provenance remain
+separate future trains. A TypeScript package may begin as a carefully isolated
+package in that repository while contracts stabilize; a separate
+`fenrua-sdk-js` repository remains an option after API stability is demonstrated.
 
 ## Ownership And Classification
 

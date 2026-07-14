@@ -211,5 +211,11 @@ for (const column of [
 requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "F10-PT-004");
 requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "provider deployment success from being treated as rendered-content verification");
 requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "owner-authenticated content evidence remains pending");
+requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "b374487a4bb389086a3a6f72ca24ffbc0c38bc6e");
+requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "b1c45116d0d35605afaad5a59c814bf789935dce");
+requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "268788e18bb39d69ffed706294d2605878f04c34");
+requireText("docs/FENRUA_TRUST_GATE_BOOTSTRAP.md", "R1 source foundation implemented");
+requireText("docs/FENRUA_TRUST_GATE_BOOTSTRAP.md", "https://github.com/fenrualabs/fenrua-trust-gate");
+requireText("docs/adr/ADR-0001-TRUST-GATE-REPOSITORY-BOUNDARY.md", "## Implementation Record");
 
 console.log(JSON.stringify({ status: "ok", scope: "industrial-contract-freeze", documents: requiredDocuments.length }));

@@ -1,13 +1,36 @@
 # Fenrua Trust Gate Bootstrap Plan
 
-Status: Owner-authorized implementation package; public repository initialization in progress
+Status: R1 source foundation implemented; no product availability claim
 Owner: A3, under ADR-0001
 Last reviewed: 2026-07-14
 
-The Fenrua owner authorized implementation on 2026-07-14. This permits the
-staged creation of the separate public specifications and Trust Gate source
-repositories. It does not make a Trust Gate interface available or satisfy a
-release, preview, production, or assurance gate.
+The Fenrua owner authorized implementation on 2026-07-14. The separate public
+source repositories now exist: [`fenrua-trust-gate`](https://github.com/fenrualabs/fenrua-trust-gate)
+at `b1c45116d0d35605afaad5a59c814bf789935dce` and
+[`fenrua-specs`](https://github.com/fenrualabs/fenrua-specs) at
+`268788e18bb39d69ffed706294d2605878f04c34`. This does not make a Trust Gate interface available
+or satisfy a release, preview, production, or assurance gate.
+
+## Implemented R1 Boundary
+
+The Trust Gate repository currently implements only the R1 source foundation:
+
+- strict bounded JSON syntax parsing, including duplicate-key and unpaired
+  surrogate rejection;
+- deterministic draft canonical JSON and domain-separated SHA-256 digests;
+- reserved-unreleased schema/profile discovery, a generic canonical-digest
+  verifier boundary, deterministic test-kit primitives, and a discovery-only
+  `fenrua` CLI;
+- an explicit unavailable evaluator boundary with no file I/O, network,
+  policy evaluation, decision, evidence, signing, key, or durable replay
+  operation; and
+- locked CI, public-admission, dependency, verifier-boundary, branch-protection,
+  secret-scanning, push-protection, and Dependabot controls.
+
+The specifications repository provides the separate R1 strict registry: 13
+protocol schemas plus one test-only vector schema, valid/negative fixtures, and
+cross-role rejection tests. Neither repository releases a CLI product, SDK,
+hosted service, production cryptographic profile, or Trust Gate workflow.
 
 ## Proposed Repository Shape
 
@@ -40,8 +63,10 @@ control plane or to store tenant data, provider credentials, or production keys.
 
 ## First Independently Reviewable Trains
 
-1. strict parser, size limits, schema/profile dispatch, and negative fixtures;
-2. canonicalisation, digest/signature verification, and immutable vectors;
+1. implemented R1: strict parser, size limits, reserved schema/profile
+   discovery, negative fixtures, and the separate specifications registry;
+2. partially implemented R1: draft canonicalisation, domain-separated digest
+   primitives, generic digest comparison, and immutable bootstrap vectors;
 3. constrained policy parser/evaluator with deny-overrides and deterministic
    decision output;
 4. revocation and replay controls;
