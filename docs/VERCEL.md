@@ -77,11 +77,12 @@ financial-return product.
 ## Validate From WSL and Publish Through Git
 
 Use Node 24 from a clean checkout of the owner-approved `main` commit. The local
-command validates the release but does not deploy it:
+command validates the release but does not deploy it. The baseline directory is
+an owner-approved external record for the pinned visual-rendering environment:
 
 ```bash
 npm ci
-npm run release:production-check
+FENRUA_VISUAL_BASELINE_DIR=/absolute/external/approved-visual-baseline npm run release:production-check
 ```
 
 After review, merge or push that exact approved commit to the protected `main`

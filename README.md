@@ -88,8 +88,10 @@ release-toolchain contract. `npm run release:check` additionally generates and
 verifies the release manifest, stages the complete public output, runs the
 bounded Overview and Status browser checks, route-wide accessibility analysis,
 the Chromium/Firefox/WebKit information-architecture matrix, JavaScript-disabled
-coverage, and a clean-checkout reproduction. It does not verify live production
-state or protected systems.
+coverage, an external visual-capture matrix, and a clean-checkout reproduction.
+`npm run release:production-check` additionally requires an approved external
+visual baseline for its strict comparison. Neither command verifies live
+production state or protected systems.
 
 ## Canonical Public Model
 

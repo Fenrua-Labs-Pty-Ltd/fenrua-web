@@ -146,11 +146,13 @@ main > section:not(#chain-progress) {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+  min-width: 0;
   border: 1px solid transparent;
   border-radius: var(--radius-md);
   padding: 0.5rem 0.65rem;
   color: var(--muted);
   font-size: 0.78rem;
+  overflow-wrap: anywhere;
   text-decoration: none;
 }
 
@@ -840,7 +842,9 @@ h1 {
 
 .section-heading {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.25rem;
+  min-width: 0;
   max-width: 76ch;
   margin-bottom: 1rem;
 }
@@ -865,6 +869,12 @@ h3,
 .brand strong {
   font-family: var(--font-mono);
   letter-spacing: 0;
+}
+
+h1,
+h2,
+h3 {
+  overflow-wrap: anywhere;
 }
 
 .site-nav,
@@ -2453,7 +2463,7 @@ tr:last-child td {
   .hero,
   .split-section,
   .work-section {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     min-height: auto;
   }
 
@@ -2472,7 +2482,7 @@ tr:last-child td {
   }
 
   .primitive-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .repo-grid,
@@ -2485,11 +2495,11 @@ tr:last-child td {
   .route-grid,
   .toolchain-meta,
   .lifecycle-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .section-nav {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.45rem;
   }
 
@@ -2505,7 +2515,7 @@ tr:last-child td {
   .claim-record dl,
   .evidence-class-card dl,
   .role-path-list dl {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .toolchain-summary:not(.state-grid) {
@@ -2523,7 +2533,7 @@ tr:last-child td {
 
 @media (max-width: 700px) {
   .toolchain-summary:not(.state-grid) {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .mobile-data-notice {

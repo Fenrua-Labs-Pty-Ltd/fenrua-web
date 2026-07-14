@@ -13,6 +13,11 @@ const prohibitedDirectories = new Set([
   "playwright-report",
   "reports",
   "test-results",
+  "visual-baselines",
+  "visual-captures",
+  "visual-artifacts",
+  "visual-regression-artifacts",
+  ".visual-regression",
 ]);
 const violations = [];
 

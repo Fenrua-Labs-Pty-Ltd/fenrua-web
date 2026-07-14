@@ -29,7 +29,7 @@
       "status": "active",
       "path": "docs/EXTERNAL_ARTIFACT_POLICY.md",
       "replacementPath": "/audit",
-      "artifactSha256": "56780ab9cef19a411b5dbc4471ca3b6dfc78085f723eb29748194494c6bef964"
+      "artifactSha256": "f3d7fd0a30d8aafde5981f7980675c78fdc52adc60d2eb8b14e38c191b6403bf"
     },
     {
       "id": "public-data-flow",
