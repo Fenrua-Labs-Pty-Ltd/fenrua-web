@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Fenrua reference runtime sequence and fail-closed evidence boundary." />
+    <meta name="robots" content="index,follow" />
+    <meta name="googlebot" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+    <meta name="bingbot" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+    <meta name="theme-color" content="#0d0d0d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_AU" />
+    <meta property="og:site_name" content="Fenrua" />
+    <meta property="og:title" content="Fenrua Architecture: Runtime sequence" />
+    <meta property="og:description" content="Fenrua reference runtime sequence and fail-closed evidence boundary." />
+    <meta property="og:url" content="https://fenrua.ai/architecture/runtime" />
+    <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
+    <meta property="og:image:alt" content="Fenrua logo" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Fenrua Architecture: Runtime sequence" />
+    <meta name="twitter:description" content="Fenrua reference runtime sequence and fail-closed evidence boundary." />
+    <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
+    <meta name="twitter:image:alt" content="Fenrua logo" />
+    <link rel="canonical" href="https://fenrua.ai/architecture/runtime" />
+    <link rel="alternate" hreflang="en-AU" href="https://fenrua.ai/architecture/runtime" />
+    <link rel="alternate" hreflang="x-default" href="https://fenrua.ai/architecture/runtime" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://fenrua.ai/#organization",
+  "name": "FENRUA LABS PTY LTD",
+  "legalName": "FENRUA LABS PTY LTD",
+  "alternateName": [
+    "Fenrua Labs",
+    "Fenrua"
+  ],
+  "url": "https://fenrua.ai/",
+  "logo": "https://fenrua.ai/assets/fenrua-header-logo.jpg",
+  "foundingDate": "2026-07-13",
+  "taxID": "ABN 62 700 182 663",
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "ABN",
+      "value": "62 700 182 663"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "ACN",
+      "value": "700 182 663"
+    }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Ultimo",
+    "addressRegion": "NSW",
+    "postalCode": "2007",
+    "addressCountry": "AU"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "business enquiries",
+    "email": "partnerships@fenrua.ai"
+  },
+  "description": "Fenrua Labs researches, develops, and provides AI efficiency infrastructure software and related technology services.",
+  "sameAs": [
+    "https://github.com/fenrualabs",
+    "https://x.com/FenruaLabs",
+    "https://www.linkedin.com/in/fenrua-labs-80b679388"
+  ]
+}</script>
+    <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://fenrua.ai/#website",
+      "url": "https://fenrua.ai/",
+      "name": "Fenrua",
+      "inLanguage": "en-AU",
+      "publisher": {
+        "@id": "https://fenrua.ai/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://fenrua.ai/architecture/runtime#webpage",
+      "url": "https://fenrua.ai/architecture/runtime",
+      "name": "Fenrua Architecture: Runtime sequence",
+      "description": "Fenrua reference runtime sequence and fail-closed evidence boundary.",
+      "inLanguage": "en-AU",
+      "dateModified": "2026-07-14",
+      "isPartOf": {
+        "@id": "https://fenrua.ai/#website"
+      },
+      "about": {
+        "@id": "https://fenrua.ai/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://fenrua.ai/architecture/runtime#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://fenrua.ai/architecture/runtime#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://fenrua.ai/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Architecture",
+          "item": "https://fenrua.ai/architecture"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Runtime sequence",
+          "item": "https://fenrua.ai/architecture/runtime"
+        }
+      ]
+    }
+  ]
+}</script>
+    <title>Fenrua Architecture: Runtime sequence</title>
+    <link rel="icon" href="/assets/fenrua-header-logo.jpg" type="image/jpeg" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/technical-data.js" defer></script>
+
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
+
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="/" aria-label="Fenrua Protocol home">
+        <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
+        <span>
+          <strong>Fenrua Protocol</strong>
+          <small>by Fenrua Labs Pty Ltd</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/platform" aria-current="page">Platform</a>
+        <a href="/developers">Developers</a>
+        <a href="/research">Research</a>
+        <a href="/trust">Trust</a>
+        <a href="/operations">Operations</a>
+        <a href="/company">Company</a>
+      </nav>
+    </header>
+    <main id="content">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/architecture">Architecture</a></li>
+          <li aria-current="page">Runtime sequence</li>
+        </ol>
+      </nav>
+      <nav class="section-nav" aria-label="Platform section">
+        <span>Platform</span>
+        <div>
+          <a href="/platform">Platform overview</a>
+          <a href="/architecture">Architecture</a>
+          <a href="/kernel">Security Kernel</a>
+          <a href="/utilities">Utilities</a>
+          <a href="/architecture/deployment">Deployment profiles</a>
+          <a href="/docs/FENRUA_AI_EFFICIENCY_EVIDENCE_STANDARD.md">Efficiency evidence</a>
+        </div>
+      </nav>
+<!-- fenrua-assurance-scope:claims:claim.observation.signed-read-only:start -->      <section class="route-hero route-hero-solo" aria-labelledby="page-title">
+        <div class="route-hero-copy">
+          <p class="eyebrow">ARCHITECTURE VIEW</p>
+          <h1 id="page-title">Runtime sequence</h1>
+          <p>The reference sequence explains how a local workflow can evaluate supplied artifacts. It describes a design boundary, not a live multi-tenant runtime.</p>
+
+        </div>
+      </section>
+      <section class="section-shell" aria-labelledby="runtime-diagram-title">
+        <div class="section-heading"><p class="eyebrow">SEMANTIC SYSTEM VIEW</p><h2 id="runtime-diagram-title">Runtime sequence map</h2><p>Each step carries its state in text. The diagram remains readable without colour or client JavaScript.</p></div>
+        <ol class="architecture-diagram" aria-label="Runtime sequence component map">
+          <li><span>01</span><div><strong>Entity manifest</strong><p>Supplies declared identity and artifact context.</p></div><em>Reference</em></li>
+          <li><span>02</span><div><strong>Authority policy</strong><p>Defines scoped allow, deny, approval, expiry, and revocation semantics.</p></div><em>Specification</em></li>
+          <li><span>03</span><div><strong>Local deterministic decision</strong><p>Produces an explicit result or fail-closed outcome from supplied inputs.</p></div><em>Reference</em></li>
+          <li><span>04</span><div><strong>Evidence bundle and receipt</strong><p>Captures scope, digests, limitations, and reproducible result material.</p></div><em>Specification</em></li>
+        </ol>
+        <p class="diagram-text-equivalent"><strong>Text equivalent:</strong> Entity manifest is reference; Authority policy is specification; Local deterministic decision is reference; Evidence bundle and receipt is specification.</p>
+      </section>
+      <section class="section-shell split-section" aria-labelledby="runtime-boundary-title">
+        <div><p class="eyebrow">CURRENT IMPLEMENTATION BOUNDARY</p><h2 id="runtime-boundary-title">What this view does and does not state</h2></div>
+        <div class="constraint-list"><p>The website does not execute this sequence for visitors, accept files, make authorization decisions, or manage production keys.</p><p>Inspect the <a href="/trust/claims">claim register</a> and <a href="/trust/evidence-classes">evidence classes</a> for the records that govern public assurance language.</p></div>
+      </section><!-- fenrua-assurance-scope:end -->
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>FENRUA LABS PTY LTD</strong>
+        <span>ABN 62 700 182 663 · ACN 700 182 663</span>
+        <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
+      </div>
+      <div class="footer-social">
+        <p>Business enquiries: <a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a></p>
+        <div class="footer-links" aria-label="Company links and verified public profiles">
+          <a href="/company">Company</a>
+          <a href="/#commercial-boundary-title">Service boundary</a>
+          <a href="https://github.com/fenrualabs" rel="me">GitHub</a>
+          <a href="https://x.com/FenruaLabs" rel="me">X</a>
+          <a href="https://www.linkedin.com/in/fenrua-labs-80b679388" rel="me">LinkedIn</a>
+          <a href="/audit">Release verification</a>
+          <a href="/evidence">Evidence</a>
+          <a href="/toolchain">Toolchain</a>
+          <a href="/.well-known/fenrua-release.json">Release manifest</a>
+          <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

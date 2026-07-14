@@ -66,8 +66,8 @@ jobs:
           npm audit --omit=dev --audit-level=low
           npm audit signatures
 
-      - name: Install Chromium for non-live browser checks
-        run: npm exec --no -- playwright install --with-deps chromium
+      - name: Install browser matrix for public interface checks
+        run: npm exec --no -- playwright install --with-deps chromium firefox webkit
 
       - name: Validate the public release surface
         run: npm run release:check

@@ -1,0 +1,396 @@
+{
+  "schemaVersion": "fenrua.product-ontology.v1",
+  "lastReviewed": "2026-07-14",
+  "sourceReferences": {
+    "companyIdentityId": "company-identity",
+    "siteEvidenceId": "site-evidence-input",
+    "documentRegisterId": "public-document-register"
+  },
+  "entities": [
+    {
+      "id": "fenrua.labs",
+      "canonicalName": "Fenrua Labs",
+      "entityType": "organisation",
+      "status": "current",
+      "category": "company",
+      "definition": "Public display name for the company identified by the company identity record.",
+      "aliases": ["FENRUA LABS PTY LTD"],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["Do not use Fenrua Labs as the name of the public platform or a claim that every research artifact is a company service."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-13",
+      "publicRoutes": ["/", "/legal"],
+      "owner": "public-platform",
+      "evidenceIds": ["company-identity", "site-evidence-input"]
+    },
+    {
+      "id": "fenrua.protocol",
+      "canonicalName": "Fenrua Protocol",
+      "entityType": "product",
+      "status": "current",
+      "category": "public-platform",
+      "definition": "Current public platform label used by the Fenrua website and retired-route boundary.",
+      "aliases": [],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["Do not use Fenrua Protocol as the legal company name or as evidence that an unlisted product is available."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-14",
+      "publicRoutes": ["/"],
+      "owner": "public-platform",
+      "evidenceIds": ["site-evidence-input", "source-public-interface-doctrine"]
+    },
+    {
+      "id": "fenrua.ai-efficiency-infrastructure",
+      "canonicalName": "AI efficiency infrastructure",
+      "entityType": "capability",
+      "status": "current",
+      "category": "technology-services-scope",
+      "definition": "The public technical direction spanning research, software, infrastructure, and related technology services.",
+      "aliases": [],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["This direction is not a claim that every described primitive is production-ready or publicly available."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-14",
+      "publicRoutes": ["/", "/architecture", "/legal"],
+      "owner": "public-platform",
+      "evidenceIds": ["site-evidence-input", "source-public-interface-doctrine"]
+    },
+    {
+      "id": "fenrua.layer-0-security-controls",
+      "canonicalName": "Layer 0 security-control subsystem",
+      "entityType": "subsystem",
+      "status": "current",
+      "category": "security-control",
+      "definition": "A security-control subsystem within the broader AI efficiency infrastructure and related technology-services scope.",
+      "aliases": ["Layer 0 AI security architecture"],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["Layer 0 is not the complete definition of Fenrua Labs' business or future direction."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-12",
+      "publicRoutes": ["/architecture", "/kernel"],
+      "owner": "security-architecture",
+      "evidenceIds": ["source-layer0-architecture", "site-evidence-input"]
+    },
+    {
+      "id": "fenrua.security-kernel",
+      "canonicalName": "Fenrua Security Kernel",
+      "entityType": "subsystem",
+      "status": "current",
+      "category": "security-control",
+      "definition": "Public kernel model for identity, authority, integrity, policy, evidence, verification, containment, and recovery responsibilities.",
+      "aliases": [],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["The kernel does not certify production safety by itself or replace upper-layer applications and infrastructure."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-12",
+      "publicRoutes": ["/kernel", "/architecture"],
+      "owner": "security-architecture",
+      "evidenceIds": ["source-security-kernel-spec", "source-layer0-architecture"]
+    },
+    {
+      "id": "fenrua.utilities",
+      "canonicalName": "Utilities",
+      "entityType": "capability",
+      "status": "current",
+      "category": "public-catalogue",
+      "definition": "Public catalogue of maturity-labelled utility concepts and boundaries.",
+      "aliases": [],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["A utility catalogue does not make each listed utility a live hosted service."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-12",
+      "publicRoutes": ["/utilities"],
+      "owner": "public-platform",
+      "evidenceIds": ["source-layer0-architecture", "source-capability-maturity-register"]
+    },
+    {
+      "id": "fenrua.evidence",
+      "canonicalName": "Evidence",
+      "entityType": "capability",
+      "status": "current",
+      "category": "public-evidence",
+      "definition": "Point-in-time public records with stated source, revision, validation scope, maturity, and limitation.",
+      "aliases": ["Evidence registry"],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["A public evidence record is not universal certification, future evidence, or protected-system attestation."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-13",
+      "publicRoutes": ["/evidence", "/audit"],
+      "owner": "public-platform",
+      "evidenceIds": ["site-evidence-input", "source-public-interface-doctrine"]
+    },
+    {
+      "id": "fenrua.verification",
+      "canonicalName": "Verification",
+      "entityType": "capability",
+      "status": "current",
+      "category": "verification",
+      "definition": "Public verifier foundation, result specification, and local fixture-oriented checking boundary.",
+      "aliases": [],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["A verifier fixture or schema is not a hosted verifier or proof of production runtime conformity."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-12",
+      "publicRoutes": ["/verify", "/developers"],
+      "owner": "developer-platform",
+      "evidenceIds": ["source-verification-result-spec", "source-verifier-examples"]
+    },
+    {
+      "id": "fenrua.research",
+      "canonicalName": "Research",
+      "entityType": "research-family",
+      "status": "current",
+      "category": "research",
+      "definition": "Public research records in which claims, non-claims, evidence, maturity, and limitations are kept adjacent.",
+      "aliases": ["Research Registry"],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["A research result does not by itself establish a production capability or certification."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-12",
+      "publicRoutes": ["/research"],
+      "owner": "research",
+      "evidenceIds": ["source-research-governance", "source-public-interface-doctrine"]
+    },
+    {
+      "id": "fenrua.pn521",
+      "canonicalName": "P/N521",
+      "entityType": "research-family",
+      "status": "current",
+      "category": "cryptography-research",
+      "definition": "Research family represented publicly by the P/N521 cross-limb borrow regression record.",
+      "aliases": ["P/N521 Cross-Limb Borrow Regression"],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["The published regression record does not prove production certification or all arithmetic invariants."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-12",
+      "publicRoutes": ["/research/pn521-cross-limb-borrow"],
+      "owner": "research",
+      "evidenceIds": ["source-research-governance"]
+    },
+    {
+      "id": "fenrua.fenc978",
+      "canonicalName": "FENc978",
+      "entityType": "observation-source",
+      "status": "current",
+      "category": "observation",
+      "definition": "Public label for the bounded Chain 978 observation source.",
+      "aliases": ["Chain 978"],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["Chain 978 observation is not the definition of the platform and does not prove contract safety, bytecode identity, reserve state, or deployment correctness."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-14",
+      "publicRoutes": ["/status", "/research/read-only-chain-observation"],
+      "owner": "operations",
+      "evidenceIds": ["source-observation-gateway", "source-capability-maturity-register"]
+    },
+    {
+      "id": "fenrua.fenn521",
+      "canonicalName": "FENn521",
+      "entityType": "observation-source",
+      "status": "current",
+      "category": "observation",
+      "definition": "Public label for the bounded Chain N521 observation source, which remains subject to its independent evidence boundary.",
+      "aliases": ["Chain N521"],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["Chain N521 observation is not the definition of the platform and no liveness claim is made until an independent gateway and public verification key are configured."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-14",
+      "publicRoutes": ["/status", "/research/read-only-chain-observation"],
+      "owner": "operations",
+      "evidenceIds": ["source-observation-gateway", "source-capability-maturity-register"]
+    },
+    {
+      "id": "fenrua.local-trust-gate",
+      "canonicalName": "Local Trust Gate",
+      "entityType": "capability",
+      "status": "planned",
+      "category": "developer-integration",
+      "definition": "Planned developer integration concept; this public model records no implemented interface, release, or evidence record for it.",
+      "aliases": [],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["Do not present Local Trust Gate as an available API, CLI, SDK, hosted service, or production control."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-14",
+      "publicRoutes": [],
+      "owner": "developer-platform",
+      "evidenceIds": []
+    },
+    {
+      "id": "fenrua.public-evidence-interface",
+      "canonicalName": "Website and public evidence interface",
+      "entityType": "product",
+      "status": "current",
+      "category": "public-interface",
+      "definition": "The public website, technical documentation, evidence records, status information, and bounded read-only observations.",
+      "aliases": ["fenrua.ai"],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["The public interface is not a self-service account, checkout, client upload, or interactive AI interface."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-14",
+      "publicRoutes": ["/", "/evidence", "/audit", "/status"],
+      "owner": "public-platform",
+      "evidenceIds": ["site-evidence-input", "source-public-interface-doctrine"]
+    },
+    {
+      "id": "fenrua.commercial-service-boundary",
+      "canonicalName": "Commercial service boundary",
+      "entityType": "capability",
+      "status": "current",
+      "category": "commercial-boundary",
+      "definition": "Public boundary for access-only technology services offered through subscriptions and client-specific business agreements.",
+      "aliases": [],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["This boundary does not create an investment, financial-return, exchange, trading, custody, or public-swap product."],
+      "replacementId": null,
+      "effectiveDate": "2026-07-14",
+      "publicRoutes": ["/legal", "/support"],
+      "owner": "commercial-operations",
+      "evidenceIds": ["site-evidence-input", "access-only-commercial-boundary"]
+    },
+    {
+      "id": "fenrua.legacy-product-terminology",
+      "canonicalName": "Legacy product terminology",
+      "entityType": "product",
+      "status": "deprecated",
+      "category": "migration-boundary",
+      "definition": "Reserved migration and explicit non-claim vocabulary that does not identify a current Fenrua product or service.",
+      "aliases": [],
+      "deprecatedAliases": ["Nexus", "wallet", "swap", "presale", "market", "Common", "token"],
+      "prohibitedAmbiguities": ["Legacy terms may appear only in approved migration, historical, or explicit non-claim context and never as current product positioning."],
+      "replacementId": "fenrua.protocol",
+      "effectiveDate": "2026-07-14",
+      "publicRoutes": [],
+      "owner": "public-platform",
+      "evidenceIds": ["site-evidence-input", "access-only-commercial-boundary"]
+    }
+  ],
+  "legacyTermPolicy": {
+    "scanRoot": "public",
+    "terms": [
+      {
+        "term": "nexus",
+        "status": "deprecated",
+        "replacementId": "fenrua.protocol",
+        "allowances": []
+      },
+      {
+        "term": "wallet",
+        "status": "deprecated",
+        "replacementId": "fenrua.protocol",
+        "allowances": [
+          {
+            "file": "public/company/index.html",
+            "context": "The public site does not represent a client portal, checkout, trading venue, wallet, token offering, or financial-return product.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          }
+        ]
+      },
+      {
+        "term": "swap",
+        "status": "deprecated",
+        "replacementId": "fenrua.commercial-service-boundary",
+        "allowances": [
+          {
+            "file": "public/index.html",
+            "context": "Fenrua Labs Pty Ltd does not operate a market, exchange, order book, trading venue, or public swap product.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/legal/index.html",
+            "context": "Investment, financial-return, exchange, trading, custody, or public-swap product",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/claims/index.html",
+            "context": "The current public service boundary does not offer investment, token-crowdfunding, exchange, trading, custody, public-swap, or financial-return products.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          }
+        ]
+      },
+      {
+        "term": "presale",
+        "status": "deprecated",
+        "replacementId": "fenrua.commercial-service-boundary",
+        "allowances": []
+      },
+      {
+        "term": "market",
+        "status": "deprecated",
+        "replacementId": "fenrua.commercial-service-boundary",
+        "allowances": [
+          {
+            "file": "public/index.html",
+            "context": "Fenrua Labs Pty Ltd does not operate a market, exchange, order book, trading venue, or public swap product.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          }
+        ]
+      },
+      {
+        "term": "common",
+        "status": "historical",
+        "replacementId": "fenrua.protocol",
+        "allowances": []
+      },
+      {
+        "term": "token",
+        "status": "deprecated",
+        "replacementId": "fenrua.commercial-service-boundary",
+        "allowances": [
+          {
+            "file": "public/index.html",
+            "context": "Fenrua Labs Pty Ltd does not offer investments, token crowdfunding, securities, bonds, equity, debt, managed investment interests, profit-sharing arrangements, revenue-sharing arrangements, yield products, exchange products, trading products, or any financial-return scheme.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/index.html",
+            "context": "Neither a subscription nor a client-specific business agreement gives, promises, expects, entitles, or represents profit, return, token appreciation, token allocation, liquidity, resale value, dividends, buyback rights, or ownership in Fenrua Labs Pty Ltd.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 2
+          },
+          {
+            "file": "public/legal/index.html",
+            "context": "A payment settles the price of the relevant service. It does not by itself give a customer equity, ownership, profit-sharing, investment returns, token allocation, or rights outside the applicable service terms or client agreement.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/audit/index.html",
+            "context": "Public standard-form business contracts, token materials, investment materials, trading features, and financial-return claims.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/developers/index.html",
+            "context": "No public token, investment, trading, or financial-return product is claimed.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/company/index.html",
+            "context": "The public site does not represent a client portal, checkout, trading venue, wallet, token offering, or financial-return product.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/start/index.html",
+            "context": "These paths use current public records only. They do not imply an investment, account, token, or hosted-product journey.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/claims/index.html",
+            "context": "The current public service boundary does not offer investment, token-crowdfunding, exchange, trading, custody, public-swap, or financial-return products.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -10,6 +10,13 @@ const vercel = JSON.parse(readFileSync(resolve(root, "vercel.json"), "utf8"));
 const csp = vercel.headers
   .find((entry) => entry.source === "/(.*)")
   ?.headers.find((header) => header.key === "Content-Security-Policy")?.value;
+// The browser test server is deliberately HTTP; WebKit upgrades local asset requests
+// when this production-only directive is retained and then cannot load the stylesheet.
+const localTestCsp = csp
+  ?.split(";")
+  .map((directive) => directive.trim())
+  .filter((directive) => directive && directive !== "upgrade-insecure-requests")
+  .join("; ");
 
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
@@ -70,7 +77,7 @@ const server = createServer((request, response) => {
     const headers = {
       "Content-Type": mimeTypes[extname(file)] || "application/octet-stream",
       "Cache-Control": "no-store",
-      ...(csp ? { "Content-Security-Policy": csp } : {}),
+      ...(localTestCsp ? { "Content-Security-Policy": localTestCsp } : {}),
     };
     response.writeHead(200, headers);
     if (request.method === "HEAD") response.end();

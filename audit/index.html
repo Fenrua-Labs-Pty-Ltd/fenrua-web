@@ -12,13 +12,13 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_AU" />
     <meta property="og:site_name" content="Fenrua" />
-    <meta property="og:title" content="Fenrua Public Audit" />
+    <meta property="og:title" content="Fenrua Public Release Verification" />
     <meta property="og:description" content="Current public static release evidence, document status, access-only commercial boundary, and explicit limitations." />
     <meta property="og:url" content="https://fenrua.ai/audit" />
     <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
     <meta property="og:image:alt" content="Fenrua logo" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Fenrua Public Audit" />
+    <meta name="twitter:title" content="Fenrua Public Release Verification" />
     <meta name="twitter:description" content="Current public static release evidence, document status, access-only commercial boundary, and explicit limitations." />
     <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
     <meta name="twitter:image:alt" content="Fenrua logo" />
@@ -88,7 +88,7 @@
       "@type": "WebPage",
       "@id": "https://fenrua.ai/audit#webpage",
       "url": "https://fenrua.ai/audit",
-      "name": "Fenrua Public Audit",
+      "name": "Fenrua Public Release Verification",
       "description": "Current public static release evidence, document status, access-only commercial boundary, and explicit limitations.",
       "inLanguage": "en-AU",
       "dateModified": "2026-07-14",
@@ -122,17 +122,17 @@
     }
   ]
 }</script>
-    <title>Fenrua Public Audit</title>
+    <title>Fenrua Public Release Verification</title>
     <link rel="icon" href="/assets/fenrua-header-logo.jpg" type="image/jpeg" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
-    <script src="/mobile-chain-status.js" defer></script>
 
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
-    <header class="site-header site-header-mobile-live" aria-label="Site header">
+
+    <header class="site-header" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua Protocol home">
         <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
         <span>
@@ -141,100 +141,52 @@
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="/">Overview</a>
-        <a href="/architecture">Architecture</a>
-        <a href="/kernel">Kernel</a>
-        <a href="/utilities">Utilities</a>
-        <a href="/research">Research</a>
-        <a href="/verify">Verify</a>
+        <a href="/platform">Platform</a>
         <a href="/developers">Developers</a>
-        <a href="/toolchain">Toolchain</a>
-        <a href="/evidence">Evidence</a>
-        <a href="/audit" aria-current="page">Audit</a>
-        <a href="/status">Status</a>
-        <a class="nav-legal" href="/legal">Legal</a>
+        <a href="/research">Research</a>
+        <a href="/trust" aria-current="page">Trust</a>
+        <a href="/operations">Operations</a>
+        <a href="/company">Company</a>
       </nav>
-      <div class="mobile-nav-hint" aria-hidden="true">
-        <span>Swipe left for more</span>
-        <i class="mobile-nav-hint-track"><i></i></i>
-      </div>
-      <div class="header-chain-rail mobile-chain-rail" aria-label="Live block updates">
-        <article class="header-chain-card" data-chain-card="978">
-          <div class="chain-card-top">
-            <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <article class="header-chain-card" data-chain-card="521">
-          <div class="chain-card-top">
-            <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-        <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
-      </div>
     </header>
     <main id="content">
-      <section class="route-hero" aria-labelledby="page-title">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li aria-current="page">Audit</li>
+        </ol>
+      </nav>
+      <nav class="section-nav" aria-label="Trust section">
+        <span>Trust</span>
+        <div>
+          <a href="/trust">Trust overview</a>
+          <a href="/trust/claims">Claims</a>
+          <a href="/trust/evidence-classes">Evidence classes</a>
+          <a href="/evidence">Evidence</a>
+          <a href="/audit" aria-current="page">Release verification</a>
+          <a href="/security">Security reporting</a>
+          <a href="/accessibility">Accessibility</a>
+        </div>
+      </nav>
+      <section class="route-hero route-hero-solo" aria-labelledby="page-title">
         <div class="route-hero-copy">
           <p class="eyebrow">CURRENT PUBLIC RELEASE</p>
-          <h1 id="page-title">Audit and Release Evidence</h1>
-          <p>This page identifies the current public static release evidence and its limits. It does not attest to dynamic observations, live block-card data, or protected systems.</p>
+          <h1 id="page-title">Release Integrity Verification</h1>
+          <p>This page identifies the public static release evidence and its limits. It does not attest to dynamic observations, live block-card data, or protected systems.</p>
           <div class="cta-row"><a class="button button-primary" href="/.well-known/fenrua-release.json">Open release manifest</a><a class="button button-secondary" href="/data/public-document-register.json">Download document register</a></div>
         </div>
-        <div class="route-hero-chain-rail" aria-label="Current signed chain observations">
-        <article class="header-chain-card" data-chain-card="978">
-          <div class="chain-card-top">
-            <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <article class="header-chain-card" data-chain-card="521">
-          <div class="chain-card-top">
-            <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-
-      </div>
+      </section>
+      <section class="section-shell" aria-labelledby="release-verification-subject">
+        <div class="section-heading"><p class="eyebrow">VERIFICATION SUBJECT</p><h2 id="release-verification-subject">Scope before assurance</h2><p>The release record is a public static-artifact verification surface. It is not a runtime, service-health, security-review, or authorization assertion.</p></div>
+        <dl class="record-facts">
+          <div><dt>Subject</dt><dd>Fenrua public static artifact set</dd></div>
+          <div><dt>Source commit</dt><dd>Bound by the release manifest generated from the exact release checkout</dd></div>
+          <div><dt>Artifact set</dt><dd>Listed files and SHA-256 values in the public release manifest</dd></div>
+          <div><dt>Method</dt><dd>Deterministic static generation, repository validation, and manifest self-integrity checks</dd></div>
+          <div><dt>Independent trust anchor</dt><dd>Retained site-evidence record digest: <code>3219b1237c23afb37397ea74ecf350e67e1a100e1edc686919a771f305ab9a82</code></dd></div>
+          <div><dt>Time of observation</dt><dd>2026-07-13T19:27:37Z</dd></div>
+          <div><dt>Expiration / supersession</dt><dd>Superseded by a later source-bound release record; this page does not make future release claims</dd></div>
+        </dl>
       </section>
       <section class="section-shell split-section">
         <div>
@@ -307,6 +259,24 @@
       <td data-label="Original superseded SHA-256"><code class="hash-value">—</code></td>
     </tr>
 <tr>
+      <td data-label="Record"><code>public-data-flow</code></td>
+      <td data-label="Status"><span class="status-badge status-active">active</span></td>
+      <td data-label="Current / archive"><a href="/docs/PUBLIC_DATA_FLOW.md"><code>docs/PUBLIC_DATA_FLOW.md</code></a></td>
+      <td data-label="Replacement"><a href="/company">/company</a></td>
+      <td data-label="Archived">Current</td>
+      <td data-label="Current artifact SHA-256"><code class="hash-value">77e1564457130bc1f8c500884ce297b4702fab5dfd917557e9403c259ca3de12</code></td>
+      <td data-label="Original superseded SHA-256"><code class="hash-value">—</code></td>
+    </tr>
+<tr>
+      <td data-label="Record"><code>ai-efficiency-evidence-standard</code></td>
+      <td data-label="Status"><span class="status-badge status-active">active</span></td>
+      <td data-label="Current / archive"><a href="/docs/FENRUA_AI_EFFICIENCY_EVIDENCE_STANDARD.md"><code>docs/FENRUA_AI_EFFICIENCY_EVIDENCE_STANDARD.md</code></a></td>
+      <td data-label="Replacement"><a href="/platform">/platform</a></td>
+      <td data-label="Archived">Current</td>
+      <td data-label="Current artifact SHA-256"><code class="hash-value">a3e32df05a2564b91d6f379b23b379578f9fc2e4adc8f7875004df65f1434fcf</code></td>
+      <td data-label="Original superseded SHA-256"><code class="hash-value">—</code></td>
+    </tr>
+<tr>
       <td data-label="Record"><code>public-document-register</code></td>
       <td data-label="Status"><span class="status-badge status-active">active</span></td>
       <td data-label="Current / archive"><a href="/data/public-document-register.json"><code>data/public-document-register.json</code></a></td>
@@ -374,12 +344,12 @@
       <div class="footer-social">
         <p>Business enquiries: <a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a></p>
         <div class="footer-links" aria-label="Company links and verified public profiles">
-          <a href="/legal">Legal &amp; company</a>
+          <a href="/company">Company</a>
           <a href="/#commercial-boundary-title">Service boundary</a>
           <a href="https://github.com/fenrualabs" rel="me">GitHub</a>
           <a href="https://x.com/FenruaLabs" rel="me">X</a>
           <a href="https://www.linkedin.com/in/fenrua-labs-80b679388" rel="me">LinkedIn</a>
-          <a href="/audit">Audit</a>
+          <a href="/audit">Release verification</a>
           <a href="/evidence">Evidence</a>
           <a href="/toolchain">Toolchain</a>
           <a href="/.well-known/fenrua-release.json">Release manifest</a>

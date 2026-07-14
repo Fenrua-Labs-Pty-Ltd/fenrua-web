@@ -11,13 +11,13 @@ const boundaries = [
     name: "header live block cards",
     start: '<div class="header-chain-rail mobile-chain-rail"',
     end: "    </header>",
-    sha256: "9bfc88ca41ebd4e5e07163eda320c7f3fa3ce0e904c8f4778029d269ac260d78",
+    sha256: "f5a001aa54e05a08addb6f105690ebdc8556dc8b83adf91e1c8fbdff1aa54cf6",
   },
   {
     name: "desktop live block cards",
     start: '<section id="chain-progress"',
     end: '      <section class="section-shell" aria-labelledby="home-answers">',
-    sha256: "3d84e7ddbecd02450ff81bd63b3dd7ed64003be20c99b4ad0828410bae7e4dc6",
+    sha256: "32a88cb9411033e9a55f300cbf98075d1121f875f86bd240e45dc8e03414f35c",
   },
 ];
 
@@ -34,6 +34,8 @@ assert.equal(
   1,
   "Overview must expose one polite telemetry announcer across its responsive card sets."
 );
+assert.match(html, /Awaiting signed observation/, "Static live-card output must not imply a current chain state without JavaScript.");
+assert.doesNotMatch(html, />Loading</, "Static live-card output must not remain in a permanent loading state without JavaScript.");
 
 assert.match(
   kernelStatus,

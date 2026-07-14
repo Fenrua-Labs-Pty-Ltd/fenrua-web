@@ -11,7 +11,7 @@ Last reviewed: 2026-07-13
 | Toolchain registry | Point-in-time published inventory | `data/toolchain-registry.json`, `/toolchain/` | Version capture is not current-install, availability, or security proof |
 | Public verifier | Prototype foundation | `#verify`, verification result spec | No live server-side verifier claimed |
 | Chain 978 observation | Read-only live | `/api/chain-progress`, `/api/chain-observation-key`, `server/observation-continuity.js` | Signed bounded observation is not contract safety; production continuity requires its configured durable checkpoint store |
-| Chain N521 observation | Awaiting independent evidence | `/api/chain-progress`, `/api/chain-n521-observation-key` | No liveness claim until its signed gateway and key are configured |
+| Chain N521 observation | Awaiting independent evidence | `/api/chain-progress`, `/api/chain-n521-observation-key` | No liveness claim until an independent gateway and public verification key are configured |
 | Entity manifest | Specification | `FENRUA_ENTITY_MANIFEST_SPEC.md` | Schema foundation only |
 | Authority policy | Specification | `FENRUA_AUTHORITY_POLICY_SPEC.md` | Enforcement requires integration |
 | Evidence bundle | Specification | `FENRUA_EVIDENCE_BUNDLE_SPEC.md` | Bundle signature flow not finalized here |

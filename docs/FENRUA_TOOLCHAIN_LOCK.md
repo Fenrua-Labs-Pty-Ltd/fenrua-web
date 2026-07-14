@@ -24,6 +24,15 @@ usernames, hostnames, endpoints, credentials, and private topology.
 - `DEPRECATED`
 - `UNAVAILABLE`
 
+## Evidence Hierarchy
+
+The public registry orders evidence states as: evidence-producing, campaign
+executed, smoke-tested, version-verified, detected or inventory-only,
+exploratory, unavailable, and superseded. These states are deliberately not
+interchangeable. A campaign-executed label requires a declared validation
+command in the frozen record; an evidence-producing record can instead bind a
+source or inventory artifact without claiming that a validation campaign ran.
+
 ## Key Detected Versions
 
 | Tool | Detected Version | Status |
@@ -75,7 +84,9 @@ from the audit and evidence state.
 
 During this task:
 
-- No toolchain, package, OS, or container update was performed.
+- No audited toolchain-version, kernel-dependency, OS, or container update was
+  performed. New website validation gates are not a revision of this frozen
+  version capture.
 - `fenrua-web` dependency review found no package dependency drift; the website
   has no package dependencies.
 - Inspected `fenrua-kernel` direct dependency review found no direct pnpm

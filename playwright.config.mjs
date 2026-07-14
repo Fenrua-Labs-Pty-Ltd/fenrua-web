@@ -16,10 +16,14 @@ export default defineConfig({
   reporter: "line",
   use: {
     baseURL: testOrigin,
-    browserName: "chromium",
     screenshot: "only-on-failure",
     trace: "retain-on-failure",
   },
+  projects: [
+    { name: "chromium", use: { browserName: "chromium" } },
+    { name: "firefox", use: { browserName: "firefox" } },
+    { name: "webkit", use: { browserName: "webkit" } },
+  ],
   webServer: {
     command: "node scripts/serve-browser-test.mjs",
     url: `${testOrigin}/__fenrua_browser_test_health`,

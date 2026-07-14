@@ -1,0 +1,368 @@
+{
+  "schemaVersion": "fenrua.evidence-taxonomy.v1",
+  "lastReviewed": "2026-07-14",
+  "sourceReferences": {
+    "companyIdentityId": "company-identity",
+    "siteEvidenceId": "site-evidence-input",
+    "documentRegisterId": "public-document-register"
+  },
+  "classes": [
+    {
+      "id": "specification",
+      "name": "Specification evidence",
+      "purpose": "Defines an intended public contract, model, interface, or boundary.",
+      "acceptedSources": ["Versioned specifications", "Schema definitions", "Public doctrine records"],
+      "authority": "Authoritative for the stated design and boundary only.",
+      "integrityMethod": "Versioned repository path and any published content hash or revision.",
+      "freshnessModel": "Bound to its reviewed date and superseded by a later identified revision.",
+      "expiry": "No automatic expiry, but it cannot be treated as evidence of an unstated implementation revision.",
+      "retention": "Retain the versioned source and its documented replacement path.",
+      "revocation": "Mark a withdrawn specification as superseded or archived and direct readers to its replacement.",
+      "supersession": "A replacement must identify the older record or route it replaces.",
+      "disclosureBoundary": "May describe public contracts without exposing secrets, private topology, or customer data.",
+      "verificationMethod": "Review the named versioned source and its stated scope.",
+      "doesNotProve": ["Runtime deployment", "Production safety", "External assurance"],
+      "permittedAssuranceVerbs": ["published", "reviewed"]
+    },
+    {
+      "id": "test",
+      "name": "Test evidence",
+      "purpose": "Records a repeatable check of a declared behavior or fixture.",
+      "acceptedSources": ["Named test scripts", "Fixture corpora", "Recorded test outputs"],
+      "authority": "Authoritative only for the exercised behavior, environment, and result scope.",
+      "integrityMethod": "Versioned test source, fixture identifiers, and retained output when published.",
+      "freshnessModel": "Fresh only for the tested revision and declared environment.",
+      "expiry": "Expires as evidence for a changed implementation or unrepeatable environment.",
+      "retention": "Retain the test source, fixtures, and any disclosed result receipt.",
+      "revocation": "Invalidate a result when its fixture, environment, or test contract is found unsound.",
+      "supersession": "A newer test result supersedes only the same named behavior and scope.",
+      "disclosureBoundary": "Do not expose protected inputs, secrets, or customer data in public fixtures.",
+      "verificationMethod": "Run the named test under its documented prerequisites and inspect its result.",
+      "doesNotProve": ["Unexercised behavior", "Production operation", "Complete security"],
+      "permittedAssuranceVerbs": ["published", "tested", "validated", "verified", "reproduced"]
+    },
+    {
+      "id": "build",
+      "name": "Build evidence",
+      "purpose": "Connects a generated artifact or tool capture to a declared source revision or build process.",
+      "acceptedSources": ["Generated manifests", "Build logs", "Version-capture registries"],
+      "authority": "Authoritative for the named artifact or version capture, not for a broader runtime state.",
+      "integrityMethod": "Content hashes, source revision bindings, and deterministic generation checks where available.",
+      "freshnessModel": "Fresh only for the declared source revision and captured environment.",
+      "expiry": "Expires when the underlying source, lock, or environment changes.",
+      "retention": "Retain the source revision, generated artifact, and applicable digest.",
+      "revocation": "Invalidate a binding when a digest mismatch or non-deterministic generation issue is found.",
+      "supersession": "A later capture supersedes only the same artifact and source scope.",
+      "disclosureBoundary": "Never publish build secrets, private environment values, or provider internals.",
+      "verificationMethod": "Recreate or inspect the declared artifact against the named source revision.",
+      "doesNotProve": ["Production deployment", "Runtime health", "Security of an installed tool"],
+      "permittedAssuranceVerbs": ["published", "validated", "verified"]
+    },
+    {
+      "id": "release",
+      "name": "Release evidence",
+      "purpose": "Binds a public release record to listed artifacts and stated validation scope.",
+      "acceptedSources": ["Release manifests", "Release audit receipts", "Deployment provenance records"],
+      "authority": "Authoritative only for the disclosed static artifact set and stated release boundary.",
+      "integrityMethod": "Source commit, content digests, and a release-manifest record.",
+      "freshnessModel": "Point-in-time at the release record timestamp and invalid after a different release is promoted.",
+      "expiry": "Expires as a statement about the current release after supersession or rollback.",
+      "retention": "Retain the release manifest and audit receipt for the release lifetime.",
+      "revocation": "Withdraw or mark the release record superseded after a failed audit or rollback.",
+      "supersession": "A later release record replaces the prior record for the canonical public artifact set.",
+      "disclosureBoundary": "Does not disclose provider credentials, project internals, or protected runtime surfaces.",
+      "verificationMethod": "Compare the named release record with the observed public artifact set.",
+      "doesNotProve": ["Live API state", "Protected-system behavior", "Future availability"],
+      "permittedAssuranceVerbs": ["published", "anchored", "validated", "verified"]
+    },
+    {
+      "id": "runtime",
+      "name": "Runtime evidence",
+      "purpose": "Describes a bounded observation of an executing system in a declared environment.",
+      "acceptedSources": ["Environment-scoped runtime receipts", "Authenticated runtime measurements"],
+      "authority": "Authoritative only for the recorded environment, time, and measured signal.",
+      "integrityMethod": "Authenticated collection, timestamping, and integrity checks appropriate to the runtime source.",
+      "freshnessModel": "Short-lived and explicitly timestamped.",
+      "expiry": "Expires at the stated freshness or monitoring window.",
+      "retention": "Retain only the permitted receipt and metadata required for the stated scope.",
+      "revocation": "Invalidate the receipt if its collector or identity binding is compromised.",
+      "supersession": "Newer observations replace older observations only for the same signal and environment.",
+      "disclosureBoundary": "Must not disclose private endpoints, secrets, personal data, or protected topology.",
+      "verificationMethod": "Validate collector identity, timestamp, and measurement contract.",
+      "doesNotProve": ["All runtime behavior", "Security of unrelated systems", "Perpetual availability"],
+      "permittedAssuranceVerbs": ["published", "observed", "attested", "verified"]
+    },
+    {
+      "id": "operational",
+      "name": "Operational evidence",
+      "purpose": "Records a declared operating process, ownership boundary, or service state.",
+      "acceptedSources": ["Current service records", "Operating procedures", "Status definitions"],
+      "authority": "Authoritative only for the declared operating boundary and review date.",
+      "integrityMethod": "Versioned source, owner, review date, and route or document binding.",
+      "freshnessModel": "Reviewed at the stated cadence and revised when operating scope changes.",
+      "expiry": "Expires when the stated operating boundary changes or is superseded.",
+      "retention": "Retain current and superseded public operating records.",
+      "revocation": "Mark an operating record superseded when its process or boundary no longer applies.",
+      "supersession": "A newer named operating record replaces the prior scope.",
+      "disclosureBoundary": "Public records exclude secrets, private incident detail, and customer-specific operations.",
+      "verificationMethod": "Inspect the named owner, source, review date, and stated limitation.",
+      "doesNotProve": ["SLO attainment", "Production safety", "Contract terms not published"],
+      "permittedAssuranceVerbs": ["published", "reviewed", "attested", "production-approved"]
+    },
+    {
+      "id": "observation",
+      "name": "Observation evidence",
+      "purpose": "Describes a bounded public observation with declared source and failure semantics.",
+      "acceptedSources": ["Signed observation records", "Public key metadata", "Observation-gateway contracts"],
+      "authority": "Authoritative only for the disclosed observation field set and time.",
+      "integrityMethod": "Declared signature, key metadata, canonicalization, and freshness controls where present.",
+      "freshnessModel": "Explicitly timestamped and subject to the route's freshness state.",
+      "expiry": "Expires when stale, unavailable, or outside the declared observation window.",
+      "retention": "Retain only public observations and non-secret verification metadata as permitted.",
+      "revocation": "Reject invalid signatures, revoked keys, or invalid observation transitions.",
+      "supersession": "A later signed observation replaces an earlier observation only for the declared feed.",
+      "disclosureBoundary": "Never exposes signing keys, private gateway addresses, peers, or administrative controls.",
+      "verificationMethod": "Validate the declared public key, signature contract, and freshness semantics.",
+      "doesNotProve": ["Contract safety", "Bytecode identity", "Reserve state", "Chain-wide finality"],
+      "permittedAssuranceVerbs": ["published", "observed", "signed", "verified"]
+    },
+    {
+      "id": "incident",
+      "name": "Incident evidence",
+      "purpose": "Records a scoped issue report, impact statement, and handling path.",
+      "acceptedSources": ["Private vulnerability reports", "Incident records", "Public advisories when approved"],
+      "authority": "Authoritative only for the explicitly recorded issue and handling scope.",
+      "integrityMethod": "Case identifier, protected evidence handling, and documented reproduction scope.",
+      "freshnessModel": "Changes as investigation, remediation, or disclosure state changes.",
+      "expiry": "Not a standing service-health assertion after the incident is closed or superseded.",
+      "retention": "Retain under the applicable operational and disclosure boundary.",
+      "revocation": "Correct or withdraw a report when evidence is found invalid or misattributed.",
+      "supersession": "A corrected report replaces earlier impact or remediation statements.",
+      "disclosureBoundary": "Protect secrets, customer information, and exploitable details until disclosure is approved.",
+      "verificationMethod": "Review the issue scope, reproduction evidence, and disclosure status.",
+      "doesNotProve": ["Absence of vulnerabilities", "Complete remediation", "Security certification"],
+      "permittedAssuranceVerbs": ["published", "observed", "reviewed"]
+    },
+    {
+      "id": "independent-reproduction",
+      "name": "Independent reproduction evidence",
+      "purpose": "Records an independently repeated result against a stated procedure and scope.",
+      "acceptedSources": ["Independent reproduction receipt", "Third-party rerun record"],
+      "authority": "Authoritative only for the reproduced procedure, artifact, and declared environment.",
+      "integrityMethod": "Independent actor identity, versioned procedure, and retained result receipt.",
+      "freshnessModel": "Bound to the reproduced revision and environment.",
+      "expiry": "Expires for changed artifacts or environments.",
+      "retention": "Retain the reproduction procedure and permitted receipt.",
+      "revocation": "Invalidate where the independence or reproduction procedure is compromised.",
+      "supersession": "A later independent reproduction may replace the prior result for the same scope.",
+      "disclosureBoundary": "Do not disclose protected inputs or third-party confidential materials.",
+      "verificationMethod": "Review the independent actor, procedure, inputs, and result boundary.",
+      "doesNotProve": ["Formal correctness", "Production safety", "Universal reproducibility"],
+      "permittedAssuranceVerbs": ["published", "reproduced", "independently reviewed"]
+    },
+    {
+      "id": "external-review",
+      "name": "External review evidence",
+      "purpose": "Records an externally scoped review with a named method and conclusion boundary.",
+      "acceptedSources": ["Independent review report", "External audit report", "Reviewer attestation"],
+      "authority": "Authoritative only for the named reviewer, scope, method, and finding date.",
+      "integrityMethod": "Reviewer identity, immutable report reference, and scope/version binding.",
+      "freshnessModel": "Bound to the reviewed version and report date.",
+      "expiry": "Expires as a statement about materially changed systems or scope.",
+      "retention": "Retain the report, scope, and any response or supersession record.",
+      "revocation": "Correct or revoke if reviewer independence, scope, or report integrity fails.",
+      "supersession": "A later review replaces prior conclusions only for overlapping scope.",
+      "disclosureBoundary": "Publish only approved findings without exposing protected systems or confidential report material.",
+      "verificationMethod": "Verify reviewer identity, scope, method, version, and report integrity.",
+      "doesNotProve": ["Coverage outside scope", "Future security", "Regulatory approval"],
+      "permittedAssuranceVerbs": ["published", "reviewed", "independently reviewed", "audited"]
+    },
+    {
+      "id": "regulatory-compliance",
+      "name": "Regulatory or compliance evidence",
+      "purpose": "Records a regulator, registry, or compliance-source fact with stated jurisdiction and date.",
+      "acceptedSources": ["Official registry result", "Regulatory determination", "Compliance attestation"],
+      "authority": "Authoritative only for the cited authority, jurisdiction, record date, and stated fact.",
+      "integrityMethod": "Official authority reference, lookup identifier, and retained verification date.",
+      "freshnessModel": "Bound to the authority's current record and the stated verification date.",
+      "expiry": "Expires when the authority's status changes or the record is no longer current.",
+      "retention": "Retain permitted record references and verification dates.",
+      "revocation": "Correct the public record when the cited authority changes or rejects the stated fact.",
+      "supersession": "A later authority record replaces an earlier cited status.",
+      "disclosureBoundary": "Do not publish private registry material, personal data, or legal advice.",
+      "verificationMethod": "Check the named official authority and the source record's verification date.",
+      "doesNotProve": ["Legal advice", "Product approval", "Compliance outside the cited scope"],
+      "permittedAssuranceVerbs": ["published", "verified", "attested", "certified"]
+    }
+  ],
+  "evidenceRecords": [
+    {
+      "id": "company-identity",
+      "evidenceClassIds": ["regulatory-compliance"],
+      "sourcePath": "data/company-identity.json",
+      "documentRegisterId": "company-identity",
+      "status": "current",
+      "scope": "Public company identity record with named registry sources and an explicit verification date."
+    },
+    {
+      "id": "site-evidence-input",
+      "evidenceClassIds": ["operational", "specification"],
+      "sourcePath": "data/site-evidence.json",
+      "documentRegisterId": "site-evidence-input",
+      "status": "current",
+      "scope": "Canonical public commercial, release, and public-surface boundary input."
+    },
+    {
+      "id": "access-only-commercial-boundary",
+      "evidenceClassIds": ["operational", "specification"],
+      "sourcePath": "docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md",
+      "documentRegisterId": "access-only-commercial-boundary",
+      "status": "current",
+      "scope": "Public service and agreement boundary, including non-financial-product statements."
+    },
+    {
+      "id": "source-public-interface-doctrine",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "docs/FENRUA_PUBLIC_INTERFACE_DOCTRINE.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Public truth boundary, maturity vocabulary, and interface rules."
+    },
+    {
+      "id": "source-public-homepage",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "index.html",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Current public platform label, operator attribution, and homepage boundary copy."
+    },
+    {
+      "id": "source-capability-maturity-register",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "docs/FENRUA_CAPABILITY_MATURITY_REGISTER.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Published capability maturity labels and limitations."
+    },
+    {
+      "id": "source-layer0-architecture",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "docs/FENRUA_LAYER0_AI_SECURITY_ARCHITECTURE.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Layer 0 security-control subsystem architecture and non-claims."
+    },
+    {
+      "id": "source-security-kernel-spec",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "docs/FENRUA_SECURITY_KERNEL_SPEC.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Public security kernel responsibilities, maturity, and non-responsibilities."
+    },
+    {
+      "id": "source-authority-policy-spec",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "docs/FENRUA_AUTHORITY_POLICY_SPEC.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Public authority-policy specification and fail-closed rules."
+    },
+    {
+      "id": "source-evidence-bundle-spec",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "docs/FENRUA_EVIDENCE_BUNDLE_SPEC.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Public evidence-bundle specification and disclosure boundary."
+    },
+    {
+      "id": "source-verification-result-spec",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "docs/FENRUA_VERIFICATION_RESULT_SPEC.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Verifier result codes and limitation requirements."
+    },
+    {
+      "id": "source-verifier-examples",
+      "evidenceClassIds": ["test"],
+      "sourcePath": "docs/FENRUA_VERIFY_RESULT_CORPUS.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Public verifier fixture corpus and expected fail-closed behavior."
+    },
+    {
+      "id": "source-browser-visual-tests",
+      "evidenceClassIds": ["test"],
+      "sourcePath": "scripts/test-visual-contracts.mjs",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Repository test contract for selected public visual and interface behavior."
+    },
+    {
+      "id": "source-toolchain-registry",
+      "evidenceClassIds": ["build"],
+      "sourcePath": "data/toolchain-registry.json",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Point-in-time public toolchain inventory and evidence-producing status labels."
+    },
+    {
+      "id": "source-toolchain-evidence-lock",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "docs/FENRUA_TOOLCHAIN_EVIDENCE_LOCK_POLICY.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Evidence-lock policy that prevents relabelling captured toolchain state as a later environment."
+    },
+    {
+      "id": "source-release-pipeline",
+      "evidenceClassIds": ["release"],
+      "sourcePath": "docs/VERCEL.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Public static-release generation, binding, audit, and rollback procedure."
+    },
+    {
+      "id": "source-observation-gateway",
+      "evidenceClassIds": ["observation", "specification"],
+      "sourcePath": "docs/PUBLIC_OBSERVATION_GATEWAY.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Bounded signed-observation contract, field set, failure semantics, and disclosure boundary."
+    },
+    {
+      "id": "source-observation-continuity-tests",
+      "evidenceClassIds": ["test"],
+      "sourcePath": "scripts/test-observation-continuity.mjs",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Repository test contract for observation continuity and key-rotation handling."
+    },
+    {
+      "id": "source-research-governance",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "docs/FENRUA_RESEARCH_TO_INFRASTRUCTURE_STANDARD.md",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Research claim, non-claim, evidence, and promotion requirements."
+    },
+    {
+      "id": "source-pn521-research-record",
+      "evidenceClassIds": ["specification"],
+      "sourcePath": "research/pn521-cross-limb-borrow/index.html",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Public P/N521 research-record statement and its stated non-claim boundary."
+    },
+    {
+      "id": "source-security-reporting",
+      "evidenceClassIds": ["operational", "incident"],
+      "sourcePath": "security/index.html",
+      "documentRegisterId": null,
+      "status": "current",
+      "scope": "Public private-reporting guidance and disclosure boundary."
+    }
+  ]
+}

@@ -23,8 +23,8 @@
       "fenruaKernelDirectDependencyDrift": "No direct pnpm dependency drift observed for the inspected kernel package."
     },
     "postEvidenceMutation": {
-      "toolchainUpdatesPerformed": true,
-      "publicSummary": "The pinned Playwright browser-validation dependency and locked Vercel deployment CLI were added for this release process; Playwright executed only against the non-live public static routes."
+      "toolchainUpdatesPerformed": false,
+      "publicSummary": "No recorded toolchain or kernel dependency update was made after the evidence capture represented by this frozen registry. New website validation gates must not be read as a revision of captured tool versions."
     }
   },
   "semgrepExpectation": {

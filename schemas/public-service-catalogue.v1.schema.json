@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fenrua.ai/schemas/public-service-catalogue.v1.schema.json",
+  "title": "Fenrua public service catalogue v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "lastReviewed", "sourceReferences", "services"],
+  "properties": {
+    "schemaVersion": { "const": "fenrua.public-service-catalogue.v1" },
+    "lastReviewed": { "type": "string", "format": "date" },
+    "sourceReferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["companyIdentityId", "siteEvidenceId", "documentRegisterId"],
+      "properties": {
+        "companyIdentityId": { "type": "string", "minLength": 1 },
+        "siteEvidenceId": { "type": "string", "minLength": 1 },
+        "documentRegisterId": { "type": "string", "minLength": 1 }
+      }
+    },
+    "services": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "purpose",
+          "availability",
+          "interface",
+          "dependencies",
+          "dataClassification",
+          "operationalOwner",
+          "statusSource",
+          "evidenceSource",
+          "supportBoundary",
+          "knownLimitation",
+          "sloState",
+          "incidentState",
+          "retirementState"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^service\\.[a-z0-9-]+$" },
+          "name": { "type": "string", "minLength": 1 },
+          "purpose": { "type": "string", "minLength": 1 },
+          "availability": { "enum": ["public", "agreement-specific"] },
+          "interface": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "targets"],
+            "properties": {
+              "type": { "enum": ["website", "public-api", "business-enquiry", "agreement"] },
+              "targets": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+            }
+          },
+          "dependencies": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "dataClassification": { "enum": ["public", "agreement-specific", "mixed"] },
+          "operationalOwner": { "type": "string", "minLength": 1 },
+          "statusSource": { "type": "string", "minLength": 1 },
+          "evidenceSource": { "type": "string", "minLength": 1 },
+          "supportBoundary": { "type": "string", "minLength": 1 },
+          "knownLimitation": { "type": "string", "minLength": 1 },
+          "sloState": { "enum": ["not-defined", "internal", "public"] },
+          "incidentState": { "enum": ["not-defined", "private", "public-status"] },
+          "retirementState": { "enum": ["active", "planned-retirement", "retired"] }
+        }
+      }
+    }
+  }
+}

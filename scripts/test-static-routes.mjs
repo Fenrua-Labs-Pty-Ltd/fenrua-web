@@ -3,7 +3,16 @@ import { readFile } from "node:fs/promises";
 
 const routes = [
   "index.html",
+  "platform/index.html",
   "architecture/index.html",
+  "architecture/context/index.html",
+  "architecture/components/index.html",
+  "architecture/runtime/index.html",
+  "architecture/deployment/index.html",
+  "architecture/trust-boundaries/index.html",
+  "architecture/data-and-provenance/index.html",
+  "architecture/recovery/index.html",
+  "architecture/evolution/index.html",
   "kernel/index.html",
   "utilities/index.html",
   "research/index.html",
@@ -12,15 +21,24 @@ const routes = [
   "research/read-only-chain-observation/index.html",
   "verify/index.html",
   "developers/index.html",
+  "start/index.html",
+  "trust/index.html",
+  "trust/claims/index.html",
+  "trust/evidence-classes/index.html",
+  "operations/index.html",
+  "operations/observations/index.html",
   "toolchain/index.html",
   "evidence/index.html",
   "audit/index.html",
   "status/index.html",
+  "company/index.html",
   "legal/index.html",
   "support/index.html",
   "security/index.html",
   "accessibility/index.html",
 ];
+
+assert.equal(routes.length, 34, "Static route coverage must match the current public estate.");
 
 for (const route of routes) {
   const html = await readFile(new URL(`../${route}`, import.meta.url), "utf8");
@@ -29,7 +47,20 @@ for (const route of routes) {
   assert.match(html, /technical-data\.js/, `${route} must load technical data controls`);
   assert.match(html, /<strong>Fenrua Protocol<\/strong>/, `${route} must use the canonical public protocol name`);
   assert.match(html, /<small>by Fenrua Labs Pty Ltd<\/small>/, `${route} must identify the registered operator`);
-  assert.match(html, /<a class="nav-legal" href="\/legal"(?: aria-current="page")?>Legal<\/a>\s*<\/nav>/, `${route} must keep Legal as the dedicated final primary-navigation item`);
+  for (const [label, href] of [
+    ["Platform", "/platform"],
+    ["Developers", "/developers"],
+    ["Research", "/research"],
+    ["Trust", "/trust"],
+    ["Operations", "/operations"],
+    ["Company", "/company"],
+  ]) {
+    assert.match(html, new RegExp(`<a href="${href}">${label}<\\/a>|<a href="${href}" aria-current="page">${label}<\\/a>`), `${route} must expose the ${label} primary category.`);
+  }
+  if (route !== "index.html") {
+    assert.match(html, /class="breadcrumb-nav" aria-label="Breadcrumb"/, `${route} must expose visible breadcrumbs.`);
+    assert.match(html, /class="section-nav" aria-label="[^\"]+ section"/, `${route} must expose local section navigation.`);
+  }
   assert.match(html, /href="\/#commercial-boundary-title">Service boundary<\/a>/, `${route} must link to the canonical service boundary`);
   assert.ok(
     html.includes('Business enquiries: <a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a>'),
@@ -61,6 +92,10 @@ assert.match(toolchain, /Download Markdown lock/);
 assert.match(toolchain, /Version verified/);
 assert.match(toolchain, /Smoke tested/);
 assert.match(toolchain, /Campaign executed/);
+assert.ok(toolchain.indexOf("Evidence producing") < toolchain.indexOf("Campaign executed"), "Toolchain hierarchy must prioritise evidence-producing records before campaign execution.");
+assert.match(toolchain, /CAMPAIGN_EXECUTED/);
+assert.match(toolchain, /Evidence links/);
+assert.match(toolchain, /Toolchain version-capture boundary/);
 assert.match(toolchain, /VERSION_VERIFIED/);
 assert.match(toolchain, /class="tag-stack"/);
 assert.match(toolchain, /class="toolchain-mobile-list"/);
@@ -68,6 +103,7 @@ assert.match(toolchain, /data-tool-card/);
 assert.match(toolchain, /data-filter-disclosure/);
 assert.match(toolchain, /data-clear-filters/);
 assert.match(toolchain, /id="tool-sort"/);
+assert.match(toolchain, /data-page-status role="status" aria-live="polite" aria-atomic="true"/, "Toolchain filter results must expose a bounded live status.");
 assert.match(toolchain, /Known limitations/);
 assert.equal([...toolchain.matchAll(/class="registry-tools toolchain-tools"/g)].length, 1, "toolchain controls must not render duplicate wrappers");
 assert.doesNotMatch(toolchain, /<span class="status-badge">[^<]+<\/span><br>/, "delivery tags must use chip groups, not line-break stacks");
@@ -99,6 +135,53 @@ assert.match(overview, /Evidence source/);
 assert.match(overview, /Confidence/);
 assert.doesNotMatch(overview, /Independent source|Primary source/);
 assert.doesNotMatch(overview, /Blocks since check|data-chain-field="(?:978|521)-delta"/);
+
+const platform = await readFile(new URL("../platform/index.html", import.meta.url), "utf8");
+assert.match(platform, /CURRENT CAPABILITY STATES/);
+assert.match(platform, /capability-register\.json/);
+assert.match(platform, /Local Trust Gate/);
+assert.match(platform, /No public implementation, CLI, SDK, API, hosted interface, or release artifact is recorded\./);
+assert.match(platform, /AI efficiency evidence standard/);
+assert.match(platform, /does not publish a measured AI-efficiency benchmark/i);
+
+const start = await readFile(new URL("../start/index.html", import.meta.url), "utf8");
+for (const role of ["Developer", "Security engineer", "Researcher", "Enterprise technical leader", "University or educator", "Open-source contributor", "General technical reviewer"]) {
+  assert.match(start, new RegExp(`<h3>${role}<\\/h3>`), `Start must include the ${role} path.`);
+}
+assert.doesNotMatch(start, /investor|investment opportunity|token sale/i, "Start must remain technical rather than investor-oriented.");
+
+const claims = await readFile(new URL("../trust/claims/index.html", import.meta.url), "utf8");
+assert.match(claims, /data-claim-filter/);
+assert.match(claims, /claim-filter\.js/);
+assert.match(claims, /Download claim register JSON/);
+assert.ok([...claims.matchAll(/data-claim-record/g)].length >= 19, "Claims must render the complete canonical register without JavaScript.");
+assert.match(claims, /capability\.observation-n521/);
+assert.match(claims, /no liveness claim until an independent gateway and public verification key are configured/i);
+
+const evidenceClasses = await readFile(new URL("../trust/evidence-classes/index.html", import.meta.url), "utf8");
+assert.equal([...evidenceClasses.matchAll(/class="evidence-class-card"/g)].length, 11, "Evidence classes must render the complete taxonomy.");
+assert.match(evidenceClasses, /Does not prove:/);
+
+const operations = await readFile(new URL("../operations/index.html", import.meta.url), "utf8");
+assert.match(operations, /STATUS PLANES/);
+assert.match(operations, /SLO state/);
+assert.match(operations, /not-defined/);
+for (const plane of ["Publication status", "Platform service health", "Dependency health", "Signed external observation status", "Security incident status", "Maintenance and change status"]) {
+  assert.match(operations, new RegExp(plane), `Operations must distinguish ${plane}.`);
+}
+assert.doesNotMatch(operations, /99\.9%|uptime guarantee|SLA/i, "Operations must not invent reliability claims.");
+
+const observations = await readFile(new URL("../operations/observations/index.html", import.meta.url), "utf8");
+assert.match(observations, /Chain N521 bounded observation/);
+assert.match(observations, /not-available/);
+assert.doesNotMatch(observations, /data-chain-card=/, "Observation detail route must not duplicate polling cards.");
+
+for (const route of ["context", "components", "runtime", "deployment", "trust-boundaries", "data-and-provenance", "recovery", "evolution"]) {
+  const view = await readFile(new URL(`../architecture/${route}/index.html`, import.meta.url), "utf8");
+  assert.match(view, /class="architecture-diagram"/, `${route} must have a semantic architecture diagram.`);
+  assert.match(view, /Text equivalent:/, `${route} must have a diagram text equivalent.`);
+  assert.match(view, /CURRENT IMPLEMENTATION BOUNDARY/, `${route} must state its implementation boundary.`);
+}
 
 const verify = await readFile(new URL("../verify/index.html", import.meta.url), "utf8");
 for (const code of ["PASS", "PASS_WITH_LIMITATIONS", "FAIL_CLOSED", "UNSUPPORTED_SCHEMA", "ERROR"]) {
@@ -135,6 +218,7 @@ assert.match(status, /Commercial boundary statement/);
 assert.match(status, /Research and technology services/);
 assert.match(status, /LIVE SIGNED OBSERVATIONS/);
 assert.match(status, /STATIC RELEASE RECORDS/);
+assert.match(status, /STATUS PLANE BOUNDARIES/);
 assert.match(status, /<script src="\/status-monitor\.js" defer><\/script>/);
 assert.match(status, /data-status-monitor-row="978"/);
 assert.match(status, /data-status-monitor-row="521"/);
@@ -163,12 +247,18 @@ assert.match(evidence, /class="hash-value"/);
 assert.match(evidence, /data-label="Hash"/);
 assert.match(evidence, /data-label="Limitation"/);
 assert.match(evidence, /data-copy-label="Full SHA copied"/);
+for (const group of ["Current release evidence", "Historical research evidence", "Observation evidence", "Independent evidence", "Superseded or revoked evidence"]) {
+  assert.match(evidence, new RegExp(group), `Evidence registry must expose ${group}.`);
+}
 assert.match(evidence, /Published kernel regression snapshot/);
 assert.match(evidence, /regression_001_p521_sub_overflow\.bin/);
 assert.match(evidence, /7d11e62691085056fde7193c23cc7b3ffbfde2171807f820fc94cecf6f19ee5e/);
 
 const audit = await readFile(new URL("../audit/index.html", import.meta.url), "utf8");
 assert.match(audit, /CURRENT PUBLIC RELEASE/);
+assert.match(audit, /Release Integrity Verification/);
+assert.match(audit, /VERIFICATION SUBJECT/);
+assert.match(audit, /Independent trust anchor/);
 assert.match(audit, /STATIC RELEASE SCOPE/);
 assert.match(audit, /\.well-known\/fenrua-release\.json/);
 assert.match(audit, /access-only-commercial-boundary/);

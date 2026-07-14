@@ -6,14 +6,24 @@
 > and related technology services.
 
 Canonical website: https://fenrua.ai/
+Platform orientation: https://fenrua.ai/platform
+Developer start paths: https://fenrua.ai/start
 Company and service boundary: https://fenrua.ai/legal
 Architecture: https://fenrua.ai/architecture
 Kernel: https://fenrua.ai/kernel
 Research: https://fenrua.ai/research
+Trust and claim records: https://fenrua.ai/trust
 Verification: https://fenrua.ai/verify
 Evidence registry: https://fenrua.ai/evidence
+Operations boundary: https://fenrua.ai/operations
 Release audit: https://fenrua.ai/audit
 Security contact and scope: https://fenrua.ai/security
+
+Machine-readable records:
+- https://fenrua.ai/data/capability-register.json
+- https://fenrua.ai/data/claim-register.json
+- https://fenrua.ai/data/evidence-taxonomy.json
+- https://fenrua.ai/data/route-lifecycle.json
 
 Fenrua Labs does not offer an investment, token-crowdfunding, exchange,
 trading, yield, or financial-return product. Public evidence is limited to each

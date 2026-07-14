@@ -22,7 +22,11 @@ assert.match(
   registry.evidenceLockIntegrityPolicy.projectDependencyReview.fenruaWebDependencyDrift,
   /Pinned Playwright and Vercel development dependencies/
 );
-assert.equal(registry.evidenceLockIntegrityPolicy.postEvidenceMutation.toolchainUpdatesPerformed, true);
+assert.equal(registry.evidenceLockIntegrityPolicy.postEvidenceMutation.toolchainUpdatesPerformed, false);
+assert.match(
+  registry.evidenceLockIntegrityPolicy.postEvidenceMutation.publicSummary,
+  /must not be read as a revision of captured tool versions/i
+);
 
 const byName = new Map(registry.tools.map((tool) => [tool.tool, tool]));
 

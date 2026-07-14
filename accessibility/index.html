@@ -126,13 +126,13 @@
     <link rel="icon" href="/assets/fenrua-header-logo.jpg" type="image/jpeg" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
-    <script src="/mobile-chain-status.js" defer></script>
 
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
-    <header class="site-header site-header-mobile-live" aria-label="Site header">
+
+    <header class="site-header" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua Protocol home">
         <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
         <span>
@@ -141,102 +141,46 @@
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="/">Overview</a>
-        <a href="/architecture">Architecture</a>
-        <a href="/kernel">Kernel</a>
-        <a href="/utilities">Utilities</a>
-        <a href="/research">Research</a>
-        <a href="/verify">Verify</a>
+        <a href="/platform">Platform</a>
         <a href="/developers">Developers</a>
-        <a href="/toolchain">Toolchain</a>
-        <a href="/evidence">Evidence</a>
-        <a href="/audit">Audit</a>
-        <a href="/status">Status</a>
-        <a class="nav-legal" href="/legal">Legal</a>
+        <a href="/research">Research</a>
+        <a href="/trust" aria-current="page">Trust</a>
+        <a href="/operations">Operations</a>
+        <a href="/company">Company</a>
       </nav>
-      <div class="mobile-nav-hint" aria-hidden="true">
-        <span>Swipe left for more</span>
-        <i class="mobile-nav-hint-track"><i></i></i>
-      </div>
-      <div class="header-chain-rail mobile-chain-rail" aria-label="Live block updates">
-        <article class="header-chain-card" data-chain-card="978">
-          <div class="chain-card-top">
-            <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <article class="header-chain-card" data-chain-card="521">
-          <div class="chain-card-top">
-            <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-        <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
-      </div>
     </header>
     <main id="content">
-      <section class="route-hero" aria-labelledby="page-title">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li aria-current="page">Accessibility</li>
+        </ol>
+      </nav>
+      <nav class="section-nav" aria-label="Trust section">
+        <span>Trust</span>
+        <div>
+          <a href="/trust">Trust overview</a>
+          <a href="/trust/claims">Claims</a>
+          <a href="/trust/evidence-classes">Evidence classes</a>
+          <a href="/evidence">Evidence</a>
+          <a href="/audit">Release verification</a>
+          <a href="/security">Security reporting</a>
+          <a href="/accessibility" aria-current="page">Accessibility</a>
+        </div>
+      </nav>
+      <section class="route-hero route-hero-solo" aria-labelledby="page-title">
         <div class="route-hero-copy">
           <p class="eyebrow">PUBLIC ACCESS</p>
           <h1 id="page-title">Accessibility</h1>
           <p>The public technical estate is designed for keyboard access, responsive inspection, readable contrast, and explicit status language.</p>
 
         </div>
-        <div class="route-hero-chain-rail" aria-label="Current signed chain observations">
-        <article class="header-chain-card" data-chain-card="978">
-          <div class="chain-card-top">
-            <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <article class="header-chain-card" data-chain-card="521">
-          <div class="chain-card-top">
-            <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-
-      </div>
       </section>
       <section class="section-shell">
+        <div class="section-heading">
+          <p class="eyebrow">ACCESS FEATURES</p>
+          <h2>Public interface practices</h2>
+        </div>
         <div class="route-grid"><article>
           <span>NAVIGATION</span>
           <h3>Keyboard-first structure</h3>
@@ -274,12 +218,12 @@
       <div class="footer-social">
         <p>Business enquiries: <a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a></p>
         <div class="footer-links" aria-label="Company links and verified public profiles">
-          <a href="/legal">Legal &amp; company</a>
+          <a href="/company">Company</a>
           <a href="/#commercial-boundary-title">Service boundary</a>
           <a href="https://github.com/fenrualabs" rel="me">GitHub</a>
           <a href="https://x.com/FenruaLabs" rel="me">X</a>
           <a href="https://www.linkedin.com/in/fenrua-labs-80b679388" rel="me">LinkedIn</a>
-          <a href="/audit">Audit</a>
+          <a href="/audit">Release verification</a>
           <a href="/evidence">Evidence</a>
           <a href="/toolchain">Toolchain</a>
           <a href="/.well-known/fenrua-release.json">Release manifest</a>

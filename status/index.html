@@ -132,7 +132,8 @@
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
-    <header class="site-header site-header-mobile-live" aria-label="Site header">
+
+    <header class="site-header" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua Protocol home">
         <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
         <span>
@@ -141,100 +142,38 @@
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="/">Overview</a>
-        <a href="/architecture">Architecture</a>
-        <a href="/kernel">Kernel</a>
-        <a href="/utilities">Utilities</a>
-        <a href="/research">Research</a>
-        <a href="/verify">Verify</a>
+        <a href="/platform">Platform</a>
         <a href="/developers">Developers</a>
-        <a href="/toolchain">Toolchain</a>
-        <a href="/evidence">Evidence</a>
-        <a href="/audit">Audit</a>
-        <a href="/status" aria-current="page">Status</a>
-        <a class="nav-legal" href="/legal">Legal</a>
+        <a href="/research">Research</a>
+        <a href="/trust">Trust</a>
+        <a href="/operations" aria-current="page">Operations</a>
+        <a href="/company">Company</a>
       </nav>
-      <div class="mobile-nav-hint" aria-hidden="true">
-        <span>Swipe left for more</span>
-        <i class="mobile-nav-hint-track"><i></i></i>
-      </div>
-      <div class="header-chain-rail mobile-chain-rail" aria-label="Live block updates">
-        <article class="header-chain-card" data-chain-card="978">
-          <div class="chain-card-top">
-            <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <article class="header-chain-card" data-chain-card="521">
-          <div class="chain-card-top">
-            <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-
-      </div>
     </header>
     <main id="content">
-      <section class="route-hero" aria-labelledby="page-title">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li aria-current="page">Status</li>
+        </ol>
+      </nav>
+      <nav class="section-nav" aria-label="Operations section">
+        <span>Operations</span>
+        <div>
+          <a href="/operations">Operations overview</a>
+          <a href="/status" aria-current="page">Status</a>
+          <a href="/operations/observations">Signed observations</a>
+          <a href="/audit">Release records</a>
+          <a href="/operations#service-catalogue">Service catalogue</a>
+        </div>
+      </nav>
+<!-- fenrua-assurance-scope:claims:claim.observation.signed-read-only,claim.observation.observed-block-label:start -->      <section class="route-hero route-hero-solo" aria-labelledby="page-title">
         <div class="route-hero-copy">
           <p class="eyebrow">STATUS AND PUBLIC OBSERVATIONS</p>
           <h1 id="page-title">Status</h1>
           <p>Current signed observations are monitored separately from static release records. A release record is never presented as a chain event or activation time.</p>
 
         </div>
-        <div class="route-hero-chain-rail" aria-label="Current signed chain observations">
-        <article class="header-chain-card" data-chain-card="978">
-          <div class="chain-card-top">
-            <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <article class="header-chain-card" data-chain-card="521">
-          <div class="chain-card-top">
-            <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-
-      </div>
       </section>
       <section class="section-shell">
         <div class="toolchain-summary state-grid">
@@ -281,6 +220,45 @@
                 <small>Reference definition · Retry: Retry after the published maintenance window.</small>
               </article>
         </div>
+      </section>
+      <section class="section-shell" aria-labelledby="status-planes-title">
+        <div class="section-heading"><p class="eyebrow">STATUS PLANE BOUNDARIES</p><h2 id="status-planes-title">What each status can and cannot mean</h2><p>Publication, service, dependency, observation, incident, and maintenance status remain separate. This page does not publish uptime or an SLO because the required measured service history is not available.</p></div>
+        <div class="route-grid"><article>
+          <span>01</span>
+          <h3>Publication status</h3>
+          <p>Static release commits, artifact manifests, and release verification records.</p>
+          <a href="/audit">Open related record</a>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Platform service health</h3>
+          <p>Only measured deployed services belong here. No unmeasured specification is presented as health.</p>
+          <a href="/operations#service-catalogue">Open related record</a>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Dependency health</h3>
+          <p>Only a measured dependency can receive a current state. The public source currently publishes no generic dependency-health dashboard.</p>
+          <a href="/operations">Open related record</a>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Signed external observation status</h3>
+          <p>Bounded signed observation state is visible only after its independent verification contract succeeds.</p>
+          <a href="/status">Open related record</a>
+        </article>
+        <article>
+          <span>05</span>
+          <h3>Security incident status</h3>
+          <p>No public incident history is fabricated. Private security reporting has its own scoped handling boundary.</p>
+          <a href="/security">Open related record</a>
+        </article>
+        <article>
+          <span>06</span>
+          <h3>Maintenance and change status</h3>
+          <p>Release and rollback changes are controlled through source-bound records and owner-authorised hosting actions.</p>
+          <a href="/audit">Open related record</a>
+        </article></div>
       </section>
       <section class="section-shell">
         <div class="section-heading">
@@ -453,7 +431,7 @@
             </tbody>
           </table>
         </div>
-      </section>
+      </section><!-- fenrua-assurance-scope:end -->
     </main>
     <footer class="site-footer">
       <div>
@@ -464,12 +442,12 @@
       <div class="footer-social">
         <p>Business enquiries: <a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a></p>
         <div class="footer-links" aria-label="Company links and verified public profiles">
-          <a href="/legal">Legal &amp; company</a>
+          <a href="/company">Company</a>
           <a href="/#commercial-boundary-title">Service boundary</a>
           <a href="https://github.com/fenrualabs" rel="me">GitHub</a>
           <a href="https://x.com/FenruaLabs" rel="me">X</a>
           <a href="https://www.linkedin.com/in/fenrua-labs-80b679388" rel="me">LinkedIn</a>
-          <a href="/audit">Audit</a>
+          <a href="/audit">Release verification</a>
           <a href="/evidence">Evidence</a>
           <a href="/toolchain">Toolchain</a>
           <a href="/.well-known/fenrua-release.json">Release manifest</a>

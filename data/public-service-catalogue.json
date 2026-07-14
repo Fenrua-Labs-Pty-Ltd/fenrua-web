@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "fenrua.public-service-catalogue.v1",
+  "lastReviewed": "2026-07-14",
+  "sourceReferences": {
+    "companyIdentityId": "company-identity",
+    "siteEvidenceId": "site-evidence-input",
+    "documentRegisterId": "public-document-register"
+  },
+  "services": [
+    {
+      "id": "service.public-website",
+      "name": "Fenrua public website and evidence interface",
+      "purpose": "Publishes company information, service information, technical documentation, research, evidence records, status information, and bounded read-only observations.",
+      "availability": "public",
+      "interface": {
+        "type": "website",
+        "targets": ["https://fenrua.ai/", "/legal", "/support"]
+      },
+      "dependencies": ["Static public artifact generation", "Canonical public domain"],
+      "dataClassification": "public",
+      "operationalOwner": "public-platform",
+      "statusSource": "site-evidence-input",
+      "evidenceSource": "site-evidence-input",
+      "supportBoundary": "Public business enquiries are handled through the published contact channel; the public site has no self-service account or checkout.",
+      "knownLimitation": "The public interface does not attest to live APIs, protected systems, private infrastructure, or client-specific environments.",
+      "sloState": "not-defined",
+      "incidentState": "not-defined",
+      "retirementState": "active"
+    },
+    {
+      "id": "service.public-research-and-evidence",
+      "name": "Public research and evidence records",
+      "purpose": "Publishes point-in-time research, technical, audit, and evidence artifacts with stated scope and limitations.",
+      "availability": "public",
+      "interface": {
+        "type": "website",
+        "targets": ["/research", "/evidence", "/audit"]
+      },
+      "dependencies": ["Versioned public source artifacts", "Public document register", "Release-manifest generation when a release is built"],
+      "dataClassification": "public",
+      "operationalOwner": "public-platform",
+      "statusSource": "site-evidence-input",
+      "evidenceSource": "site-evidence-input",
+      "supportBoundary": "Artifacts are public only within their listed revision, validation method, evidence, and limitation; no private evidence channel is exposed here.",
+      "knownLimitation": "Publication does not rerun underlying campaigns or provide universal certification or a guarantee.",
+      "sloState": "not-defined",
+      "incidentState": "not-defined",
+      "retirementState": "active"
+    },
+    {
+      "id": "service.bounded-read-only-observations",
+      "name": "Bounded read-only observations",
+      "purpose": "Exposes bounded public Chain 978 and Chain N521 observation states and public verification metadata without transaction or private-mesh access.",
+      "availability": "public",
+      "interface": {
+        "type": "public-api",
+        "targets": ["GET /api/chain-progress", "GET /api/chain-observation-key", "GET /api/chain-n521-observation-key", "/status"]
+      },
+      "dependencies": ["Bounded public observation gateway", "Public verification metadata", "Configured observation continuity controls"],
+      "dataClassification": "public",
+      "operationalOwner": "operations",
+      "statusSource": "source-observation-gateway",
+      "evidenceSource": "source-observation-gateway",
+      "supportBoundary": "Only read-only public observation fields and verification metadata are exposed; no public RPC, administrative interface, private endpoint, or signing key is exposed.",
+      "knownLimitation": "Observations do not prove contract safety, bytecode identity, reserve state, finality, deployment correctness, or chain availability; Chain N521 may remain awaiting independent evidence.",
+      "sloState": "not-defined",
+      "incidentState": "public-status",
+      "retirementState": "active"
+    },
+    {
+      "id": "service.technology-services-by-offer",
+      "name": "AI efficiency infrastructure technology services",
+      "purpose": "Offers research, development, software, infrastructure access, hosting, integration, technical support, and evidence-aware workflows within the relevant service scope.",
+      "availability": "agreement-specific",
+      "interface": {
+        "type": "business-enquiry",
+        "targets": ["mailto:partnerships@fenrua.ai", "/support"]
+      },
+      "dependencies": ["Service subscription or client-specific business agreement", "Applicable service description, price, scope, and terms"],
+      "dataClassification": "agreement-specific",
+      "operationalOwner": "commercial-operations",
+      "statusSource": "site-evidence-input",
+      "evidenceSource": "access-only-commercial-boundary",
+      "supportBoundary": "The relevant service description, price, scope, and terms govern a service; browsing the public site does not form a paid agreement.",
+      "knownLimitation": "The current public site does not expose self-service account creation or checkout and does not offer financial-return products.",
+      "sloState": "not-defined",
+      "incidentState": "private",
+      "retirementState": "active"
+    },
+    {
+      "id": "service.client-specific-technical-work",
+      "name": "Client-specific software and infrastructure work",
+      "purpose": "Provides client-specific software, infrastructure access, hosting, integration, support, and related work where covered by an agreement, order, or statement of work.",
+      "availability": "agreement-specific",
+      "interface": {
+        "type": "agreement",
+        "targets": ["Client-specific business agreement", "Applicable order or statement of work"]
+      },
+      "dependencies": ["Client-specific agreement", "Defined service scope and operational terms"],
+      "dataClassification": "agreement-specific",
+      "operationalOwner": "commercial-operations",
+      "statusSource": "site-evidence-input",
+      "evidenceSource": "site-evidence-input",
+      "supportBoundary": "Only the applicable agreement defines the client-specific service; no client data or delivery details are published in this catalogue.",
+      "knownLimitation": "No standard public product, client portal, or public operational commitment is represented by this entry.",
+      "sloState": "not-defined",
+      "incidentState": "private",
+      "retirementState": "active"
+    }
+  ]
+}

@@ -49,9 +49,9 @@ requests and serverless instances. `/api/chain-observation-key` and
 metadata plus an authenticated rotation certificate when a key transition is
 active; the progress adapter emits a rotation binding only after the durable
 checkpoint accepts its exact anchor. Production fails closed unless its
-explicitly namespaced checkpoint store is configured. Until Chain N521 has its
-own independently signed gateway and key, the UI truthfully shows that evidence
-is awaiting rather than simulating a live head.
+explicitly namespaced checkpoint store is configured. Until Chain N521 has an
+independent gateway and public verification key, the UI truthfully shows that
+evidence is awaiting rather than simulating a live head.
 
 See [Public Observation Gateway](docs/PUBLIC_OBSERVATION_GATEWAY.md) and copy
 the server-only variable names from `.env.example`; never commit their values.
@@ -82,11 +82,42 @@ npm run generate:static
 npm run validate
 ```
 
-`npm run validate` rejects stale generated routes and validates only the
-permitted public/static scope. `npm run release:check` additionally generates
-and verifies the release manifest, then runs browser checks only for Evidence,
-Status, Toolchain, and Verify, including their mobile header rail. It does not
-exercise the Overview desktop live-card surface or live production APIs.
+`npm run validate` rejects stale generated routes and validates the permitted
+public/static scope, canonical model, route lifecycle, evidence boundaries, and
+release-toolchain contract. `npm run release:check` additionally generates and
+verifies the release manifest, stages the complete public output, runs the
+bounded Overview and Status browser checks, route-wide accessibility analysis,
+the Chromium/Firefox/WebKit information-architecture matrix, JavaScript-disabled
+coverage, and a clean-checkout reproduction. It does not verify live production
+state or protected systems.
+
+## Canonical Public Model
+
+The public estate renders its material claims and capability boundaries from
+versioned inputs rather than page-only copy:
+
+- `data/product-ontology.json`
+- `data/capability-register.json`
+- `data/claim-register.json`
+- `data/evidence-taxonomy.json`
+- `data/assurance-language.json`
+- `data/public-service-catalogue.json`
+- `data/route-lifecycle.json`
+
+Useful local commands:
+
+```bash
+npm run check:ontology
+npm run check:capabilities
+npm run check:claims
+npm run check:evidence-taxonomy
+npm run test:ia
+npm run test:accessibility
+```
+
+The Local Trust Gate remains a planned research capability. This repository
+does not publish its CLI, SDK, hosted verifier, upload interface, or release
+artifact.
 
 ## Owner-approved Git Release
 
@@ -119,6 +150,9 @@ cards, APIs, private systems, or a perpetual production assertion.
 - `data/site-evidence.json` - deterministic commercial and point-in-time evidence input
 - `data/public-document-register.json` - public active/archive document register
 - `data/toolchain-registry.json` - public machine-readable toolchain registry
+- `data/capability-register.json` - canonical capability maturity and availability records
+- `data/claim-register.json` - canonical public claim records
+- `data/evidence-taxonomy.json` - evidence classes and source records
 - `scripts/generate-release-manifest.mjs` - release-only public static artifact manifest
 - `scripts/audit-live-release.mjs` - read-only post-deploy public artifact audit
 - `tests/browser/non-live-public-surface.spec.mjs` - non-live browser regression coverage
@@ -142,6 +176,9 @@ cards, APIs, private systems, or a perpetual production assertion.
 - `docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md` - access-only service statement
 - `docs/EXTERNAL_ARTIFACT_POLICY.md` - enforced outside-repository report boundary
 - `docs/PUBLIC_SECRET_BOUNDARY.md` - public source and external-vault separation policy
+- `docs/PUBLIC_DATA_FLOW.md` - source-bound public data-flow inventory
+- `docs/FENRUA_AI_EFFICIENCY_EVIDENCE_STANDARD.md` - evidence contract for future AI-efficiency claims
+- `docs/DEPENDENCY_LICENSES.md` - exact development dependency license inventory
 - `docs/archive/2026-07-13/` - superseded, noindex public-document records
 - `docs/VERCEL.md` - Vercel publishing notes for `fenrua.ai`
 - `docs/UTILITY_STANDARD.md` - repository operating standard

@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fenrua.ai/schemas/route-lifecycle.v1.schema.json",
+  "title": "Fenrua public route lifecycle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "canonicalOrigin", "reviewedAt", "records", "routeGroups", "documentArchives"],
+  "properties": {
+    "schemaVersion": { "const": "fenrua.route-lifecycle.v1" },
+    "canonicalOrigin": { "const": "https://fenrua.ai" },
+    "reviewedAt": { "type": "string", "format": "date" },
+    "records": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/routeRecord" }
+    },
+    "routeGroups": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/routeGroup" }
+    },
+    "documentArchives": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/documentArchive" }
+    }
+  },
+  "$defs": {
+    "routeState": {
+      "enum": ["current", "redirect", "gone", "archive", "reserved"]
+    },
+    "indexPolicy": {
+      "enum": ["index-follow", "noindex-follow", "noindex-nofollow-noarchive"]
+    },
+    "cacheClass": {
+      "enum": ["html-current", "redirect", "gone", "immutable-asset", "short-lived-data", "api-dynamic"]
+    },
+    "common": {
+      "type": "object",
+      "required": [
+        "id",
+        "state",
+        "methods",
+        "expectedStatus",
+        "destination",
+        "canonical",
+        "indexPolicy",
+        "cacheClass",
+        "contentOwner",
+        "replacement",
+        "effectiveDate",
+        "reviewDate",
+        "evidenceIds",
+        "notes"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "state": { "$ref": "#/$defs/routeState" },
+        "methods": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["GET", "HEAD"] },
+          "uniqueItems": true
+        },
+        "expectedStatus": { "type": "integer", "minimum": 100, "maximum": 599 },
+        "destination": { "type": ["string", "null"] },
+        "canonical": { "type": ["string", "null"] },
+        "indexPolicy": { "$ref": "#/$defs/indexPolicy" },
+        "cacheClass": { "$ref": "#/$defs/cacheClass" },
+        "contentOwner": { "type": "string", "minLength": 1 },
+        "replacement": { "type": ["string", "null"] },
+        "effectiveDate": { "type": "string", "format": "date" },
+        "reviewDate": { "type": "string", "format": "date" },
+        "evidenceIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "notes": { "type": "string" },
+        "routeClass": { "enum": ["html", "metadata", "api", "internal"] },
+        "contentType": { "type": ["string", "null"] },
+        "audit": { "type": "boolean" },
+        "ruleKind": { "enum": ["redirect", "rewrite"] },
+        "hostPattern": { "type": ["string", "null"] },
+        "pathPattern": { "type": "boolean" }
+      }
+    },
+    "routeRecord": {
+      "allOf": [
+        { "$ref": "#/$defs/common" },
+        {
+          "type": "object",
+          "required": ["path"],
+          "properties": {
+            "path": { "type": "string", "pattern": "^/" }
+          }
+        }
+      ]
+    },
+    "routeGroup": {
+      "allOf": [
+        { "$ref": "#/$defs/common" },
+        {
+          "type": "object",
+          "required": ["paths", "ruleKind"],
+          "properties": {
+            "paths": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "pattern": "^/" },
+              "uniqueItems": true
+            }
+          }
+        }
+      ]
+    },
+    "documentArchive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "path", "formerPath", "replacementPath", "archivedAt"],
+      "properties": {
+        "id": { "type": "string" },
+        "status": { "enum": ["archived", "superseded"] },
+        "path": { "type": "string", "pattern": "^/docs/archive/" },
+        "formerPath": { "type": ["string", "null"] },
+        "replacementPath": { "type": "string", "pattern": "^/" },
+        "archivedAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

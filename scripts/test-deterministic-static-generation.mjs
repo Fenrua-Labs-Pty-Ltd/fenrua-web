@@ -4,37 +4,20 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { outputDirectory, publicArtifactFiles, stagePublicOutput } from "./public-output-lib.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const routes = [
-  "index.html",
-  "architecture/index.html",
-  "kernel/index.html",
-  "utilities/index.html",
-  "research/index.html",
-  "research/pn521-cross-limb-borrow/index.html",
-  "research/toolchain-evidence-lock/index.html",
-  "research/read-only-chain-observation/index.html",
-  "verify/index.html",
-  "developers/index.html",
-  "toolchain/index.html",
-  "evidence/index.html",
-  "audit/index.html",
-  "status/index.html",
-  "support/index.html",
-  "legal/index.html",
-  "accessibility/index.html",
-  "security/index.html",
-  "sitemap.xml",
-];
+const artifacts = publicArtifactFiles();
 
 function digest(relativePath) {
-  return createHash("sha256").update(readFileSync(resolve(root, relativePath))).digest("hex");
+  return createHash("sha256").update(readFileSync(resolve(outputDirectory, relativePath))).digest("hex");
 }
 
-const before = new Map(routes.map((route) => [route, digest(route)]));
-execFileSync(process.execPath, ["scripts/generate-static-routes.mjs"], { cwd: root, stdio: "pipe" });
-const after = new Map(routes.map((route) => [route, digest(route)]));
+stagePublicOutput();
+const before = new Map(artifacts.map((artifact) => [artifact, digest(artifact)]));
+execFileSync("npm", ["run", "generate:static"], { cwd: root, stdio: "pipe" });
+stagePublicOutput();
+const after = new Map(artifacts.map((artifact) => [artifact, digest(artifact)]));
 
-assert.deepEqual(after, before, "Static generation must be byte-for-byte deterministic for the committed public inputs.");
-console.log(JSON.stringify({ status: "ok", scope: "deterministic-static-generation", files: routes.length }));
+assert.deepEqual(after, before, "Static generation and staged public output must be byte-for-byte deterministic for the committed public inputs.");
+console.log(JSON.stringify({ status: "ok", scope: "deterministic-static-generation", files: artifacts.length }));

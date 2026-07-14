@@ -1,0 +1,511 @@
+{
+  "schemaVersion": "fenrua.assurance-language.v1",
+  "lastReviewed": "2026-07-14",
+  "sourceReferences": {
+    "companyIdentityId": "company-identity",
+    "siteEvidenceId": "site-evidence-input",
+    "documentRegisterId": "public-document-register"
+  },
+  "contracts": [
+    {
+      "term": "published",
+      "level": 0,
+      "permittedEvidenceClasses": ["specification", "test", "build", "release", "runtime", "operational", "observation", "incident", "independent-reproduction", "external-review", "regulatory-compliance"],
+      "requires": ["A named source record", "Scope", "Limitation"],
+      "prohibitedWithout": "A source record and explicit boundary.",
+      "doesNotMean": ["Verified", "Reviewed", "Audited", "Production approved"],
+      "scan": false
+    },
+    {
+      "term": "observed",
+      "level": 20,
+      "permittedEvidenceClasses": ["runtime", "observation", "incident"],
+      "requires": ["A declared observation source", "Time or freshness boundary", "Measured field scope"],
+      "prohibitedWithout": "A scoped observation record with source and freshness semantics.",
+      "doesNotMean": ["Safety", "Finality", "Deployment correctness", "Causation"],
+      "scan": true
+    },
+    {
+      "term": "signed",
+      "level": 30,
+      "permittedEvidenceClasses": ["observation"],
+      "requires": ["Declared signature scheme or signature contract", "Public verification metadata or evidence path", "Signed payload boundary"],
+      "prohibitedWithout": "A declared signature contract and scoped verification material.",
+      "doesNotMean": ["Trusted signer beyond the declared identity", "Contract safety", "Finality", "Production approval"],
+      "scan": true
+    },
+    {
+      "term": "anchored",
+      "level": 40,
+      "permittedEvidenceClasses": ["release"],
+      "requires": ["Named anchor", "Integrity binding", "Scope and revision"],
+      "prohibitedWithout": "A verifiable anchor and artifact binding.",
+      "doesNotMean": ["Runtime attestation", "Independent review", "Immutability of unrelated systems"],
+      "scan": true
+    },
+    {
+      "term": "tested",
+      "level": 45,
+      "permittedEvidenceClasses": ["test"],
+      "requires": ["Named test", "Inputs or fixtures", "Expected behavior", "Result scope"],
+      "prohibitedWithout": "A repeatable test contract and relevant result evidence.",
+      "doesNotMean": ["Complete coverage", "Production safety", "Independent reproduction"],
+      "scan": true
+    },
+    {
+      "term": "validated",
+      "level": 50,
+      "permittedEvidenceClasses": ["test", "build", "release"],
+      "requires": ["Declared validation method", "Inputs or artifact set", "Result boundary"],
+      "prohibitedWithout": "A named validation process and scoped result.",
+      "doesNotMean": ["Production approval", "External assurance", "Security certification"],
+      "scan": true
+    },
+    {
+      "term": "reproduced",
+      "level": 55,
+      "permittedEvidenceClasses": ["test", "independent-reproduction"],
+      "requires": ["Repeatable procedure", "Inputs", "Result", "Environment or version scope"],
+      "prohibitedWithout": "A documented repetition of the declared procedure.",
+      "doesNotMean": ["Independent review unless stated", "Formal verification", "Production safety"],
+      "scan": true
+    },
+    {
+      "term": "verified",
+      "level": 60,
+      "permittedEvidenceClasses": ["test", "build", "release", "runtime", "observation", "regulatory-compliance"],
+      "requires": ["A named verification method", "Evidence or artifact scope", "Result or date boundary"],
+      "prohibitedWithout": "A scoped verification method and supporting record.",
+      "doesNotMean": ["Audited", "Certified", "Formally verified", "Production approved"],
+      "scan": true
+    },
+    {
+      "term": "reviewed",
+      "level": 65,
+      "permittedEvidenceClasses": ["specification", "operational", "incident", "external-review"],
+      "requires": ["Named reviewer or owner", "Scope", "Review date"],
+      "prohibitedWithout": "A named review record with scope and date.",
+      "doesNotMean": ["Independent review", "Audit", "Certification", "Production approval"],
+      "scan": true
+    },
+    {
+      "term": "independently reviewed",
+      "level": 70,
+      "permittedEvidenceClasses": ["independent-reproduction", "external-review"],
+      "requires": ["Independent reviewer identity", "Scope", "Method", "Dated report"],
+      "prohibitedWithout": "Evidence of reviewer independence and a scoped review record.",
+      "doesNotMean": ["Audit", "Certification", "Formal verification", "Production approval"],
+      "scan": true
+    },
+    {
+      "term": "audited",
+      "level": 75,
+      "permittedEvidenceClasses": ["external-review"],
+      "requires": ["Named auditor", "Scope", "Method", "Report date and integrity reference"],
+      "prohibitedWithout": "A scoped audit report from the named auditor.",
+      "doesNotMean": ["Complete absence of risk", "Certification", "Future compliance"],
+      "scan": true
+    },
+    {
+      "term": "attested",
+      "level": 80,
+      "permittedEvidenceClasses": ["runtime", "operational", "regulatory-compliance"],
+      "requires": ["Named attestor", "Attestation scope", "Date", "Integrity or identity binding"],
+      "prohibitedWithout": "A named attestation with date and declared scope.",
+      "doesNotMean": ["Independent audit", "Certification", "Formal verification"],
+      "scan": true
+    },
+    {
+      "term": "certified",
+      "level": 85,
+      "permittedEvidenceClasses": ["regulatory-compliance"],
+      "requires": ["Named certifying authority", "Certificate or determination", "Scope", "Validity boundary"],
+      "prohibitedWithout": "A valid named certification and scope.",
+      "doesNotMean": ["Production safety outside certificate scope", "Future compliance", "Universal assurance"],
+      "scan": true
+    },
+    {
+      "term": "formally verified",
+      "level": 90,
+      "permittedEvidenceClasses": ["test"],
+      "requires": ["Formal model or proof artifact", "Theorem or property", "Tool and version", "Proof scope"],
+      "prohibitedWithout": "A reproducible formal proof artifact and declared property.",
+      "doesNotMean": ["Runtime safety outside the proven model", "Audit", "Production approval"],
+      "scan": true
+    },
+    {
+      "term": "production-approved",
+      "level": 95,
+      "permittedEvidenceClasses": ["operational"],
+      "requires": ["Runtime evidence", "Operational evidence", "Security review appropriate to scope", "Owner-approved release decision"],
+      "prohibitedWithout": "All required production evidence and an owner-approved release decision.",
+      "doesNotMean": ["Perpetual availability", "Security certification", "Approval of unrelated systems"],
+      "scan": true
+    }
+  ],
+  "contentScan": {
+    "root": "public",
+    "allowances": [
+      {
+        "files": ["public/index.html"],
+        "term": "signed",
+        "context": "SIGNED READ-ONLY OBSERVATION",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/index.html"],
+        "term": "signed",
+        "context": "Signed Chain Observation Boundary",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/index.html"],
+        "term": "signed",
+        "context": "Each chain is presented from its own independently signed bounded observation when one validates; otherwise its state remains waiting or unavailable.",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/index.html"],
+        "term": "signed",
+        "context": "awaiting signed observation",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 5,
+        "maximumMatches": 5
+      },
+      {
+        "files": ["public/index.html"],
+        "term": "signed",
+        "context": "No current signed observation",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 2,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/index.html"],
+        "term": "signed",
+        "context": "Signed activity",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 2,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/index.html"],
+        "term": "observed",
+        "context": "Latest observed block",
+        "claimId": "claim.observation.observed-block-label",
+        "contextType": "claim",
+        "minimumMatches": 2,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/index.html"],
+        "term": "observed",
+        "context": "Observed No current signed observation",
+        "claimId": "claim.observation.observed-block-label",
+        "contextType": "claim",
+        "minimumMatches": 2,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/audit/index.html"],
+        "term": "signed",
+        "context": "Dynamic live block-card data, endpoint responses, refresh state, signed observations, and all protected operational surfaces.",
+        "claimId": "claim.release.static-artifact-binding",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/evidence/index.html"],
+        "term": "verified",
+        "context": "Verified / Revocation",
+        "claimId": "claim.evidence.point-in-time-boundary",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/evidence/index.html"],
+        "term": "validated",
+        "context": "This table is generated from the validated, point-in-time kernel snapshot pinned to",
+        "claimId": "claim.evidence.point-in-time-boundary",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/legal/index.html"],
+        "term": "verified",
+        "context": "Verified company identity and the current public scope for research, development, AI efficiency infrastructure software, related technology services, evidence, and contact.",
+        "claimId": "claim.company.identity-source-record",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/legal/index.html"],
+        "term": "verified",
+        "context": "Registry details last verified 13 July 2026.",
+        "claimId": "claim.company.identity-source-record",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/legal/index.html"],
+        "term": "signed",
+        "context": "Signed read-only observations",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/legal/index.html"],
+        "term": "signed",
+        "context": "Bounded, signed, state-dependent public observations. They do not accept transactions or establish claims outside their stated evidence.",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/legal/index.html"],
+        "term": "verified",
+        "context": "Their public descriptions must reflect verified current handling rather than hypothetical future systems.",
+        "claimId": "claim.security.private-reporting-boundary",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/research/index.html", "public/research/read-only-chain-observation/index.html"],
+        "term": "signed",
+        "context": "Chain 978 and Chain N521 can be exposed only as independently signed, bounded read-only observations.",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/security/index.html"],
+        "term": "reproduced",
+        "context": "Report vulnerabilities privately so they can be reproduced, contained, and documented without exposing users or protected systems.",
+        "claimId": "claim.security.private-reporting-boundary",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/security/index.html"],
+        "term": "observed",
+        "context": "Include the affected revision, exact reproduction steps, observed impact, and the minimum evidence required to validate the issue.",
+        "claimId": "claim.security.private-reporting-boundary",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/status/index.html"],
+        "term": "signed",
+        "context": "Current signed observations are monitored separately from static release records. A release record is never presented as a chain event or activation time.",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/status/index.html"],
+        "term": "verified",
+        "context": "Request started; verified status not yet available.",
+        "claimId": "claim.observation.n521-awaiting",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/status/index.html"],
+        "term": "signed",
+        "context": "LIVE SIGNED OBSERVATIONS",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/status/index.html"],
+        "term": "signed",
+        "context": "Each chain row is populated only from the bounded public observation endpoint. \"Last signed observation\" is that chain's signed observation time, not an activation event or release-build time.",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 2,
+        "maximumMatches": 4
+      },
+      {
+        "files": ["public/status/index.html"],
+        "term": "signed",
+        "context": "Checking the bounded public monitor. No current chain state is asserted until a signed observation is returned.",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 4
+      },
+      {
+        "files": ["public/status/index.html"],
+        "term": "signed",
+        "context": "Last signed observation",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/status/index.html"],
+        "term": "signed",
+        "context": "Signed sequence",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/status/index.html"],
+        "term": "observed",
+        "context": "Observed block",
+        "claimId": "claim.observation.observed-block-label",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/status/index.html"],
+        "term": "signed",
+        "context": "Checking for a signed public observation.",
+        "claimId": "claim.observation.signed-read-only",
+        "contextType": "claim",
+        "minimumMatches": 2,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/status/index.html"],
+        "term": "verified",
+        "context": "Not yet verified",
+        "claimId": "claim.observation.n521-awaiting",
+        "contextType": "explanatory",
+        "minimumMatches": 2,
+        "maximumMatches": 4
+      },
+      {
+        "files": ["public/toolchain/index.html"],
+        "term": "verified",
+        "context": "Version verified",
+        "claimId": "claim.toolchain.version-capture",
+        "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": null
+      },
+      {
+        "files": ["public/toolchain/index.html"],
+        "term": "tested",
+        "context": "Smoke tested",
+        "claimId": "claim.toolchain.version-capture",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": null
+      },
+      {
+        "files": ["public/toolchain/index.html"],
+        "term": "verified",
+        "context": "Image presence was verified; the container was not executed for this website task.",
+        "claimId": "claim.toolchain.version-capture",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/toolchain/index.html"],
+        "term": "tested",
+        "context": "The binary does not expose a version string in the tested command.",
+        "claimId": "claim.toolchain.version-capture",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/toolchain/index.html"],
+        "term": "verified",
+        "context": "Image presence was verified; no Trivy scan was run for this website task.",
+        "claimId": "claim.toolchain.version-capture",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/toolchain/index.html"],
+        "term": "verified",
+        "context": "Image presence was verified; container execution was not required.",
+        "claimId": "claim.toolchain.version-capture",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/toolchain/index.html"],
+        "term": "verified",
+        "context": "Image presence was verified; no database tests were run for this website task.",
+        "claimId": "claim.toolchain.version-capture",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 2
+      },
+      {
+        "files": ["public/utilities/index.html"],
+        "term": "signed",
+        "context": "Create signed evidence bundles.",
+        "claimId": "claim.evidence.bundle-specification",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/verify/index.html"],
+        "term": "verified",
+        "context": "{ \"result\": \"PASS_WITH_LIMITATIONS\", \"manifestSchema\": \"valid\", \"identity\": \"verified\", \"signatures\": \"verified\", \"artifactIntegrity\": \"verified\", \"policyIntegrity\": \"verified\", \"evidenceCompleteness\": \"partial\", \"runtimeConformity\": \"unverified\", \"revocationStatus\": \"active\" }",
+        "claimId": "claim.verifier.local-boundary",
+        "contextType": "fixture",
+        "minimumMatches": 4,
+        "maximumMatches": 4
+      },
+      {
+        "files": ["public/verify/index.html"],
+        "term": "verified",
+        "context": "Signature could not be verified.",
+        "claimId": "claim.verifier.local-boundary",
+        "contextType": "fixture",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/accessibility/index.html"],
+        "term": "tested",
+        "context": "Skip links, landmarks, focus-visible controls, and keyboard-scrollable technical tables are part of the tested interface.",
+        "claimId": "claim.platform.public-evidence-interface",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      }
+    ]
+  }
+}

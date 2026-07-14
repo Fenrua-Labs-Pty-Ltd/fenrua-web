@@ -127,13 +127,13 @@
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
     <script src="/toolchain/toolchain.js" defer></script>
-    <script src="/mobile-chain-status.js" defer></script>
 
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
-    <header class="site-header site-header-mobile-live" aria-label="Site header">
+
+    <header class="site-header" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua Protocol home">
         <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
         <span>
@@ -142,100 +142,72 @@
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="/">Overview</a>
-        <a href="/architecture">Architecture</a>
-        <a href="/kernel">Kernel</a>
-        <a href="/utilities">Utilities</a>
-        <a href="/research">Research</a>
-        <a href="/verify">Verify</a>
+        <a href="/platform">Platform</a>
         <a href="/developers">Developers</a>
-        <a href="/toolchain">Toolchain</a>
-        <a href="/evidence" aria-current="page">Evidence</a>
-        <a href="/audit">Audit</a>
-        <a href="/status">Status</a>
-        <a class="nav-legal" href="/legal">Legal</a>
+        <a href="/research">Research</a>
+        <a href="/trust" aria-current="page">Trust</a>
+        <a href="/operations">Operations</a>
+        <a href="/company">Company</a>
       </nav>
-      <div class="mobile-nav-hint" aria-hidden="true">
-        <span>Swipe left for more</span>
-        <i class="mobile-nav-hint-track"><i></i></i>
-      </div>
-      <div class="header-chain-rail mobile-chain-rail" aria-label="Live block updates">
-        <article class="header-chain-card" data-chain-card="978">
-          <div class="chain-card-top">
-            <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <article class="header-chain-card" data-chain-card="521">
-          <div class="chain-card-top">
-            <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
-        </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-        <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
-      </div>
     </header>
     <main id="content">
-      <section class="route-hero" aria-labelledby="page-title">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li aria-current="page">Evidence</li>
+        </ol>
+      </nav>
+      <nav class="section-nav" aria-label="Trust section">
+        <span>Trust</span>
+        <div>
+          <a href="/trust">Trust overview</a>
+          <a href="/trust/claims">Claims</a>
+          <a href="/trust/evidence-classes">Evidence classes</a>
+          <a href="/evidence" aria-current="page">Evidence</a>
+          <a href="/audit">Release verification</a>
+          <a href="/security">Security reporting</a>
+          <a href="/accessibility">Accessibility</a>
+        </div>
+      </nav>
+<!-- fenrua-assurance-scope:claims:claim.observation.signed-read-only:start -->      <section class="route-hero route-hero-solo" aria-labelledby="page-title">
         <div class="route-hero-copy">
           <p class="eyebrow">PUBLIC EVIDENCE</p>
           <h1 id="page-title">Evidence Registry</h1>
           <p>Current public release evidence is separated from historical source evidence and every record states its limitation.</p>
           <div class="cta-row"><a class="button button-primary" href="/audit">Read current audit</a><a class="button button-secondary" href="/.well-known/fenrua-release.json">Release manifest</a></div>
         </div>
-        <div class="route-hero-chain-rail" aria-label="Current signed chain observations">
-        <article class="header-chain-card" data-chain-card="978">
-          <div class="chain-card-top">
-            <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+      </section>
+      <section class="section-shell" aria-labelledby="evidence-groups"><div class="section-heading"><p class="eyebrow">EVIDENCE STATE</p><h2 id="evidence-groups">Freshness and supersession stay visible</h2><p>Evidence type, freshness, authority, and what a record does not prove are separate dimensions. Empty categories remain explicit rather than being filled with a stronger claim.</p></div>
+        <div class="route-grid"><article>
+          <span>01</span>
+          <h3>Current release evidence</h3>
+          <p>The release manifest and audit bind the current static artifact set at a point in time. Freshness ends when a later source-bound release supersedes it.</p>
+          <a href="/audit">Release verification</a>
         </article>
-        <article class="header-chain-card" data-chain-card="521">
-          <div class="chain-card-top">
-            <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
-          </div>
-          <div class="header-chain-block">
-            <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
-          </div>
-          <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
+        <article>
+          <span>02</span>
+          <h3>Historical research evidence</h3>
+          <p>Kernel snapshots, regression records, and the frozen toolchain capture remain historical source evidence. They retain their named revision and limitation rather than becoming current release proof.</p>
+          <a href="/research">Research records</a>
         </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-
-      </div>
+        <article>
+          <span>03</span>
+          <h3>Observation evidence</h3>
+          <p>Signed observations are short-lived and shown only through the bounded monitor after signature, sequence, and freshness checks. Static pages do not retain a current observation claim.</p>
+          <a href="/operations/observations">Observation boundary</a>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Independent evidence</h3>
+          <p>No independent reproduction or external-review record is currently published. A source record or internal test is not relabelled as independent assurance.</p>
+          <a href="/trust/evidence-classes">Evidence-class limits</a>
+        </article>
+        <article>
+          <span>05</span>
+          <h3>Superseded or revoked evidence</h3>
+          <p>No current registry entry is presented as revoked. Superseded records remain visible only with their replacement context and must not be read as current evidence.</p>
+          <a href="/audit">Document status</a>
+        </article></div>
       </section>
       <section class="section-shell">
         <div class="registry evidence-table" role="region" tabindex="0" aria-label="Public evidence registry">
@@ -305,14 +277,14 @@
 <tr id="toolchain-evidence-lock">
       <td data-label="Artifact"><code>toolchain-evidence-lock</code><br>Toolchain Evidence Lock<br><small>toolchain registry</small></td>
       <td data-label="Claim">Detected tool versions are preserved to match the inspected evidence environment.</td>
-      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">44f7d669a61aa1a990acc94aecabc4a9be6d59063353684c64e29f5e094bcf2f</code><button type="button" data-copy="44f7d669a61aa1a990acc94aecabc4a9be6d59063353684c64e29f5e094bcf2f" data-copy-label="Full SHA copied">Copy hash</button></div></td>
+      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">ee82a0446079437b8244618db9aaa55bd620811198d1c978fd7412e1209e8286</code><button type="button" data-copy="ee82a0446079437b8244618db9aaa55bd620811198d1c978fd7412e1209e8286" data-copy-label="Full SHA copied">Copy hash</button></div></td>
       <td data-label="Source"><a href="/data/toolchain-registry.json">data/toolchain-registry.json</a><br><small>fenrua-web public registry</small></td>
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">845187ca3dea57723b31ec5306fed1c275fcdcb7</code><small>Evidence: <code class="hash-value">toolchain-lock-2026-07-12</code></small></div></td>
       <td data-label="Producer">data/toolchain-registry.json<br><small>Node.js, Semgrep 1.169.0, SnarkJS snarkjs@0.7.6</small></td>
       <td data-label="Command"><code>node scripts/test-toolchain-registry.mjs</code></td>
       <td data-label="Verified / Revocation">2026-07-14<br><small>Maturity: Historical toolchain evidence · Revocation: historical</small></td>
       <td data-label="Supersession">none / none</td>
-      <td data-label="Limitation">Frozen toolchain capture; it is not current deployment provenance or security proof.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: toolchain-evidence-lock&#10;Hash: 44f7d669a61aa1a990acc94aecabc4a9be6d59063353684c64e29f5e094bcf2f&#10;Source revision: 845187ca3dea57723b31ec5306fed1c275fcdcb7&#10;Evidence revision: toolchain-lock-2026-07-12&#10;Verified: 2026-07-14&#10;Scope: Frozen toolchain capture; it is not current deployment provenance or security proof." data-copy-label="Evidence citation copied">Copy citation</button></td>
+      <td data-label="Limitation">Frozen toolchain capture; it is not current deployment provenance or security proof.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: toolchain-evidence-lock&#10;Hash: ee82a0446079437b8244618db9aaa55bd620811198d1c978fd7412e1209e8286&#10;Source revision: 845187ca3dea57723b31ec5306fed1c275fcdcb7&#10;Evidence revision: toolchain-lock-2026-07-12&#10;Verified: 2026-07-14&#10;Scope: Frozen toolchain capture; it is not current deployment provenance or security proof." data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>
             </tbody>
           </table>
@@ -338,7 +310,7 @@
             </tbody>
           </table>
         </div>
-      </section>
+      </section><!-- fenrua-assurance-scope:end -->
     </main>
     <footer class="site-footer">
       <div>
@@ -349,12 +321,12 @@
       <div class="footer-social">
         <p>Business enquiries: <a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a></p>
         <div class="footer-links" aria-label="Company links and verified public profiles">
-          <a href="/legal">Legal &amp; company</a>
+          <a href="/company">Company</a>
           <a href="/#commercial-boundary-title">Service boundary</a>
           <a href="https://github.com/fenrualabs" rel="me">GitHub</a>
           <a href="https://x.com/FenruaLabs" rel="me">X</a>
           <a href="https://www.linkedin.com/in/fenrua-labs-80b679388" rel="me">LinkedIn</a>
-          <a href="/audit">Audit</a>
+          <a href="/audit">Release verification</a>
           <a href="/evidence">Evidence</a>
           <a href="/toolchain">Toolchain</a>
           <a href="/.well-known/fenrua-release.json">Release manifest</a>

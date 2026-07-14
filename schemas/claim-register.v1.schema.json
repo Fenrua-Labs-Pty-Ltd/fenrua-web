@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fenrua.ai/schemas/claim-register.v1.schema.json",
+  "title": "Fenrua claim register v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "lastReviewed", "sourceReferences", "claims"],
+  "properties": {
+    "schemaVersion": { "const": "fenrua.claim-register.v1" },
+    "lastReviewed": { "type": "string", "format": "date" },
+    "sourceReferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["companyIdentityId", "siteEvidenceId", "documentRegisterId"],
+      "properties": {
+        "companyIdentityId": { "type": "string", "minLength": 1 },
+        "siteEvidenceId": { "type": "string", "minLength": 1 },
+        "documentRegisterId": { "type": "string", "minLength": 1 }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "anchor",
+          "statement",
+          "subjectId",
+          "assertionState",
+          "assuranceVerb",
+          "evidenceClass",
+          "evidenceIds",
+          "scope",
+          "environment",
+          "assessor",
+          "independence",
+          "validFrom",
+          "expiresAt",
+          "supersedes",
+          "supersededBy",
+          "limitations",
+          "publicRoutes"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^claim\\.[a-z0-9.-]+$" },
+          "anchor": { "type": "string", "pattern": "^claim-[a-z0-9-]+$" },
+          "statement": { "type": "string", "minLength": 1 },
+          "subjectId": { "type": "string", "pattern": "^capability\\.[a-z0-9-]+$" },
+          "assertionState": { "enum": ["current", "planned", "design", "research-question", "historical"] },
+          "assuranceVerb": { "type": "string", "minLength": 1 },
+          "evidenceClass": { "type": "string", "minLength": 1 },
+          "evidenceIds": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "scope": { "type": "string", "minLength": 1 },
+          "environment": { "type": "string", "minLength": 1 },
+          "assessor": { "type": "string", "minLength": 1 },
+          "independence": { "enum": ["same-author", "internal-independent", "external"] },
+          "validFrom": { "type": "string", "format": "date" },
+          "expiresAt": { "type": ["string", "null"], "format": "date" },
+          "supersedes": { "type": "array", "items": { "type": "string", "pattern": "^claim\\." } },
+          "supersededBy": { "type": ["string", "null"], "pattern": "^claim\\." },
+          "limitations": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "publicRoutes": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^/" } }
+        }
+      }
+    }
+  }
+}

@@ -9,12 +9,43 @@ const siteEvidencePath = path.join(root, "data", "site-evidence.json");
 const companyIdentityPath = path.join(root, "data", "company-identity.json");
 const documentRegisterPath = path.join(root, "data", "public-document-register.json");
 const kernelStatusPath = path.join(root, "kernel-status.js");
+const publicModelPaths = {
+  ontology: path.join(root, "data", "product-ontology.json"),
+  capabilities: path.join(root, "data", "capability-register.json"),
+  claims: path.join(root, "data", "claim-register.json"),
+  evidence: path.join(root, "data", "evidence-taxonomy.json"),
+  assurance: path.join(root, "data", "assurance-language.json"),
+  services: path.join(root, "data", "public-service-catalogue.json"),
+};
 const registryRaw = readFileSync(registryPath, "utf8");
 const registry = JSON.parse(registryRaw);
 const registryHash = createHash("sha256").update(registryRaw).digest("hex");
 const siteEvidenceRaw = readFileSync(siteEvidencePath, "utf8");
 const siteEvidence = JSON.parse(siteEvidenceRaw);
 const company = JSON.parse(readFileSync(companyIdentityPath, "utf8"));
+const publicModel = Object.fromEntries(
+  Object.entries(publicModelPaths).map(([key, file]) => [key, JSON.parse(readFileSync(file, "utf8"))])
+);
+const productOntology = publicModel.ontology;
+const capabilityRegister = publicModel.capabilities;
+const claimRegister = publicModel.claims;
+const evidenceTaxonomy = publicModel.evidence;
+const assuranceLanguage = publicModel.assurance;
+const publicServiceCatalogue = publicModel.services;
+if (
+  !Array.isArray(productOntology.entities)
+  || !Array.isArray(capabilityRegister.capabilities)
+  || !Array.isArray(claimRegister.claims)
+  || !Array.isArray(evidenceTaxonomy.classes)
+  || !Array.isArray(evidenceTaxonomy.evidenceRecords)
+  || !Array.isArray(assuranceLanguage.contracts)
+  || !Array.isArray(publicServiceCatalogue.services)
+) {
+  throw new Error("The canonical public model must expose complete versioned arrays before routes are generated.");
+}
+const capabilitiesById = new Map(capabilityRegister.capabilities.map((capability) => [capability.id, capability]));
+const claimsById = new Map(claimRegister.claims.map((claim) => [claim.id, claim]));
+const evidenceById = new Map(evidenceTaxonomy.evidenceRecords.map((record) => [record.id, record]));
 if (
   !Array.isArray(company.publicProfiles)
   || company.publicProfiles.length !== 3
@@ -94,19 +125,91 @@ const manifestRecord = kernelEvidenceRecord("Genesis Manifest Record");
 const differentialRecord = kernelEvidenceRecord("Differential Validation");
 
 const nav = [
-  ["Overview", "/"],
-  ["Architecture", "/architecture"],
-  ["Kernel", "/kernel"],
-  ["Utilities", "/utilities"],
-  ["Research", "/research"],
-  ["Verify", "/verify"],
+  ["Platform", "/platform"],
   ["Developers", "/developers"],
-  ["Toolchain", "/toolchain"],
-  ["Evidence", "/evidence"],
-  ["Audit", "/audit"],
-  ["Status", "/status"],
-  ["Legal", "/legal"],
+  ["Research", "/research"],
+  ["Trust", "/trust"],
+  ["Operations", "/operations"],
+  ["Company", "/company"],
 ];
+
+const sectionNavigation = {
+  Platform: [
+    ["Platform overview", "/platform"],
+    ["Architecture", "/architecture"],
+    ["Security Kernel", "/kernel"],
+    ["Utilities", "/utilities"],
+    ["Deployment profiles", "/architecture/deployment"],
+    ["Efficiency evidence", "/docs/FENRUA_AI_EFFICIENCY_EVIDENCE_STANDARD.md"],
+  ],
+  Developers: [
+    ["Developers", "/developers"],
+    ["Start", "/start"],
+    ["Verify locally", "/verify"],
+    ["Toolchain", "/toolchain"],
+    ["Schemas and examples", "/verify"],
+  ],
+  Research: [
+    ["Research registry", "/research"],
+    ["P/N521", "/research/pn521-cross-limb-borrow"],
+    ["Toolchain evidence lock", "/research/toolchain-evidence-lock"],
+    ["Observation boundary", "/research/read-only-chain-observation"],
+  ],
+  Trust: [
+    ["Trust overview", "/trust"],
+    ["Claims", "/trust/claims"],
+    ["Evidence classes", "/trust/evidence-classes"],
+    ["Evidence", "/evidence"],
+    ["Release verification", "/audit"],
+    ["Security reporting", "/security"],
+    ["Accessibility", "/accessibility"],
+  ],
+  Operations: [
+    ["Operations overview", "/operations"],
+    ["Status", "/status"],
+    ["Signed observations", "/operations/observations"],
+    ["Release records", "/audit"],
+    ["Service catalogue", "/operations#service-catalogue"],
+  ],
+  Company: [
+    ["Company overview", "/company"],
+    ["Legal and company", "/legal"],
+    ["Support", "/support"],
+    ["Public data flow", "/docs/PUBLIC_DATA_FLOW.md"],
+  ],
+};
+
+const routeLabels = {
+  "": "Home",
+  architecture: "Architecture",
+  components: "Components",
+  runtime: "Runtime",
+  deployment: "Deployment",
+  "trust-boundaries": "Trust boundaries",
+  "data-and-provenance": "Data and provenance",
+  recovery: "Recovery",
+  evolution: "Evolution",
+  developers: "Developers",
+  evidence: "Evidence",
+  "evidence-classes": "Evidence classes",
+  audit: "Release verification",
+  operations: "Operations",
+  observations: "Signed observations",
+  platform: "Platform",
+  trust: "Trust",
+  company: "Company",
+  start: "Start",
+  status: "Status",
+  legal: "Legal and company",
+  support: "Support",
+  security: "Security reporting",
+  accessibility: "Accessibility",
+  verify: "Verify locally",
+  toolchain: "Toolchain",
+  utilities: "Utilities",
+  kernel: "Security Kernel",
+  research: "Research",
+};
 
 const evidenceRecords = [
   {
@@ -316,6 +419,15 @@ const statusCards = [
   ["maintenance", "Maintenance", "Source is undergoing maintenance.", "Retry after the published maintenance window."],
 ];
 
+const statusPlanes = [
+  ["Publication status", "Static release commits, artifact manifests, and release verification records.", "/audit"],
+  ["Platform service health", "Only measured deployed services belong here. No unmeasured specification is presented as health.", "/operations#service-catalogue"],
+  ["Dependency health", "Only a measured dependency can receive a current state. The public source currently publishes no generic dependency-health dashboard.", "/operations"],
+  ["Signed external observation status", "Bounded signed observation state is visible only after its independent verification contract succeeds.", "/status"],
+  ["Security incident status", "No public incident history is fabricated. Private security reporting has its own scoped handling boundary.", "/security"],
+  ["Maintenance and change status", "Release and rollback changes are controlled through source-bound records and owner-authorised hosting actions.", "/audit"],
+];
+
 const verificationResults = [
   ["PASS", "All supplied checks passed.", "pass.example.json"],
   ["PASS_WITH_LIMITATIONS", "Checks passed but runtime or completeness limitations remain.", "pass-with-limitations.example.json"],
@@ -341,6 +453,24 @@ function esc(value) {
 
 function attr(value) {
   return esc(value).replaceAll("'", "&#39;");
+}
+
+function assuranceScope(mode, claimIds, content) {
+  const ids = Array.isArray(claimIds) ? claimIds : [];
+  if (mode === "claims") {
+    if (ids.length === 0) throw new Error("A claim-bound assurance scope must name at least one claim.");
+    for (const id of ids) {
+      if (!claimsById.has(id)) throw new Error(`Assurance scope references unknown claim ${id}.`);
+    }
+  } else if (mode === "capability") {
+    if (ids.length !== 1) throw new Error("A capability assurance scope must name exactly one capability.");
+    if (!capabilitiesById.has(ids[0])) throw new Error(`Assurance scope references unknown capability ${ids[0]}.`);
+  } else if (mode === "taxonomy") {
+    if (ids.length > 0) throw new Error("An assurance taxonomy scope cannot name claims.");
+  } else {
+    throw new Error(`Unsupported assurance scope mode ${mode}.`);
+  }
+  return `<!-- fenrua-assurance-scope:${mode}:${ids.join(",") || "-"}:start -->${content}<!-- fenrua-assurance-scope:end -->`;
 }
 
 function copyAttr(value) {
@@ -371,6 +501,7 @@ function toolchainDisplayTags(tool) {
   }
 
   if (tool.evidenceProduced) tags.push("EVIDENCE_PRODUCING");
+  if (hasExecutedCampaign(tool)) tags.push("CAMPAIGN_EXECUTED");
   if ((tool.pipeline ?? []).some((pipeline) => !["version-inventory", "inventory", "website"].includes(pipeline))) {
     tags.push("CANONICAL_PIPELINE");
   }
@@ -381,6 +512,26 @@ function toolchainDisplayTags(tool) {
   if (tool.installationMode.includes("project-local")) tags.push("PROJECT_LOCAL");
 
   return [...new Set(tags)];
+}
+
+function hasExecutedCampaign(tool) {
+  if (!tool.executed || !tool.evidenceProduced) return false;
+  return (tool.commands ?? []).some((command) => /(?:npm run (?:validate|test(?::[\w-]+)?))|(?:node scripts\/(?:check|test)-[\w-]+\.mjs)|(?:playwright test)/i.test(command));
+}
+
+function toolchainEvidenceLinks(tool) {
+  if (!tool.evidenceProduced) return `<small>No evidence-producing record is declared for this tool.</small>`;
+  const sourceRevision = evidenceRecords.find((record) => record.id === "toolchain-evidence-lock")?.sourceCommit ?? "not recorded";
+  const campaign = hasExecutedCampaign(tool)
+    ? (tool.commands ?? []).filter((command) => /validate|test|check/i.test(command)).join(" · ")
+    : "No validation campaign is declared by the frozen record.";
+  return `<div class="tool-evidence-links">
+        <p><strong>Campaign:</strong> <code>${esc(campaign)}</code></p>
+        <p><strong>Artifact:</strong> <a href="/data/toolchain-registry.json">Frozen registry entry</a> · <small>${esc(tool.evidencePath)}</small></p>
+        <p><strong>Claim:</strong> <a href="/trust/claims#claim-toolchain-version-capture">Toolchain version-capture boundary</a></p>
+        <p><strong>Source revision:</strong> <a href="/evidence#toolchain-evidence-lock"><code>${esc(sourceRevision)}</code></a></p>
+        <p><strong>Limitation:</strong> ${esc(tool.limitations)}</p>
+      </div>`;
 }
 
 function countTools(predicate) {
@@ -404,8 +555,8 @@ function toolchainStats() {
     ["Installed", countTools((tool) => tool.installed)],
     ["Version verified", tagCounts.get("VERSION_VERIFIED") ?? 0],
     ["Smoke tested", tagCounts.get("SMOKE_TESTED") ?? 0],
-    ["Campaign executed", tagCounts.get("EVIDENCE_PRODUCING") ?? 0],
     ["Evidence producing", tagCounts.get("EVIDENCE_PRODUCING") ?? 0],
+    ["Campaign executed", tagCounts.get("CAMPAIGN_EXECUTED") ?? 0],
     ["Canonical pipeline", tagCounts.get("CANONICAL_PIPELINE") ?? 0],
     ["Container-only", countTools((tool) => tool.installationMode === "container")],
     ["Project-local", tagCounts.get("PROJECT_LOCAL") ?? 0],
@@ -425,40 +576,39 @@ Verified: ${record.verified}
 Scope: ${record.limitation}`;
 }
 
-function chainRail(className, label = "Live block updates", announce = true) {
+function chainRail(className, label = "Live block updates") {
   return `<div class="${attr(className)}" aria-label="${attr(label)}">
         <article class="header-chain-card" data-chain-card="978">
           <div class="chain-card-top">
             <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Awaiting signed observation</span></strong>
           </div>
           <div class="header-chain-block">
             <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
+            <strong data-chain-field="978-block">No current observation</strong>
+            <small data-chain-field="978-checked">No current signed observation</small>
+            <small data-chain-field="978-source">Evidence source: not asserted in static output</small>
+            <small data-chain-field="978-activity">Signed activity: not asserted in static output</small>
           </div>
           <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
         </article>
         <article class="header-chain-card" data-chain-card="521">
           <div class="chain-card-top">
             <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Awaiting signed observation</span></strong>
           </div>
           <div class="header-chain-block">
             <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
+            <strong data-chain-field="521-block">No current observation</strong>
+            <small data-chain-field="521-checked">No current signed observation</small>
+            <small data-chain-field="521-source">Evidence source: not asserted in static output</small>
+            <small data-chain-field="521-activity">Signed activity: not asserted in static output</small>
           </div>
           <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
         </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-        ${announce ? '<span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>' : ""}
+        <span class="sr-only" data-chain-meta="feed-status">awaiting signed observation</span>
+        <span class="sr-only" data-chain-meta="generated">no current observation asserted</span>
+        <span class="sr-only" data-chain-meta="countdown">no refresh without JavaScript</span>
       </div>`;
 }
 
@@ -557,23 +707,69 @@ function pageDiscoveryJsonLd({ title, description, canonical, current }) {
   return JSON.stringify({ "@context": "https://schema.org", "@graph": graph }, null, 2).replaceAll("<", "\\u003c");
 }
 
-function layout({ title, description, current, body, scripts = "", canonicalPath, headerLive = false, mobileLive = true, robots = "index,follow" }) {
+function sectionForCurrent(current) {
+  if (["Architecture", "Kernel", "Utilities"].includes(current)) return "Platform";
+  if (["Developers", "Verify", "Toolchain"].includes(current)) return "Developers";
+  if (current === "Research") return "Research";
+  if (["Evidence", "Audit", "Security", "Accessibility"].includes(current)) return "Trust";
+  if (current === "Status") return "Operations";
+  if (["Legal", "Support"].includes(current)) return "Company";
+  return null;
+}
+
+function breadcrumbNavigation(canonical, current) {
+  if (canonical === "/") return "";
+  const segments = canonical.split("/").filter(Boolean);
+  const crumbs = [
+    ["Home", "/"],
+    ...segments.map((segment, index) => {
+      const isCurrent = index === segments.length - 1;
+      const label = isCurrent ? current : (routeLabels[segment] ?? segment.replaceAll("-", " "));
+      return [label, `/${segments.slice(0, index + 1).join("/")}`];
+    }),
+  ];
+  return `      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol>
+          ${crumbs.map(([label, href], index) => index === crumbs.length - 1
+            ? `<li aria-current="page">${esc(label)}</li>`
+            : `<li><a href="${attr(href)}">${esc(label)}</a></li>`).join("\n          ")}
+        </ol>
+      </nav>`;
+}
+
+function localNavigation(section, canonical) {
+  const links = section ? sectionNavigation[section] : null;
+  if (!links) return "";
+  return `      <nav class="section-nav" aria-label="${attr(`${section} section`)}">
+        <span>${esc(section)}</span>
+        <div>
+          ${links.map(([label, href]) => {
+            const isCurrent = href.split("#")[0] === canonical;
+            return `<a href="${attr(href)}"${isCurrent ? ' aria-current="page"' : ""}>${esc(label)}</a>`;
+          }).join("\n          ")}
+        </div>
+      </nav>`;
+}
+
+function layout({ title, description, current, body, scripts = "", canonicalPath, section = sectionForCurrent(current), headerLive = false, robots = "index,follow" }) {
   const canonical = canonicalPath ?? (current === "Overview" ? "/" : `/${current.toLowerCase()}`);
   const canonicalUrl = `https://fenrua.ai${canonical}`;
   const searchDirectives = robots.includes("noindex")
     ? robots
     : `${robots},max-snippet:-1,max-image-preview:large,max-video-preview:-1`;
   const navHtml = nav
-    .map(([label, href]) => `<a${label === "Legal" ? ' class="nav-legal"' : ""} href="${href}"${current === label ? ' aria-current="page"' : ""}>${label}</a>`)
+    .map(([label, href]) => `<a href="${href}"${section === label ? ' aria-current="page"' : ""}>${label}</a>`)
     .join("\n        ");
-  const headerClass = headerLive ? "site-header site-header-live" : mobileLive ? "site-header site-header-mobile-live" : "site-header";
-  const headerRail = headerLive || mobileLive
-    ? `\n      ${chainRail("header-chain-rail mobile-chain-rail", "Live block updates", !headerLive && current !== "Status")}`
+  const headerClass = headerLive ? "site-header site-header-live" : "site-header";
+  const headerRail = headerLive
+    ? `\n      ${chainRail("header-chain-rail mobile-chain-rail", "Live block updates")}`
+    : "";
+  const liveAnnouncer = headerLive && current !== "Status"
+    ? '<span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>'
     : "";
   const pageScripts = [
     headerLive ? '<script src="/kernel-status.js" defer></script>' : "",
     scripts,
-    mobileLive && !headerLive && current !== "Status" ? '<script src="/mobile-chain-status.js" defer></script>' : "",
   ].filter(Boolean).join("\n    ");
   return `<!doctype html>
 <html lang="en-AU">
@@ -614,6 +810,7 @@ ${pageScripts ? `    ${pageScripts}\n` : ""}
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
+    ${liveAnnouncer}
     <header class="${headerClass}" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua Protocol home">
         <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
@@ -624,13 +821,11 @@ ${pageScripts ? `    ${pageScripts}\n` : ""}
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         ${navHtml}
-      </nav>
-      <div class="mobile-nav-hint" aria-hidden="true">
-        <span>Swipe left for more</span>
-        <i class="mobile-nav-hint-track"><i></i></i>
-      </div>${headerRail}
+      </nav>${headerRail}
     </header>
     <main id="content">
+${breadcrumbNavigation(canonical, current)}
+${localNavigation(section, canonical)}
 ${body}
     </main>
     <footer class="site-footer">
@@ -642,10 +837,10 @@ ${body}
       <div class="footer-social">
         <p>Business enquiries: <a href="mailto:${attr(company.publicContact)}">${esc(company.publicContact)}</a></p>
         <div class="footer-links" aria-label="Company links and verified public profiles">
-          <a href="/legal">Legal &amp; company</a>
+          <a href="/company">Company</a>
           <a href="/#commercial-boundary-title">Service boundary</a>
           ${company.publicProfiles.map((profile) => `<a href="${attr(profile.url)}" rel="me">${esc(profile.label)}</a>`).join("\n          ")}
-          <a href="/audit">Audit</a>
+          <a href="/audit">Release verification</a>
           <a href="/evidence">Evidence</a>
           <a href="/toolchain">Toolchain</a>
           <a href="/.well-known/fenrua-release.json">Release manifest</a>
@@ -658,16 +853,14 @@ ${body}
 `;
 }
 
-function routeHero(eyebrow, title, text, cta = "", includeChainRail = true) {
-  const heroClass = includeChainRail ? "route-hero" : "route-hero route-hero-solo";
-  return `      <section class="${heroClass}" aria-labelledby="page-title">
+function routeHero(eyebrow, title, text, cta = "") {
+  return `      <section class="route-hero route-hero-solo" aria-labelledby="page-title">
         <div class="route-hero-copy">
           <p class="eyebrow">${esc(eyebrow)}</p>
           <h1 id="page-title">${esc(title)}</h1>
           <p>${esc(text)}</p>
           ${cta}
         </div>
-        ${includeChainRail ? chainRail("route-hero-chain-rail", "Current signed chain observations", false) : ""}
       </section>`;
 }
 
@@ -705,6 +898,103 @@ function cardGrid(items) {
     .join("\n        ")}</div>`;
 }
 
+function modelDownloads() {
+  const records = [
+    ["Product ontology", "/data/product-ontology.json"],
+    ["Capability register", "/data/capability-register.json"],
+    ["Claim register", "/data/claim-register.json"],
+    ["Evidence taxonomy", "/data/evidence-taxonomy.json"],
+    ["Assurance language contract", "/data/assurance-language.json"],
+    ["Public service catalogue", "/data/public-service-catalogue.json"],
+  ];
+  return `<div class="doc-grid model-downloads" aria-label="Machine-readable public records">
+          ${records.map(([label, href]) => `<a href="${href}">${esc(label)} JSON</a>`).join("\n          ")}
+        </div>`;
+}
+
+function capabilityCards(capabilityIds, routeById = {}) {
+  return cardGrid(capabilityIds.map((id) => {
+    const capability = capabilitiesById.get(id);
+    if (!capability) throw new Error(`Unknown capability requested by a public route: ${id}`);
+    return {
+      kicker: `${capability.maturity} · ${capability.availability}`,
+      title: capability.name,
+      text: `${capability.summary} Limitation: ${capability.limitations[0]}`,
+      href: routeById[id],
+      link: routeById[id] ? "Inspect boundary" : undefined,
+    };
+  }));
+}
+
+function capabilityRecord(capability) {
+  const claimLinks = capability.claimIds.length
+    ? capability.claimIds.map((id) => {
+      const claim = claimsById.get(id);
+      return claim ? `<a href="/trust/claims#${attr(claim.anchor)}">${esc(id)}</a>` : `<code>${esc(id)}</code>`;
+    }).join(", ")
+    : "No current public claims are recorded.";
+  return assuranceScope("capability", [capability.id], `<article class="capability-record" id="${attr(capability.id)}" data-capability-id="${attr(capability.id)}">
+          <div class="capability-record-heading">
+            <div><span>${esc(capability.category)}</span><h3>${esc(capability.name)}</h3></div>
+            <p>${esc(capability.maturity)} · ${esc(capability.availability)}</p>
+          </div>
+          <p>${esc(capability.summary)}</p>
+          <dl>
+            <div><dt>Lifecycle</dt><dd>${esc(capability.lifecycle)}</dd></div>
+            <div><dt>Owner</dt><dd>${esc(capability.owner)}</dd></div>
+            <div><dt>Review date</dt><dd>${esc(capability.lastReviewed)}</dd></div>
+            <div><dt>Claims</dt><dd>${claimLinks}</dd></div>
+          </dl>
+          <p><strong>Limitation:</strong> ${esc(capability.limitations[0])}</p>
+          <p><strong>Non-claim:</strong> ${esc(capability.nonClaims[0])}</p>
+          <p><strong>Promotion gate:</strong> ${esc(capability.promotionGate)}</p>
+        </article>`);
+}
+
+function claimRecord(claim) {
+  const capability = capabilitiesById.get(claim.subjectId);
+  if (!capability) throw new Error(`Claim ${claim.id} has no known capability.`);
+  const evidenceLinks = claim.evidenceIds.map((id) => {
+    const evidence = evidenceById.get(id);
+    return evidence
+      ? `<a href="/data/evidence-taxonomy.json"><code>${esc(id)}</code></a>`
+      : `<code>${esc(id)}</code>`;
+  }).join(", ");
+  return assuranceScope("claims", [claim.id], `<article class="claim-record" id="${attr(claim.anchor)}" data-claim-id="${attr(claim.id)}" data-claim-record data-claim-search="${attr(`${claim.statement} ${capability.name} ${claim.assuranceVerb} ${claim.evidenceClass}`.toLowerCase())}">
+          <div class="claim-record-heading">
+            <p><code>${esc(claim.id)}</code></p>
+            <span>${esc(claim.assertionState)}</span>
+          </div>
+          <h3>${esc(claim.statement)}</h3>
+          <dl>
+            <div><dt>Capability</dt><dd><a href="#${attr(capability.id)}">${esc(capability.name)}</a></dd></div>
+            <div><dt>Maturity</dt><dd>${esc(capability.maturity)} · ${esc(capability.availability)}</dd></div>
+            <div><dt>Assurance verb</dt><dd>${esc(claim.assuranceVerb)}</dd></div>
+            <div><dt>Evidence class</dt><dd>${esc(claim.evidenceClass)}</dd></div>
+            <div><dt>Valid from</dt><dd>${esc(claim.validFrom)}</dd></div>
+            <div><dt>Expiry / supersession</dt><dd>${esc(claim.expiresAt ?? "No expiry recorded")} · ${esc(claim.supersededBy ?? "Current")}</dd></div>
+            <div><dt>Evidence</dt><dd>${evidenceLinks}</dd></div>
+          </dl>
+          <p><strong>Scope:</strong> ${esc(claim.scope)}</p>
+          <p><strong>Limitation:</strong> ${esc(claim.limitations[0])}</p>
+        </article>`);
+}
+
+function evidenceClassCard(evidenceClass) {
+  return `<article class="evidence-class-card" id="${attr(evidenceClass.id)}">
+          <span>${esc(evidenceClass.id)}</span>
+          <h3>${esc(evidenceClass.name)}</h3>
+          <p>${esc(evidenceClass.purpose)}</p>
+          <dl>
+            <div><dt>Authority</dt><dd>${esc(evidenceClass.authority)}</dd></div>
+            <div><dt>Integrity</dt><dd>${esc(evidenceClass.integrityMethod)}</dd></div>
+            <div><dt>Freshness</dt><dd>${esc(evidenceClass.freshnessModel)}</dd></div>
+            <div><dt>Disclosure</dt><dd>${esc(evidenceClass.disclosureBoundary)}</dd></div>
+          </dl>
+          <p><strong>Does not prove:</strong> ${esc(evidenceClass.doesNotProve.join(" "))}</p>
+        </article>`;
+}
+
 function table(headers, rows, extraClass = "", label = "Data table") {
   return `<div class="registry ${extraClass}" role="region" tabindex="0" aria-label="${attr(label)}">
           <table>
@@ -737,30 +1027,29 @@ function chainProgressSection() {
           <p>Each chain is presented from its own independently signed bounded observation when one validates; otherwise its state remains waiting or unavailable. An observation does not prove contract safety, bytecode identity, reserve state, or deployment correctness.</p>
         </div>
         <div class="status-band" aria-label="Live chain feed status">
-          <span>Feed <strong data-chain-meta="feed-status">loading</strong></span>
-          <span>Generated <strong data-chain-meta="generated">loading</strong></span>
-          <span>Refresh <strong data-chain-meta="countdown">loading</strong></span>
-          <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
+          <span>Feed <strong data-chain-meta="feed-status">awaiting signed observation</strong></span>
+          <span>Generated <strong data-chain-meta="generated">no current observation asserted</strong></span>
+          <span>Refresh <strong data-chain-meta="countdown">no refresh without JavaScript</strong></span>
         </div>
         <div class="chain-grid">
           <article class="chain-card" data-chain-card="978">
             <div class="chain-card-top">
               <span>FENc978</span>
-              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
+              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Awaiting signed observation</span></strong>
             </div>
             <h3>Chain 978</h3>
             <dl>
               <div><dt>Chain identity</dt><dd data-chain-field="978-chain-id">978 - pending</dd></div>
-              <div><dt>Latest observed block</dt><dd data-chain-field="978-block">Loading</dd></div>
-              <div><dt>Evidence source</dt><dd data-chain-field="978-source">loading</dd></div>
-              <div><dt>Confidence</dt><dd data-chain-field="978-confidence">loading</dd></div>
-              <div><dt>Observed</dt><dd data-chain-field="978-checked">loading</dd></div>
-              <div><dt>Signed activity</dt><dd data-chain-field="978-activity">loading</dd></div>
+              <div><dt>Latest observed block</dt><dd data-chain-field="978-block">No current observation</dd></div>
+              <div><dt>Evidence source</dt><dd data-chain-field="978-source">Not asserted in static output</dd></div>
+              <div><dt>Confidence</dt><dd data-chain-field="978-confidence">Not asserted</dd></div>
+              <div><dt>Observed</dt><dd data-chain-field="978-checked">No current signed observation</dd></div>
+              <div><dt>Signed activity</dt><dd data-chain-field="978-activity">Not asserted in static output</dd></div>
             </dl>
             <div class="chain-progress-meter" aria-label="Chain 978 next signed observation progress">
               <div class="chain-progress-meter-top">
                 <span><i class="chain-progress-glyph" aria-hidden="true"></i>Next verification</span>
-                <strong data-chain-field="978-progress">loading</strong>
+                <strong data-chain-field="978-progress">awaiting signed observation</strong>
               </div>
               <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
             </div>
@@ -768,27 +1057,314 @@ function chainProgressSection() {
           <article class="chain-card" data-chain-card="521">
             <div class="chain-card-top">
               <span>FENn521</span>
-              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
+              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Awaiting signed observation</span></strong>
             </div>
             <h3>Chain N521</h3>
             <dl>
               <div><dt>Chain identity</dt><dd data-chain-field="521-chain-id">521 - pending</dd></div>
-              <div><dt>Latest observed block</dt><dd data-chain-field="521-block">Loading</dd></div>
-              <div><dt>Evidence source</dt><dd data-chain-field="521-source">loading</dd></div>
-              <div><dt>Confidence</dt><dd data-chain-field="521-confidence">loading</dd></div>
-              <div><dt>Observed</dt><dd data-chain-field="521-checked">loading</dd></div>
-              <div><dt>Signed activity</dt><dd data-chain-field="521-activity">loading</dd></div>
+              <div><dt>Latest observed block</dt><dd data-chain-field="521-block">No current observation</dd></div>
+              <div><dt>Evidence source</dt><dd data-chain-field="521-source">Not asserted in static output</dd></div>
+              <div><dt>Confidence</dt><dd data-chain-field="521-confidence">Not asserted</dd></div>
+              <div><dt>Observed</dt><dd data-chain-field="521-checked">No current signed observation</dd></div>
+              <div><dt>Signed activity</dt><dd data-chain-field="521-activity">Not asserted in static output</dd></div>
             </dl>
             <div class="chain-progress-meter" aria-label="Chain N521 next signed observation progress">
               <div class="chain-progress-meter-top">
                 <span><i class="chain-progress-glyph" aria-hidden="true"></i>Next verification</span>
-                <strong data-chain-field="521-progress">loading</strong>
+                <strong data-chain-field="521-progress">awaiting signed observation</strong>
               </div>
               <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
             </div>
           </article>
         </div>
       </section>`;
+}
+
+const architectureViews = [
+  {
+    slug: "context",
+    title: "System context",
+    description: "Fenrua system context, public boundaries, actors, and evidence responsibilities.",
+    summary: "This view separates the public evidence interface, local technical work, agreement-specific services, and external systems. It is a scope map, not a deployment inventory.",
+    nodes: [
+      ["External", "Technical reviewers and contributors", "Read public records and reproduce documented local checks."],
+      ["Current", "Public website and evidence interface", "Publishes static records, release references, and limitation-aware documentation."],
+      ["Reference", "Local developer or CI workflow", "Uses versioned source, schemas, fixtures, and deterministic checks."],
+      ["Agreement-specific", "Client technical work", "Exists only under an applicable service agreement and is not described as a public product."],
+    ],
+    boundary: "The public site does not expose client systems, private topology, credentials, transactional interfaces, or a hosted authorization service.",
+  },
+  {
+    slug: "components",
+    title: "Logical components",
+    description: "Fenrua logical components, evidence boundaries, and current maturity labels.",
+    summary: "Logical components are presented as distinct evidence, policy, verification, and recovery responsibilities. A component label does not establish a deployed service.",
+    nodes: [
+      ["Specification", "Security Kernel", "Defines responsibility and fail-closed conditions for identity, authority, integrity, policy, evidence, verification, containment, and recovery."],
+      ["Prototype", "Local verifier foundation", "Provides local fixtures and result-code examples without a hosted verifier claim."],
+      ["Reference", "Public release evidence", "Binds listed static artifacts to a release checkout and validation scope."],
+      ["Planned", "Local Trust Gate", "Has no public implementation, CLI, SDK, API, or release artifact recorded."],
+    ],
+    boundary: "Current source specifications and public records are not a claim that every logical component is independently deployed or production approved.",
+  },
+  {
+    slug: "runtime",
+    title: "Runtime sequence",
+    description: "Fenrua reference runtime sequence and fail-closed evidence boundary.",
+    summary: "The reference sequence explains how a local workflow can evaluate supplied artifacts. It describes a design boundary, not a live multi-tenant runtime.",
+    nodes: [
+      ["Reference", "Entity manifest", "Supplies declared identity and artifact context."],
+      ["Specification", "Authority policy", "Defines scoped allow, deny, approval, expiry, and revocation semantics."],
+      ["Reference", "Local deterministic decision", "Produces an explicit result or fail-closed outcome from supplied inputs."],
+      ["Specification", "Evidence bundle and receipt", "Captures scope, digests, limitations, and reproducible result material."],
+    ],
+    boundary: "The website does not execute this sequence for visitors, accept files, make authorization decisions, or manage production keys.",
+  },
+  {
+    slug: "deployment",
+    title: "Deployment profiles",
+    description: "Fenrua chain-free reference deployment and optional observation profile.",
+    summary: "The complete reference profile is chain-free and local-first. Optional signed observations are publication or ordering inputs only; they do not create authorization or prove deployment correctness.",
+    nodes: [
+      ["Reference", "Local developer or CI", "Runs local checks from supplied source and fixtures without a required public chain."],
+      ["Specification", "Entity manifest", "Provides declared identity, artifact context, and schema version."],
+      ["Specification", "Authority policy", "Provides scoped decision rules, expiry, and revocation semantics."],
+      ["Reference", "Local deterministic decision", "Produces an explicit scoped result or fail-closed outcome from supplied inputs."],
+      ["Reference", "Evidence bundle", "Captures declared inputs, digests, result material, and limitations."],
+      ["Reference", "Local signature verification", "Checks the supplied signature and digest material within the declared local scope."],
+      ["Reference", "Receipt export", "Exports a reproducible receipt without requiring a public chain or hosted verifier."],
+      ["Optional external", "Signed observation publication", "May expose a bounded observation after its own signature and freshness checks."],
+    ],
+    boundary: "No public chain is required for local verification. The reference design supports offline operation from supplied local inputs; revocation freshness still depends on a declared local source and its stated limitation. An optional observation can publish or order a record, but cannot create authorization.",
+  },
+  {
+    slug: "trust-boundaries",
+    title: "Trust boundaries",
+    description: "Fenrua trust boundaries, control ownership, and roots of trust.",
+    summary: "Trust is scoped to named artifacts, signatures, policies, public records, and review boundaries. The page never collapses a signed observation into general system assurance.",
+    nodes: [
+      ["Current", "Public artifact boundary", "Only generated public files and declared records are released through the static surface."],
+      ["Specification", "Evidence and policy boundary", "Claims require scoped evidence and cannot be strengthened by page presentation alone."],
+      ["External", "Independent review boundary", "No external review, certification, or production approval is implied unless a matching evidence record exists."],
+      ["Optional external", "Observation boundary", "A signed observation remains bounded to its declared contract, key, sequence, and freshness state."],
+    ],
+    boundary: "Private infrastructure, signing material, customer environments, and unmeasured runtime behaviour remain outside the public trust boundary.",
+  },
+  {
+    slug: "data-and-provenance",
+    title: "Data and provenance",
+    description: "Fenrua public data classes, evidence provenance, and disclosure boundaries.",
+    summary: "This view distinguishes public static records, bounded observation fields, agreement-specific information, and protected operational material. Public evidence is point-in-time and limitation-aware.",
+    nodes: [
+      ["Current", "Public records", "Schemas, source-controlled JSON, documentation, release manifests, and public evidence references."],
+      ["Reference", "Local files", "A future local workflow can evaluate user-supplied artifacts without sending them to the public website."],
+      ["Agreement-specific", "Client information", "Exists only in the applicable delivery context and is not published in public records."],
+      ["Agreement-specific", "Tenancy and isolation boundary", "Client work remains in a separate agreement-specific delivery context; no multi-tenant public control plane is claimed."],
+      ["Protected", "Private operations", "Credentials, protected topology, signing material, and raw witness material are excluded from the public estate."],
+    ],
+    boundary: "A published hash, record, or signed observation supports only its stated integrity and provenance scope; it does not disclose or prove protected systems.",
+  },
+  {
+    slug: "recovery",
+    title: "Recovery and containment",
+    description: "Fenrua containment, revocation, recovery, and rollback reference boundaries.",
+    summary: "Failure handling is designed around explicit invalid, stale, revoked, incomplete, or superseded states. The site publishes the decision boundary, not an invented incident history.",
+    nodes: [
+      ["Specification", "Fail-closed decision", "Missing or invalid required state produces an explicit non-success outcome."],
+      ["Reference", "Revocation and quarantine", "Superseded or revoked artifacts are retained only with their state and replacement context."],
+      ["Current", "Release rollback discipline", "A previous source-bound static release can be selected through the approved provider process after owner review."],
+      ["Planned", "Operational incident process", "No public uptime, SLO, or incident theatre is claimed before measured service history exists."],
+    ],
+    boundary: "The page does not claim automatic recovery, key rotation completion, live continuity, or a public operational service beyond the evidence available.",
+  },
+  {
+    slug: "evolution",
+    title: "Evolution states",
+    description: "Fenrua current, reference, specification, research, and planned evolution states.",
+    summary: "Every major surface is labelled by its actual state so that public documentation cannot be mistaken for a production capability roadmap.",
+    nodes: [
+      ["Current", "Public evidence interface", "Static pages and machine-readable records are available for inspection."],
+      ["Reference", "Release and observation boundaries", "Reference implementations and bounded interfaces have stated limitations."],
+      ["Specification and research", "Kernel and utility concepts", "Source materials define responsibilities, but require integration and further evidence for promotion."],
+      ["Planned", "Local Trust Gate", "No usable public product interface is represented until its separate product gate is satisfied."],
+    ],
+    boundary: "A future direction is not an availability claim, a release commitment, a service-level commitment, or an external assurance statement.",
+  },
+];
+
+function architectureView(view) {
+  return layout({
+    title: `Fenrua Architecture: ${view.title}`,
+    description: view.description,
+    current: view.title,
+    canonicalPath: `/architecture/${view.slug}`,
+    section: "Platform",
+    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${routeHero("ARCHITECTURE VIEW", view.title, view.summary)}
+      <section class="section-shell" aria-labelledby="${attr(`${view.slug}-diagram-title`)}">
+        <div class="section-heading"><p class="eyebrow">SEMANTIC SYSTEM VIEW</p><h2 id="${attr(`${view.slug}-diagram-title`)}">${esc(view.title)} map</h2><p>Each step carries its state in text. The diagram remains readable without colour or client JavaScript.</p></div>
+        <ol class="architecture-diagram" aria-label="${attr(`${view.title} component map`)}">
+          ${view.nodes.map(([state, name, detail], index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><div><strong>${esc(name)}</strong><p>${esc(detail)}</p></div><em>${esc(state)}</em></li>`).join("\n          ")}
+        </ol>
+        <p class="diagram-text-equivalent"><strong>Text equivalent:</strong> ${esc(view.nodes.map(([state, name]) => `${name} is ${state.toLowerCase()}`).join("; "))}.</p>
+      </section>
+      <section class="section-shell split-section" aria-labelledby="${attr(`${view.slug}-boundary-title`)}">
+        <div><p class="eyebrow">CURRENT IMPLEMENTATION BOUNDARY</p><h2 id="${attr(`${view.slug}-boundary-title`)}">What this view does and does not state</h2></div>
+        <div class="constraint-list"><p>${esc(view.boundary)}</p><p>Inspect the <a href="/trust/claims">claim register</a> and <a href="/trust/evidence-classes">evidence classes</a> for the records that govern public assurance language.</p></div>
+      </section>`),
+  });
+}
+
+function platform() {
+  return layout({
+    title: "Fenrua Platform",
+    description: "Fenrua platform orientation, current capabilities, boundaries, and architecture routes.",
+    current: "Platform",
+    canonicalPath: "/platform",
+    section: "Platform",
+    body: `${routeHero("PLATFORM ORIENTATION", "Platform", "Fenrua is a public evidence interface and an AI efficiency infrastructure direction. The platform view separates what is inspectable today from specifications, research, and planned work.", `<div class="cta-row"><a class="button button-primary" href="/architecture">Read architecture</a><a class="button button-secondary" href="/start">Choose a starting path</a></div>`)}
+      <section class="section-shell" aria-labelledby="platform-capabilities"><div class="section-heading"><p class="eyebrow">CURRENT CAPABILITY STATES</p><h2 id="platform-capabilities">Maturity stays attached to the record</h2><p>These summaries are generated from the canonical capability register. A public page, specification, or record is not promoted into a service merely by being visible here.</p></div>
+        ${capabilityCards(["capability.public-website", "capability.security-kernel-specification", "capability.utility-catalogue", "capability.local-verifier", "capability.local-trust-gate"], { "capability.security-kernel-specification": "/kernel", "capability.utility-catalogue": "/utilities", "capability.local-verifier": "/verify" })}
+      </section>
+      <section class="section-shell split-section" aria-labelledby="platform-efficiency-evidence"><div><p class="eyebrow">MEASUREMENT BOUNDARY</p><h2 id="platform-efficiency-evidence">Efficiency claims require a reproducible method</h2><p>The public platform does not publish a measured AI-efficiency benchmark. The standard defines the workload, baseline, environment, quality, uncertainty, and artifact inputs required before a future performance claim can be made.</p></div><div class="doc-grid"><a href="/docs/FENRUA_AI_EFFICIENCY_EVIDENCE_STANDARD.md">AI efficiency evidence standard</a><a href="/trust/claims">Inspect current claim boundaries</a></div></section>
+      <section class="section-shell" aria-labelledby="platform-next"><div class="section-heading"><p class="eyebrow">NEXT BY ROLE</p><h2 id="platform-next">Inspect before integrating</h2><p>Technical reviewers can trace claims and evidence. Developers can reproduce local checks. Service discussions remain agreement-specific and do not become public self-service workflows.</p></div>
+        ${modelDownloads()}
+      </section>`,
+  });
+}
+
+function trust() {
+  return layout({
+    title: "Fenrua Trust",
+    description: "Fenrua claims, evidence classes, release verification, and public trust boundaries.",
+    current: "Trust",
+    canonicalPath: "/trust",
+    section: "Trust",
+    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${routeHero("TRUST BOUNDARIES", "Trust", "Public trust is expressed through scoped claims, evidence classes, release records, and explicit non-claims. It is not a generic assurance badge.", `<div class="cta-row"><a class="button button-primary" href="/trust/claims">Inspect claims</a><a class="button button-secondary" href="/trust/evidence-classes">Read evidence classes</a></div>`)}
+      <section class="section-shell" aria-labelledby="trust-records"><div class="section-heading"><p class="eyebrow">MACHINE-READABLE RECORDS</p><h2 id="trust-records">Trace public statements to their boundary</h2><p>Claims link to capability and evidence records. Stronger assurance language is governed by a versioned public contract rather than presentation alone.</p></div>
+        ${modelDownloads()}
+      </section>
+      <section class="section-shell" aria-labelledby="trust-limits"><div class="section-heading"><p class="eyebrow">LIMITATIONS</p><h2 id="trust-limits">Separate release, observation, and runtime evidence</h2><p>A release manifest binds listed public artifacts. A signed observation has its own bounded contract. Neither establishes system-wide safety, authorization, or independent certification.</p></div>
+        ${cardGrid([{ kicker: "RELEASE", title: "Static artifact binding", text: "Use the release verification route to inspect commit, artifact, method, exclusions, and expiration boundaries.", href: "/audit", link: "Release verification" }, { kicker: "OBSERVATION", title: "Bounded public monitor", text: "Signed observations remain separate from release records and are evaluated only under their declared key, sequence, and freshness semantics.", href: "/status", link: "Status monitor" }, { kicker: "REPORTING", title: "Private vulnerability path", text: "Security reporting uses the published private contact boundary and does not turn public documentation into a security certification.", href: "/security", link: "Security reporting" }])}
+      </section>`),
+  });
+}
+
+function operations() {
+  const rows = publicServiceCatalogue.services.map((service) => `<tr>
+      <td data-label="Service">${esc(service.name)}</td>
+      <td data-label="Availability">${esc(service.availability)}</td>
+      <td data-label="Interface">${esc(service.interface.type)}</td>
+      <td data-label="SLO state">${esc(service.sloState)}</td>
+      <td data-label="Incident state">${esc(service.incidentState)}</td>
+      <td data-label="Known limitation">${esc(service.knownLimitation)}</td>
+    </tr>`);
+  return layout({
+    title: "Fenrua Operations",
+    description: "Fenrua publication, service, dependency, observation, and operational status boundaries.",
+    current: "Operations",
+    canonicalPath: "/operations",
+    section: "Operations",
+    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${routeHero("OPERATIONS BOUNDARY", "Operations", "Publication, services, dependencies, signed observations, incidents, and maintenance are separate planes. Only records backed by current public evidence are listed.", `<div class="cta-row"><a class="button button-primary" href="/status">Open status</a><a class="button button-secondary" href="/operations/observations">Observation boundary</a></div>`)}
+      <section class="section-shell" aria-labelledby="operations-planes"><div class="section-heading"><p class="eyebrow">STATUS PLANES</p><h2 id="operations-planes">Do not collapse one status into another</h2><p>Publication describes static release artifacts. Service health describes measured services only. Signed observations remain read-only external evidence. SLO not yet defined is more honest than an invented percentage, and no incident history is fabricated.</p></div>
+        ${cardGrid(statusPlanes.map(([title, text, href], index) => ({ kicker: String(index + 1).padStart(2, "0"), title, text, href, link: "Inspect boundary" })))}
+      </section>
+      <section class="section-shell" aria-labelledby="service-catalogue"><div class="section-heading"><p class="eyebrow">SERVICE CATALOGUE</p><h2 id="service-catalogue">Real public and agreement-specific surfaces</h2><p>These records are generated from the public service catalogue. They are not a public product catalogue or an availability promise beyond the stated interface.</p></div>
+        ${table(["Service", "Availability", "Interface", "SLO state", "Incident state", "Known limitation"], rows, "status-table service-catalogue-table", "Public service catalogue")}
+      </section>`),
+  });
+}
+
+function companyHub() {
+  return layout({
+    title: "Fenrua Company",
+    description: "Fenrua Labs company identity, public contact, legal boundary, and service orientation.",
+    current: "Company",
+    canonicalPath: "/company",
+    section: "Company",
+    body: `${routeHero("COMPANY AND SERVICE BOUNDARY", "Company", "Fenrua Labs Pty Ltd is the registered operator named on the public estate. Public information supports technical review and service discovery, not self-service contracting or financial products.", `<div class="cta-row"><a class="button button-primary" href="/legal">Legal and company record</a><a class="button button-secondary" href="/support">Support boundary</a></div>`)}
+      <section class="section-shell split-section" aria-labelledby="company-identity"><div><p class="eyebrow">PUBLIC IDENTITY</p><h2 id="company-identity">Registered operator and public channels</h2><p>Company details and public profiles are maintained in the canonical company identity record. Contact channels below are public, factual, and scoped to their purpose.</p></div>
+        <div class="constraint-list"><p><strong>${esc(company.legalName)}</strong><br />ABN ${esc(company.abn)} · ACN ${esc(company.acn)}</p><p><strong>Business enquiries:</strong> <a href="mailto:${attr(company.publicContact)}">${esc(company.publicContact)}</a></p><p><strong>Security reporting:</strong> <a href="/security">Use the public security reporting boundary</a>.</p></div>
+      </section>
+      <section class="section-shell" aria-labelledby="company-boundary"><div class="section-heading"><p class="eyebrow">SERVICE BOUNDARY</p><h2 id="company-boundary">Public records, agreement-specific delivery</h2><p>Research, software, infrastructure access, hosting, integration, technical support, and evidence-aware workflows may be delivered only within the relevant agreement. The public site does not represent a client portal, checkout, trading venue, wallet, token offering, or financial-return product.</p></div>
+        ${cardGrid([{ kicker: "LEGAL", title: "Operating record", text: "Read the current public company and service record, including explicit non-financial-product boundaries.", href: "/legal", link: "Legal and company" }, { kicker: "SUPPORT", title: "Technical enquiries", text: "Public support directs people to the correct published channel and does not accept sensitive material in public forms.", href: "/support", link: "Support boundary" }, { kicker: "DATA FLOW", title: "Public data handling", text: "The public data-flow document states known public flows and the remaining owner or legal review dependencies.", href: "/docs/PUBLIC_DATA_FLOW.md", link: "Data flow" }])}
+      </section>`,
+  });
+}
+
+function start() {
+  const roles = [
+    ["Developer", "Fenrua currently provides source-controlled schemas, fixtures, and local validation foundations.", "Read the local verifier boundary and run the repository validation path.", "Claim and evidence records plus deterministic examples.", "No public Local Trust Gate package or hosted verifier is available.", "npm run validate", "/developers"],
+    ["Security engineer", "Fenrua publishes a scoped security kernel specification and a private reporting boundary.", "Review trust boundaries, claim limitations, and the current release verification scope.", "Security, evidence, and release records.", "No general production-safety certification is claimed.", "npm run validate", "/security"],
+    ["Researcher", "Fenrua publishes research records only with adjacent claims, non-claims, evidence, and limitations.", "Inspect a research record and its reproduction commands.", "Research registry and source-linked evidence.", "Research publication is not production promotion.", "node scripts/test-verify-examples.mjs", "/research"],
+    ["Enterprise technical leader", "Fenrua documents public platform and agreement-specific service boundaries separately.", "Assess architecture, evidence, data flow, and support scope before a service discussion.", "Architecture views, service catalogue, and company record.", "No public SLO, uptime, or self-service service contract is represented.", "npm run validate", "/operations"],
+    ["University or educator", "Fenrua provides readable public specifications, examples, and research records for technical study.", "Use the source examples and evidence classes to teach scope-aware verification.", "Schemas, fixtures, and public documentation.", "Documentation is not a hosted lab environment or a formal course.", "node scripts/test-verify-examples.mjs", "/verify"],
+    ["Open-source contributor", "Fenrua's public repositories expose source and documented contribution channels.", "Inspect the repository boundary, run local checks, and use the public security path for vulnerabilities.", "Repository history, schemas, and release verification records.", "Public source does not expose protected operational systems or signing material.", "npm run validate", "/developers"],
+    ["General technical reviewer", "Fenrua makes public claims, evidence classes, release scope, and limitations inspectable.", "Start with claims, then trace a record to evidence and current capability state.", "Claim register, evidence taxonomy, and release manifest.", "A public record never proves more than its declared scope.", "npm run validate", "/trust"],
+  ];
+  return layout({
+    title: "Start with Fenrua",
+    description: "Role-based Fenrua technical starting paths with evidence, limitations, and local next steps.",
+    current: "Start",
+    canonicalPath: "/start",
+    section: "Developers",
+    body: `${routeHero("ROLE-BASED ORIENTATION", "Start", "Choose a path by the question you need to answer. Every path states the current public surface, available evidence, known limits, and a shortest reproducible next step.")}
+      <section class="section-shell role-path-list" aria-labelledby="start-paths"><div class="section-heading"><p class="eyebrow">STARTING PATHS</p><h2 id="start-paths">Technical orientation without conversion language</h2><p>These paths use current public records only. They do not imply an investment, account, token, or hosted-product journey.</p></div>
+        ${roles.map(([role, current, today, evidence, unavailable, command, href]) => `<article><h3>${esc(role)}</h3><dl><div><dt>Currently</dt><dd>${esc(current)}</dd></div><div><dt>Today</dt><dd>${esc(today)}</dd></div><div><dt>Evidence</dt><dd>${esc(evidence)}</dd></div><div><dt>Not available</dt><dd>${esc(unavailable)}</dd></div></dl>${codeBlock("Shortest reproducible step", command, "bash")}<a href="${attr(href)}">Continue as a ${esc(role)}</a></article>`).join("\n        ")}
+      </section>`,
+  });
+}
+
+function observations() {
+  const chain978 = capabilitiesById.get("capability.observation-978");
+  const chainN521 = capabilitiesById.get("capability.observation-n521");
+  return layout({
+    title: "Fenrua Signed Observations",
+    description: "Fenrua bounded signed observation contract, public limitations, and availability state.",
+    current: "Signed observations",
+    canonicalPath: "/operations/observations",
+    section: "Operations",
+    body: assuranceScope("claims", ["claim.observation.signed-read-only", "claim.observation.observed-block-label"], `${routeHero("OBSERVATION BOUNDARY", "Signed observations", "Observation records are separate from publication and service status. Static output never asserts a current chain state; the monitor route reports a result only after its bounded verification contract succeeds.", `<div class="cta-row"><a class="button button-primary" href="/status">Open current monitor</a><a class="button button-secondary" href="/trust/claims">Read the claim records</a></div>`)}
+      <section class="section-shell" aria-labelledby="observation-capabilities"><div class="section-heading"><p class="eyebrow">CURRENT CAPABILITY RECORDS</p><h2 id="observation-capabilities">Read-only and evidence-bound</h2><p>Chain 978 and Chain N521 have independent records. The N521 record remains unavailable until its gateway and public verification key are independently configured.</p></div>
+        <div class="capability-record-list">${capabilityRecord(chain978)}${capabilityRecord(chainN521)}</div>
+      </section>
+      <section class="section-shell split-section" aria-labelledby="observation-nonclaims"><div><p class="eyebrow">EXPLICIT NON-CLAIMS</p><h2 id="observation-nonclaims">An observation is not authorization</h2></div><div class="constraint-list"><p>A signed observation does not prove contract safety, bytecode identity, reserve state, finality, deployment correctness, chain availability, or production approval.</p><p>It does not accept transactions, forward public RPC, expose private mesh information, or replace a local policy decision.</p></div></section>`),
+  });
+}
+
+function trustClaims() {
+  return layout({
+    title: "Fenrua Public Claims",
+    description: "Fenrua public claims with capability maturity, evidence classes, validity, and limitations.",
+    current: "Claims",
+    canonicalPath: "/trust/claims",
+    section: "Trust",
+    scripts: '<script src="/claim-filter.js" defer></script>',
+    body: `${routeHero("PUBLIC CLAIM REGISTER", "Claims", "Each significant public statement is represented as a record with a capability, maturity, evidence class, validity state, and limitation. All records remain visible when JavaScript is unavailable.")}
+      <section class="section-shell" aria-labelledby="claim-search-title"><div class="section-heading"><p class="eyebrow">LOCAL RECORD FILTER</p><h2 id="claim-search-title">Inspect claims without remote search</h2><p>Filtering runs entirely in the browser against the static rendered records. Download the exact machine-readable input for independent inspection.</p></div>
+        <label class="claim-search-label" for="claim-search">Search public claims</label><input id="claim-search" data-claim-filter type="search" autocomplete="off" placeholder="Search statement, capability, assurance verb, or evidence class" /><p data-claim-filter-status role="status" aria-live="polite" aria-atomic="true">${claimRegister.claims.length} claims shown</p><p><a href="/data/claim-register.json">Download claim register JSON</a></p>
+      </section>
+      <section class="section-shell claim-record-list" aria-labelledby="claim-records"><div class="section-heading"><p class="eyebrow">CLAIM RECORDS</p><h2 id="claim-records">Current public assertions</h2><p>Claims with an expiration or supersession state must not be read as current after that state changes. Each record carries a limitation beside the assertion.</p></div>
+        ${claimRegister.claims.map((claim) => claimRecord(claim)).join("\n        ")}
+      </section>
+      <section class="section-shell capability-record-list" aria-labelledby="claim-capabilities"><div class="section-heading"><p class="eyebrow">CAPABILITY CONTEXT</p><h2 id="claim-capabilities">What each claim can and cannot support</h2><p>Capability records preserve lifecycle, maturity, availability, limitations, non-claims, and promotion gates independently of page copy.</p></div>
+        ${capabilityRegister.capabilities.map((capability) => capabilityRecord(capability)).join("\n        ")}
+      </section>`,
+  });
+}
+
+function trustEvidenceClasses() {
+  return layout({
+    title: "Fenrua Evidence Classes",
+    description: "Fenrua evidence classes, assurance boundaries, freshness models, and non-proof statements.",
+    current: "Evidence classes",
+    canonicalPath: "/trust/evidence-classes",
+    section: "Trust",
+    body: assuranceScope("taxonomy", [], `${routeHero("EVIDENCE TAXONOMY", "Evidence classes", "Evidence is classified by purpose, authority, integrity method, freshness, disclosure boundary, and what it does not prove. No class automatically becomes independent assurance.")}
+      <section class="section-shell" aria-labelledby="evidence-class-list"><div class="section-heading"><p class="eyebrow">PUBLIC TAXONOMY</p><h2 id="evidence-class-list">Eleven bounded evidence classes</h2><p>The taxonomy separates specification, test, build, release, runtime, operational, observation, incident, independent reproduction, external review, and regulatory or compliance evidence.</p></div>
+        <div class="evidence-class-list">${evidenceTaxonomy.classes.map((record) => evidenceClassCard(record)).join("\n        ")}</div>
+      </section>
+      <section class="section-shell split-section"><div><p class="eyebrow">ASSURANCE LANGUAGE</p><h2>Terms require a contract</h2><p>Terms such as observed, signed, tested, verified, reviewed, audited, certified, and production-approved have explicit minimum evidence contracts.</p></div><div class="constraint-list"><p>The contract records the minimum inputs for each term and also states what that term does not mean. Inspect the complete input rather than treating a label as proof.</p><p><a href="/data/assurance-language.json">Download assurance language JSON</a></p></div></section>`),
+  });
 }
 
 function home() {
@@ -801,7 +1377,7 @@ function home() {
       "AI EFFICIENCY INFRASTRUCTURE",
       "AI efficiency infrastructure for verifiable systems.",
       "Fenrua researches, develops, and provides software and related technology services spanning AI efficiency, infrastructure, evidence, identity, authority, integrity, policy, verification, containment, recovery, hosting, and integration.",
-      `<div class="cta-row"><a class="button button-primary" href="/architecture">Explore architecture</a><a class="button button-secondary" href="/verify">Verify locally</a><a class="button button-secondary" href="/toolchain">Inspect toolchain</a></div>`,
+      `<div class="cta-row"><a class="button button-primary" href="/platform">Explore platform</a><a class="button button-secondary" href="/start">Choose a starting path</a><a class="button button-secondary" href="/trust">Inspect trust records</a></div>`,
       false
     )}
       ${chainProgressSection()}
@@ -812,11 +1388,11 @@ function home() {
           <p>The homepage is intentionally a routing surface. Deep technical detail lives on dedicated pages so evidence, maturity, and limitations stay inspectable.</p>
         </div>
         ${cardGrid([
-          { kicker: "WHAT", title: "Fenrua is an infrastructure protocol", text: "It is a research, software, and technology-services foundation for efficient, verifiable AI systems; security is one technical discipline within the broader architecture.", href: "/architecture", link: "Architecture" },
+          { kicker: "WHAT", title: "Fenrua is an infrastructure protocol", text: "It is a research, software, and technology-services foundation for efficient, verifiable AI systems; security is one technical discipline within the broader architecture.", href: "/platform", link: "Platform" },
           { kicker: "WHY LAYER 0", title: "It sits beneath AI execution", text: "Independent systems need identity, authority, integrity, policy, evidence, verification, containment, and recovery before autonomous execution can be trusted.", href: "/kernel", link: "Kernel primitives" },
-          { kicker: "TODAY", title: "Reference surfaces are public", text: "The website, evidence registry, toolchain lock, telemetry checks, and schema foundations are available with maturity labels.", href: "/status", link: "Status" },
-          { kicker: "EVIDENCE", title: "Claims are source-linked", text: "Every significant public claim points to a source, timestamp, maturity label, and limitation.", href: "/evidence", link: "Evidence registry" },
-          { kicker: "NEXT", title: "Developers start locally", text: "The verifier page and developer quick-start show the local workflow without pretending a live verifier exists.", href: "/developers", link: "Quick start" },
+          { kicker: "TODAY", title: "Reference surfaces are public", text: "The website, evidence registry, toolchain lock, telemetry checks, and schema foundations are available with maturity labels.", href: "/operations", link: "Operations" },
+          { kicker: "EVIDENCE", title: "Claims are source-linked", text: "Every significant public claim points to a source, timestamp, maturity label, and limitation.", href: "/trust", link: "Trust records" },
+          { kicker: "NEXT", title: "Developers start locally", text: "The verifier page and developer quick-start show the local workflow without pretending a live verifier exists.", href: "/start", link: "Choose a path" },
         ])}
       </section>
       <section class="section-shell split-section" aria-labelledby="home-boundary">
@@ -840,7 +1416,7 @@ function architecture() {
     title: "Fenrua Architecture",
     description: "Fenrua architecture, stack position, operating flows, and Layer 0 boundaries.",
     current: "Architecture",
-    body: `${routeHero("OPERATING-SYSTEM MODEL", "Architecture", "Fenrua is organized as kernel space and user space, with stable machine-readable interfaces and public evidence boundaries.")}
+    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${routeHero("OPERATING-SYSTEM MODEL", "Architecture", "Fenrua is organized as kernel space and user space, with stable machine-readable interfaces and public evidence boundaries.")}
       <section class="section-shell">
         <div class="section-heading"><p class="eyebrow">CONTROL FLOW</p><h2>Security workflow</h2></div>
         <div class="stack-diagram" role="img" aria-label="Fenrua stack diagram">
@@ -860,7 +1436,11 @@ function architecture() {
           { kicker: "05", title: "Revocation and quarantine", text: "Invalid, stale, drifted, revoked, or incomplete evidence fails closed." },
           { kicker: "06", title: "Research-to-kernel translation", text: "Research observations are promoted only through claims, non-claims, tests, evidence, utilities, and regressions." },
         ])}
-      </section>`,
+      </section>
+      <section class="section-shell" aria-labelledby="architecture-views">
+        <div class="section-heading"><p class="eyebrow">VIEWPOINTS</p><h2 id="architecture-views">Inspect the boundary from each relevant angle</h2><p>These routes use semantic diagrams and explicit state labels. They distinguish current public records, reference designs, specifications, research, planned work, agreement-specific delivery, and external dependencies.</p></div>
+        ${cardGrid(architectureViews.map((view, index) => ({ kicker: String(index + 1).padStart(2, "0"), title: view.title, text: view.summary, href: `/architecture/${view.slug}`, link: "Open viewpoint" })))}
+      </section>`),
   });
 }
 
@@ -1185,11 +1765,57 @@ node scripts/test-verify-examples.mjs`, "bash")}
           <a href="/examples/verification-results/pass.example.json">Passing fixture</a>
           <a href="/examples/verification-results/fail-closed.example.json">Failing fixture</a>
         </div>
+      </section>
+      <section class="section-shell split-section">
+        <div><p class="eyebrow">COMPATIBILITY AND CONTRIBUTION</p><h2>Keep the public boundary reproducible</h2><p>The supported local path uses Node 24 and the committed npm lockfile. Unsupported schema versions fail closed rather than being guessed. Public contributions belong in the repository; private vulnerabilities belong in the security reporting channel.</p></div>
+        <div class="doc-grid">
+          <a href="https://github.com/fenrualabs/fenrua-web">Repository contribution channel</a>
+          <a href="/security">Private vulnerability reporting</a>
+          <a href="/trust/claims">Capability and claim records</a>
+          <a href="/data/capability-register.json">Download capability register JSON</a>
+        </div>
       </section>`,
   });
 }
 
 function evidence() {
+  const evidenceGroups = [
+    {
+      kicker: "01",
+      title: "Current release evidence",
+      text: "The release manifest and audit bind the current static artifact set at a point in time. Freshness ends when a later source-bound release supersedes it.",
+      href: "/audit",
+      link: "Release verification",
+    },
+    {
+      kicker: "02",
+      title: "Historical research evidence",
+      text: "Kernel snapshots, regression records, and the frozen toolchain capture remain historical source evidence. They retain their named revision and limitation rather than becoming current release proof.",
+      href: "/research",
+      link: "Research records",
+    },
+    {
+      kicker: "03",
+      title: "Observation evidence",
+      text: "Signed observations are short-lived and shown only through the bounded monitor after signature, sequence, and freshness checks. Static pages do not retain a current observation claim.",
+      href: "/operations/observations",
+      link: "Observation boundary",
+    },
+    {
+      kicker: "04",
+      title: "Independent evidence",
+      text: "No independent reproduction or external-review record is currently published. A source record or internal test is not relabelled as independent assurance.",
+      href: "/trust/evidence-classes",
+      link: "Evidence-class limits",
+    },
+    {
+      kicker: "05",
+      title: "Superseded or revoked evidence",
+      text: "No current registry entry is presented as revoked. Superseded records remain visible only with their replacement context and must not be read as current evidence.",
+      href: "/audit",
+      link: "Document status",
+    },
+  ];
   const rows = evidenceRecords.map(
     (record) => `<tr id="${attr(record.id)}">
       <td data-label="Artifact"><code>${esc(record.id)}</code><br>${esc(record.artifact)}<br><small>${esc(record.type)}</small></td>
@@ -1218,7 +1844,10 @@ function evidence() {
     description: "Fenrua public evidence registry with claims, hashes, provenance, supersession, maturity, and limitations.",
     current: "Evidence",
     scripts: '<script src="/toolchain/toolchain.js" defer></script>',
-    body: `${routeHero("PUBLIC EVIDENCE", "Evidence Registry", "Current public release evidence is separated from historical source evidence and every record states its limitation.", `<div class="cta-row"><a class="button button-primary" href="/audit">Read current audit</a><a class="button button-secondary" href="/.well-known/fenrua-release.json">Release manifest</a></div>`)}
+    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${routeHero("PUBLIC EVIDENCE", "Evidence Registry", "Current public release evidence is separated from historical source evidence and every record states its limitation.", `<div class="cta-row"><a class="button button-primary" href="/audit">Read current audit</a><a class="button button-secondary" href="/.well-known/fenrua-release.json">Release manifest</a></div>`)}
+      <section class="section-shell" aria-labelledby="evidence-groups"><div class="section-heading"><p class="eyebrow">EVIDENCE STATE</p><h2 id="evidence-groups">Freshness and supersession stay visible</h2><p>Evidence type, freshness, authority, and what a record does not prove are separate dimensions. Empty categories remain explicit rather than being filled with a stronger claim.</p></div>
+        ${cardGrid(evidenceGroups)}
+      </section>
       <section class="section-shell">
         ${table(["Artifact", "Claim", "Hash", "Source", "Revisions", "Producer", "Command", "Verified / Revocation", "Supersession", "Limitation"], rows, "evidence-table", "Public evidence registry")}
       </section>
@@ -1229,7 +1858,7 @@ function evidence() {
           <p>This table is generated from the validated, point-in-time kernel snapshot pinned to <code class="hash-value">${esc(snapshotCommit)}</code>. The scheduled synchronization updates this rendered table only after the public records and their internal hashes pass validation. It does not expose operands, witness material, raw fixture bytes, proving artifacts, private paths, or secrets.</p>
         </div>
         ${table(["Regression", "Scope", "Result", "Fixture", "Pinned evidence"], regressionRows, "regression-table", "Published permanent kernel regressions")}
-      </section>`,
+      </section>`),
   });
 }
 
@@ -1335,6 +1964,10 @@ function support() {
     canonicalPath: "/support",
     body: `${routeHero("PUBLIC CONTACT", "Support and Contact", "Use the channel that matches the request and keep protected material out of public messages.")}
       <section class="section-shell">
+        <div class="section-heading">
+          <p class="eyebrow">CONTACT ROUTES</p>
+          <h2>Choose a public channel</h2>
+        </div>
         ${cardGrid([
           { kicker: "BUSINESS", title: "Partnerships and service enquiries", text: company.publicContact, href: `mailto:${company.publicContact}`, link: "Email Fenrua Labs" },
           { kicker: "WEBSITE SECURITY", title: "Private vulnerability report", text: "Use GitHub private vulnerability reporting for fenrua-web. Do not place exploit details in a public issue.", href: "https://github.com/fenrualabs/fenrua-web/security/advisories/new", link: "Open private report" },
@@ -1384,6 +2017,10 @@ function accessibility() {
     canonicalPath: "/accessibility",
     body: `${routeHero("PUBLIC ACCESS", "Accessibility", "The public technical estate is designed for keyboard access, responsive inspection, readable contrast, and explicit status language.")}
       <section class="section-shell">
+        <div class="section-heading">
+          <p class="eyebrow">ACCESS FEATURES</p>
+          <h2>Public interface practices</h2>
+        </div>
         ${cardGrid([
           { kicker: "NAVIGATION", title: "Keyboard-first structure", text: "Skip links, landmarks, focus-visible controls, and keyboard-scrollable technical tables are part of the tested interface." },
           { kicker: "VIEWPORTS", title: "Responsive evidence", text: "Technical records preserve labels and limitations on narrow screens instead of hiding evidence columns." },
@@ -1423,11 +2060,23 @@ function audit() {
   });
   const scope = siteEvidence.scope ?? {};
   return layout({
-    title: "Fenrua Public Audit",
+    title: "Fenrua Public Release Verification",
     description: "Current public static release evidence, document status, access-only commercial boundary, and explicit limitations.",
     current: "Audit",
     canonicalPath: "/audit",
-    body: `${routeHero("CURRENT PUBLIC RELEASE", "Audit and Release Evidence", "This page identifies the current public static release evidence and its limits. It does not attest to dynamic observations, live block-card data, or protected systems.", `<div class="cta-row"><a class="button button-primary" href="/.well-known/fenrua-release.json">Open release manifest</a><a class="button button-secondary" href="/data/public-document-register.json">Download document register</a></div>`)}
+    body: `${routeHero("CURRENT PUBLIC RELEASE", "Release Integrity Verification", "This page identifies the public static release evidence and its limits. It does not attest to dynamic observations, live block-card data, or protected systems.", `<div class="cta-row"><a class="button button-primary" href="/.well-known/fenrua-release.json">Open release manifest</a><a class="button button-secondary" href="/data/public-document-register.json">Download document register</a></div>`)}
+      <section class="section-shell" aria-labelledby="release-verification-subject">
+        <div class="section-heading"><p class="eyebrow">VERIFICATION SUBJECT</p><h2 id="release-verification-subject">Scope before assurance</h2><p>The release record is a public static-artifact verification surface. It is not a runtime, service-health, security-review, or authorization assertion.</p></div>
+        <dl class="record-facts">
+          <div><dt>Subject</dt><dd>Fenrua public static artifact set</dd></div>
+          <div><dt>Source commit</dt><dd>Bound by the release manifest generated from the exact release checkout</dd></div>
+          <div><dt>Artifact set</dt><dd>Listed files and SHA-256 values in the public release manifest</dd></div>
+          <div><dt>Method</dt><dd>Deterministic static generation, repository validation, and manifest self-integrity checks</dd></div>
+          <div><dt>Independent trust anchor</dt><dd>Retained site-evidence record digest: <code>${esc(siteEvidenceHash)}</code></dd></div>
+          <div><dt>Time of observation</dt><dd>${esc(generatedIso)}</dd></div>
+          <div><dt>Expiration / supersession</dt><dd>Superseded by a later source-bound release record; this page does not make future release claims</dd></div>
+        </dl>
+      </section>
       <section class="section-shell split-section">
         <div>
           <p class="eyebrow">STATIC RELEASE SCOPE</p>
@@ -1506,7 +2155,7 @@ function status() {
     description: "Fenrua public signed-observation monitor and static release-status reference.",
     current: "Status",
     scripts: '<script src="/status-monitor.js" defer></script>',
-    body: `${routeHero("STATUS AND PUBLIC OBSERVATIONS", "Status", "Current signed observations are monitored separately from static release records. A release record is never presented as a chain event or activation time.")}
+    body: assuranceScope("claims", ["claim.observation.signed-read-only", "claim.observation.observed-block-label"], `${routeHero("STATUS AND PUBLIC OBSERVATIONS", "Status", "Current signed observations are monitored separately from static release records. A release record is never presented as a chain event or activation time.")}
       <section class="section-shell">
         <div class="toolchain-summary state-grid">
           ${statusCards
@@ -1520,6 +2169,10 @@ function status() {
             )
             .join("\n")}
         </div>
+      </section>
+      <section class="section-shell" aria-labelledby="status-planes-title">
+        <div class="section-heading"><p class="eyebrow">STATUS PLANE BOUNDARIES</p><h2 id="status-planes-title">What each status can and cannot mean</h2><p>Publication, service, dependency, observation, incident, and maintenance status remain separate. This page does not publish uptime or an SLO because the required measured service history is not available.</p></div>
+        ${cardGrid(statusPlanes.map(([title, text, href], index) => ({ kicker: String(index + 1).padStart(2, "0"), title, text, href, link: "Open related record" })))}
       </section>
       <section class="section-shell">
         <div class="section-heading">
@@ -1540,7 +2193,7 @@ function status() {
         </div>
         <p class="mobile-data-notice"><strong>Static release records are not live checks.</strong> Their validation scope and limitations remain visible without implying a current event.</p>
         ${table(["Release record", "Publication state", "Maturity", "Public artifact", "Evidence basis", "Validation scope", "Current limitation", "Next evidence gate"], staticRows, "status-table static-release-table", "Static public release records")}
-      </section>`,
+      </section>`),
   });
 }
 
@@ -1568,7 +2221,7 @@ function toolchain() {
       <td>${esc(tool.category)}</td>
       <td>${esc(tool.installationMode)}</td>
       <td><div class="tag-stack">${tags.map((tag) => `<span class="status-badge">${esc(tag)}</span>`).join("")}</div></td>
-      <td>${tool.evidenceProduced ? "yes" : "no"}<br><small>${esc(tool.evidencePath)}</small></td>
+      <td data-label="Evidence links">${toolchainEvidenceLinks(tool)}</td>
       <td><div class="command-list">${(tool.commands ?? []).map((command) => `<code>${esc(command)}</code>`).join("")}</div></td>
       <td><div class="table-prose">${esc(tool.limitations)}</div></td>
     </tr>`;
@@ -1611,7 +2264,7 @@ function toolchain() {
             <div><strong>Category</strong>${esc(tool.category)}</div>
             <div><strong>Installation mode</strong>${esc(tool.installationMode)}</div>
             <div><strong>Delivery tags</strong><div class="tag-stack">${tags.map((tag) => `<span class="status-badge">${esc(tag)}</span>`).join("")}</div></div>
-            <div><strong>Evidence state</strong>${tool.evidenceProduced ? "Evidence-producing" : "No evidence artifact produced"}<br><small>${esc(tool.evidencePath)}</small></div>
+            <div><strong>Evidence links</strong>${toolchainEvidenceLinks(tool)}</div>
             <div><strong>Verification command</strong><div class="command-list">${(tool.commands ?? []).map((command) => `<code>${esc(command)}</code>`).join("")}</div></div>
             <details class="limitation-disclosure">
               <summary>Known limitations</summary>
@@ -1642,7 +2295,7 @@ function toolchain() {
             <strong>no post-evidence updates</strong>
           </article>
         </div>
-        <p class="table-note"><button type="button" data-copy="${copyAttr(registryHash)}" data-copy-label="Full SHA copied">Copy registry hash</button> The displayed taxonomy is derived from frozen registry fields. A version or list command is <strong>VERSION_VERIFIED</strong>, not campaign execution.</p>
+        <p class="table-note" id="toolchain-limitations"><button type="button" data-copy="${copyAttr(registryHash)}" data-copy-label="Full SHA copied">Copy registry hash</button> The displayed taxonomy is derived from frozen registry fields. Evidence-producing and campaign-executed are separate: campaign execution requires a declared validation command in the frozen record, while a version or list command is only <strong>VERSION_VERIFIED</strong>.</p>
       </section>
       <section class="section-shell">
         <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Desktop offers the full comparison layout. All evidence remains available here.</p>
@@ -1667,8 +2320,8 @@ function toolchain() {
               <button type="button" data-filter="detected">Detected</button>
               <button type="button" data-filter="version-verified">Version verified</button>
               <button type="button" data-filter="smoke-tested">Smoke tested</button>
-              <button type="button" data-filter="campaign-executed">Campaign executed</button>
               <button type="button" data-filter="evidence">Evidence-producing</button>
+              <button type="button" data-filter="campaign-executed">Campaign executed</button>
               <button type="button" data-filter="canonical-pipeline">Canonical pipeline</button>
               <button type="button" data-filter="container">Container-only</button>
               <button type="button" data-filter="project-local">Project-local</button>
@@ -1681,11 +2334,11 @@ function toolchain() {
           </details>
           <div class="pagination-controls" aria-label="Toolchain pagination">
             <button type="button" data-page-action="prev">Previous</button>
-            <span data-page-status>Page 1</span>
+            <span data-page-status role="status" aria-live="polite" aria-atomic="true">Page 1</span>
             <button type="button" data-page-action="next">Next</button>
           </div>
         </div>
-        ${table(["Tool", "Detected Version", "Category", "Mode", "Delivery Tags", "Evidence", "Command", "Limitations"], rows, "toolchain-table")}
+        ${table(["Tool", "Detected Version", "Category", "Mode", "Delivery Tags", "Evidence links", "Command", "Limitations"], rows, "toolchain-table")}
         <div class="toolchain-mobile-list" aria-label="Toolchain mobile records">
           ${mobileCards}
         </div>
@@ -1695,23 +2348,58 @@ function toolchain() {
 }
 
 writeRoute("", home());
+writeRoute("platform", platform());
 writeRoute("architecture", architecture());
+for (const view of architectureViews) writeRoute(path.join("architecture", view.slug), architectureView(view));
 writeRoute("kernel", kernel());
 writeRoute("utilities", utilities());
 writeRoute("research", researchIndex());
 for (const item of researchItems) writeRoute(path.join("research", item.slug), researchPage(item));
 writeRoute("verify", verify());
 writeRoute("developers", developers());
+writeRoute("start", start());
+writeRoute("trust", trust());
+writeRoute(path.join("trust", "claims"), trustClaims());
+writeRoute(path.join("trust", "evidence-classes"), trustEvidenceClasses());
 writeRoute("evidence", evidence());
 writeRoute("audit", audit());
+writeRoute("operations", operations());
+writeRoute(path.join("operations", "observations"), observations());
 writeRoute("status", status());
 writeRoute("toolchain", toolchain());
+writeRoute("company", companyHub());
 writeRoute("legal", legal());
 writeRoute("support", support());
 writeRoute("security", security());
 writeRoute("accessibility", accessibility());
 
-const sitemapRoutes = ["", "architecture", "kernel", "utilities", "research", ...researchItems.map((item) => `research/${item.slug}`), "verify", "developers", "toolchain", "evidence", "audit", "status", "legal", "support", "security", "accessibility"];
+const sitemapRoutes = [
+  "",
+  "platform",
+  "architecture",
+  ...architectureViews.map((view) => `architecture/${view.slug}`),
+  "kernel",
+  "utilities",
+  "research",
+  ...researchItems.map((item) => `research/${item.slug}`),
+  "verify",
+  "developers",
+  "start",
+  "trust",
+  "trust/claims",
+  "trust/evidence-classes",
+  "evidence",
+  "audit",
+  "operations",
+  "operations/observations",
+  "status",
+  "toolchain",
+  "company",
+  "legal",
+  "support",
+  "security",
+  "accessibility",
+];
 writeGenerated(
   path.join(root, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>

@@ -102,12 +102,60 @@ Retain that command's receipt with the release record. It is an observation at
 a point in time, not an assertion about live cards, APIs, protected systems, or
 future alias state.
 
+## Preview and production gates
+
+Codex does not deploy, run the Vercel CLI, change domains, change environment
+variables, purge caches, or promote a preview. Those are owner-controlled
+external actions. A local release check is necessary source evidence, not a
+preview or production verification.
+
+Before the owner authorises a preview, record outside this repository:
+
+1. the exact approved commit;
+2. the independently retained release-record digest;
+3. the designated last-known-good (LKG) commit and release-manifest reference;
+4. the expected route-lifecycle revision and legal-route state.
+
+The human preview gate verifies the exact commit and record digest, current
+routes and redirects, cache headers, canonical and noindex alias behaviour,
+the public release audit, and browser failure states. The owner may authorise a
+production deployment only when the preview evidence is bound to the same
+commit and manifest. Until that happens, source work is code-complete but
+production-unverified.
+
 ## Rollback and external cleanup
 
-If the public audit fails, re-promote the last passing production deployment.
-The owner has approved removal of every prior deployment and alias associated
-with `fenrua.ai` or `www.fenrua.ai`; retain only the audited canonical
-production release. Keep `www.fenrua.ai` only as a permanent redirect to
-`https://fenrua.ai`, never as a second content site. Do not record credentials,
-server-environment values, or other protected project internals in this
-repository.
+A rollback is an owner decision to restore the designated LKG commit through
+the approved hosting control plane. Do not select an arbitrary older deployment
+or treat a recently successful build as LKG without the source-bound manifest
+and owner record.
+
+Before a rollback, the owner must review these constraints:
+
+- The target release manifest must bind the LKG commit and its static artifact
+  set.
+- The route lifecycle must not restore contradictory legacy product or legal
+  content. Retired `/terms`, `/privacy`, and `/cookies` routes remain safely
+  retired unless an owner-approved canonical legal source is released.
+- The owner decides and records whether cache invalidation is required. Codex
+  does not purge a cache or infer that downstream clients have refreshed.
+- If the observation adapter or verification-key metadata changes, record the
+  source and target key IDs, canonical payload version, continuity-store
+  compatibility, and key-rotation decision. A rollback must not silently
+  create replay, equivocation, or retired-key reuse risk.
+
+After the owner performs the rollback, a human runs the same read-only public
+checks against the intended canonical host and retains results externally:
+
+```bash
+npm run audit:live-release -- --url https://fenrua.ai --expected-commit <lkg-commit> --expected-record-sha256 <lkg-record-digest>
+npm run audit:live-routes -- --url https://fenrua.ai
+npm run audit:live-search-surface -- --url=https://fenrua.ai
+```
+
+Store preview, production, rollback, cache-decision, and post-rollback audit
+evidence in the owner-designated external audit location. Do not commit audit
+reports, provider exports, logs, screenshots, or temporary output to this
+repository. Keep `www.fenrua.ai` only as a redirect to `https://fenrua.ai`,
+never as a second content site. Do not record credentials, server-environment
+values, or protected provider internals in this repository.

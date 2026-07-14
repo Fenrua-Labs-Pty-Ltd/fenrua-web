@@ -21,7 +21,7 @@ function rowMatchesFilter(row) {
   if (activeFilter === "detected") return tags.includes("DETECTED");
   if (activeFilter === "version-verified") return tags.includes("VERSION_VERIFIED");
   if (activeFilter === "smoke-tested") return tags.includes("SMOKE_TESTED");
-  if (activeFilter === "campaign-executed") return tags.includes("EVIDENCE_PRODUCING");
+  if (activeFilter === "campaign-executed") return tags.includes("CAMPAIGN_EXECUTED");
   if (activeFilter === "evidence") return tags.includes("EVIDENCE_PRODUCING");
   if (activeFilter === "canonical-pipeline") return tags.includes("CANONICAL_PIPELINE");
   if (activeFilter === "container") return tags.includes("CONTAINER_ONLY");

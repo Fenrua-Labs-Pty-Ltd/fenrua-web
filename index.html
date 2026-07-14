@@ -126,6 +126,7 @@
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
+    <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
     <header class="site-header site-header-live" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua Protocol home">
         <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
@@ -135,67 +136,57 @@
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="/" aria-current="page">Overview</a>
-        <a href="/architecture">Architecture</a>
-        <a href="/kernel">Kernel</a>
-        <a href="/utilities">Utilities</a>
-        <a href="/research">Research</a>
-        <a href="/verify">Verify</a>
+        <a href="/platform">Platform</a>
         <a href="/developers">Developers</a>
-        <a href="/toolchain">Toolchain</a>
-        <a href="/evidence">Evidence</a>
-        <a href="/audit">Audit</a>
-        <a href="/status">Status</a>
-        <a class="nav-legal" href="/legal">Legal</a>
+        <a href="/research">Research</a>
+        <a href="/trust">Trust</a>
+        <a href="/operations">Operations</a>
+        <a href="/company">Company</a>
       </nav>
-      <div class="mobile-nav-hint" aria-hidden="true">
-        <span>Swipe left for more</span>
-        <i class="mobile-nav-hint-track"><i></i></i>
-      </div>
       <div class="header-chain-rail mobile-chain-rail" aria-label="Live block updates">
         <article class="header-chain-card" data-chain-card="978">
           <div class="chain-card-top">
             <span>FENc978</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Awaiting signed observation</span></strong>
           </div>
           <div class="header-chain-block">
             <span>Latest block</span>
-            <strong data-chain-field="978-block">Loading</strong>
-            <small data-chain-field="978-checked">loading</small>
-            <small data-chain-field="978-source">Evidence source: loading</small>
-            <small data-chain-field="978-activity">Signed activity: loading</small>
+            <strong data-chain-field="978-block">No current observation</strong>
+            <small data-chain-field="978-checked">No current signed observation</small>
+            <small data-chain-field="978-source">Evidence source: not asserted in static output</small>
+            <small data-chain-field="978-activity">Signed activity: not asserted in static output</small>
           </div>
           <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
         </article>
         <article class="header-chain-card" data-chain-card="521">
           <div class="chain-card-top">
             <span>FENn521</span>
-            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
+            <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Awaiting signed observation</span></strong>
           </div>
           <div class="header-chain-block">
             <span>Latest block</span>
-            <strong data-chain-field="521-block">Loading</strong>
-            <small data-chain-field="521-checked">loading</small>
-            <small data-chain-field="521-source">Evidence source: loading</small>
-            <small data-chain-field="521-activity">Signed activity: loading</small>
+            <strong data-chain-field="521-block">No current observation</strong>
+            <small data-chain-field="521-checked">No current signed observation</small>
+            <small data-chain-field="521-source">Evidence source: not asserted in static output</small>
+            <small data-chain-field="521-activity">Signed activity: not asserted in static output</small>
           </div>
           <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
         </article>
-        <span class="sr-only" data-chain-meta="feed-status">loading</span>
-        <span class="sr-only" data-chain-meta="generated">loading</span>
-        <span class="sr-only" data-chain-meta="countdown">loading</span>
-
+        <span class="sr-only" data-chain-meta="feed-status">awaiting signed observation</span>
+        <span class="sr-only" data-chain-meta="generated">no current observation asserted</span>
+        <span class="sr-only" data-chain-meta="countdown">no refresh without JavaScript</span>
       </div>
     </header>
     <main id="content">
+
+
       <section class="route-hero route-hero-solo" aria-labelledby="page-title">
         <div class="route-hero-copy">
           <p class="eyebrow">AI EFFICIENCY INFRASTRUCTURE</p>
           <h1 id="page-title">AI efficiency infrastructure for verifiable systems.</h1>
           <p>Fenrua researches, develops, and provides software and related technology services spanning AI efficiency, infrastructure, evidence, identity, authority, integrity, policy, verification, containment, recovery, hosting, and integration.</p>
-          <div class="cta-row"><a class="button button-primary" href="/architecture">Explore architecture</a><a class="button button-secondary" href="/verify">Verify locally</a><a class="button button-secondary" href="/toolchain">Inspect toolchain</a></div>
+          <div class="cta-row"><a class="button button-primary" href="/platform">Explore platform</a><a class="button button-secondary" href="/start">Choose a starting path</a><a class="button button-secondary" href="/trust">Inspect trust records</a></div>
         </div>
-
       </section>
       <section id="chain-progress" class="section-shell chain-progress desktop-chain-progress" aria-labelledby="chain-progress-title">
         <div class="section-heading">
@@ -204,30 +195,29 @@
           <p>Each chain is presented from its own independently signed bounded observation when one validates; otherwise its state remains waiting or unavailable. An observation does not prove contract safety, bytecode identity, reserve state, or deployment correctness.</p>
         </div>
         <div class="status-band" aria-label="Live chain feed status">
-          <span>Feed <strong data-chain-meta="feed-status">loading</strong></span>
-          <span>Generated <strong data-chain-meta="generated">loading</strong></span>
-          <span>Refresh <strong data-chain-meta="countdown">loading</strong></span>
-          <span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>
+          <span>Feed <strong data-chain-meta="feed-status">awaiting signed observation</strong></span>
+          <span>Generated <strong data-chain-meta="generated">no current observation asserted</strong></span>
+          <span>Refresh <strong data-chain-meta="countdown">no refresh without JavaScript</strong></span>
         </div>
         <div class="chain-grid">
           <article class="chain-card" data-chain-card="978">
             <div class="chain-card-top">
               <span>FENc978</span>
-              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Loading</span></strong>
+              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="978-status">Awaiting signed observation</span></strong>
             </div>
             <h3>Chain 978</h3>
             <dl>
               <div><dt>Chain identity</dt><dd data-chain-field="978-chain-id">978 - pending</dd></div>
-              <div><dt>Latest observed block</dt><dd data-chain-field="978-block">Loading</dd></div>
-              <div><dt>Evidence source</dt><dd data-chain-field="978-source">loading</dd></div>
-              <div><dt>Confidence</dt><dd data-chain-field="978-confidence">loading</dd></div>
-              <div><dt>Observed</dt><dd data-chain-field="978-checked">loading</dd></div>
-              <div><dt>Signed activity</dt><dd data-chain-field="978-activity">loading</dd></div>
+              <div><dt>Latest observed block</dt><dd data-chain-field="978-block">No current observation</dd></div>
+              <div><dt>Evidence source</dt><dd data-chain-field="978-source">Not asserted in static output</dd></div>
+              <div><dt>Confidence</dt><dd data-chain-field="978-confidence">Not asserted</dd></div>
+              <div><dt>Observed</dt><dd data-chain-field="978-checked">No current signed observation</dd></div>
+              <div><dt>Signed activity</dt><dd data-chain-field="978-activity">Not asserted in static output</dd></div>
             </dl>
             <div class="chain-progress-meter" aria-label="Chain 978 next signed observation progress">
               <div class="chain-progress-meter-top">
                 <span><i class="chain-progress-glyph" aria-hidden="true"></i>Next verification</span>
-                <strong data-chain-field="978-progress">loading</strong>
+                <strong data-chain-field="978-progress">awaiting signed observation</strong>
               </div>
               <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
             </div>
@@ -235,21 +225,21 @@
           <article class="chain-card" data-chain-card="521">
             <div class="chain-card-top">
               <span>FENn521</span>
-              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Loading</span></strong>
+              <strong><i class="live-dot" aria-hidden="true"></i><span data-chain-field="521-status">Awaiting signed observation</span></strong>
             </div>
             <h3>Chain N521</h3>
             <dl>
               <div><dt>Chain identity</dt><dd data-chain-field="521-chain-id">521 - pending</dd></div>
-              <div><dt>Latest observed block</dt><dd data-chain-field="521-block">Loading</dd></div>
-              <div><dt>Evidence source</dt><dd data-chain-field="521-source">loading</dd></div>
-              <div><dt>Confidence</dt><dd data-chain-field="521-confidence">loading</dd></div>
-              <div><dt>Observed</dt><dd data-chain-field="521-checked">loading</dd></div>
-              <div><dt>Signed activity</dt><dd data-chain-field="521-activity">loading</dd></div>
+              <div><dt>Latest observed block</dt><dd data-chain-field="521-block">No current observation</dd></div>
+              <div><dt>Evidence source</dt><dd data-chain-field="521-source">Not asserted in static output</dd></div>
+              <div><dt>Confidence</dt><dd data-chain-field="521-confidence">Not asserted</dd></div>
+              <div><dt>Observed</dt><dd data-chain-field="521-checked">No current signed observation</dd></div>
+              <div><dt>Signed activity</dt><dd data-chain-field="521-activity">Not asserted in static output</dd></div>
             </dl>
             <div class="chain-progress-meter" aria-label="Chain N521 next signed observation progress">
               <div class="chain-progress-meter-top">
                 <span><i class="chain-progress-glyph" aria-hidden="true"></i>Next verification</span>
-                <strong data-chain-field="521-progress">loading</strong>
+                <strong data-chain-field="521-progress">awaiting signed observation</strong>
               </div>
               <div class="chain-progress-rail" aria-hidden="true"><i></i></div>
             </div>
@@ -266,7 +256,7 @@
           <span>WHAT</span>
           <h3>Fenrua is an infrastructure protocol</h3>
           <p>It is a research, software, and technology-services foundation for efficient, verifiable AI systems; security is one technical discipline within the broader architecture.</p>
-          <a href="/architecture">Architecture</a>
+          <a href="/platform">Platform</a>
         </article>
         <article>
           <span>WHY LAYER 0</span>
@@ -278,19 +268,19 @@
           <span>TODAY</span>
           <h3>Reference surfaces are public</h3>
           <p>The website, evidence registry, toolchain lock, telemetry checks, and schema foundations are available with maturity labels.</p>
-          <a href="/status">Status</a>
+          <a href="/operations">Operations</a>
         </article>
         <article>
           <span>EVIDENCE</span>
           <h3>Claims are source-linked</h3>
           <p>Every significant public claim points to a source, timestamp, maturity label, and limitation.</p>
-          <a href="/evidence">Evidence registry</a>
+          <a href="/trust">Trust records</a>
         </article>
         <article>
           <span>NEXT</span>
           <h3>Developers start locally</h3>
           <p>The verifier page and developer quick-start show the local workflow without pretending a live verifier exists.</p>
-          <a href="/developers">Quick start</a>
+          <a href="/start">Choose a path</a>
         </article></div>
       </section>
       <section class="section-shell split-section" aria-labelledby="home-boundary">
@@ -327,12 +317,12 @@
       <div class="footer-social">
         <p>Business enquiries: <a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a></p>
         <div class="footer-links" aria-label="Company links and verified public profiles">
-          <a href="/legal">Legal &amp; company</a>
+          <a href="/company">Company</a>
           <a href="/#commercial-boundary-title">Service boundary</a>
           <a href="https://github.com/fenrualabs" rel="me">GitHub</a>
           <a href="https://x.com/FenruaLabs" rel="me">X</a>
           <a href="https://www.linkedin.com/in/fenrua-labs-80b679388" rel="me">LinkedIn</a>
-          <a href="/audit">Audit</a>
+          <a href="/audit">Release verification</a>
           <a href="/evidence">Evidence</a>
           <a href="/toolchain">Toolchain</a>
           <a href="/.well-known/fenrua-release.json">Release manifest</a>

@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "fenrua.capability-register.v1",
+  "lastReviewed": "2026-07-14",
+  "sourceReferences": {
+    "companyIdentityId": "company-identity",
+    "siteEvidenceId": "site-evidence-input",
+    "documentRegisterId": "public-document-register"
+  },
+  "capabilities": [
+    {
+      "id": "capability.public-website",
+      "name": "Website and public evidence interface",
+      "category": "public-interface",
+      "lifecycle": "active",
+      "maturity": "reference-implementation",
+      "availability": "generally-available",
+      "summary": "Public website for company information, technical documentation, evidence records, status information, and bounded read-only observations.",
+      "interfaces": [
+        { "kind": "public-route", "label": "Fenrua public website", "target": "https://fenrua.ai/" }
+      ],
+      "claimIds": [
+        "claim.platform.public-evidence-interface",
+        "claim.platform.protocol-label",
+        "claim.commercial.no-financial-products",
+        "claim.commercial.agreement-specific-services",
+        "claim.company.identity-source-record",
+        "claim.security.private-reporting-boundary"
+      ],
+      "evidenceIds": ["site-evidence-input", "source-public-interface-doctrine"],
+      "limitations": ["The static public interface does not attest to protected systems, private infrastructure, or live block-card data."],
+      "nonClaims": ["It is not a self-service account, checkout, client-upload, or interactive AI interface."],
+      "dependencies": ["fenrua.public-evidence-interface", "fenrua.protocol"],
+      "owner": "public-platform",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Release only through the declared static release validation and public artifact binding process."
+    },
+    {
+      "id": "capability.release-evidence",
+      "name": "Public release evidence",
+      "category": "release-provenance",
+      "lifecycle": "active",
+      "maturity": "reference-implementation",
+      "availability": "generally-available",
+      "summary": "Public audit route and release manifest boundary for listed static artifacts when generated for a release.",
+      "interfaces": [
+        { "kind": "public-route", "label": "Release audit", "target": "/audit" },
+        { "kind": "public-route", "label": "Release manifest", "target": "/.well-known/fenrua-release.json" }
+      ],
+      "claimIds": ["claim.release.static-artifact-binding"],
+      "evidenceIds": ["site-evidence-input", "source-release-pipeline"],
+      "limitations": ["The manifest binds only listed static artifacts and validation scope."],
+      "nonClaims": ["It is not runtime attestation for live APIs, protected systems, or future releases."],
+      "dependencies": ["fenrua.evidence", "fenrua.public-evidence-interface"],
+      "owner": "public-platform",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Generate a manifest from the exact release checkout and retain a passing public audit receipt."
+    },
+    {
+      "id": "capability.evidence-registry",
+      "name": "Evidence registry",
+      "category": "public-evidence",
+      "lifecycle": "active",
+      "maturity": "reference-implementation",
+      "availability": "generally-available",
+      "summary": "Public point-in-time evidence registry with source, revision, hash, maturity, and limitation context.",
+      "interfaces": [
+        { "kind": "public-route", "label": "Evidence registry", "target": "/evidence" },
+        { "kind": "public-route", "label": "Audit route", "target": "/audit" }
+      ],
+      "claimIds": ["claim.evidence.point-in-time-boundary"],
+      "evidenceIds": ["site-evidence-input", "source-public-interface-doctrine"],
+      "limitations": ["Hash and link validation does not rerun or prove the source campaigns."],
+      "nonClaims": ["Publication is not universal certification, a guarantee, or proof of all future revisions."],
+      "dependencies": ["fenrua.evidence", "fenrua.public-evidence-interface"],
+      "owner": "public-platform",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Publish only records with stated revision, scope, evidence source, maturity, and limitation."
+    },
+    {
+      "id": "capability.toolchain-registry",
+      "name": "Toolchain registry",
+      "category": "evidence-integrity",
+      "lifecycle": "active",
+      "maturity": "reference-implementation",
+      "availability": "generally-available",
+      "summary": "Public inventory of detected toolchain versions and evidence-producing labels for the inspected environment.",
+      "interfaces": [
+        { "kind": "public-route", "label": "Toolchain registry", "target": "/toolchain" },
+        { "kind": "source-artifact", "label": "Machine-readable registry", "target": "data/toolchain-registry.json" }
+      ],
+      "claimIds": ["claim.toolchain.version-capture"],
+      "evidenceIds": ["source-toolchain-registry", "source-toolchain-evidence-lock"],
+      "limitations": ["Version capture is not current-install, availability, security, or production proof."],
+      "nonClaims": ["The registry does not claim the newest possible version of every tool or a current security result."],
+      "dependencies": ["fenrua.evidence"],
+      "owner": "public-platform",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Capture exact versions, rerun the relevant evidence path, freeze new evidence, and reconcile public claims before relabelling a toolchain state."
+    },
+    {
+      "id": "capability.local-verifier",
+      "name": "Local verifier foundation",
+      "category": "verification",
+      "lifecycle": "active",
+      "maturity": "prototype",
+      "availability": "local",
+      "summary": "Repository-local verification result fixtures and deterministic result-code boundary.",
+      "interfaces": [
+        { "kind": "command", "label": "Verifier fixture check", "target": "npm run test:verify-examples" },
+        { "kind": "documentation", "label": "Verifier route", "target": "/verify" }
+      ],
+      "claimIds": ["claim.verifier.local-boundary"],
+      "evidenceIds": ["source-verification-result-spec", "source-verifier-examples"],
+      "limitations": ["No live server-side verifier or public upload flow is claimed."],
+      "nonClaims": ["A fixture result cannot establish production runtime conformity or validate artifacts that were not supplied."],
+      "dependencies": ["fenrua.verification"],
+      "owner": "developer-platform",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Require an implemented verifier, usable public interface, documented inputs, evidence bundle, and limitations before broader availability."
+    },
+    {
+      "id": "capability.observation-978",
+      "name": "Chain 978 bounded observation",
+      "category": "observation",
+      "lifecycle": "active",
+      "maturity": "reference-implementation",
+      "availability": "limited-preview",
+      "summary": "Bounded read-only Chain 978 observation adapter with public verification metadata and fail-closed states.",
+      "interfaces": [
+        { "kind": "public-api", "label": "Observation status", "target": "GET /api/chain-progress" },
+        { "kind": "public-api", "label": "Chain 978 verification metadata", "target": "GET /api/chain-observation-key" }
+      ],
+      "claimIds": ["claim.observation.signed-read-only", "claim.observation.observed-block-label"],
+      "evidenceIds": ["site-evidence-input", "source-observation-gateway", "source-observation-continuity-tests"],
+      "limitations": ["A signed bounded observation is not contract safety, bytecode identity, reserve state, finality, or deployment correctness."],
+      "nonClaims": ["The endpoint does not accept transactions, forward public RPC, or expose private mesh details."],
+      "dependencies": ["fenrua.fenc978"],
+      "owner": "operations",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Require configured signed observation inputs, key metadata, durable continuity controls, and scoped operational evidence before any maturity increase."
+    },
+    {
+      "id": "capability.observation-n521",
+      "name": "Chain N521 bounded observation",
+      "category": "observation",
+      "lifecycle": "active",
+      "maturity": "research",
+      "availability": "not-available",
+      "summary": "Public boundary for a future bounded Chain N521 observation, designed to report awaiting state when independent evidence is absent.",
+      "interfaces": [
+        { "kind": "public-api", "label": "Observation status boundary", "target": "GET /api/chain-progress" },
+        { "kind": "public-api", "label": "Chain N521 verification metadata boundary", "target": "GET /api/chain-n521-observation-key" }
+      ],
+      "claimIds": ["claim.observation.n521-awaiting"],
+      "evidenceIds": ["source-capability-maturity-register", "source-observation-gateway"],
+      "limitations": ["No liveness claim is made until an independent gateway and public verification key are configured."],
+      "nonClaims": ["A waiting or unavailable UI state is not a simulated live head or a claim of chain availability."],
+      "dependencies": ["fenrua.fenn521"],
+      "owner": "operations",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Require independent signed observation evidence, public verification metadata, and an accepted bounded gateway configuration before availability changes."
+    },
+    {
+      "id": "capability.security-kernel-specification",
+      "name": "Security kernel specification",
+      "category": "security-control",
+      "lifecycle": "active",
+      "maturity": "specification",
+      "availability": "source-only",
+      "summary": "Public specification for security-kernel responsibilities, primitive maturity, and fail-closed conditions.",
+      "interfaces": [
+        { "kind": "documentation", "label": "Security kernel route", "target": "/kernel" },
+        { "kind": "source-artifact", "label": "Security kernel specification", "target": "docs/FENRUA_SECURITY_KERNEL_SPEC.md" }
+      ],
+      "claimIds": ["claim.kernel.non-production-boundary"],
+      "evidenceIds": ["source-security-kernel-spec", "source-layer0-architecture"],
+      "limitations": ["The specification is not itself a production engine or production-safety certificate."],
+      "nonClaims": ["It does not replace applications, models, tools, cloud infrastructure, or chains."],
+      "dependencies": ["fenrua.security-kernel", "fenrua.layer-0-security-controls"],
+      "owner": "security-architecture",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Require an implemented scope-specific control, tests, evidence, and release decision before promoting a specification claim."
+    },
+    {
+      "id": "capability.authority-policy-specification",
+      "name": "Authority policy specification",
+      "category": "policy-and-verification",
+      "lifecycle": "active",
+      "maturity": "specification",
+      "availability": "source-only",
+      "summary": "Public policy-specification foundation for authority evaluation and fail-closed behavior.",
+      "interfaces": [
+        { "kind": "source-artifact", "label": "Authority policy specification", "target": "docs/FENRUA_AUTHORITY_POLICY_SPEC.md" }
+      ],
+      "claimIds": ["claim.authority-policy.specification"],
+      "evidenceIds": ["source-authority-policy-spec"],
+      "limitations": ["Enforcement requires integration into a concrete runtime or workflow."],
+      "nonClaims": ["The public specification does not demonstrate a deployed policy engine."],
+      "dependencies": ["fenrua.security-kernel"],
+      "owner": "security-architecture",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Require integrated enforcement, scoped tests, and evidence before a live-control maturity claim."
+    },
+    {
+      "id": "capability.evidence-bundle-specification",
+      "name": "Evidence bundle specification",
+      "category": "public-evidence",
+      "lifecycle": "active",
+      "maturity": "specification",
+      "availability": "source-only",
+      "summary": "Public specification for evidence-bundle structure and disclosure boundary.",
+      "interfaces": [
+        { "kind": "source-artifact", "label": "Evidence bundle specification", "target": "docs/FENRUA_EVIDENCE_BUNDLE_SPEC.md" }
+      ],
+      "claimIds": ["claim.evidence.bundle-specification"],
+      "evidenceIds": ["source-evidence-bundle-spec"],
+      "limitations": ["The bundle signature flow is not finalized by the public specification alone."],
+      "nonClaims": ["The specification does not claim an externally certified evidence service."],
+      "dependencies": ["fenrua.evidence"],
+      "owner": "public-platform",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Require a published bundle implementation, repeatable verification path, and scoped evidence before availability promotion."
+    },
+    {
+      "id": "capability.research-registry",
+      "name": "Research registry",
+      "category": "research",
+      "lifecycle": "active",
+      "maturity": "reference-implementation",
+      "availability": "source-only",
+      "summary": "Public registry that keeps research claims, non-claims, evidence, maturity, and limitations adjacent.",
+      "interfaces": [
+        { "kind": "documentation", "label": "Research registry", "target": "/research" },
+        { "kind": "documentation", "label": "P/N521 record", "target": "/research/pn521-cross-limb-borrow" }
+      ],
+      "claimIds": ["claim.research.adjacent-records", "claim.research.pn521-regression"],
+      "evidenceIds": ["source-research-governance"],
+      "limitations": ["Public pages expose records and hashes but do not replay all underlying binary fixtures in the browser."],
+      "nonClaims": ["Research records are not a production-capability or production-certification claim."],
+      "dependencies": ["fenrua.research", "fenrua.pn521"],
+      "owner": "research",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Require the adjacent claim, non-claim, threat, test vector, implementation artifact, and evidence path before infrastructure promotion."
+    },
+    {
+      "id": "capability.utility-catalogue",
+      "name": "Utility catalogue",
+      "category": "public-catalogue",
+      "lifecycle": "active",
+      "maturity": "specification",
+      "availability": "source-only",
+      "summary": "Public catalogue of utility concepts with purpose, boundary, and maturity labels.",
+      "interfaces": [
+        { "kind": "documentation", "label": "Utilities route", "target": "/utilities" }
+      ],
+      "claimIds": ["claim.utilities.maturity-labelled"],
+      "evidenceIds": ["source-layer0-architecture", "source-capability-maturity-register"],
+      "limitations": ["Catalogue entries have different maturity levels and may not expose a usable service interface."],
+      "nonClaims": ["A listed utility is not automatically installed, live, hosted, or production approved."],
+      "dependencies": ["fenrua.utilities", "fenrua.layer-0-security-controls"],
+      "owner": "public-platform",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Require a purpose, usable interface, boundary, evidence, and limitation before promoting an individual utility beyond source-only status."
+    },
+    {
+      "id": "capability.local-trust-gate",
+      "name": "Local Trust Gate",
+      "category": "policy-and-verification",
+      "lifecycle": "planned",
+      "maturity": "research",
+      "availability": "not-available",
+      "summary": "Planned local integration concept with no implemented public interface or release evidence in the current repository.",
+      "interfaces": [],
+      "claimIds": [],
+      "evidenceIds": [],
+      "limitations": ["No public implementation, CLI, SDK, API, hosted interface, or release artifact is recorded."],
+      "nonClaims": [
+        "This register does not claim Local Trust Gate is available, tested, beta, or production ready.",
+        "No public implementation, CLI, SDK, API, hosted interface, or release artifact is available."
+      ],
+      "dependencies": ["fenrua.local-trust-gate"],
+      "owner": "developer-platform",
+      "lastReviewed": "2026-07-14",
+      "promotionGate": "Require a public implementation, usable interface, evidence record, limitations, and owner-approved release decision before any availability promotion."
+    }
+  ]
+}

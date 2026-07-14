@@ -32,6 +32,20 @@
       "artifactSha256": "56780ab9cef19a411b5dbc4471ca3b6dfc78085f723eb29748194494c6bef964"
     },
     {
+      "id": "public-data-flow",
+      "status": "active",
+      "path": "docs/PUBLIC_DATA_FLOW.md",
+      "replacementPath": "/company",
+      "artifactSha256": "77e1564457130bc1f8c500884ce297b4702fab5dfd917557e9403c259ca3de12"
+    },
+    {
+      "id": "ai-efficiency-evidence-standard",
+      "status": "active",
+      "path": "docs/FENRUA_AI_EFFICIENCY_EVIDENCE_STANDARD.md",
+      "replacementPath": "/platform",
+      "artifactSha256": "a3e32df05a2564b91d6f379b23b379578f9fc2e4adc8f7875004df65f1434fcf"
+    },
+    {
       "id": "public-document-register",
       "status": "active",
       "path": "data/public-document-register.json",

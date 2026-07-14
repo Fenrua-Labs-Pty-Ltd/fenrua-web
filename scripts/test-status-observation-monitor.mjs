@@ -8,9 +8,10 @@ const [status, monitor] = await Promise.all([
 
 assert.match(status, /<script src="\/status-monitor\.js" defer><\/script>/, "Status must load its isolated public monitor.");
 assert.doesNotMatch(status, /<script src="\/mobile-chain-status\.js" defer><\/script>/, "Status must not start a second public-observation poller.");
-assert.match(status, /class="route-hero-chain-rail"/, "Status must place the compact observation pair in its desktop intro card.");
+assert.doesNotMatch(status, /data-chain-card=/, "Status must use its monitor table rather than duplicate detailed observation cards.");
 assert.match(status, /LIVE SIGNED OBSERVATIONS/, "Status must distinguish live observations from static release records.");
 assert.match(status, /STATIC RELEASE RECORDS/, "Static records must be explicitly scoped as non-live.");
+assert.match(status, /STATUS PLANE BOUNDARIES/, "Status must make its plane separation visible.");
 assert.match(status, /data-status-monitor-row="978"/, "Status must render a Chain 978 monitor target.");
 assert.match(status, /data-status-monitor-row="521"/, "Status must render a Chain N521 monitor target.");
 assert.match(status, /Last signed observation/, "Live rows must label the true observation time.");
