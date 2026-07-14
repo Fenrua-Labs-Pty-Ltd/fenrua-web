@@ -176,36 +176,76 @@
         </div>
       </section>
       <section class="section-shell" aria-labelledby="platform-capabilities"><div class="section-heading"><p class="eyebrow">CURRENT CAPABILITY STATES</p><h2 id="platform-capabilities">Maturity stays attached to the record</h2><p>These summaries are generated from the canonical capability register. A public page, specification, or record is not promoted into a service merely by being visible here.</p></div>
-        <div class="route-grid"><article>
+        <div class="route-grid capability-card-grid"><!-- fenrua-assurance-scope:capability:capability.public-website:start --><article class="capability-card" data-capability-id="capability.public-website" data-capability-availability="generally-available">
           <span>reference-implementation · generally-available</span>
           <h3>Website and public evidence interface</h3>
-          <p>Public website for company information, technical documentation, evidence records, status information, and bounded read-only observations. Limitation: The static public interface does not attest to protected systems, private infrastructure, or live block-card data.</p>
+          <p>Public website for company information, technical documentation, evidence records, status information, and bounded read-only observations.</p>
+          <dl>
+            <div><dt>Lifecycle</dt><dd>active</dd></div>
+            <div><dt>Public interface</dt><dd>Fenrua public website</dd></div>
+            <div><dt>Owner</dt><dd>public-platform</dd></div>
+          </dl>
+          <p><strong>Limitation:</strong> The static public interface does not attest to protected systems, private infrastructure, or live block-card data.</p>
+          <p><strong>Non-claim:</strong> It is not a self-service account, checkout, client-upload, or interactive AI interface.</p>
+          <p><strong>Promotion gate:</strong> Release only through the declared static release validation and public artifact binding process.</p>
 
-        </article>
-        <article>
+        </article><!-- fenrua-assurance-scope:end -->
+        <!-- fenrua-assurance-scope:capability:capability.security-kernel-specification:start --><article class="capability-card" data-capability-id="capability.security-kernel-specification" data-capability-availability="source-only">
           <span>specification · source-only</span>
           <h3>Security kernel specification</h3>
-          <p>Public specification for security-kernel responsibilities, primitive maturity, and fail-closed conditions. Limitation: The specification is not itself a production engine or production-safety certificate.</p>
+          <p>Public specification for security-kernel responsibilities, primitive maturity, and fail-closed conditions.</p>
+          <dl>
+            <div><dt>Lifecycle</dt><dd>active</dd></div>
+            <div><dt>Public interface</dt><dd>Security kernel route; Security kernel specification</dd></div>
+            <div><dt>Owner</dt><dd>security-architecture</dd></div>
+          </dl>
+          <p><strong>Limitation:</strong> The specification is not itself a production engine or production-safety certificate.</p>
+          <p><strong>Non-claim:</strong> It does not replace applications, models, tools, cloud infrastructure, or chains.</p>
+          <p><strong>Promotion gate:</strong> Require an implemented scope-specific control, tests, evidence, and release decision before promoting a specification claim.</p>
           <a href="/kernel">Inspect boundary</a>
-        </article>
-        <article>
+        </article><!-- fenrua-assurance-scope:end -->
+        <!-- fenrua-assurance-scope:capability:capability.utility-catalogue:start --><article class="capability-card" data-capability-id="capability.utility-catalogue" data-capability-availability="source-only">
           <span>specification · source-only</span>
           <h3>Utility catalogue</h3>
-          <p>Public catalogue of utility concepts with purpose, boundary, and maturity labels. Limitation: Catalogue entries have different maturity levels and may not expose a usable service interface.</p>
+          <p>Public catalogue of utility concepts with purpose, boundary, and maturity labels.</p>
+          <dl>
+            <div><dt>Lifecycle</dt><dd>active</dd></div>
+            <div><dt>Public interface</dt><dd>Utilities route</dd></div>
+            <div><dt>Owner</dt><dd>public-platform</dd></div>
+          </dl>
+          <p><strong>Limitation:</strong> Catalogue entries have different maturity levels and may not expose a usable service interface.</p>
+          <p><strong>Non-claim:</strong> A listed utility is not automatically installed, live, hosted, or production approved.</p>
+          <p><strong>Promotion gate:</strong> Require a purpose, usable interface, boundary, evidence, and limitation before promoting an individual utility beyond source-only status.</p>
           <a href="/utilities">Inspect boundary</a>
-        </article>
-        <article>
+        </article><!-- fenrua-assurance-scope:end -->
+        <!-- fenrua-assurance-scope:capability:capability.local-verifier:start --><article class="capability-card" data-capability-id="capability.local-verifier" data-capability-availability="local">
           <span>prototype · local</span>
           <h3>Local verifier foundation</h3>
-          <p>Repository-local verification result fixtures and deterministic result-code boundary. Limitation: No live server-side verifier or public upload flow is claimed.</p>
+          <p>Repository-local verification result fixtures and deterministic result-code boundary.</p>
+          <dl>
+            <div><dt>Lifecycle</dt><dd>active</dd></div>
+            <div><dt>Public interface</dt><dd>Verifier fixture check; Verifier route</dd></div>
+            <div><dt>Owner</dt><dd>developer-platform</dd></div>
+          </dl>
+          <p><strong>Limitation:</strong> No live server-side verifier or public upload flow is claimed.</p>
+          <p><strong>Non-claim:</strong> A fixture result cannot establish production runtime conformity or validate artifacts that were not supplied.</p>
+          <p><strong>Promotion gate:</strong> Require an implemented verifier, usable public interface, documented inputs, evidence bundle, and limitations before broader availability.</p>
           <a href="/verify">Inspect boundary</a>
-        </article>
-        <article>
+        </article><!-- fenrua-assurance-scope:end -->
+        <!-- fenrua-assurance-scope:capability:capability.local-trust-gate:start --><article class="capability-card" data-capability-id="capability.local-trust-gate" data-capability-availability="not-available">
           <span>research · not-available</span>
           <h3>Local Trust Gate</h3>
-          <p>Planned local integration concept with no implemented public interface or release evidence in the current repository. Limitation: No public implementation, CLI, SDK, API, hosted interface, or release artifact is recorded.</p>
-
-        </article></div>
+          <p>Planned local integration concept with no implemented public interface or release evidence in the current repository.</p>
+          <dl>
+            <div><dt>Lifecycle</dt><dd>planned</dd></div>
+            <div><dt>Public interface</dt><dd>No public interface recorded.</dd></div>
+            <div><dt>Owner</dt><dd>developer-platform</dd></div>
+          </dl>
+          <p><strong>Limitation:</strong> No public implementation, CLI, SDK, API, hosted interface, or release artifact is recorded.</p>
+          <p><strong>Non-claim:</strong> This register does not claim Local Trust Gate is available, tested, beta, or production ready.</p>
+          <p><strong>Promotion gate:</strong> Require a public implementation, usable interface, evidence record, limitations, and owner-approved release decision before any availability promotion.</p>
+          <a href="/trust/claims#capability.local-trust-gate">Inspect boundary</a>
+        </article><!-- fenrua-assurance-scope:end --></div>
       </section>
       <section class="section-shell split-section" aria-labelledby="platform-efficiency-evidence"><div><p class="eyebrow">MEASUREMENT BOUNDARY</p><h2 id="platform-efficiency-evidence">Efficiency claims require a reproducible method</h2><p>The public platform does not publish a measured AI-efficiency benchmark. The standard defines the workload, baseline, environment, quality, uncertainty, and artifact inputs required before a future performance claim can be made.</p></div><div class="doc-grid"><a href="/docs/FENRUA_AI_EFFICIENCY_EVIDENCE_STANDARD.md">AI efficiency evidence standard</a><a href="/trust/claims">Inspect current claim boundaries</a></div></section>
       <section class="section-shell" aria-labelledby="platform-next"><div class="section-heading"><p class="eyebrow">NEXT BY ROLE</p><h2 id="platform-next">Inspect before integrating</h2><p>Technical reviewers can trace claims and evidence. Developers can reproduce local checks. Service discussions remain agreement-specific and do not become public self-service workflows.</p></div>

@@ -25,6 +25,12 @@ for (const html of [platform, developers, verify]) {
 }
 assert.match(platform, /Local Trust Gate/);
 assert.match(platform, /not-available/);
+assert.match(platform, /class="capability-card" data-capability-id="capability\.local-trust-gate" data-capability-availability="not-available"/, "Platform must render the canonical planned Trust Gate record rather than a product surface.");
+assert.match(platform, /<dt>Lifecycle<\/dt><dd>planned<\/dd>/, "Platform must preserve the canonical planned lifecycle.");
+assert.match(platform, /No public interface recorded\./, "Platform must expose the missing public interface as an explicit boundary.");
+assert.match(platform, /No public Local Trust Gate package or hosted verifier is available\.|No public implementation, CLI, SDK, API, hosted interface, or release artifact is recorded\./, "Platform must retain the exact non-availability boundary.");
+assert.match(platform, /href="\/trust\/claims#capability\.local-trust-gate">Inspect boundary<\/a>/, "Platform must link the planned capability to its canonical public record.");
+assert.doesNotMatch(platform, /\/platform\/trust-gate|data-product-command|data-product-result/, "Platform must not create a dedicated product surface before the Trust Gate promotion gate.");
 assert.match(verify, /No live server-side verifier is claimed/);
 
 console.log(JSON.stringify({ status: "ok", scope: "developer-product-boundary", lifecycle: trustGate.lifecycle, availability: trustGate.availability }));

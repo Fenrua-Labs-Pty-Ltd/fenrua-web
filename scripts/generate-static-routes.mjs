@@ -913,17 +913,28 @@ function modelDownloads() {
 }
 
 function capabilityCards(capabilityIds, routeById = {}) {
-  return cardGrid(capabilityIds.map((id) => {
+  return `<div class="route-grid capability-card-grid">${capabilityIds.map((id) => {
     const capability = capabilitiesById.get(id);
     if (!capability) throw new Error(`Unknown capability requested by a public route: ${id}`);
-    return {
-      kicker: `${capability.maturity} · ${capability.availability}`,
-      title: capability.name,
-      text: `${capability.summary} Limitation: ${capability.limitations[0]}`,
-      href: routeById[id],
-      link: routeById[id] ? "Inspect boundary" : undefined,
-    };
-  }));
+    const interfaces = capability.interfaces.length
+      ? capability.interfaces.map((entry) => entry.label).join("; ")
+      : "No public interface recorded.";
+    const boundaryHref = routeById[id];
+    return assuranceScope("capability", [capability.id], `<article class="capability-card" data-capability-id="${attr(capability.id)}" data-capability-availability="${attr(capability.availability)}">
+          <span>${esc(capability.maturity)} · ${esc(capability.availability)}</span>
+          <h3>${esc(capability.name)}</h3>
+          <p>${esc(capability.summary)}</p>
+          <dl>
+            <div><dt>Lifecycle</dt><dd>${esc(capability.lifecycle)}</dd></div>
+            <div><dt>Public interface</dt><dd>${esc(interfaces)}</dd></div>
+            <div><dt>Owner</dt><dd>${esc(capability.owner)}</dd></div>
+          </dl>
+          <p><strong>Limitation:</strong> ${esc(capability.limitations[0])}</p>
+          <p><strong>Non-claim:</strong> ${esc(capability.nonClaims[0])}</p>
+          <p><strong>Promotion gate:</strong> ${esc(capability.promotionGate)}</p>
+          ${boundaryHref ? `<a href="${attr(boundaryHref)}">Inspect boundary</a>` : ""}
+        </article>`);
+  }).join("\n        ")}</div>`;
 }
 
 function capabilityRecord(capability) {
@@ -1223,7 +1234,7 @@ function platform() {
     section: "Platform",
     body: `${routeHero("PLATFORM ORIENTATION", "Platform", "Fenrua is a public evidence interface and an AI efficiency infrastructure direction. The platform view separates what is inspectable today from specifications, research, and planned work.", `<div class="cta-row"><a class="button button-primary" href="/architecture">Read architecture</a><a class="button button-secondary" href="/start">Choose a starting path</a></div>`)}
       <section class="section-shell" aria-labelledby="platform-capabilities"><div class="section-heading"><p class="eyebrow">CURRENT CAPABILITY STATES</p><h2 id="platform-capabilities">Maturity stays attached to the record</h2><p>These summaries are generated from the canonical capability register. A public page, specification, or record is not promoted into a service merely by being visible here.</p></div>
-        ${capabilityCards(["capability.public-website", "capability.security-kernel-specification", "capability.utility-catalogue", "capability.local-verifier", "capability.local-trust-gate"], { "capability.security-kernel-specification": "/kernel", "capability.utility-catalogue": "/utilities", "capability.local-verifier": "/verify" })}
+        ${capabilityCards(["capability.public-website", "capability.security-kernel-specification", "capability.utility-catalogue", "capability.local-verifier", "capability.local-trust-gate"], { "capability.security-kernel-specification": "/kernel", "capability.utility-catalogue": "/utilities", "capability.local-verifier": "/verify", "capability.local-trust-gate": "/trust/claims#capability.local-trust-gate" })}
       </section>
       <section class="section-shell split-section" aria-labelledby="platform-efficiency-evidence"><div><p class="eyebrow">MEASUREMENT BOUNDARY</p><h2 id="platform-efficiency-evidence">Efficiency claims require a reproducible method</h2><p>The public platform does not publish a measured AI-efficiency benchmark. The standard defines the workload, baseline, environment, quality, uncertainty, and artifact inputs required before a future performance claim can be made.</p></div><div class="doc-grid"><a href="/docs/FENRUA_AI_EFFICIENCY_EVIDENCE_STANDARD.md">AI efficiency evidence standard</a><a href="/trust/claims">Inspect current claim boundaries</a></div></section>
       <section class="section-shell" aria-labelledby="platform-next"><div class="section-heading"><p class="eyebrow">NEXT BY ROLE</p><h2 id="platform-next">Inspect before integrating</h2><p>Technical reviewers can trace claims and evidence. Developers can reproduce local checks. Service discussions remain agreement-specific and do not become public self-service workflows.</p></div>

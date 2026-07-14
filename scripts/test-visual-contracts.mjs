@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
-const [styles, overview, architecture, claims, status, statusMonitor, evidence, verify] = await Promise.all([
+const [tokens, generatedTokens, styles, overview, architecture, claims, status, statusMonitor, evidence, verify] = await Promise.all([
+  readFile(new URL("../design/tokens.json", import.meta.url), "utf8"),
+  readFile(new URL("../styles.tokens.css", import.meta.url), "utf8"),
   readFile(new URL("../styles.css", import.meta.url), "utf8"),
   readFile(new URL("../index.html", import.meta.url), "utf8"),
   readFile(new URL("../architecture/index.html", import.meta.url), "utf8"),
@@ -12,8 +14,14 @@ const [styles, overview, architecture, claims, status, statusMonitor, evidence, 
   readFile(new URL("../verify/index.html", import.meta.url), "utf8"),
 ]);
 
-assert.match(styles, /main > section:not\(#chain-progress\)\s*\{\s*--dim: #7d8581;/, "Static content must use the AA dim token.");
-assert.match(styles, /\.status-band\s*\{\s*--dim: #a7aca9;/, "Overview status labels must meet the accessibility contrast budget.");
+const designTokens = JSON.parse(tokens);
+assert.equal(designTokens.schemaVersion, "fenrua.design-tokens.v1", "The public design system must use the versioned token schema.");
+assert.match(generatedTokens, /--surface-0: #080a0b;/, "Generated tokens must retain the canonical base surface.");
+assert.match(styles, /^@import url\("\/styles\.tokens\.css"\);/, "Authored CSS must load the generated token surface first.");
+assert.match(styles, /main > section:not\(#chain-progress\)\s*\{\s*--dim: var\(--text-muted\);/, "Static content must use the semantic muted token.");
+assert.match(styles, /\.status-band\s*\{\s*--dim: var\(--text-secondary\);/, "Overview status labels must meet the accessibility contrast budget.");
+assert.doesNotMatch(styles, /linear-gradient|@keyframes/, "The industrial public style must not contain decorative gradients or status animation.");
+assert.doesNotMatch(styles, /font-size:\s*15px|clamp\(/, "The public style must retain a fixed 16px minimum and stable display sizing.");
 assert.match(styles, /@media \(forced-colors: active\)/, "Static pages need forced-colors support.");
 assert.match(styles, /body :is\(a, button, input, select, textarea, summary, \[tabindex\]\):focus-visible/, "Interactive elements need a consistent visible focus indicator.");
 assert.match(styles, /\.site-header \.site-nav\s*\{\s*display: grid;\s*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/, "Mobile navigation must expose all six categories without horizontal discovery.");
@@ -24,6 +32,8 @@ assert.match(styles, /\.breadcrumb-nav\s*\{/, "Visible breadcrumb navigation mus
 assert.match(styles, /\.section-nav\s*\{/, "Visible section navigation must have a dedicated layout contract.");
 assert.match(styles, /\.architecture-diagram\s*\{/, "Semantic architecture views must have a stable diagram layout.");
 assert.match(styles, /\.capability-record,\s*\.claim-record,\s*\.evidence-class-card/, "Model records must use stable individual record surfaces.");
+assert.match(styles, /\.capability-card\[data-capability-availability="not-available"\]/, "Unavailable capabilities need an explicit neutral record surface.");
+assert.match(styles, /\.capability-card\[data-capability-availability="not-available"\] > span\s*\{\s*color: var\(--text-muted\);/, "Planned capability state must not receive a success colour.");
 assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/, "The site must respect reduced-motion preferences.");
 
 assert.match(overview, /class="site-header site-header-live"/, "Overview may retain the dedicated compact observation header.");

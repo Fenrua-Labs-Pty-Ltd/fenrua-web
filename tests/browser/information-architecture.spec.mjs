@@ -14,6 +14,7 @@ const viewports = [
   [1280, 720],
   [1440, 900],
   [1920, 1080],
+  [2560, 1440],
 ];
 
 async function gotoRoute(page, route) {

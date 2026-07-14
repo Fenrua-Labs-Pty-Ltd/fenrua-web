@@ -141,6 +141,9 @@ assert.match(platform, /CURRENT CAPABILITY STATES/);
 assert.match(platform, /capability-register\.json/);
 assert.match(platform, /Local Trust Gate/);
 assert.match(platform, /No public implementation, CLI, SDK, API, hosted interface, or release artifact is recorded\./);
+assert.match(platform, /data-capability-id="capability\.local-trust-gate" data-capability-availability="not-available"/, "Platform must render the canonical planned capability record.");
+assert.match(platform, /href="\/trust\/claims#capability\.local-trust-gate">Inspect boundary<\/a>/, "Platform must link the planned capability to its canonical record.");
+assert.doesNotMatch(platform, /\/platform\/trust-gate/, "A dedicated Trust Gate product route must remain absent until the approved repository and release gate exist.");
 assert.match(platform, /AI efficiency evidence standard/);
 assert.match(platform, /does not publish a measured AI-efficiency benchmark/i);
 

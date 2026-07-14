@@ -36,6 +36,7 @@ export const publicEntries = [
   "status-monitor.js",
   "start",
   "styles.css",
+  "styles.tokens.css",
   "support",
   "technical-data.js",
   "toolchain",
