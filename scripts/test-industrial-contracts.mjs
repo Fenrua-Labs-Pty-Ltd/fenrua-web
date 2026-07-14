@@ -29,6 +29,7 @@ const requiredDocuments = [
   "docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md",
   "docs/LEGACY_VERIFIER_CORPUS_DISPOSITION.md",
   "docs/adr/ADR-0001-TRUST-GATE-REPOSITORY-BOUNDARY.md",
+  "docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md",
 ];
 
 for (const path of requiredDocuments) {
@@ -79,8 +80,14 @@ for (const field of ["type", "title", "status", "code", "detail", "correlationId
 }
 requireText("docs/API_ERROR_CONTRACT.md", "No stack trace, SQL, filesystem path");
 requireText("docs/FENRUA_TRUST_GATE_BOOTSTRAP.md", "fenrua-verify/");
+requireText("docs/FENRUA_TRUST_GATE_BOOTSTRAP.md", "Public Repository Admission Controls");
+requireText("docs/FENRUA_TRUST_GATE_BOOTSTRAP.md", "External Gates That A Public Scaffold Cannot Satisfy");
+requireText("docs/FENRUA_TRUST_GATE_BOOTSTRAP.md", "does not make a Trust Gate interface available");
 requireText("docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md", "Rust core library and CLI");
 requireText("docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md", "strict parser must reject duplicate JSON keys");
+requireText("docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md", "Go core");
+requireText("docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md", "Node/TypeScript core");
+requireText("docs/adr/ADR-0002-LOCAL-TRUST-GATE-IMPLEMENTATION.md", "C++ extension to `fenrua-kernel`");
 requireText("docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md", "fenrua.verification-vector.v1");
 requireText("docs/FENRUA_TRUST_GATE_V0_1_CONTRACT.md", "roles cannot be substituted for one another.");
 requireText("docs/LEGACY_VERIFIER_CORPUS_DISPOSITION.md", "not a Trust Gate schema or product output");
@@ -188,7 +195,8 @@ for (const field of [
 ]) {
   requireText("docs/adr/ADR-0001-TRUST-GATE-REPOSITORY-BOUNDARY.md", field);
 }
-requireText("docs/adr/ADR-0001-TRUST-GATE-REPOSITORY-BOUNDARY.md", "owner approval required before repository creation");
+requireText("docs/adr/ADR-0001-TRUST-GATE-REPOSITORY-BOUNDARY.md", "Owner approval was required before repository creation.");
+requireText("docs/adr/ADR-0001-TRUST-GATE-REPOSITORY-BOUNDARY.md", "repository creation authorized");
 
 for (const column of [
   "Requirement and source",
@@ -200,5 +208,8 @@ for (const column of [
 ]) {
   requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", column);
 }
+requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "F10-PT-004");
+requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "provider deployment success from being treated as rendered-content verification");
+requireText("docs/FENRUA_INDUSTRIAL_10_READINESS_LEDGER.md", "owner-authenticated content evidence remains pending");
 
 console.log(JSON.stringify({ status: "ok", scope: "industrial-contract-freeze", documents: requiredDocuments.length }));
