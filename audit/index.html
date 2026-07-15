@@ -334,6 +334,49 @@
           </table>
         </div>
       </section>
+      <!-- fenrua-assurance-scope:claims:claim.observation.signed-read-only:start --><section id="reviewer-delta" class="section-shell" aria-labelledby="reviewer-delta-title">
+        <div class="section-heading">
+          <p class="eyebrow">REVIEWER DELTA</p>
+          <h2 id="reviewer-delta-title">Reviewer delta</h2>
+          <p>This is an evidence-only checkpoint for returning readers, not a marketing changelog. It does not make a current runtime, service-health, certification, protected-system, or future-freshness claim.</p>
+        </div>
+        <div class="route-grid"><article>
+          <span>01</span>
+          <h3>Current release record</h3>
+          <p>Open the current manifest and compare its source commit, artifact hashes, validation scope, and stated limitations.</p>
+          <a href="/.well-known/fenrua-release.json">Open current release record</a>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Changed public artifact or document-register entry</h3>
+          <p>Compare the current document register entry, status, replacement, archive state, and recorded artifact hash.</p>
+          <a href="/data/public-document-register.json">Open document register</a>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Evidence record affected</h3>
+          <p>Trace the public evidence record associated with the assertion or artifact under review.</p>
+          <a href="/evidence">Inspect evidence records</a>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Supersession or limitation</h3>
+          <p>Check whether the relevant record has a later replacement, expiration, or limitation before treating it as current.</p>
+          <a href="/audit#release-verification-subject">Inspect release limitation</a>
+        </article>
+        <article>
+          <span>05</span>
+          <h3>Observation state to re-check</h3>
+          <p>Re-check signed observation state only through the bounded public monitor; it is not static release proof.</p>
+          <a href="/status">Open bounded monitor</a>
+        </article>
+        <article>
+          <span>06</span>
+          <h3>Recommended reviewer action</h3>
+          <p>Return to the inspection-closure lanes and choose the next action that matches the evidence need.</p>
+          <a href="/start#inspection-closure">Choose next action</a>
+        </article></div>
+      </section><!-- fenrua-assurance-scope:end -->
     </main>
     <footer class="site-footer">
       <div>

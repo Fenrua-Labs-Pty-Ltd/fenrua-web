@@ -1,6 +1,47 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
+function sectionById(markup, id) {
+  const section = markup.match(new RegExp(`<section\\b[^>]*\\bid="${id}"[^>]*>[\\s\\S]*?<\\/section>`))?.[0];
+  assert.ok(section, `Missing generated section #${id}.`);
+  return section;
+}
+
+function cardByHeading(markup, heading) {
+  const card = markup.match(new RegExp(`<article>[\\s\\S]*?<h3>${heading}<\\/h3>[\\s\\S]*?<\\/article>`))?.[0];
+  assert.ok(card, `Missing reviewer card ${heading}.`);
+  return card;
+}
+
+function assertNoPositiveReviewerClaims(markup, label) {
+  for (const pattern of [
+    /\b(?:we|fenrua|the public (?:site|path|record))\s+(?:offer|offers|provide|provides|operate|operates|grant|grants|include|includes|guarantee|guarantees|promise|promises)\s+(?:a\s+)?(?:public account(?: flow)?|hosted verifier(?: availability)?|public service entitlement|SLO|uptime|runtime assurance|runtime attestation|production approval|financial return)\b/i,
+    /\b(?:the\s+)?(?:site|release|service|public (?:site|path|record))\s+(?:has|have|is|are|was|were|received|receives|holds|hold)\s+(?:an?\s+)?(?:public account(?: flow)?|hosted verifier(?: availability)?|public service entitlement|SLO|production approval|runtime assurance|runtime attestation|financial return)\b/i,
+    /\b(?:the\s+)?(?:site|release|service|public (?:site|path|record))\s+(?:has|have|is|are|was|were)\s+(?:an?\s+)?(?:\d+(?:\.\d+)?%\s+)?uptime\b/i,
+    /\b(?:fenrua|the\s+(?:site|release|service|public (?:site|path|record)))\s+(?:is|are|was|were|has\s+been|have\s+been)\s+(?:certified|certificated|production-approved|attested)\b/i,
+    /\b(?:external\s+)?(?:certification|runtime attestation|production approval|runtime assurance)\s+(?:confirms?|verifies|certifies|attests?|guarantees?|proves?)\b/i,
+    /\b(?:the\s+)?SLO\s+(?:meets|is|are|has|have|guarantees?|confirms?)\b/i,
+  ]) {
+    assert.doesNotMatch(markup, pattern, `${label} must not introduce a positive assurance or service claim.`);
+  }
+}
+
+for (const prohibitedClaim of [
+  "The site has 99.99% uptime.",
+  "The release has production approval.",
+  "Fenrua is certified.",
+  "Runtime attestation confirms the service state.",
+]) {
+  assert.throws(() => assertNoPositiveReviewerClaims(prohibitedClaim, "Claim-guard fixture"), assert.AssertionError);
+}
+for (const boundaryStatement of [
+  "No public account flow is offered.",
+  "No hosted verifier availability is claimed.",
+  "This is not external certification.",
+]) {
+  assert.doesNotThrow(() => assertNoPositiveReviewerClaims(boundaryStatement, "Boundary-guard fixture"));
+}
+
 const routes = [
   "index.html",
   "platform/index.html",
@@ -152,6 +193,52 @@ for (const role of ["Developer", "Security engineer", "Researcher", "Enterprise 
   assert.match(start, new RegExp(`<h3>${role}<\\/h3>`), `Start must include the ${role} path.`);
 }
 assert.doesNotMatch(start, /investor|investment opportunity|token sale/i, "Start must remain technical rather than investor-oriented.");
+const noCloneReviewerPath = sectionById(start, "no-clone-reviewer-path");
+assert.match(noCloneReviewerPath, /No-clone technical inspection path/);
+assert.match(noCloneReviewerPath, /The no-clone path is inspection, not reproduction\./);
+assert.match(noCloneReviewerPath, /does not replace local reproduction, runtime testing, protected-system attestation, security certification, formal verification, independent audit, or production approval/i);
+for (const lane of [
+  "Read the release-integrity boundary",
+  "Inspect the claim register",
+  "Inspect evidence classes",
+  "Inspect capability maturity",
+  "Inspect the public service boundary",
+  "Inspect the observation boundary",
+  "Reproduce locally only when required",
+]) {
+  assert.match(noCloneReviewerPath, new RegExp(lane), `No-clone reviewer path must include: ${lane}.`);
+}
+const localReproductionCard = cardByHeading(noCloneReviewerPath, "Reproduce locally only when required");
+assert.match(localReproductionCard, /Clone the repository and run the Node 24 validation path only when local reproduction is required\./);
+assert.match(localReproductionCard, /href="\/verify#local-verification"/);
+
+const inspectionClosure = sectionById(start, "inspection-closure");
+assert.match(inspectionClosure, /After inspection, choose the correct next action/);
+for (const lane of [
+  "Retain or cite the current release record",
+  "Inspect claims and evidence classes",
+  "Use the no-clone inspection path first",
+  "Run local validation only when reproduction is required",
+  "Report public documentation or source issues",
+  "Report vulnerabilities through the private security path",
+  "Contact partnerships for agreement-specific scope",
+  "Return later to inspect reviewer delta",
+]) {
+  assert.match(inspectionClosure, new RegExp(lane), `Reviewer completion must include: ${lane}.`);
+}
+const publicIssuesCard = cardByHeading(inspectionClosure, "Report public documentation or source issues");
+assert.match(publicIssuesCard, /href="https:\/\/github\.com\/fenrualabs\/fenrua-web"/);
+const privateVulnerabilityCard = cardByHeading(inspectionClosure, "Report vulnerabilities through the private security path");
+assert.match(privateVulnerabilityCard, /href="\/security"/);
+assert.notEqual(publicIssuesCard, privateVulnerabilityCard, "Public source issues and private vulnerability reporting must remain separate lanes.");
+const partnershipsCard = cardByHeading(inspectionClosure, "Contact partnerships for agreement-specific scope");
+assert.match(partnershipsCard, /agreement-specific service or evidence scope/i);
+assert.match(partnershipsCard, /href="mailto:partnerships@fenrua\.ai"/);
+
+const reviewerPublicContent = `${noCloneReviewerPath}\n${inspectionClosure}`;
+assert.doesNotMatch(reviewerPublicContent, /\b(?:sign[- ]?up|checkout|payment|wallet|token|reward|referral)\b/i, "Reviewer paths must not introduce consumer-funnel mechanics.");
+assert.doesNotMatch(reviewerPublicContent, /\bexternal[-\s]validation\b/i, "Reviewer paths must avoid ambiguous external-validation terminology.");
+assertNoPositiveReviewerClaims(reviewerPublicContent, "Reviewer paths");
 
 const claims = await readFile(new URL("../trust/claims/index.html", import.meta.url), "utf8");
 assert.match(claims, /data-claim-filter/);
@@ -269,6 +356,25 @@ assert.match(audit, /STATIC RELEASE SCOPE/);
 assert.match(audit, /\.well-known\/fenrua-release\.json/);
 assert.match(audit, /access-only-commercial-boundary/);
 assert.doesNotMatch(audit, /class="section-shell split-section commercial-boundary"/, "Audit must link to the canonical policy rather than repeat its full card.");
+const reviewerDelta = sectionById(audit, "reviewer-delta");
+assert.match(reviewerDelta, /Reviewer delta/);
+assert.match(reviewerDelta, /evidence-only checkpoint/i);
+assert.match(reviewerDelta, /not a marketing changelog/i);
+assert.match(reviewerDelta, /does not make a current runtime, service-health, certification, protected-system, or future-freshness claim/i);
+for (const checkpoint of [
+  "Current release record",
+  "Changed public artifact or document-register entry",
+  "Evidence record affected",
+  "Supersession or limitation",
+  "Observation state to re-check",
+  "Recommended reviewer action",
+]) {
+  assert.match(reviewerDelta, new RegExp(checkpoint), `Reviewer delta must include: ${checkpoint}.`);
+}
+assert.match(reviewerDelta, /href="\/data\/public-document-register\.json"/);
+assert.match(reviewerDelta, /Re-check signed observation state only through the bounded public monitor/i);
+assert.doesNotMatch(reviewerDelta, /\b(?:sign[- ]?up|checkout|payment|wallet|token|reward|referral|external[-\s]validation)\b/i, "Reviewer delta must remain evidence-only.");
+assertNoPositiveReviewerClaims(reviewerDelta, "Reviewer delta");
 
 const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
 for (const route of ["legal", "support", "security", "accessibility"]) assert.match(sitemap, new RegExp(`/${route}<`));

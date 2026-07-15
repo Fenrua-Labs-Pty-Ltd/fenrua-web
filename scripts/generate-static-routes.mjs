@@ -1323,6 +1323,29 @@ function start() {
     body: `${routeHero("ROLE-BASED ORIENTATION", "Start", "Choose a path by the question you need to answer. Every path states the current public surface, available evidence, known limits, and a shortest reproducible next step.")}
       <section class="section-shell role-path-list" aria-labelledby="start-paths"><div class="section-heading"><p class="eyebrow">STARTING PATHS</p><h2 id="start-paths">Technical orientation without conversion language</h2><p>These paths use current public records only. They do not imply an investment, account, token, or hosted-product journey.</p></div>
         ${roles.map(([role, current, today, evidence, unavailable, command, href, continuation = `a ${role}`]) => `<article><h3>${esc(role)}</h3><dl><div><dt>Currently</dt><dd>${esc(current)}</dd></div><div><dt>Today</dt><dd>${esc(today)}</dd></div><div><dt>Evidence</dt><dd>${esc(evidence)}</dd></div><div><dt>Not available</dt><dd>${esc(unavailable)}</dd></div></dl>${codeBlock("Shortest reproducible step", command, "bash")}<a href="${attr(href)}">Continue as ${esc(continuation)}</a></article>`).join("\n        ")}
+      </section>
+      ${assuranceScope("claims", ["claim.observation.signed-read-only"], `<section id="no-clone-reviewer-path" class="section-shell" aria-labelledby="no-clone-reviewer-path-title"><div class="section-heading"><p class="eyebrow">BROWSER / PUBLIC-RECORD INSPECTION</p><h2 id="no-clone-reviewer-path-title">No-clone technical inspection path</h2><p><strong>Inspection only:</strong> read these public records before deciding whether local reproduction is required. The no-clone path is inspection, not reproduction. It does not replace local reproduction, runtime testing, protected-system attestation, security certification, formal verification, independent audit, or production approval.</p></div>
+        ${cardGrid([
+          { kicker: "01", title: "Read the release-integrity boundary", text: "Inspect what the public release record binds and what remains outside its static artifact scope.", href: "/audit#release-verification-subject", link: "Read release-integrity boundary" },
+          { kicker: "02", title: "Inspect the claim register", text: "Read current public assertions with their capability context, evidence class, and limitation.", href: "/trust/claims#claim-records", link: "Inspect claims" },
+          { kicker: "03", title: "Inspect evidence classes", text: "Read the purpose, integrity method, freshness model, disclosure boundary, and non-proof statement for each class.", href: "/trust/evidence-classes#evidence-class-list", link: "Inspect evidence classes" },
+          { kicker: "04", title: "Inspect capability maturity", text: "Read lifecycle, maturity, availability, limitations, non-claims, and promotion gates beside the relevant capability.", href: "/trust/claims#claim-capabilities", link: "Inspect capability maturity" },
+          { kicker: "05", title: "Inspect the public service boundary", text: "Read the distinction between public records and agreement-specific service or evidence scope.", href: "/company#company-boundary", link: "Inspect service boundary" },
+          { kicker: "06", title: "Inspect the observation boundary", text: "Read why bounded signed observations remain separate from static release records and do not state a static chain condition.", href: "/operations/observations#observation-capabilities", link: "Inspect observation boundary" },
+          { kicker: "07", title: "Reproduce locally only when required", text: "Clone the repository and run the Node 24 validation path only when local reproduction is required.", href: "/verify#local-verification", link: "Open local reproduction path" },
+        ])}
+      </section>`)}
+      <section id="inspection-closure" class="section-shell" aria-labelledby="inspection-closure-title"><div class="section-heading"><p class="eyebrow">REVIEWER COMPLETION</p><h2 id="inspection-closure-title">After inspection, choose the correct next action</h2><p>Choose the lane that matches the record or question in front of you. These routes remain scoped to public records, private vulnerability reporting, or agreement-specific contact.</p></div>
+        ${cardGrid([
+          { kicker: "RETAIN", title: "Retain or cite the current release record", text: "Use the current manifest when recording the inspected source commit, artifact hashes, validation scope, and stated limitations.", href: "/.well-known/fenrua-release.json", link: "Open current release record" },
+          { kicker: "TRACE", title: "Inspect claims and evidence classes", text: "Trace a public assertion to its capability context and then read the evidence-class boundaries that apply.", href: "/trust/claims#claim-records", link: "Inspect claims" },
+          { kicker: "NO-CLONE", title: "Use the no-clone inspection path first", text: "Start with browser/public-record inspection before deciding that local reproduction is necessary.", href: "#no-clone-reviewer-path", link: "Open no-clone path" },
+          { kicker: "REPRODUCE", title: "Run local validation only when reproduction is required", text: "Use the Node 24 local route only when a reviewer needs to reproduce the public source surface.", href: "/verify#local-verification", link: "Open local reproduction path" },
+          { kicker: "PUBLIC", title: "Report public documentation or source issues", text: "Use the public repository path for documentation or source issues. Do not place vulnerability details there.", href: "https://github.com/fenrualabs/fenrua-web", link: "Open public repository" },
+          { kicker: "PRIVATE", title: "Report vulnerabilities through the private security path", text: "Use the private security path for vulnerability details and keep it separate from public documentation or source issues.", href: "/security", link: "Open security reporting" },
+          { kicker: "SCOPE", title: "Contact partnerships for agreement-specific scope", text: "Use the published contact channel for agreement-specific service or evidence scope.", href: "mailto:partnerships@fenrua.ai", link: "Contact partnerships" },
+          { kicker: "RETURN", title: "Return later to inspect reviewer delta", text: "Compare a later release record, document status, evidence record, and bounded observation state when returning.", href: "/audit#reviewer-delta", link: "Open reviewer delta" },
+        ])}
       </section>`,
   });
 }
@@ -2117,7 +2140,22 @@ function audit() {
           <p>Archived records are retained only for continuity and are not current release evidence.</p>
         </div>
         ${table(["Record", "Status", "Current / archive", "Replacement", "Archived", "Current artifact SHA-256", "Original superseded SHA-256"], rows, "evidence-table", "Public document register")}
-      </section>`,
+      </section>
+      ${assuranceScope("claims", ["claim.observation.signed-read-only"], `<section id="reviewer-delta" class="section-shell" aria-labelledby="reviewer-delta-title">
+        <div class="section-heading">
+          <p class="eyebrow">REVIEWER DELTA</p>
+          <h2 id="reviewer-delta-title">Reviewer delta</h2>
+          <p>This is an evidence-only checkpoint for returning readers, not a marketing changelog. It does not make a current runtime, service-health, certification, protected-system, or future-freshness claim.</p>
+        </div>
+        ${cardGrid([
+          { kicker: "01", title: "Current release record", text: "Open the current manifest and compare its source commit, artifact hashes, validation scope, and stated limitations.", href: "/.well-known/fenrua-release.json", link: "Open current release record" },
+          { kicker: "02", title: "Changed public artifact or document-register entry", text: "Compare the current document register entry, status, replacement, archive state, and recorded artifact hash.", href: "/data/public-document-register.json", link: "Open document register" },
+          { kicker: "03", title: "Evidence record affected", text: "Trace the public evidence record associated with the assertion or artifact under review.", href: "/evidence", link: "Inspect evidence records" },
+          { kicker: "04", title: "Supersession or limitation", text: "Check whether the relevant record has a later replacement, expiration, or limitation before treating it as current.", href: "/audit#release-verification-subject", link: "Inspect release limitation" },
+          { kicker: "05", title: "Observation state to re-check", text: "Re-check signed observation state only through the bounded public monitor; it is not static release proof.", href: "/status", link: "Open bounded monitor" },
+          { kicker: "06", title: "Recommended reviewer action", text: "Return to the inspection-closure lanes and choose the next action that matches the evidence need.", href: "/start#inspection-closure", link: "Choose next action" },
+        ])}
+      </section>`)}`,
   });
 }
 

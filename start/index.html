@@ -246,6 +246,100 @@
           <pre data-language="bash"><code data-code-value>npm run validate</code></pre>
         </div><a href="/trust">Continue as a General technical reviewer</a></article>
       </section>
+      <!-- fenrua-assurance-scope:claims:claim.observation.signed-read-only:start --><section id="no-clone-reviewer-path" class="section-shell" aria-labelledby="no-clone-reviewer-path-title"><div class="section-heading"><p class="eyebrow">BROWSER / PUBLIC-RECORD INSPECTION</p><h2 id="no-clone-reviewer-path-title">No-clone technical inspection path</h2><p><strong>Inspection only:</strong> read these public records before deciding whether local reproduction is required. The no-clone path is inspection, not reproduction. It does not replace local reproduction, runtime testing, protected-system attestation, security certification, formal verification, independent audit, or production approval.</p></div>
+        <div class="route-grid"><article>
+          <span>01</span>
+          <h3>Read the release-integrity boundary</h3>
+          <p>Inspect what the public release record binds and what remains outside its static artifact scope.</p>
+          <a href="/audit#release-verification-subject">Read release-integrity boundary</a>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Inspect the claim register</h3>
+          <p>Read current public assertions with their capability context, evidence class, and limitation.</p>
+          <a href="/trust/claims#claim-records">Inspect claims</a>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Inspect evidence classes</h3>
+          <p>Read the purpose, integrity method, freshness model, disclosure boundary, and non-proof statement for each class.</p>
+          <a href="/trust/evidence-classes#evidence-class-list">Inspect evidence classes</a>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Inspect capability maturity</h3>
+          <p>Read lifecycle, maturity, availability, limitations, non-claims, and promotion gates beside the relevant capability.</p>
+          <a href="/trust/claims#claim-capabilities">Inspect capability maturity</a>
+        </article>
+        <article>
+          <span>05</span>
+          <h3>Inspect the public service boundary</h3>
+          <p>Read the distinction between public records and agreement-specific service or evidence scope.</p>
+          <a href="/company#company-boundary">Inspect service boundary</a>
+        </article>
+        <article>
+          <span>06</span>
+          <h3>Inspect the observation boundary</h3>
+          <p>Read why bounded signed observations remain separate from static release records and do not state a static chain condition.</p>
+          <a href="/operations/observations#observation-capabilities">Inspect observation boundary</a>
+        </article>
+        <article>
+          <span>07</span>
+          <h3>Reproduce locally only when required</h3>
+          <p>Clone the repository and run the Node 24 validation path only when local reproduction is required.</p>
+          <a href="/verify#local-verification">Open local reproduction path</a>
+        </article></div>
+      </section><!-- fenrua-assurance-scope:end -->
+      <section id="inspection-closure" class="section-shell" aria-labelledby="inspection-closure-title"><div class="section-heading"><p class="eyebrow">REVIEWER COMPLETION</p><h2 id="inspection-closure-title">After inspection, choose the correct next action</h2><p>Choose the lane that matches the record or question in front of you. These routes remain scoped to public records, private vulnerability reporting, or agreement-specific contact.</p></div>
+        <div class="route-grid"><article>
+          <span>RETAIN</span>
+          <h3>Retain or cite the current release record</h3>
+          <p>Use the current manifest when recording the inspected source commit, artifact hashes, validation scope, and stated limitations.</p>
+          <a href="/.well-known/fenrua-release.json">Open current release record</a>
+        </article>
+        <article>
+          <span>TRACE</span>
+          <h3>Inspect claims and evidence classes</h3>
+          <p>Trace a public assertion to its capability context and then read the evidence-class boundaries that apply.</p>
+          <a href="/trust/claims#claim-records">Inspect claims</a>
+        </article>
+        <article>
+          <span>NO-CLONE</span>
+          <h3>Use the no-clone inspection path first</h3>
+          <p>Start with browser/public-record inspection before deciding that local reproduction is necessary.</p>
+          <a href="#no-clone-reviewer-path">Open no-clone path</a>
+        </article>
+        <article>
+          <span>REPRODUCE</span>
+          <h3>Run local validation only when reproduction is required</h3>
+          <p>Use the Node 24 local route only when a reviewer needs to reproduce the public source surface.</p>
+          <a href="/verify#local-verification">Open local reproduction path</a>
+        </article>
+        <article>
+          <span>PUBLIC</span>
+          <h3>Report public documentation or source issues</h3>
+          <p>Use the public repository path for documentation or source issues. Do not place vulnerability details there.</p>
+          <a href="https://github.com/fenrualabs/fenrua-web">Open public repository</a>
+        </article>
+        <article>
+          <span>PRIVATE</span>
+          <h3>Report vulnerabilities through the private security path</h3>
+          <p>Use the private security path for vulnerability details and keep it separate from public documentation or source issues.</p>
+          <a href="/security">Open security reporting</a>
+        </article>
+        <article>
+          <span>SCOPE</span>
+          <h3>Contact partnerships for agreement-specific scope</h3>
+          <p>Use the published contact channel for agreement-specific service or evidence scope.</p>
+          <a href="mailto:partnerships@fenrua.ai">Contact partnerships</a>
+        </article>
+        <article>
+          <span>RETURN</span>
+          <h3>Return later to inspect reviewer delta</h3>
+          <p>Compare a later release record, document status, evidence record, and bounded observation state when returning.</p>
+          <a href="/audit#reviewer-delta">Open reviewer delta</a>
+        </article></div>
+      </section>
     </main>
     <footer class="site-footer">
       <div>
