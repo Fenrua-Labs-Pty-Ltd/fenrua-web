@@ -145,9 +145,9 @@ const sectionNavigation = {
   Developers: [
     ["Developers", "/developers"],
     ["Start", "/start"],
-    ["Verify locally", "/verify"],
+    ["Verify locally", "/verify#local-verification", "/verify"],
     ["Toolchain", "/toolchain"],
-    ["Schemas and examples", "/verify"],
+    ["Schemas and examples", "/verify#schemas-and-examples", null],
   ],
   Research: [
     ["Research registry", "/research"],
@@ -743,8 +743,10 @@ function localNavigation(section, canonical) {
   return `      <nav class="section-nav" aria-label="${attr(`${section} section`)}">
         <span>${esc(section)}</span>
         <div>
-          ${links.map(([label, href]) => {
-            const isCurrent = href.split("#")[0] === canonical;
+          ${links.map(([label, href, currentPath]) => {
+            const isCurrent = currentPath === undefined
+              ? href.split("#")[0] === canonical
+              : currentPath === canonical;
             return `<a href="${attr(href)}"${isCurrent ? ' aria-current="page"' : ""}>${esc(label)}</a>`;
           }).join("\n          ")}
         </div>
@@ -1307,9 +1309,9 @@ function start() {
     ["Developer", "Fenrua currently provides source-controlled schemas, fixtures, and local validation foundations.", "Read the local verifier boundary and run the repository validation path.", "Claim and evidence records plus deterministic examples.", "No public Local Trust Gate package or hosted verifier is available.", "npm run validate", "/developers"],
     ["Security engineer", "Fenrua publishes a scoped security kernel specification and a private reporting boundary.", "Review trust boundaries, claim limitations, and the current release verification scope.", "Security, evidence, and release records.", "No general production-safety certification is claimed.", "npm run validate", "/security"],
     ["Researcher", "Fenrua publishes research records only with adjacent claims, non-claims, evidence, and limitations.", "Inspect a research record and its reproduction commands.", "Research registry and source-linked evidence.", "Research publication is not production promotion.", "node scripts/test-verify-examples.mjs", "/research"],
-    ["Enterprise technical leader", "Fenrua documents public platform and agreement-specific service boundaries separately.", "Assess architecture, evidence, data flow, and support scope before a service discussion.", "Architecture views, service catalogue, and company record.", "No public SLO, uptime, or self-service service contract is represented.", "npm run validate", "/operations"],
+    ["Enterprise technical leader", "Fenrua documents public platform and agreement-specific service boundaries separately.", "Assess architecture, evidence, data flow, and support scope before a service discussion.", "Architecture views, service catalogue, and company record.", "No public SLO, uptime, or self-service service contract is represented.", "npm run validate", "/operations", "an enterprise technical leader"],
     ["University or educator", "Fenrua provides readable public specifications, examples, and research records for technical study.", "Use the source examples and evidence classes to teach scope-aware verification.", "Schemas, fixtures, and public documentation.", "Documentation is not a hosted lab environment or a formal course.", "node scripts/test-verify-examples.mjs", "/verify"],
-    ["Open-source contributor", "Fenrua's public repositories expose source and documented contribution channels.", "Inspect the repository boundary, run local checks, and use the public security path for vulnerabilities.", "Repository history, schemas, and release verification records.", "Public source does not expose protected operational systems or signing material.", "npm run validate", "/developers"],
+    ["Open-source contributor", "Fenrua's public repositories expose source and documented contribution channels.", "Inspect the repository boundary, run local checks, and use the public security path for vulnerabilities.", "Repository history, schemas, and release verification records.", "Public source does not expose protected operational systems or signing material.", "npm run validate", "/developers", "an open-source contributor"],
     ["General technical reviewer", "Fenrua makes public claims, evidence classes, release scope, and limitations inspectable.", "Start with claims, then trace a record to evidence and current capability state.", "Claim register, evidence taxonomy, and release manifest.", "A public record never proves more than its declared scope.", "npm run validate", "/trust"],
   ];
   return layout({
@@ -1320,7 +1322,7 @@ function start() {
     section: "Developers",
     body: `${routeHero("ROLE-BASED ORIENTATION", "Start", "Choose a path by the question you need to answer. Every path states the current public surface, available evidence, known limits, and a shortest reproducible next step.")}
       <section class="section-shell role-path-list" aria-labelledby="start-paths"><div class="section-heading"><p class="eyebrow">STARTING PATHS</p><h2 id="start-paths">Technical orientation without conversion language</h2><p>These paths use current public records only. They do not imply an investment, account, token, or hosted-product journey.</p></div>
-        ${roles.map(([role, current, today, evidence, unavailable, command, href]) => `<article><h3>${esc(role)}</h3><dl><div><dt>Currently</dt><dd>${esc(current)}</dd></div><div><dt>Today</dt><dd>${esc(today)}</dd></div><div><dt>Evidence</dt><dd>${esc(evidence)}</dd></div><div><dt>Not available</dt><dd>${esc(unavailable)}</dd></div></dl>${codeBlock("Shortest reproducible step", command, "bash")}<a href="${attr(href)}">Continue as a ${esc(role)}</a></article>`).join("\n        ")}
+        ${roles.map(([role, current, today, evidence, unavailable, command, href, continuation = `a ${role}`]) => `<article><h3>${esc(role)}</h3><dl><div><dt>Currently</dt><dd>${esc(current)}</dd></div><div><dt>Today</dt><dd>${esc(today)}</dd></div><div><dt>Evidence</dt><dd>${esc(evidence)}</dd></div><div><dt>Not available</dt><dd>${esc(unavailable)}</dd></div></dl>${codeBlock("Shortest reproducible step", command, "bash")}<a href="${attr(href)}">Continue as ${esc(continuation)}</a></article>`).join("\n        ")}
       </section>`,
   });
 }
@@ -1387,7 +1389,7 @@ function home() {
     body: `${routeHero(
       "AI EFFICIENCY INFRASTRUCTURE",
       "AI efficiency infrastructure for verifiable systems.",
-      "Fenrua researches, develops, and provides software and related technology services spanning AI efficiency, infrastructure, evidence, identity, authority, integrity, policy, verification, containment, recovery, hosting, and integration.",
+      "Fenrua researches, develops, and provides software and related technology services spanning AI efficiency, infrastructure, evidence, identity, authority, integrity, policy, verification, containment, recovery, hosting, and integration. Use this site to inspect public evidence records, release scope, bounded observation context, and local validation paths.",
       `<div class="cta-row"><a class="button button-primary" href="/platform">Explore platform</a><a class="button button-secondary" href="/start">Choose a starting path</a><a class="button button-secondary" href="/trust">Inspect trust records</a></div>`,
       false
     )}
@@ -1688,10 +1690,10 @@ function verify() {
     description: "Fenrua public verification foundation with historical scenarios, documentation, and repository validation.",
     current: "Verify",
     body: `${routeHero("LEGACY VERIFICATION CORPUS", "Verify", "No live server-side verifier is claimed. The current scenario corpus is historical reference material, not a Trust Gate result, decision, or execution interface.")}
-      <section class="section-shell split-section">
+      <section id="local-verification" class="section-shell split-section" aria-labelledby="local-verification-title">
         <div>
           <p class="eyebrow">REPOSITORY VALIDATION WALKTHROUGH</p>
-          <h2>Run the current repository checks</h2>
+          <h2 id="local-verification-title">Run the current repository checks</h2>
           <p>Use the repository validation suite and explanatory examples. The foundation result example explicitly marks runtime attestation as unverified; the legacy scenario corpus does not make an authorisation or execution decision.</p>
         </div>
         ${codeBlock("Local verifier commands", `npm run validate
@@ -1703,7 +1705,7 @@ examples/authority-policy.example.json
 examples/evidence-bundle.example.json
 examples/verification-result.example.json`, "bash")}
       </section>
-      <section class="section-shell">
+      <section id="schemas-and-examples" class="section-shell" aria-label="Schemas and examples">
         <div class="doc-grid">
           <a href="/examples/entity-manifest.example.json">Entity manifest example</a>
           <a href="/examples/authority-policy.example.json">Authority policy example</a>

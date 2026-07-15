@@ -161,9 +161,9 @@
         <div>
           <a href="/developers">Developers</a>
           <a href="/start">Start</a>
-          <a href="/verify" aria-current="page">Verify locally</a>
+          <a href="/verify#local-verification" aria-current="page">Verify locally</a>
           <a href="/toolchain">Toolchain</a>
-          <a href="/verify" aria-current="page">Schemas and examples</a>
+          <a href="/verify#schemas-and-examples">Schemas and examples</a>
         </div>
       </nav>
       <section class="route-hero route-hero-solo" aria-labelledby="page-title">
@@ -174,10 +174,10 @@
 
         </div>
       </section>
-      <section class="section-shell split-section">
+      <section id="local-verification" class="section-shell split-section" aria-labelledby="local-verification-title">
         <div>
           <p class="eyebrow">REPOSITORY VALIDATION WALKTHROUGH</p>
-          <h2>Run the current repository checks</h2>
+          <h2 id="local-verification-title">Run the current repository checks</h2>
           <p>Use the repository validation suite and explanatory examples. The foundation result example explicitly marks runtime attestation as unverified; the legacy scenario corpus does not make an authorisation or execution decision.</p>
         </div>
         <div class="code-panel" data-code-panel data-wrap="false">
@@ -198,7 +198,7 @@ examples/evidence-bundle.example.json
 examples/verification-result.example.json</code></pre>
         </div>
       </section>
-      <section class="section-shell">
+      <section id="schemas-and-examples" class="section-shell" aria-label="Schemas and examples">
         <div class="doc-grid">
           <a href="/examples/entity-manifest.example.json">Entity manifest example</a>
           <a href="/examples/authority-policy.example.json">Authority policy example</a>
