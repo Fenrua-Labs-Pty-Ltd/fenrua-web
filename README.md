@@ -90,8 +90,9 @@ bounded Overview and Status browser checks, route-wide accessibility analysis,
 the Chromium/Firefox/WebKit information-architecture matrix, JavaScript-disabled
 coverage, an external visual-capture matrix, and a clean-checkout reproduction.
 `npm run release:production-check` additionally requires an approved external
-visual baseline for its strict comparison. Neither command verifies live
-production state or protected systems.
+visual baseline for its strict comparison. The explicit owner-authorized
+production command below merges a checked PR through Git and audits the live
+static release; neither release check verifies protected systems.
 
 ## Canonical Public Model
 
@@ -225,6 +226,15 @@ npm run release:production-check
 
 Production publishing is performed by the existing Vercel Git integration, not
 by a repository-local deployment CLI.
+
+With an approved external visual baseline and explicit owner authorization, the
+release command validates the exact PR, merges it through GitHub, waits for the
+Git integration's production deployment, and audits the public release:
+
+```bash
+FENRUA_VISUAL_BASELINE_DIR=/absolute/external/approved-visual-baseline \
+  npm run deploy:production:node24 -- --pr <number> --confirm-production
+```
 
 See [Vercel Publishing](docs/VERCEL.md) and the
 [access-only commercial boundary](docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md).

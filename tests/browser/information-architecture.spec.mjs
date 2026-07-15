@@ -84,3 +84,17 @@ test("dense records expose a small-screen alternative", async ({ page }) => {
   await gotoRoute(page, "/status");
   await expect(page.locator('.status-table td[data-label="Current limitation"]').first()).toBeVisible();
 });
+
+test("Verify section navigation distinguishes local validation from schemas", async ({ page }) => {
+  await gotoRoute(page, "/verify");
+  const navigation = page.locator('.section-nav[aria-label="Developers section"]');
+  const localVerification = navigation.getByRole("link", { name: "Verify locally", exact: true });
+  const schemasAndExamples = navigation.getByRole("link", { name: "Schemas and examples", exact: true });
+
+  await expect(navigation.locator('a[aria-current="page"]')).toHaveCount(1);
+  await expect(navigation.locator('a[aria-current="page"]')).toHaveText("Verify locally");
+  await expect(localVerification).toHaveAttribute("href", "/verify#local-verification");
+  await expect(schemasAndExamples).toHaveAttribute("href", "/verify#schemas-and-examples");
+  await expect(page.locator("#local-verification")).toHaveCount(1);
+  await expect(page.locator("#schemas-and-examples")).toHaveCount(1);
+});

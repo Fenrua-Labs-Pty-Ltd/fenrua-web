@@ -76,9 +76,8 @@ financial-return product.
 
 ## Validate From WSL and Publish Through Git
 
-Use Node 24 from a clean checkout of the owner-approved `main` commit. The local
-command validates the release but does not deploy it. The baseline directory is
-an owner-approved external record for the pinned visual-rendering environment:
+Use Node 24 from a clean checkout of the owner-approved source. The baseline
+directory is an owner-approved external record for the pinned visual-rendering environment:
 
 ```bash
 npm ci
@@ -90,6 +89,21 @@ branch. The existing Vercel Git integration deploys it to `fenrua-web`; Vercel's
 system `VERCEL_GIT_COMMIT_SHA` binds the remote build to the source revision.
 The repository deliberately has no Vercel CLI dependency. Browser testing stays
 outside the Vercel build because Vercel installs production dependencies only.
+
+For an explicitly owner-authorized release PR, use the guarded Node 24 command:
+
+```bash
+FENRUA_VISUAL_BASELINE_DIR=/absolute/external/approved-visual-baseline \
+  npm run deploy:production:node24 -- --pr <number> --confirm-production
+```
+
+It requires a clean checkout matching the ready PR head, passing required PR checks,
+an approved external baseline, and an explicit confirmation flag. It runs the release
+check and strict visual comparison, squash-merges that exact head through GitHub, and
+refuses to continue if `main` moves. It then waits for the resulting Vercel Git
+production deployment and retries the read-only live release audit while the canonical
+alias propagates. It never stores provider credentials, changes domains or environment
+variables, purges caches, or promotes previews.
 
 After deployment, observe the public static artifact set without writing to
 the deployment:
@@ -105,10 +119,11 @@ future alias state.
 
 ## Preview and production gates
 
-Codex does not deploy, run the Vercel CLI, change domains, change environment
-variables, purge caches, or promote a preview. Those are owner-controlled
-external actions. A local release check is necessary source evidence, not a
-preview or production verification.
+The deployment command never runs the Vercel CLI, changes domains or environment
+variables, purges caches, or promotes previews. It is an owner-authorized Git release
+path only: its explicit confirmation flag is an intentional local guard, not a
+substitute for owner approval. A local release check is necessary source evidence, not
+a preview or production verification.
 
 Before the owner authorises a preview, record outside this repository:
 

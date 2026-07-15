@@ -8,7 +8,7 @@ const document = readFileSync(resolve(root, "docs/VERCEL.md"), "utf8");
 
 for (const text of [
   "## Preview and production gates",
-  "Codex does not deploy, run the Vercel CLI",
+  "The deployment command never runs the Vercel CLI",
   "independently retained release-record digest",
   "designated last-known-good (LKG) commit",
   "expected route-lifecycle revision and legal-route state",
