@@ -10,16 +10,29 @@ const deploymentTimeoutMs = 20 * 60 * 1000;
 const deploymentPollMs = 15_000;
 const liveAuditTimeoutMs = 5 * 60 * 1000;
 const successfulCheckStates = new Set(["SUCCESS", "NEUTRAL", "SKIPPED"]);
+const privatePathEnvironmentKeys = [
+  "FENRUA_VISUAL_BASELINE_DIR",
+  "FENRUA_VISUAL_ARTIFACTS_DIR",
+  "FENRUA_TEST_OUTPUT_DIR",
+];
 
 function fail(message) {
   throw new Error(message);
+}
+
+function childEnvironment(env = {}) {
+  const child = { ...process.env, ...env };
+  for (const key of privatePathEnvironmentKeys) {
+    if (!Object.hasOwn(env, key)) delete child[key];
+  }
+  return child;
 }
 
 function run(command, args, { capture = false, env = {} } = {}) {
   const result = spawnSync(command, args, {
     cwd: root,
     encoding: "utf8",
-    env: { ...process.env, ...env },
+    env: childEnvironment(env),
     stdio: capture ? "pipe" : "inherit",
   });
   if (result.error) throw result.error;
@@ -30,6 +43,20 @@ function run(command, args, { capture = false, env = {} } = {}) {
   return capture ? result.stdout ?? "" : "";
 }
 
+function runPrivateVisualCheck(command, args, { env = {} } = {}) {
+  const result = spawnSync(command, args, {
+    cwd: root,
+    encoding: "utf8",
+    env: childEnvironment(env),
+    stdio: "pipe",
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  if (result.error) throw result.error;
+  if (result.status !== 0) {
+    fail(`${command} ${args.join(" ")} failed; private visual verification diagnostics are withheld.`);
+  }
+}
+
 function readJson(command, args) {
   return JSON.parse(run(command, args, { capture: true }));
 }
@@ -38,7 +65,7 @@ function attempt(command, args) {
   const result = spawnSync(command, args, {
     cwd: root,
     encoding: "utf8",
-    env: process.env,
+    env: childEnvironment(),
     stdio: "pipe",
   });
   return {
@@ -213,11 +240,16 @@ if (previousMainSha !== null && !/^[0-9a-f]{40}$/.test(previousMainSha)) {
 run(process.execPath, ["scripts/require-node24.mjs"]);
 assertCleanWorktree();
 assertCanonicalOrigin();
-const baselineDirectory = requireExternalArtifactDirectory(
-  process.env.FENRUA_VISUAL_BASELINE_DIR || "",
-  "Approved visual baseline directory",
-  { create: false },
-);
+let baselineDirectory;
+try {
+  baselineDirectory = requireExternalArtifactDirectory(
+    process.env.FENRUA_VISUAL_BASELINE_DIR || "",
+    "Approved visual baseline directory",
+    { create: false },
+  );
+} catch {
+  fail("Approved visual baseline directory could not be verified.");
+}
 run("gh", ["auth", "status"]);
 
 const pr = readJson("gh", [
@@ -244,9 +276,17 @@ if (pr.state === "OPEN") {
     fail(`The checked-out source must exactly match pull request #${pullRequest} head ${pr.headRefName}.`);
   }
 
-  console.log(JSON.stringify({ status: "preflight-ok", pullRequest: pr.number, baselineDirectory, mode: "ready-pr" }));
-  run("npm", ["run", "release:check"]);
-  run("npm", ["run", "test:visual-regression"]);
+  console.log(JSON.stringify({
+    status: "preflight-ok",
+    pullRequest: pr.number,
+    baselineDirectoryVerified: true,
+    baselineCustody: "owner-approved-out-of-repository",
+    mode: "ready-pr",
+  }));
+  runPrivateVisualCheck("npm", ["run", "release:check"]);
+  runPrivateVisualCheck("npm", ["run", "test:visual-regression"], {
+    env: { FENRUA_VISUAL_BASELINE_DIR: baselineDirectory },
+  });
   assertCleanWorktree();
 
   run("gh", [
@@ -273,13 +313,22 @@ if (pr.state === "OPEN") {
 } else if (pr.state === "MERGED") {
   if (!previousMainSha) fail("--previous-main-sha is required when verifying an already merged pull request.");
   const mergeCommit = requireMergedPullRequest(pr, `Pull request #${pullRequest}`);
-  console.log(JSON.stringify({ status: "preflight-ok", pullRequest: pr.number, baselineDirectory, mode: "merged-pr", previousMainSha }));
+  console.log(JSON.stringify({
+    status: "preflight-ok",
+    pullRequest: pr.number,
+    baselineDirectoryVerified: true,
+    baselineCustody: "owner-approved-out-of-repository",
+    mode: "merged-pr",
+    previousMainSha,
+  }));
   productionCommit = syncMainAtMergeCommit(mergeCommit, previousMainSha);
 } else {
   fail(`Pull request #${pullRequest} must be open and ready for review, or already merged to main.`);
 }
 
-run("npm", ["run", "release:production-check"]);
+runPrivateVisualCheck("npm", ["run", "release:production-check"], {
+  env: { FENRUA_VISUAL_BASELINE_DIR: baselineDirectory },
+});
 assertCleanWorktree();
 reassertMainAtMergeCommit(productionCommit);
 const releaseRecord = JSON.parse(readFileSync(resolve(root, ".well-known", "fenrua-release.json"), "utf8"));
