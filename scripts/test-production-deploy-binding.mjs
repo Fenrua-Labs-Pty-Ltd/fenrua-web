@@ -13,6 +13,26 @@ const runtimeGuardPath = resolve(root, "scripts/require-node24.mjs");
 const runtimeGuard = readFileSync(runtimeGuardPath, "utf8");
 const deploymentCommandPath = resolve(root, "scripts/deploy-production-node24.mjs");
 const deploymentCommand = readFileSync(deploymentCommandPath, "utf8");
+const readme = readFileSync(resolve(root, "README.md"), "utf8");
+const sensitiveBaselinePathParts = ["private", "fenrua", "evidence-custody", "approved-visual-baseline-do-not-leak"];
+
+function sensitiveBaselineDirectory(parent) {
+  return join(parent, ...sensitiveBaselinePathParts);
+}
+
+function assertBaselinePathRedacted(result, baseline, label) {
+  for (const [stream, output] of [["stdout", result.stdout], ["stderr", result.stderr]]) {
+    assert.equal(String(output ?? "").includes(baseline), false, `${label} ${stream} must redact private baseline custody metadata.`);
+  }
+}
+
+function assertPrivacySafePreflight(output, mode, previousMainSha = null) {
+  const text = String(output ?? "");
+  assert.equal(text.includes('"baselineDirectoryVerified":true'), true, `${mode} preflight must report verified baseline custody.`);
+  assert.equal(text.includes('"baselineCustody":"owner-approved-out-of-repository"'), true, `${mode} preflight must report owner-approved out-of-repository custody.`);
+  assert.equal(text.includes(`"mode":"${mode}"`), true, `${mode} preflight must keep its release mode.`);
+  if (previousMainSha) assert.equal(text.includes(`"previousMainSha":"${previousMainSha}"`), true, "Merged preflight must retain the previous main SHA.");
+}
 
 assert.equal(packageJson.devDependencies?.vercel, undefined, "The vulnerable Vercel CLI tree must not be installed in this repository.");
 assert.equal(packageJson.engines?.node, "24.x", "Vercel can select only the audited Node major line.");
@@ -31,12 +51,18 @@ assert.match(deploymentNotes, /VERCEL_GIT_COMMIT_SHA/);
 assert.match(deploymentNotes, /Node `24\.18\.0` and npm\s+`11\.18\.0`/i);
 assert.match(deploymentNotes, /npm run deploy:production:node24 -- --pr <number> --confirm-production/);
 assert.match(deploymentNotes, /The deployment command never runs the Vercel CLI/i);
+assert.match(deploymentNotes, /private custody\s+metadata/i);
+assert.match(deploymentNotes, /must not print the\s+raw path/i);
+assert.match(readme, /private custody\s+metadata/i);
+assert.match(readme, /must not print the\s+raw path/i);
 assert.match(runtimeGuard, /process\.env\.VERCEL === "1"/);
 assert.match(runtimeGuard, /\^\[0-9a-f\]\{40\}\$/);
 assert.match(runtimeGuard, /nodeMajor !== 24/);
 assert.match(runtimeGuard, /npmMajor !== 11/);
 assert.match(deploymentCommand, /--confirm-production/);
 assert.match(deploymentCommand, /FENRUA_VISUAL_BASELINE_DIR/);
+assert.match(deploymentCommand, /baselineDirectoryVerified:\s*true/);
+assert.match(deploymentCommand, /baselineCustody:\s*"owner-approved-out-of-repository"/);
 assert.match(deploymentCommand, /--previous-main-sha/);
 assert.match(deploymentCommand, /state === "MERGED"/);
 assert.match(deploymentCommand, /single-parent squash commit/);
@@ -53,10 +79,18 @@ assert.match(deploymentCommand, /audit:live-release/);
 assert.match(deploymentCommand, /waitForLiveAudit/);
 assert.doesNotMatch(deploymentCommand, /\bvercel\s+(?:pull|build|deploy)\b/i);
 
+const preflightPayloads = [...deploymentCommand.matchAll(/console\.log\(JSON\.stringify\(\{([\s\S]*?)\}\)\);/g)]
+  .map((match) => match[1])
+  .filter((payload) => payload.includes('status: "preflight-ok"'));
+assert.equal(preflightPayloads.length, 2, "Deployment command must emit one privacy-safe preflight payload for each release mode.");
+for (const payload of preflightPayloads) {
+  assert.equal(/\bbaselineDirectory\s*[,}:]/.test(payload), false, "Preflight JSON must not include the raw baseline directory value.");
+}
+
 const simulatedHead = "a".repeat(40);
 const simulationDirectory = mkdtempSync(join(tmpdir(), "fenrua-deploy-production-"));
 const simulationBin = join(simulationDirectory, "bin");
-const simulationBaseline = join(simulationDirectory, "approved-baseline");
+const simulationBaseline = sensitiveBaselineDirectory(simulationDirectory);
 const simulationLog = join(simulationDirectory, "commands.log");
 
 const writeStub = (name, body) => {
@@ -67,7 +101,7 @@ const writeStub = (name, body) => {
 
 try {
   mkdirSync(simulationBin);
-  mkdirSync(simulationBaseline);
+  mkdirSync(simulationBaseline, { recursive: true });
 
   writeStub("git", `
 printf 'git %s\\n' "$*" >> "$FENRUA_DEPLOY_STUB_LOG"
@@ -103,6 +137,8 @@ exit 82`);
 
   writeStub("npm", `
 printf 'npm %s\\n' "$*" >> "$FENRUA_DEPLOY_STUB_LOG"
+printf 'private baseline=%s\\n' "$FENRUA_VISUAL_BASELINE_DIR"
+printf 'private baseline=%s\\n' "$FENRUA_VISUAL_BASELINE_DIR" >&2
 exit 0`);
 
   const simulated = spawnSync(process.execPath, [deploymentCommandPath, "--pr", "17", "--confirm-production"], {
@@ -118,10 +154,28 @@ exit 0`);
   });
   assert.notEqual(simulated.status, 0, "The simulated merge must stop before any external change.");
   assert.match(simulated.stderr, /gh pr merge 17 --squash --match-head-commit/);
+  assertPrivacySafePreflight(simulated.stdout, "ready-pr");
+  assertBaselinePathRedacted(simulated, simulationBaseline, "Ready PR simulation");
   const simulatedLog = readFileSync(simulationLog, "utf8");
   assert.match(simulatedLog, /gh pr merge 17 --squash --match-head-commit a{40} --repo fenrualabs\/fenrua-web/);
   assert.match(simulatedLog, /npm run release:check/);
   assert.match(simulatedLog, /npm run test:visual-regression/);
+
+  const invalidBaseline = join(simulationDirectory, ...sensitiveBaselinePathParts, "missing");
+  const invalidBaselineResult = spawnSync(process.execPath, [deploymentCommandPath, "--pr", "17", "--confirm-production"], {
+    cwd: simulationDirectory,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      FENRUA_DEPLOY_STUB_LOG: simulationLog,
+      FENRUA_VISUAL_BASELINE_DIR: invalidBaseline,
+      PATH: `${simulationBin}:${process.env.PATH}`,
+      npm_config_user_agent: "npm/11.18.0 node/v24.18.0 linux x64",
+    },
+  });
+  assert.notEqual(invalidBaselineResult.status, 0, "A missing approved baseline must fail closed.");
+  assert.equal(String(invalidBaselineResult.stderr).includes("Approved visual baseline directory could not be verified."), true, "Baseline-validation failure must use the safe generic message.");
+  assertBaselinePathRedacted(invalidBaselineResult, invalidBaseline, "Baseline-validation failure");
 } finally {
   rmSync(simulationDirectory, { recursive: true, force: true });
 }
@@ -141,7 +195,7 @@ function runMergedRemoteScenario({
 } = {}) {
   const directory = mkdtempSync(join(tmpdir(), "fenrua-deploy-remote-"));
   const bin = join(directory, "bin");
-  const baseline = join(directory, "approved-baseline");
+  const baseline = sensitiveBaselineDirectory(directory);
   const log = join(directory, "commands.log");
   const productionCheckState = join(directory, "production-check-ran");
   const parentLine = [simulatedMergedCommit, ...mergeParents].join(" ");
@@ -153,7 +207,7 @@ function runMergedRemoteScenario({
 
   try {
     mkdirSync(bin);
-    mkdirSync(baseline);
+    mkdirSync(baseline, { recursive: true });
     writeScenarioStub("git", `
 printf 'git %s\\n' "$*" >> "$FENRUA_DEPLOY_STUB_LOG"
 if [ "$1" = "status" ]; then exit 0; fi
@@ -203,6 +257,8 @@ printf 'unexpected gh command: %s\\n' "$*" >&2
 exit 82`);
     writeScenarioStub("npm", `
 printf 'npm %s\\n' "$*" >> "$FENRUA_DEPLOY_STUB_LOG"
+printf 'private baseline=%s\\n' "$FENRUA_VISUAL_BASELINE_DIR"
+printf 'private baseline=%s\\n' "$FENRUA_VISUAL_BASELINE_DIR" >&2
 if [ "$1" = "run" ] && [ "$2" = "release:production-check" ]; then
   if [ -n "${remoteMainAfterProductionCheck ?? ""}" ]; then
     touch "$FENRUA_DEPLOY_PRODUCTION_CHECKED"
@@ -228,7 +284,7 @@ exit 83`);
         npm_config_user_agent: "npm/11.18.0 node/v24.18.0 linux x64",
       },
     });
-    return { result, log: readFileSync(log, "utf8") };
+    return { result, log: readFileSync(log, "utf8"), baseline };
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
@@ -237,6 +293,8 @@ exit 83`);
 const mergedRemote = runMergedRemoteScenario({});
 assert.notEqual(mergedRemote.result.status, 0, "The production-check sentinel must stop the merged-PR simulation before any deployment API call.");
 assert.match(mergedRemote.result.stderr, /npm run release:production-check failed/);
+assertPrivacySafePreflight(mergedRemote.result.stdout, "merged-pr", simulatedPreviousMain);
+assertBaselinePathRedacted(mergedRemote.result, mergedRemote.baseline, "Merged PR simulation");
 assert.match(mergedRemote.log, /git fetch origin main/);
 assert.match(mergedRemote.log, /git switch main/);
 assert.match(mergedRemote.log, /git pull --ff-only origin main/);

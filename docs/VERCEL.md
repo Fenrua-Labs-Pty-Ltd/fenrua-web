@@ -102,6 +102,12 @@ FENRUA_VISUAL_BASELINE_DIR=/absolute/external/approved-visual-baseline \
   npm run deploy:production:node24 -- --pr <number> --previous-main-sha <parent-of-recorded-squash-merge-commit-sha> --confirm-production
 ```
 
+The owner-approved out-of-repository visual baseline path is private custody
+metadata. The production command verifies the baseline but must not print the
+raw path in routine output. Do not commit, upload, or paste baseline files,
+screenshots, captures, local paths, credentials, provider internals, or private
+evidence artifacts into the repository or public reports.
+
 It requires a clean checkout matching the ready PR head before merge, or a
 clean worktree for an already-merged PR. Both paths require passing PR checks,
 an owner-approved out-of-repository visual baseline, and an explicit
