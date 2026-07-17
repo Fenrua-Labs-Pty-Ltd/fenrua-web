@@ -227,7 +227,7 @@ for (const lane of [
   assert.match(inspectionClosure, new RegExp(lane), `Reviewer completion must include: ${lane}.`);
 }
 const publicIssuesCard = cardByHeading(inspectionClosure, "Report public documentation or source issues");
-assert.match(publicIssuesCard, /href="https:\/\/github\.com\/fenrualabs\/fenrua-web"/);
+assert.match(publicIssuesCard, /href="https:\/\/github\.com\/Fenrua-Labs-Pty-Ltd\/fenrua-web"/);
 const privateVulnerabilityCard = cardByHeading(inspectionClosure, "Report vulnerabilities through the private security path");
 assert.match(privateVulnerabilityCard, /href="\/security"/);
 assert.notEqual(publicIssuesCard, privateVulnerabilityCard, "Public source issues and private vulnerability reporting must remain separate lanes.");
