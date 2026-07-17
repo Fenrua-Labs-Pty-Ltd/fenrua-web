@@ -74,7 +74,7 @@ where needed, legal review supplies approved evidence.
 | Storage | GitHub's private advisory mechanism is the published channel; exact recipient membership and retention are not declared here. |
 | Retention state | Not documented in the approved public source. |
 | Exposure | Intended for configured private security recipients and GitHub handling. Public issue forms are not for exploit material. |
-| User action | Use the [website private vulnerability report](https://github.com/fenrualabs/fenrua-web/security/advisories/new) for website or observation-gateway findings. |
+| User action | Use the [website private vulnerability report](https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-web/security/advisories/new) for website or observation-gateway findings. |
 | Source/evidence | [Security reporting route](../security/index.html) and [security.txt](../.well-known/security.txt). |
 | Unknowns needing owner/legal review | Recipient membership, notification, storage, retention, coordinated disclosure process, and legal-role disclosures. |
 

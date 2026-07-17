@@ -1341,7 +1341,7 @@ function start() {
           { kicker: "TRACE", title: "Inspect claims and evidence classes", text: "Trace a public assertion to its capability context and then read the evidence-class boundaries that apply.", href: "/trust/claims#claim-records", link: "Inspect claims" },
           { kicker: "NO-CLONE", title: "Use the no-clone inspection path first", text: "Start with browser/public-record inspection before deciding that local reproduction is necessary.", href: "#no-clone-reviewer-path", link: "Open no-clone path" },
           { kicker: "REPRODUCE", title: "Run local validation only when reproduction is required", text: "Use the Node 24 local route only when a reviewer needs to reproduce the public source surface.", href: "/verify#local-verification", link: "Open local reproduction path" },
-          { kicker: "PUBLIC", title: "Report public documentation or source issues", text: "Use the public repository path for documentation or source issues. Do not place vulnerability details there.", href: "https://github.com/fenrualabs/fenrua-web", link: "Open public repository" },
+          { kicker: "PUBLIC", title: "Report public documentation or source issues", text: "Use the public repository path for documentation or source issues. Do not place vulnerability details there.", href: "https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-web", link: "Open public repository" },
           { kicker: "PRIVATE", title: "Report vulnerabilities through the private security path", text: "Use the private security path for vulnerability details and keep it separate from public documentation or source issues.", href: "/security", link: "Open security reporting" },
           { kicker: "SCOPE", title: "Contact partnerships for agreement-specific scope", text: "Use the published contact channel for agreement-specific service or evidence scope.", href: "mailto:partnerships@fenrua.ai", link: "Contact partnerships" },
           { kicker: "RETURN", title: "Return later to inspect reviewer delta", text: "Compare a later release record, document status, evidence record, and bounded observation state when returning.", href: "/audit#reviewer-delta", link: "Open reviewer delta" },
@@ -1782,7 +1782,7 @@ function developers() {
       </section>
       <section class="section-shell split-section">
         <div><p class="eyebrow">COMMANDS</p><h2>Local baseline</h2></div>
-        ${codeBlock("Clean checkout baseline", `git clone https://github.com/fenrualabs/fenrua-web.git
+        ${codeBlock("Clean checkout baseline", `git clone https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-web.git
 cd fenrua-web
 node --version  # v24 required
 npm ci
@@ -1805,7 +1805,7 @@ node scripts/test-verify-examples.mjs`, "bash")}
       <section class="section-shell split-section">
         <div><p class="eyebrow">COMPATIBILITY AND CONTRIBUTION</p><h2>Keep the public boundary reproducible</h2><p>The supported local path uses Node 24 and the committed npm lockfile. Unsupported schema versions fail closed rather than being guessed. Public contributions belong in the repository; private vulnerabilities belong in the security reporting channel.</p></div>
         <div class="doc-grid">
-          <a href="https://github.com/fenrualabs/fenrua-web">Repository contribution channel</a>
+          <a href="https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-web">Repository contribution channel</a>
           <a href="/security">Private vulnerability reporting</a>
           <a href="/trust/claims">Capability and claim records</a>
           <a href="/data/capability-register.json">Download capability register JSON</a>
@@ -2006,7 +2006,7 @@ function support() {
         </div>
         ${cardGrid([
           { kicker: "BUSINESS", title: "Partnerships and service enquiries", text: company.publicContact, href: `mailto:${company.publicContact}`, link: "Email Fenrua Labs" },
-          { kicker: "WEBSITE SECURITY", title: "Private vulnerability report", text: "Use GitHub private vulnerability reporting for fenrua-web. Do not place exploit details in a public issue.", href: "https://github.com/fenrualabs/fenrua-web/security/advisories/new", link: "Open private report" },
+          { kicker: "WEBSITE SECURITY", title: "Private vulnerability report", text: "Use GitHub private vulnerability reporting for fenrua-web. Do not place exploit details in a public issue.", href: "https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-web/security/advisories/new", link: "Open private report" },
           { kicker: "KERNEL SECURITY", title: "Kernel vulnerability report", text: "Use the kernel repository's private reporting channel for P/N521 or kernel findings.", href: "https://github.com/fenrualabs/fenrua-kernel/security/advisories/new", link: "Open private report" },
         ])}
       </section>
@@ -2030,7 +2030,7 @@ function security() {
       <section class="section-shell split-section">
         <div><p class="eyebrow">PRIVATE CHANNELS</p><h2>Repository-specific reporting</h2></div>
         <div class="constraint-list">
-          <p><strong>Website and observation gateway:</strong> <a href="https://github.com/fenrualabs/fenrua-web/security/advisories/new">fenrua-web private vulnerability report</a>.</p>
+          <p><strong>Website and observation gateway:</strong> <a href="https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-web/security/advisories/new">fenrua-web private vulnerability report</a>.</p>
           <p><strong>Kernel and P/N521 research artifacts:</strong> <a href="https://github.com/fenrualabs/fenrua-kernel/security/advisories/new">fenrua-kernel private vulnerability report</a>.</p>
           <p>Include the affected revision, exact reproduction steps, observed impact, and the minimum evidence required to validate the issue. Redact secrets and personal or client-confidential information.</p>
         </div>
@@ -2171,7 +2171,7 @@ function status() {
     ["Toolchain registry", "success", "Published", "Read-only release evidence", "data/toolchain-registry.json", "Frozen registry input", "registry validation", "Version capture is not security proof.", "New frozen evidence bundle"],
     ["Evidence registry", "success", "Published", "Evidence surface", "/evidence", "Static release artifact", "static route validation", "Evidence provenance is scoped to public artifacts.", "External evidence review"],
     ["Commercial boundary statement", "success", "Published", "Research and technology services", "/docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md", "Public operating statement", "public boundary and company-identity validation", "The public site is an information and service-discovery surface; commercial services may be separately contracted and paid.", "Capability-specific interface records if a self-service feature is introduced"],
-    ["Public repository", "success", "Published", "Source surface", "https://github.com/fenrualabs/fenrua-web", "Release provenance", "git provenance", "Repository state changes after each deployment.", "Tagged release"],
+    ["Public repository", "success", "Published", "Source surface", "https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-web", "Release provenance", "git provenance", "Repository state changes after each deployment.", "Tagged release"],
     ["Schema set", "success", "Published", "Specification", "/docs/", "Static specification set", "example corpus validation", "Schemas are examples/specifications, not a hosted validator.", "Schema validator package"],
   ].map(
     (r) => `<tr>

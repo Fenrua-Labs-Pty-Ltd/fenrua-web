@@ -1,4 +1,4 @@
-Contact: https://github.com/fenrualabs/fenrua-web/security/advisories/new
+Contact: https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-web/security/advisories/new
 Expires: 2027-07-13T00:00:00Z
 Preferred-Languages: en
 Canonical: https://fenrua.ai/.well-known/security.txt

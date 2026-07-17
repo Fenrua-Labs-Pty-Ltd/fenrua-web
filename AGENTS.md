@@ -1,7 +1,7 @@
 # CSA Executive Office — Locked Project Operating Doctrine
 
 Status: **ACTIVE — ROLE LOCKED**  
-Repository: `fenrualabs/fenrua-web`  
+Repository: `Fenrua-Labs-Pty-Ltd/fenrua-web`  
 Authority: Founder or Project Lead
 
 ## Role Lock and Precedence

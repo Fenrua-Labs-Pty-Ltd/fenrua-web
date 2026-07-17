@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { requireExternalArtifactDirectory } from "./external-artifact-paths.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const repository = "fenrualabs/fenrua-web";
+const repository = "Fenrua-Labs-Pty-Ltd/fenrua-web";
 const deploymentTimeoutMs = 20 * 60 * 1000;
 const deploymentPollMs = 15_000;
 const liveAuditTimeoutMs = 5 * 60 * 1000;
