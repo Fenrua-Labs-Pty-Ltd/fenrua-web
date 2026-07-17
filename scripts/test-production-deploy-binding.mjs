@@ -107,7 +107,7 @@ try {
 printf 'git %s\\n' "$*" >> "$FENRUA_DEPLOY_STUB_LOG"
 if [ "$1" = "status" ]; then exit 0; fi
 if [ "$1" = "remote" ] && [ "$2" = "get-url" ] && [ "$3" = "origin" ]; then
-  printf '%s\\n' 'https://github.com/fenrualabs/fenrua-web.git'
+  printf '%s\\n' 'https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-web.git'
   exit 0
 fi
 if [ "$1" = "branch" ] && [ "$2" = "--show-current" ]; then
@@ -212,7 +212,7 @@ function runMergedRemoteScenario({
 printf 'git %s\\n' "$*" >> "$FENRUA_DEPLOY_STUB_LOG"
 if [ "$1" = "status" ]; then exit 0; fi
 if [ "$1" = "remote" ] && [ "$2" = "get-url" ] && [ "$3" = "origin" ]; then
-  printf '%s\\n' 'https://github.com/fenrualabs/fenrua-web.git'
+  printf '%s\\n' 'https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-web.git'
   exit 0
 fi
 if [ "$1" = "fetch" ] || [ "$1" = "switch" ] || [ "$1" = "pull" ]; then exit 0; fi
