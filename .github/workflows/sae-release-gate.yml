@@ -1,0 +1,262 @@
+name: SAE Release Gate
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Pull request number to publish"
+        required: true
+        type: string
+      expected_head_sha:
+        description: "Exact PR head SHA approved for publication"
+        required: true
+        type: string
+      confirmation:
+        description: "Type SAE_APPROVES_PRODUCTION_RELEASE"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+  statuses: read
+
+concurrency:
+  group: sae-release-gate-production
+  cancel-in-progress: false
+
+jobs:
+  sae-release-gate:
+    name: SAE release gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    if: github.ref == 'refs/heads/main'
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      CANONICAL_URL: https://fenrua.ai
+
+    steps:
+      - name: Verify SAE publication confirmation
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ inputs.confirmation }}" != "SAE_APPROVES_PRODUCTION_RELEASE" ]; then
+            echo "::error::SAE publication confirmation did not match the required phrase."
+            exit 1
+          fi
+
+      - name: Check out protected main
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Validate release lane, secrets, and clean base
+        id: base
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::$name is not configured."
+              exit 1
+            fi
+          done
+          if [ -n "$(git status --porcelain=v1)" ]; then
+            echo "::error::Release gate requires a clean main checkout before publication."
+            git status --porcelain=v1
+            exit 1
+          fi
+          main_sha="$(git rev-parse HEAD)"
+          echo "main_sha=$main_sha" >> "$GITHUB_OUTPUT"
+          echo "Base main: $main_sha"
+
+      - name: Validate exact pull request state
+        id: pr
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr_number="${{ inputs.pr_number }}"
+          expected_head="${{ inputs.expected_head_sha }}"
+          if ! [[ "$pr_number" =~ ^[0-9]+$ ]]; then
+            echo "::error::pr_number must be numeric."
+            exit 1
+          fi
+          if ! [[ "$expected_head" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::expected_head_sha must be a 40-character lowercase commit SHA."
+            exit 1
+          fi
+          state="$(gh pr view "$pr_number" --json state --jq .state)"
+          base="$(gh pr view "$pr_number" --json baseRefName --jq .baseRefName)"
+          head="$(gh pr view "$pr_number" --json headRefOid --jq .headRefOid)"
+          draft="$(gh pr view "$pr_number" --json isDraft --jq .isDraft)"
+          url="$(gh pr view "$pr_number" --json url --jq .url)"
+          if [ "$state" != "OPEN" ]; then
+            echo "::error::PR #$pr_number is not open."
+            exit 1
+          fi
+          if [ "$base" != "main" ]; then
+            echo "::error::PR #$pr_number does not target main."
+            exit 1
+          fi
+          if [ "$head" != "$expected_head" ]; then
+            echo "::error::PR #$pr_number head changed from $expected_head to $head."
+            exit 1
+          fi
+          if [ "$draft" != "false" ]; then
+            echo "::error::PR #$pr_number is draft."
+            exit 1
+          fi
+          competing="$(gh pr list --base main --state open --json number --jq "[.[] | select(.number != $pr_number)] | length")"
+          if [ "$competing" != "0" ]; then
+            echo "::error::Another open PR targets main; clean the release lane first."
+            gh pr list --base main --state open
+            exit 1
+          fi
+          echo "head_sha=$head" >> "$GITHUB_OUTPUT"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "PR ready for checks: $url"
+
+      - name: Wait for required GitHub checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh pr checks "${{ inputs.pr_number }}" --required --watch --fail-fast
+
+      - name: Wait for successful Vercel preview status
+        id: preview
+        shell: bash
+        run: |
+          set -euo pipefail
+          head="${{ inputs.expected_head_sha }}"
+          deployment_url=""
+          for attempt in {1..40}; do
+            state="$(gh api "repos/$GITHUB_REPOSITORY/commits/$head/status" --jq '.statuses[]? | select(.context == "Vercel") | .state' | head -n 1 || true)"
+            deployment_url="$(gh api "repos/$GITHUB_REPOSITORY/commits/$head/status" --jq '.statuses[]? | select(.context == "Vercel") | .target_url' | head -n 1 || true)"
+            case "$state" in
+              success)
+                echo "deployment_url=$deployment_url" >> "$GITHUB_OUTPUT"
+                echo "Vercel preview succeeded: $deployment_url"
+                exit 0
+                ;;
+              failure|error)
+                echo "::error::Vercel preview failed: $deployment_url"
+                exit 1
+                ;;
+              *)
+                echo "Vercel preview state is '${state:-missing}' for $head; waiting."
+                sleep 30
+                ;;
+            esac
+          done
+          echo "::error::Vercel preview did not reach success."
+          exit 1
+
+      - name: Squash merge approved PR
+        id: merge
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr_number="${{ inputs.pr_number }}"
+          expected_head="${{ inputs.expected_head_sha }}"
+          gh pr merge "$pr_number" \
+            --squash \
+            --delete-branch \
+            --match-head-commit "$expected_head" \
+            --subject "release: SAE publish PR #$pr_number" \
+            --body "SAE release gate merged PR #$pr_number after required checks and Vercel preview succeeded."
+          git fetch --force origin main
+          merged_main_sha="$(git rev-parse origin/main)"
+          if [ "$merged_main_sha" = "${{ steps.base.outputs.main_sha }}" ]; then
+            echo "::error::main did not advance after merge."
+            exit 1
+          fi
+          echo "merged_main_sha=$merged_main_sha" >> "$GITHUB_OUTPUT"
+          echo "Merged main: $merged_main_sha"
+
+      - name: Check out merged main commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git checkout --force "${{ steps.merge.outputs.merged_main_sha }}"
+          if [ -n "$(git status --porcelain=v1)" ]; then
+            echo "::error::Merged main checkout is dirty before release validation."
+            git status --porcelain=v1
+            exit 1
+          fi
+
+      - name: Set up exact release Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 24.18.0
+          cache: npm
+
+      - name: Install pinned tooling
+        shell: bash
+        run: npm install --global npm@11.18.0 vercel@55.0.0
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Validate merged public release surface
+        run: npm run build:release
+
+      - name: Pull Vercel production configuration
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+
+      - name: Build production deployment
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+
+      - name: Deploy production
+        id: deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/vercel-deploy.log"
+          vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN" | tee "$log"
+          deployment_url="$(grep -Eo 'https://[^[:space:]]+' "$log" | tail -n 1)"
+          if [ -z "$deployment_url" ]; then
+            echo "::error::Unable to capture Vercel deployment URL."
+            exit 1
+          fi
+          echo "deployment_url=$deployment_url" >> "$GITHUB_OUTPUT"
+          echo "Production deployment: $deployment_url"
+
+      - name: Audit live production surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          record_sha="$(node -p "require('./.well-known/fenrua-release.json').integrity.recordSha256")"
+          for attempt in {1..20}; do
+            if npm run audit:live-release -- --url "$CANONICAL_URL" --expected-commit "${{ steps.merge.outputs.merged_main_sha }}" --expected-record-sha256 "$record_sha"; then
+              echo "Live production audit succeeded."
+              exit 0
+            fi
+            echo "Live production audit not yet matched; retry $attempt/20."
+            sleep 30
+          done
+          echo "::error::Live production audit did not confirm the merged release."
+          exit 1
+
+      - name: Confirm clean release handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain=v1)" ]; then
+            echo "::error::Release checkout is dirty after deployment."
+            git status --porcelain=v1
+            exit 1
+          fi
+          cat <<EOF >> "$GITHUB_STEP_SUMMARY"
+          ## SAE release gate complete
+
+          - PR: #${{ inputs.pr_number }}
+          - Merged main commit: ${{ steps.merge.outputs.merged_main_sha }}
+          - Production deployment: ${{ steps.deploy.outputs.deployment_url }}
+          - Live domain: $CANONICAL_URL
+          - Tree: clean
+          EOF
