@@ -1,0 +1,53 @@
+name: SAE fast gate
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sae-fast-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sae-fast-gate:
+    name: SAE fast gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify public repo has no production deployment authority
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "SAE fast gate: enforcing public repo deployment boundary."
+
+          if grep -RInE 'VERCEL_(TOKEN|ORG_ID|PROJECT_ID)|vercel[[:space:]]+(pull|build|deploy)|vercel@[0-9]|\.vercel' .github scripts 2>/dev/null; then
+            echo "::error::Public repository contains forbidden production deployment wiring."
+            exit 1
+          fi
+
+          for f in .github/workflows/deploy-production.yml .github/workflows/sae-release-gate.yml; do
+            test -f "$f" || { echo "::error::$f missing"; exit 1; }
+            grep -q "exit 1" "$f" || { echo "::error::$f must fail closed"; exit 1; }
+            grep -q "private operations" "$f" || { echo "::error::$f must redirect to private operations"; exit 1; }
+          done
+
+          grep -q "Locked SAE-only publication rule" docs/SAFE_WEBSITE_PUBLISHING.md
+          grep -q "Vercel Publishing Boundary" docs/VERCEL.md
+
+          echo "SAE fast gate passed."
+
