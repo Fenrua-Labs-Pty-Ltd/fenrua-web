@@ -140,6 +140,23 @@ Production_Watch:
 
 If production succeeds, verify `https://fenrua.ai` directly. If production fails, do not publish another website update until the failed deployment is either fixed, reverted, or explicitly superseded by an approved recovery release.
 
+## SAE GitHub release gate
+
+The repository provides `.github/workflows/sae-release-gate.yml` as the controlled manual release executor for SAE.
+
+The workflow must be dispatched from `main` and requires:
+
+```yaml
+SAE_Release_Gate_Input:
+  pr_number: "<open PR number>"
+  expected_head_sha: "<exact approved PR head sha>"
+  confirmation: "SAE_APPROVES_PRODUCTION_RELEASE"
+```
+
+The gate verifies the PR target, exact head SHA, required GitHub checks, successful Vercel preview status, and an otherwise clean release lane before it squash-merges. After merge, it checks out the merged `main` commit, builds with the existing Vercel production secret set, deploys production, audits `https://fenrua.ai`, and fails if the release checkout is dirty after deployment.
+
+CSA must not dispatch this workflow or claim its result. OPS may inspect the workflow run and live-domain result, but SAE remains the publishing executor.
+
 ## Clean handoff gate
 
 A website update is complete only when the handoff says:
