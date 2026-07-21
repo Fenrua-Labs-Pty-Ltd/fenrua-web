@@ -3,13 +3,25 @@
 Status: Active public-repository control  
 Repository: `Fenrua-Labs-Pty-Ltd/fenrua-web`  
 Canonical public domain: `https://fenrua.ai`  
-Owner path: SAE implementation organisation, SATE trust-boundary review, OPS release-state verification, CSA/founder final release posture when the public trust surface changes.
+Publication authority: SAE only  
+Founder authority: may authorise, halt, or supersede publication  
+CSA boundary: CSA does not publish
 
 ## Purpose
 
 This document defines the minimum safe path for publishing any Fenrua website update. It replaces ad-hoc publish behaviour for this repository.
 
 A website update is safe to publish only when the source tree, review surface, generated public output, deployment state, and live-domain confirmation all agree.
+
+## Authority boundary
+
+SAE is the only approved website publishing executor for this repository.
+
+CSA may review final public posture, synthesize department findings, and raise release concerns. CSA must not push, merge, trigger, announce, or claim a website publication.
+
+SATE may review wording, trust, impersonation, disclosure, no-token language, and public-boundary risk. OPS may review operational clarity, deployment state, live-domain status, and release handoff. Their reviews do not replace SAE publication execution.
+
+Founder or Project Lead may authorise, stop, or supersede publication. Once authorised, SAE owns the release path, merge readiness, production watch, and final clean handoff.
 
 ## Non-negotiable publishing rule
 
@@ -134,6 +146,7 @@ A website update is complete only when the handoff says:
 
 ```yaml
 Release_Handoff:
+  publisher: "SAE"
   open_prs: 0
   main_commit: "<published main sha>"
   production_status: "success"
@@ -172,5 +185,5 @@ Safe website publishing never authorises exposure of:
 Use this rule for every website update:
 
 ```text
-One clean branch. One bounded PR. Passing checks. Successful preview. Squash merge. Watch main. Verify live domain. Leave no open release PR behind.
+One SAE-owned release path. One clean branch. One bounded PR. Passing checks. Successful preview. Squash merge. Watch main. Verify live domain. Leave no open release PR behind.
 ```
