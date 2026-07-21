@@ -1,4 +1,4 @@
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,6 +10,32 @@ const outputPath = path.join(root, ".well-known", "fenrua-release.json");
 const evidencePath = path.join(root, "data", "site-evidence.json");
 const companyPath = path.join(root, "data", "company-identity.json");
 const commitPattern = /^[0-9a-f]{40}$/;
+const officialSourceNoticeGeneratedPaths = new Set([
+  "index.html",
+  "trust/index.html",
+  "legal/index.html",
+]);
+
+function dirtyPaths(status) {
+  return status
+    .split(/\r?\n/)
+    .map((line) => line.slice(3).trim())
+    .filter(Boolean)
+    .map((entry) => entry.includes(" -> ") ? entry.split(" -> ").at(-1) : entry);
+}
+
+function allowsOnlyGeneratedOfficialSourceNotice(status) {
+  const paths = dirtyPaths(status);
+  if (!paths.length || !paths.every((entry) => officialSourceNoticeGeneratedPaths.has(entry))) return false;
+  const result = spawnSync(process.execPath, ["scripts/apply-official-source-notice.mjs", "--check"], {
+    cwd: root,
+    encoding: "utf8",
+    stdio: "pipe",
+  });
+  if (result.status === 0) return true;
+  const output = [result.stdout, result.stderr].filter(Boolean).join("\n").trim();
+  throw new Error(`Generated official-source notice check failed before release manifest generation.\n${output}`);
+}
 
 function sourceCommit() {
   const vercelCommit = (process.env.VERCEL_GIT_COMMIT_SHA || "").trim().toLowerCase();
@@ -31,7 +57,7 @@ function sourceCommit() {
   if (!commitPattern.test(resolved)) throw new Error("Release manifest requires a 40-character source commit.");
   if (checkoutCommit) {
     const dirty = execFileSync("git", ["status", "--porcelain=v1"], { cwd: root, encoding: "utf8" }).trim();
-    if (dirty && process.env.FENRUA_ALLOW_DIRTY_RELEASE !== "1") {
+    if (dirty && process.env.FENRUA_ALLOW_DIRTY_RELEASE !== "1" && !allowsOnlyGeneratedOfficialSourceNotice(dirty)) {
       throw new Error("Release manifest generation requires a clean source checkout. Use FENRUA_ALLOW_DIRTY_RELEASE=1 only for local, non-deployment validation.");
     }
   }
