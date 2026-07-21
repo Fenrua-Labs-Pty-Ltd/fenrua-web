@@ -203,3 +203,21 @@ Use this rule for every website update:
 ```text
 One SAE-owned release path. One clean branch. One bounded PR. Passing checks. Successful preview. Squash merge. Watch main. Verify live domain. Leave no open release PR behind.
 ```
+
+## Locked SAE-only publication rule
+
+All public website updates are executed through SAE-owned release control.
+
+Founder, CSA, or any other department may request, authorise, halt, or reject a change, but they do not directly publish the site. Even founder-originated updates must enter the same SAE-owned path:
+
+1. SAE creates or accepts the bounded change request.
+2. SAE owns the implementation branch.
+3. SAE opens the pull request.
+4. Required public validation must pass.
+5. SAE performs the merge or release action.
+6. Production is watched and verified.
+7. SAE leaves a clean handoff.
+
+The public `fenrua-web` repository must not contain Vercel tokens, provider credentials, `.vercel` project state, production deployment CLI wiring, or protected deployment secrets.
+
+Vercel preview/build status may provide useful signal, but it is not the source of publishing authority. The required public repository gate is the GitHub Actions `Validate public surface` check. Production publishing authority remains SAE-controlled.
