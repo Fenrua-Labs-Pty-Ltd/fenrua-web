@@ -1,0 +1,8 @@
+{
+  "schema": "fenrua.sae.deploy-trigger.v1",
+  "publisher": "SAE",
+  "sourceCommit": "3a24a99213b06a10ecaa38cf23bb6da033bc5855",
+  "triggeredAt": "2026-07-21T23:39:02Z",
+  "reason": "force production Git deployment after README and SAE publishing lock merge",
+  "targetDomain": "fenrua.ai"
+}
