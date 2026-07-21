@@ -62,6 +62,19 @@ the server-only variable names from `.env.example`; never commit their values.
 publishes through the existing Vercel project `fenrua-web`, which owns
 `fenrua.ai`.
 
+## Website Publishing Authority
+
+Website publishing is controlled by the [Safe Website Publishing Control](docs/SAFE_WEBSITE_PUBLISHING.md).
+
+CSA does not publish website updates. CSA may synthesize public posture,
+review final wording, and raise release concerns, but it must not push, merge,
+trigger, announce, or claim a publication.
+
+SAE is the only approved website publishing executor for this repository.
+Founder or Project Lead authority may authorise, halt, or supersede a release;
+after authorisation, SAE owns the branch, PR, merge readiness, production watch,
+live-domain verification, and clean handoff.
+
 ## Utility Standard
 
 - `fenrua-kernel` is the bedrock research artifact.
@@ -211,6 +224,7 @@ cards, APIs, private systems, or a perpetual production assertion.
 - `docs/FENRUA_AI_EFFICIENCY_EVIDENCE_STANDARD.md` - evidence contract for future AI-efficiency claims
 - `docs/DEPENDENCY_LICENSES.md` - exact development dependency license inventory
 - `docs/archive/2026-07-13/` - superseded, noindex public-document records
+- `docs/SAFE_WEBSITE_PUBLISHING.md` - SAE-only safe website publishing control
 - `docs/VERCEL.md` - Vercel publishing notes for `fenrua.ai`
 - `docs/UTILITY_STANDARD.md` - repository operating standard
 - `docs/FENRUA_TOOLCHAIN_LOCK.md` - public toolchain lock
@@ -222,15 +236,16 @@ tracking scripts. If traffic data is needed, use raw server logs from the host.
 
 ## Production Domain
 
-For the standalone owner production gate on the approved `main` commit, use a
-clean main checkout:
+For the standalone SAE-owned production gate on the approved `main` commit, use
+a clean main checkout:
 
 ```bash
 npm run release:production-check
 ```
 
 Production publishing is performed by the existing Vercel Git integration, not
-by a repository-local deployment CLI.
+by a repository-local deployment CLI. SAE owns publication execution and the
+post-merge production watch.
 
 With an owner-approved out-of-repository visual baseline and explicit owner
 authorization, the release command accepts a checked ready PR or an
@@ -253,5 +268,6 @@ raw path in routine output. Do not commit, upload, or paste baseline files,
 screenshots, captures, local paths, credentials, provider internals, or private
 evidence artifacts into the repository or public reports.
 
-See [Vercel Publishing](docs/VERCEL.md) and the
+See [Safe Website Publishing Control](docs/SAFE_WEBSITE_PUBLISHING.md),
+[Vercel Publishing](docs/VERCEL.md), and the
 [access-only commercial boundary](docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md).
