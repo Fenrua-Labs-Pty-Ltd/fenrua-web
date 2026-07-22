@@ -184,6 +184,7 @@ for (const [label, markup] of [["Overview", overview], ["Trust", trust], ["Legal
 assert.ok(overview.indexOf('id="official-source-warning"') > overview.indexOf('<main id="content">'), "Overview warning must remain inside the main landmark.");
 assert.ok(overview.indexOf('id="official-source-warning"') < overview.indexOf('id="page-title"'), "Overview warning must appear directly below the navigation, before the hero introduction.");
 assert.match(overview, /<div class="home-intro">[\s\S]*id="official-source-warning"[\s\S]*class="route-hero route-hero-solo"/, "Overview must retain the shared desktop intro layout while preserving warning-first reading order.");
+assert.match(trust, /<div class="trust-intro">[\s\S]*id="official-source-warning"[\s\S]*class="route-hero route-hero-solo"/, "Trust must pair its official-source notice with the overview in the shared desktop intro layout.");
 assert.equal([...overview.matchAll(/class="section-shell split-section commercial-boundary"/g)].length, 1, "Overview must retain the single full policy card.");
 assert.match(overview, /Fenrua BlackBox Protocol/);
 assert.match(overview, /Public evidence for private AI execution\./);

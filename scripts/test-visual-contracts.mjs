@@ -38,6 +38,7 @@ assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/, "The site must
 
 assert.match(overview, /class="site-header site-header-live"/, "Overview may retain the dedicated compact observation header.");
 assert.match(overview, /class="section-shell chain-progress desktop-chain-progress"/, "Overview must retain desktop observation cards under its intro card.");
+assert.match(styles, /\.home-intro,\s*\.trust-intro\s*\{\s*display: grid;\s*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/, "Homepage and Trust must use equal desktop introduction cards.");
 assert.doesNotMatch(architecture, /data-chain-card=/, "Architecture must not repeat live cards in unrelated route content.");
 assert.match(architecture, /class="breadcrumb-nav"/, "Architecture must expose visible breadcrumbs.");
 assert.match(architecture, /class="section-nav"/, "Architecture must expose section navigation.");

@@ -1722,14 +1722,16 @@ h3 {
 }
 
 @media (min-width: 901px) {
-  .home-intro {
+  .home-intro,
+  .trust-intro {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.25rem;
     align-items: stretch;
   }
 
-  .home-intro .route-hero {
+  .home-intro .route-hero,
+  .trust-intro .route-hero {
     grid-column: 1;
     grid-row: 1;
     align-self: stretch;
@@ -1742,7 +1744,8 @@ h3 {
     padding: 1.5rem;
   }
 
-  .home-intro .official-source-warning {
+  .home-intro .official-source-warning,
+  .trust-intro .official-source-warning {
     grid-column: 2;
     grid-row: 1;
     align-self: stretch;
@@ -1751,11 +1754,13 @@ h3 {
     padding: 1.25rem;
   }
 
-  .home-intro .official-source-warning h2 {
+  .home-intro .official-source-warning h2,
+  .trust-intro .official-source-warning h2 {
     white-space: normal;
   }
 
-  .home-intro .official-source-warning-copy {
+  .home-intro .official-source-warning-copy,
+  .trust-intro .official-source-warning-copy {
     gap: 0.65rem;
   }
 }

@@ -1287,8 +1287,10 @@ function trust() {
     current: "Trust",
     canonicalPath: "/trust",
     section: "Trust",
-    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${officialSourceWarning()}
+    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `<div class="trust-intro">
+${officialSourceWarning()}
       ${routeHero("TRUST BOUNDARIES", "Trust", "Fenrua BlackBox Protocol provides bounded evidence for reviewer verification while keeping private AI execution outside the public/private disclosure boundary. Public trust is expressed through scoped claims, evidence classes, release records, and explicit non-claims—not a generic assurance badge.", `<div class="cta-row"><a class="button button-primary" href="/trust/claims">Inspect claims</a><a class="button button-secondary" href="/trust/evidence-classes">Read evidence classes</a></div>`)}
+      </div>
       <section class="section-shell" aria-labelledby="trust-records"><div class="section-heading"><p class="eyebrow">MACHINE-READABLE RECORDS</p><h2 id="trust-records">Trace public statements to their boundary</h2><p>Claims link to capability and evidence records. Stronger assurance language is governed by a versioned public contract rather than presentation alone.</p></div>
         ${modelDownloads()}
       </section>
