@@ -39,9 +39,14 @@
       "provider": "linkedin",
       "label": "LinkedIn",
       "url": "https://www.linkedin.com/in/fenrua-labs-80b679388"
+    },
+    {
+      "provider": "youtube",
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@FenruaLabs"
     }
   ],
-  "publicProfilesVerifiedAt": "2026-07-14",
+  "publicProfilesVerifiedAt": "2026-07-22",
   "registrySources": [
     {
       "authority": "Australian Business Register",
