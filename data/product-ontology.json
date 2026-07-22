@@ -1,6 +1,6 @@
 {
   "schemaVersion": "fenrua.product-ontology.v1",
-  "lastReviewed": "2026-07-14",
+  "lastReviewed": "2026-07-22",
   "sourceReferences": {
     "companyIdentityId": "company-identity",
     "siteEvidenceId": "site-evidence-input",
@@ -308,6 +308,42 @@
             "context": "The current public service boundary does not offer investment, token-crowdfunding, exchange, trading, custody, public-swap, or financial-return products.",
             "claimId": "claim.commercial.no-financial-products",
             "expectedMatches": 1
+          },
+          {
+            "file": "public/index.html",
+            "context": "Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Protocol must be treated as unofficial unless it is explicitly listed or linked from fenrua.ai.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/index.html",
+            "context": "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/legal/index.html",
+            "context": "Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Protocol must be treated as unofficial unless it is explicitly listed or linked from fenrua.ai.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/legal/index.html",
+            "context": "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/index.html",
+            "context": "Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Protocol must be treated as unofficial unless it is explicitly listed or linked from fenrua.ai.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/index.html",
+            "context": "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
           }
         ]
       },
@@ -315,7 +351,26 @@
         "term": "presale",
         "status": "deprecated",
         "replacementId": "fenrua.commercial-service-boundary",
-        "allowances": []
+        "allowances": [
+          {
+            "file": "public/index.html",
+            "context": "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/legal/index.html",
+            "context": "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/index.html",
+            "context": "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          }
+        ]
       },
       {
         "term": "market",
@@ -388,6 +443,78 @@
             "context": "The current public service boundary does not offer investment, token-crowdfunding, exchange, trading, custody, public-swap, or financial-return products.",
             "claimId": "claim.commercial.no-financial-products",
             "expectedMatches": 1
+          },
+          {
+            "file": "public/index.html",
+            "context": "Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Protocol must be treated as unofficial unless it is explicitly listed or linked from fenrua.ai.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/index.html",
+            "context": "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/index.html",
+            "context": "Fenrua activity is currently limited to Fenrua's private-chain research environment and bounded public evidence surfaces. Fenrua Labs Pty Ltd is not offering, selling, promoting, or authorising any commercial token offering.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/index.html",
+            "context": "Any public token, contract, listing, website, media profile, message, group, or account claiming to represent a live Fenrua token or an official Fenrua commercial offering should be treated as unauthorised, impersonated, or potentially fraudulent unless explicitly confirmed on fenrua.ai.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 2
+          },
+          {
+            "file": "public/legal/index.html",
+            "context": "Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Protocol must be treated as unofficial unless it is explicitly listed or linked from fenrua.ai.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/legal/index.html",
+            "context": "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/legal/index.html",
+            "context": "Fenrua activity is currently limited to Fenrua's private-chain research environment and bounded public evidence surfaces. Fenrua Labs Pty Ltd is not offering, selling, promoting, or authorising any commercial token offering.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/legal/index.html",
+            "context": "Any public token, contract, listing, website, media profile, message, group, or account claiming to represent a live Fenrua token or an official Fenrua commercial offering should be treated as unauthorised, impersonated, or potentially fraudulent unless explicitly confirmed on fenrua.ai.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 2
+          },
+          {
+            "file": "public/trust/index.html",
+            "context": "Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Protocol must be treated as unofficial unless it is explicitly listed or linked from fenrua.ai.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/index.html",
+            "context": "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/index.html",
+            "context": "Fenrua activity is currently limited to Fenrua's private-chain research environment and bounded public evidence surfaces. Fenrua Labs Pty Ltd is not offering, selling, promoting, or authorising any commercial token offering.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/index.html",
+            "context": "Any public token, contract, listing, website, media profile, message, group, or account claiming to represent a live Fenrua token or an official Fenrua commercial offering should be treated as unauthorised, impersonated, or potentially fraudulent unless explicitly confirmed on fenrua.ai.",
+            "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 2
           }
         ]
       }

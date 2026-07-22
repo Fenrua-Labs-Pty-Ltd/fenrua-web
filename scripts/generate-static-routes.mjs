@@ -627,6 +627,28 @@ function commercialBoundarySection() {
       </section>`;
 }
 
+const officialSourceNotice = {
+  title: "Official Source and Anti-Impersonation Notice",
+  paragraphs: [
+    "fenrua.ai is the sole and only official website for Fenrua Protocol and Fenrua Labs Pty Ltd.",
+    "Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Protocol must be treated as unofficial unless it is explicitly listed or linked from fenrua.ai.",
+    "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+    "Fenrua activity is currently limited to Fenrua’s private-chain research environment and bounded public evidence surfaces. Fenrua Labs Pty Ltd is not offering, selling, promoting, or authorising any commercial token offering.",
+    "Any public token, contract, listing, website, media profile, message, group, or account claiming to represent a live Fenrua token or an official Fenrua commercial offering should be treated as unauthorised, impersonated, or potentially fraudulent unless explicitly confirmed on fenrua.ai.",
+    "Always verify Fenrua information from fenrua.ai before trusting any external link, message, contract address, social post, or media account.",
+  ],
+};
+
+function officialSourceWarning() {
+  return `      <section id="official-source-warning" class="official-source-warning" aria-labelledby="official-source-warning-title">
+        <p class="warning-eyebrow">SECURITY NOTICE</p>
+        <h2 id="official-source-warning-title">${esc(officialSourceNotice.title)}</h2>
+        <div class="official-source-warning-copy">
+          ${officialSourceNotice.paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("\n          ")}
+        </div>
+      </section>`;
+}
+
 const organizationJsonLd = JSON.stringify(
   {
     "@context": "https://schema.org",
@@ -1252,7 +1274,8 @@ function trust() {
     current: "Trust",
     canonicalPath: "/trust",
     section: "Trust",
-    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${routeHero("TRUST BOUNDARIES", "Trust", "Public trust is expressed through scoped claims, evidence classes, release records, and explicit non-claims. It is not a generic assurance badge.", `<div class="cta-row"><a class="button button-primary" href="/trust/claims">Inspect claims</a><a class="button button-secondary" href="/trust/evidence-classes">Read evidence classes</a></div>`)}
+    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${officialSourceWarning()}
+      ${routeHero("TRUST BOUNDARIES", "Trust", "Public trust is expressed through scoped claims, evidence classes, release records, and explicit non-claims. It is not a generic assurance badge.", `<div class="cta-row"><a class="button button-primary" href="/trust/claims">Inspect claims</a><a class="button button-secondary" href="/trust/evidence-classes">Read evidence classes</a></div>`)}
       <section class="section-shell" aria-labelledby="trust-records"><div class="section-heading"><p class="eyebrow">MACHINE-READABLE RECORDS</p><h2 id="trust-records">Trace public statements to their boundary</h2><p>Claims link to capability and evidence records. Stronger assurance language is governed by a versioned public contract rather than presentation alone.</p></div>
         ${modelDownloads()}
       </section>
@@ -1409,7 +1432,8 @@ function home() {
     description: "Fenrua Labs researches, develops, and provides AI efficiency infrastructure software and related technology services.",
     current: "Overview",
     headerLive: true,
-    body: `${routeHero(
+    body: `${officialSourceWarning()}
+      ${routeHero(
       "AI EFFICIENCY INFRASTRUCTURE",
       "AI efficiency infrastructure for verifiable systems.",
       "Fenrua researches, develops, and provides software and related technology services spanning AI efficiency, infrastructure, evidence, identity, authority, integrity, policy, verification, containment, recovery, hosting, and integration. Use this site to inspect public evidence records, release scope, bounded observation context, and local validation paths.",
@@ -1918,7 +1942,8 @@ function legal() {
     description: "Verified Fenrua Labs company identity, current public service scope, evidence boundaries, and contact information.",
     current: "Legal",
     canonicalPath: "/legal",
-    body: `${routeHero("REGISTERED OPERATOR", "Legal and Company Centre", "Verified company identity and the current public scope for research, development, AI efficiency infrastructure software, related technology services, evidence, and contact.")}
+    body: `${officialSourceWarning()}
+      ${routeHero("REGISTERED OPERATOR", "Legal and Company Centre", "Verified company identity and the current public scope for research, development, AI efficiency infrastructure software, related technology services, evidence, and contact.")}
       <section class="section-shell" aria-labelledby="company-identity-title">
         <div class="section-heading">
           <p class="eyebrow">COMPANY IDENTITY</p>

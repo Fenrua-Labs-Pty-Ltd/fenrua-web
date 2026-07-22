@@ -13,6 +13,23 @@ function cardByHeading(markup, heading) {
   return card;
 }
 
+function assertOfficialSourceWarning(markup, label) {
+  const warning = sectionById(markup, "official-source-warning");
+  assert.match(warning, /class="official-source-warning"/, `${label} must render the official-source warning surface.`);
+  assert.match(warning, /<p class="warning-eyebrow">SECURITY NOTICE<\/p>/, `${label} must label the warning in text as a security notice.`);
+  assert.match(warning, /<h2 id="official-source-warning-title">Official Source and Anti-Impersonation Notice<\/h2>/, `${label} must preserve the warning title.`);
+  for (const statement of [
+    "fenrua.ai is the sole and only official website for Fenrua Protocol and Fenrua Labs Pty Ltd.",
+    "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+    "Fenrua activity is currently limited to Fenrua’s private-chain research environment and bounded public evidence surfaces.",
+    "should be treated as unauthorised, impersonated, or potentially fraudulent unless explicitly confirmed on fenrua.ai.",
+    "Always verify Fenrua information from fenrua.ai before trusting any external link, message, contract address, social post, or media account.",
+  ]) {
+    const escaped = statement.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    assert.match(warning, new RegExp(escaped), `${label} must preserve the required official-source notice.`);
+  }
+}
+
 function assertNoPositiveReviewerClaims(markup, label) {
   for (const pattern of [
     /\b(?:we|fenrua|the public (?:site|path|record))\s+(?:offer|offers|provide|provides|operate|operates|grant|grants|include|includes|guarantee|guarantees|promise|promises)\s+(?:a\s+)?(?:public account(?: flow)?|hosted verifier(?: availability)?|public service entitlement|SLO|uptime|runtime assurance|runtime attestation|production approval|financial return)\b/i,
@@ -151,6 +168,11 @@ assert.doesNotMatch(toolchain, /<span class="status-badge">[^<]+<\/span><br>/, "
 assert.doesNotMatch(toolchain, />Executed</);
 
 const overview = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const trust = await readFile(new URL("../trust/index.html", import.meta.url), "utf8");
+const legal = await readFile(new URL("../legal/index.html", import.meta.url), "utf8");
+for (const [label, markup] of [["Overview", overview], ["Trust", trust], ["Legal", legal]]) assertOfficialSourceWarning(markup, label);
+assert.ok(overview.indexOf('id="official-source-warning"') > overview.indexOf('<main id="content">'), "Overview warning must remain inside the main landmark.");
+assert.ok(overview.indexOf('id="official-source-warning"') < overview.indexOf('id="page-title"'), "Overview warning must appear directly below the navigation, before the hero introduction.");
 assert.equal([...overview.matchAll(/class="section-shell split-section commercial-boundary"/g)].length, 1, "Overview must retain the single full policy card.");
 assert.match(overview, /<script src="\/kernel-status\.js" defer><\/script>/, "overview must load live chain updater");
 assert.match(overview, /class="site-header site-header-live"/, "overview must place live blocks in the header");
@@ -380,7 +402,6 @@ const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8
 for (const route of ["legal", "support", "security", "accessibility"]) assert.match(sitemap, new RegExp(`/${route}<`));
 for (const route of ["nexus", "fenswap", "fenpresale", "wallet", "privacy", "terms"]) assert.doesNotMatch(sitemap, new RegExp(`/${route}<`));
 
-const legal = await readFile(new URL("../legal/index.html", import.meta.url), "utf8");
 assert.match(legal, /FENRUA LABS PTY LTD/);
 assert.match(legal, /ABN 62 700 182 663/);
 assert.match(legal, /ACN 700 182 663/);
