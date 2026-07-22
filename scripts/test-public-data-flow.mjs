@@ -55,7 +55,7 @@ for (const text of [
   "never forwarded to JSON-RPC or private mesh transport",
   "partnerships@fenrua.ai",
   "private GitHub security advisory flow",
-  "GitHub, X, and LinkedIn",
+  "GitHub, X, LinkedIn, and YouTube",
   "do not use cookies, localStorage, sessionStorage, IndexedDB",
   "Local Trust Gate has no public implementation, CLI, SDK, API, hosted interface, or release artifact",
   "do not accept user uploads, transactions, public RPC forwarding, or administrative commands",

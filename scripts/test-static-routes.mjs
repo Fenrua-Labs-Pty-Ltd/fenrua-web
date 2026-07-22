@@ -137,6 +137,7 @@ for (const route of routes) {
     ["GitHub", "https://github.com/fenrualabs"],
     ["X", "https://x.com/FenruaLabs"],
     ["LinkedIn", "https://www.linkedin.com/in/fenrua-labs-80b679388"],
+    ["YouTube", "https://www.youtube.com/@FenruaLabs"],
   ]) {
     assert.ok(html.includes(`<a href="${url}" rel="me">${label}</a>`), `${route} must expose the verified ${label} profile`);
   }

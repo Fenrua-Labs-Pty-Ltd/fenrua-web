@@ -141,6 +141,7 @@ for (const file of htmlArtifacts) {
     "https://github.com/fenrualabs",
     "https://x.com/FenruaLabs",
     "https://www.linkedin.com/in/fenrua-labs-80b679388",
+    "https://www.youtube.com/@FenruaLabs",
   ]);
 
   const discovery = JSON.parse(structuredData[1][1]);

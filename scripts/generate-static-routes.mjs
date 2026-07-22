@@ -46,17 +46,28 @@ if (
 const capabilitiesById = new Map(capabilityRegister.capabilities.map((capability) => [capability.id, capability]));
 const claimsById = new Map(claimRegister.claims.map((claim) => [claim.id, claim]));
 const evidenceById = new Map(evidenceTaxonomy.evidenceRecords.map((record) => [record.id, record]));
+const verifiedPublicProfiles = [
+  { provider: "github", label: "GitHub", url: "https://github.com/fenrualabs" },
+  { provider: "x", label: "X", url: "https://x.com/FenruaLabs" },
+  { provider: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/fenrua-labs-80b679388" },
+  { provider: "youtube", label: "YouTube", url: "https://www.youtube.com/@FenruaLabs" },
+];
 if (
   !Array.isArray(company.publicProfiles)
-  || company.publicProfiles.length !== 3
+  || company.publicProfiles.length !== verifiedPublicProfiles.length
   || !company.publicProfiles.every((profile) => (
     typeof profile.provider === "string"
     && typeof profile.label === "string"
     && typeof profile.url === "string"
     && profile.url.startsWith("https://")
   ))
+  || !company.publicProfiles.every((profile, index) => (
+    profile.provider === verifiedPublicProfiles[index].provider
+    && profile.label === verifiedPublicProfiles[index].label
+    && profile.url === verifiedPublicProfiles[index].url
+  ))
 ) {
-  throw new Error("data/company-identity.json must contain the three verified public profiles.");
+  throw new Error("data/company-identity.json must contain the four verified public profiles.");
 }
 const documentRegister = JSON.parse(readFileSync(documentRegisterPath, "utf8"));
 const kernelStatusSource = readFileSync(kernelStatusPath, "utf8");
