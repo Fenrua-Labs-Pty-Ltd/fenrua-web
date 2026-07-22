@@ -1200,15 +1200,20 @@ const architectureViews = [
   {
     slug: "trust-boundaries",
     title: "Trust boundaries",
-    description: "Fenrua trust boundaries, control ownership, and roots of trust.",
-    summary: "Trust is scoped to named artifacts, signatures, policies, public records, and review boundaries. The page never collapses a signed observation into general system assurance.",
+    eyebrow: "CLIENT-SAFE ARCHITECTURE",
+    mapTitle: "Public evidence, protected execution",
+    description: "Fenrua client-safe architecture boundary for public evidence and protected execution.",
+    summary: "Public evidence. Private execution. This client-safe view explains how public evidence, authority boundaries, protected execution, and bounded public evidence relate without representing a deployment inventory or service entitlement.",
+    cardSummary: "Trust is scoped to named artifacts, signatures, policies, public records, and review boundaries. The page never collapses a signed observation into general system assurance.",
     nodes: [
-      ["Current", "Public artifact boundary", "Only generated public files and declared records are released through the static surface."],
-      ["Specification", "Evidence and policy boundary", "Claims require scoped evidence and cannot be strengthened by page presentation alone."],
+      ["Current", "Public evidence surface", "Public pages, declared records, and bounded verification material are evidence interfaces. Their presence does not reveal protected operations or create a service entitlement."],
+      ["Specification", "Evidence Before Authority", "Evidence can support review, but public presentation, a signature, or a capability label cannot grant authority by itself. Authority remains subject to the applicable approval and policy boundary."],
+      ["Protected", "Protected private execution", "Private execution and protected operational material remain outside public pages, public responses, and ordinary evidence. This view intentionally does not describe their implementation."],
+      ["Current", "Bounded public evidence return", "Only allowlisted public evidence or verification metadata may return to the public surface. A public record is not an execution receipt, an availability statement, or an authority grant."],
       ["External", "Independent review boundary", "No external review, certification, or production approval is implied unless a matching evidence record exists."],
       ["Optional external", "Observation boundary", "A signed observation remains bounded to its declared contract, key, sequence, and freshness state."],
     ],
-    boundary: "Private infrastructure, signing material, customer environments, and unmeasured runtime behaviour remain outside the public trust boundary.",
+    boundary: "Private infrastructure, signing material, customer environments, and unmeasured runtime behaviour remain outside the public trust boundary. Capability is not authority. Stage 0 architecture evidence note: this package explains the public/private boundary only; it does not assert production readiness, external certification, public tenant availability, or a Stage 0 PASS.",
   },
   {
     slug: "data-and-provenance",
@@ -1261,7 +1266,7 @@ function architectureView(view) {
     section: "Platform",
     body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${routeHero("ARCHITECTURE VIEW", view.title, view.summary)}
       <section class="section-shell" aria-labelledby="${attr(`${view.slug}-diagram-title`)}">
-        <div class="section-heading"><p class="eyebrow">SEMANTIC SYSTEM VIEW</p><h2 id="${attr(`${view.slug}-diagram-title`)}">${esc(view.title)} map</h2><p>Each step carries its state in text. The diagram remains readable without colour or client JavaScript.</p></div>
+        <div class="section-heading"><p class="eyebrow">${esc(view.eyebrow || "SEMANTIC SYSTEM VIEW")}</p><h2 id="${attr(`${view.slug}-diagram-title`)}">${esc(view.mapTitle || `${view.title} map`)}</h2><p>Each step carries its state in text. The diagram remains readable without colour or client JavaScript.</p></div>
         <ol class="architecture-diagram" aria-label="${attr(`${view.title} component map`)}">
           ${view.nodes.map(([state, name, detail], index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><div><strong>${esc(name)}</strong><p>${esc(detail)}</p></div><em>${esc(state)}</em></li>`).join("\n          ")}
         </ol>
@@ -1606,7 +1611,7 @@ function architecture() {
       </section>
       <section class="section-shell" aria-labelledby="architecture-views">
         <div class="section-heading"><p class="eyebrow">VIEWPOINTS</p><h2 id="architecture-views">Inspect the boundary from each relevant angle</h2><p>These routes use semantic diagrams and explicit state labels. They distinguish current public records, reference designs, specifications, research, planned work, agreement-specific delivery, and external dependencies.</p></div>
-        ${cardGrid(architectureViews.map((view, index) => ({ kicker: String(index + 1).padStart(2, "0"), title: view.title, text: view.summary, href: `/architecture/${view.slug}`, link: "Open viewpoint" })))}
+        ${cardGrid(architectureViews.map((view, index) => ({ kicker: String(index + 1).padStart(2, "0"), title: view.title, text: view.cardSummary || view.summary, href: `/architecture/${view.slug}`, link: "Open viewpoint" })))}
       </section>`),
   });
 }
