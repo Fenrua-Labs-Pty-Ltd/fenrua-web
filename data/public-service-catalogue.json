@@ -1,6 +1,6 @@
 {
   "schemaVersion": "fenrua.public-service-catalogue.v1",
-  "lastReviewed": "2026-07-14",
+  "lastReviewed": "2026-07-22",
   "sourceReferences": {
     "companyIdentityId": "company-identity",
     "siteEvidenceId": "site-evidence-input",
@@ -69,8 +69,8 @@
     },
     {
       "id": "service.technology-services-by-offer",
-      "name": "AI efficiency infrastructure technology services",
-      "purpose": "Offers research, development, software, infrastructure access, hosting, integration, technical support, and evidence-aware workflows within the relevant service scope.",
+      "name": "Protocol infrastructure and related technology services",
+      "purpose": "Offers agreement-specific research, development, software, integration, technical support, and evidence-aware workflows for verifiable AI automation within the relevant service scope.",
       "availability": "agreement-specific",
       "interface": {
         "type": "business-enquiry",

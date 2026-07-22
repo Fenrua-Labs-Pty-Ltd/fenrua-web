@@ -677,7 +677,7 @@ const organizationJsonLd = JSON.stringify(
       contactType: "business enquiries",
       email: company.publicContact,
     },
-    description: "Fenrua Labs researches, develops, and provides AI efficiency infrastructure software and related technology services.",
+    description: "Fenrua BlackBox Protocol is privacy-preserving protocol infrastructure for verifiable AI automation.",
     sameAs: company.publicProfiles.map((profile) => profile.url),
   },
   null,
@@ -704,7 +704,7 @@ function pageDiscoveryJsonLd({ title, description, canonical, current }) {
       "@type": "WebSite",
       "@id": "https://fenrua.ai/#website",
       url: "https://fenrua.ai/",
-      name: "Fenrua",
+      name: "Fenrua BlackBox Protocol",
       inLanguage: "en-AU",
       publisher: { "@id": "https://fenrua.ai/#organization" },
     },
@@ -808,7 +808,7 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
     <meta name="theme-color" content="#0d0d0d" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_AU" />
-    <meta property="og:site_name" content="Fenrua" />
+    <meta property="og:site_name" content="Fenrua BlackBox Protocol" />
     <meta property="og:title" content="${attr(title)}" />
     <meta property="og:description" content="${attr(description)}" />
     <meta property="og:url" content="${attr(canonicalUrl)}" />
@@ -836,10 +836,10 @@ ${pageScripts ? `    ${pageScripts}\n` : ""}
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
     ${liveAnnouncer}
     <header class="${headerClass}" aria-label="Site header">
-      <a class="brand" href="/" aria-label="Fenrua Protocol home">
+      <a class="brand" href="/" aria-label="Fenrua BlackBox Protocol home">
         <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
         <span>
-          <strong>Fenrua Protocol</strong>
+          <strong>Fenrua BlackBox Protocol</strong>
           <small>by Fenrua Labs Pty Ltd</small>
         </span>
       </a>
@@ -1251,12 +1251,12 @@ function architectureView(view) {
 
 function platform() {
   return layout({
-    title: "Fenrua Platform",
-    description: "Fenrua platform orientation, current capabilities, boundaries, and architecture routes.",
+    title: "Fenrua BlackBox Protocol — Platform",
+    description: "Fenrua BlackBox Protocol positioning, current capabilities, boundaries, and architecture routes.",
     current: "Platform",
     canonicalPath: "/platform",
     section: "Platform",
-    body: `${routeHero("PLATFORM ORIENTATION", "Platform", "Fenrua is a public evidence interface and an AI efficiency infrastructure direction. The platform view separates what is inspectable today from specifications, research, and planned work.", `<div class="cta-row"><a class="button button-primary" href="/architecture">Read architecture</a><a class="button button-secondary" href="/start">Choose a starting path</a></div>`)}
+    body: `${routeHero("PROTOCOL ORIENTATION", "Protocol infrastructure", "Fenrua BlackBox Protocol is protocol infrastructure for verifiable AI automation and governable autonomous AI execution. The platform view separates what is inspectable today from specifications, research, and planned work.", `<div class="cta-row"><a class="button button-primary" href="/architecture">Read architecture</a><a class="button button-secondary" href="/start">Choose a starting path</a></div>`)}
       <section class="section-shell" aria-labelledby="platform-capabilities"><div class="section-heading"><p class="eyebrow">CURRENT CAPABILITY STATES</p><h2 id="platform-capabilities">Maturity stays attached to the record</h2><p>These summaries are generated from the canonical capability register. A public page, specification, or record is not promoted into a service merely by being visible here.</p></div>
         ${capabilityCards(["capability.public-website", "capability.security-kernel-specification", "capability.utility-catalogue", "capability.local-verifier", "capability.local-trust-gate"], { "capability.security-kernel-specification": "/kernel", "capability.utility-catalogue": "/utilities", "capability.local-verifier": "/verify", "capability.local-trust-gate": "/trust/claims#capability.local-trust-gate" })}
       </section>
@@ -1275,7 +1275,7 @@ function trust() {
     canonicalPath: "/trust",
     section: "Trust",
     body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${officialSourceWarning()}
-      ${routeHero("TRUST BOUNDARIES", "Trust", "Public trust is expressed through scoped claims, evidence classes, release records, and explicit non-claims. It is not a generic assurance badge.", `<div class="cta-row"><a class="button button-primary" href="/trust/claims">Inspect claims</a><a class="button button-secondary" href="/trust/evidence-classes">Read evidence classes</a></div>`)}
+      ${routeHero("TRUST BOUNDARIES", "Trust", "Fenrua BlackBox Protocol provides bounded evidence for reviewer verification while keeping private AI execution outside the public/private disclosure boundary. Public trust is expressed through scoped claims, evidence classes, release records, and explicit non-claims—not a generic assurance badge.", `<div class="cta-row"><a class="button button-primary" href="/trust/claims">Inspect claims</a><a class="button button-secondary" href="/trust/evidence-classes">Read evidence classes</a></div>`)}
       <section class="section-shell" aria-labelledby="trust-records"><div class="section-heading"><p class="eyebrow">MACHINE-READABLE RECORDS</p><h2 id="trust-records">Trace public statements to their boundary</h2><p>Claims link to capability and evidence records. Stronger assurance language is governed by a versioned public contract rather than presentation alone.</p></div>
         ${modelDownloads()}
       </section>
@@ -1338,12 +1338,12 @@ function start() {
     ["General technical reviewer", "Fenrua makes public claims, evidence classes, release scope, and limitations inspectable.", "Start with claims, then trace a record to evidence and current capability state.", "Claim register, evidence taxonomy, and release manifest.", "A public record never proves more than its declared scope.", "npm run validate", "/trust"],
   ];
   return layout({
-    title: "Start with Fenrua",
-    description: "Role-based Fenrua technical starting paths with evidence, limitations, and local next steps.",
+    title: "Start with Fenrua BlackBox Protocol",
+    description: "Role-based Fenrua BlackBox Protocol review paths with evidence, limitations, and local next steps.",
     current: "Start",
     canonicalPath: "/start",
     section: "Developers",
-    body: `${routeHero("ROLE-BASED ORIENTATION", "Start", "Choose a path by the question you need to answer. Every path states the current public surface, available evidence, known limits, and a shortest reproducible next step.")}
+    body: `${routeHero("ROLE-BASED ORIENTATION", "Start", "Choose a Fenrua BlackBox Protocol review path by the question you need to answer. Every path states the current public surface, available evidence, known limits, and a shortest reproducible next step.")}
       <section class="section-shell role-path-list" aria-labelledby="start-paths"><div class="section-heading"><p class="eyebrow">STARTING PATHS</p><h2 id="start-paths">Technical orientation without conversion language</h2><p>These paths use current public records only. They do not imply an investment, account, token, or hosted-product journey.</p></div>
         ${roles.map(([role, current, today, evidence, unavailable, command, href, continuation = `a ${role}`]) => `<article><h3>${esc(role)}</h3><dl><div><dt>Currently</dt><dd>${esc(current)}</dd></div><div><dt>Today</dt><dd>${esc(today)}</dd></div><div><dt>Evidence</dt><dd>${esc(evidence)}</dd></div><div><dt>Not available</dt><dd>${esc(unavailable)}</dd></div></dl>${codeBlock("Shortest reproducible step", command, "bash")}<a href="${attr(href)}">Continue as ${esc(continuation)}</a></article>`).join("\n        ")}
       </section>
@@ -1428,18 +1428,20 @@ function trustEvidenceClasses() {
 
 function home() {
   return layout({
-    title: "Fenrua Protocol | AI Efficiency Infrastructure",
-    description: "Fenrua Labs researches, develops, and provides AI efficiency infrastructure software and related technology services.",
+    title: "Fenrua BlackBox Protocol | Private AI execution",
+    description: "Public evidence for private AI execution, with reviewable boundaries.",
     current: "Overview",
     headerLive: true,
-    body: `${officialSourceWarning()}
+    body: `      <div class="home-intro">
+${officialSourceWarning()}
       ${routeHero(
-      "AI EFFICIENCY INFRASTRUCTURE",
-      "AI efficiency infrastructure for verifiable systems.",
-      "Fenrua researches, develops, and provides software and related technology services spanning AI efficiency, infrastructure, evidence, identity, authority, integrity, policy, verification, containment, recovery, hosting, and integration. Use this site to inspect public evidence records, release scope, bounded observation context, and local validation paths.",
-      `<div class="cta-row"><a class="button button-primary" href="/platform">Explore platform</a><a class="button button-secondary" href="/start">Choose a starting path</a><a class="button button-secondary" href="/trust">Inspect trust records</a></div>`,
-      false
-    )}
+        "FENRUA BLACKBOX PROTOCOL",
+        "Public evidence for private AI execution.",
+        "Fenrua BlackBox Protocol is privacy-preserving protocol infrastructure for verifiable AI automation. It separates capability from authority by placing an evidence layer beneath AI execution, so tool calls, policy decisions, model actions, infrastructure changes, and release claims can be bounded, reviewed, and verified without exposing the confidential machine beneath them. Use this site to inspect public evidence records, release scope, trust boundaries, bounded observation context, and local validation paths.",
+        `<div class="cta-row"><a class="button button-primary" href="/platform">Explore platform</a><a class="button button-secondary" href="/start">Choose a starting path</a><a class="button button-secondary" href="/trust">Inspect trust records</a></div>`,
+        false
+      )}
+      </div>
       ${chainProgressSection()}
       <section class="section-shell" aria-labelledby="home-answers">
         <div class="section-heading">
@@ -1448,12 +1450,16 @@ function home() {
           <p>The homepage is intentionally a routing surface. Deep technical detail lives on dedicated pages so evidence, maturity, and limitations stay inspectable.</p>
         </div>
         ${cardGrid([
-          { kicker: "WHAT", title: "Fenrua is an infrastructure protocol", text: "It is a research, software, and technology-services foundation for efficient, verifiable AI systems; security is one technical discipline within the broader architecture.", href: "/platform", link: "Platform" },
-          { kicker: "WHY LAYER 0", title: "It sits beneath AI execution", text: "Independent systems need identity, authority, integrity, policy, evidence, verification, containment, and recovery before autonomous execution can be trusted.", href: "/kernel", link: "Kernel primitives" },
+          { kicker: "DOCTRINE", title: "Evidence Before Authority", text: "Fenrua BlackBox Protocol makes evidence a prerequisite for trust: public records remain bounded, reviewable, and adjacent to their limitations.", href: "/trust", link: "Trust records" },
+          { kicker: "CONTROL", title: "Capability is not authority", text: "Autonomous systems need identity, authority, integrity, policy, evidence, verification, containment, and recovery before execution can be trusted.", href: "/kernel", link: "Kernel primitives" },
           { kicker: "TODAY", title: "Reference surfaces are public", text: "The website, evidence registry, toolchain lock, telemetry checks, and schema foundations are available with maturity labels.", href: "/operations", link: "Operations" },
           { kicker: "EVIDENCE", title: "Claims are source-linked", text: "Every significant public claim points to a source, timestamp, maturity label, and limitation.", href: "/trust", link: "Trust records" },
           { kicker: "NEXT", title: "Developers start locally", text: "The verifier page and developer quick-start show the local workflow without pretending a live verifier exists.", href: "/start", link: "Choose a path" },
         ])}
+      </section>
+      <section class="section-shell split-section" aria-labelledby="home-roadmap-title">
+        <div><p class="eyebrow">STAGED PROTOCOL DIRECTION</p><h2 id="home-roadmap-title">Governable autonomous AI execution</h2></div>
+        <div class="constraint-list"><p>Fenrua is built for autonomous systems that must be questioned before they are trusted. The staged direction covers tenant identity, agent capture, evidence events, proof ingress, tenant logical blocks, encrypted archive and recovery, selective disclosure, challenge and replay protocol, and production rollout gates.</p><p>Trust Gate and the P/N-521 proof-kernel direction remain promotion-gated research. Reviewer verification examines bounded evidence and the public/private disclosure boundary; it does not claim a live Trust Gate, completed proof system, runtime safety, or production rollout.</p></div>
       </section>
       <section class="section-shell split-section" aria-labelledby="home-boundary">
         <div>
@@ -1904,7 +1910,7 @@ function evidence() {
     description: "Fenrua public evidence registry with claims, hashes, provenance, supersession, maturity, and limitations.",
     current: "Evidence",
     scripts: '<script src="/toolchain/toolchain.js" defer></script>',
-    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${routeHero("PUBLIC EVIDENCE", "Evidence Registry", "Current public release evidence is separated from historical source evidence and every record states its limitation.", `<div class="cta-row"><a class="button button-primary" href="/audit">Read current audit</a><a class="button button-secondary" href="/.well-known/fenrua-release.json">Release manifest</a></div>`)}
+    body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${routeHero("PUBLIC EVIDENCE", "Evidence Registry", "Fenrua BlackBox Protocol separates current public release evidence from historical source evidence, and every record states its limitation.", `<div class="cta-row"><a class="button button-primary" href="/audit">Read current audit</a><a class="button button-secondary" href="/.well-known/fenrua-release.json">Release manifest</a></div>`)}
       <section class="section-shell" aria-labelledby="evidence-groups"><div class="section-heading"><p class="eyebrow">EVIDENCE STATE</p><h2 id="evidence-groups">Freshness and supersession stay visible</h2><p>Evidence type, freshness, authority, and what a record does not prove are separate dimensions. Empty categories remain explicit rather than being filled with a stronger claim.</p></div>
         ${cardGrid(evidenceGroups)}
       </section>
@@ -1943,7 +1949,7 @@ function legal() {
     current: "Legal",
     canonicalPath: "/legal",
     body: `${officialSourceWarning()}
-      ${routeHero("REGISTERED OPERATOR", "Legal and Company Centre", "Verified company identity and the current public scope for research, development, AI efficiency infrastructure software, related technology services, evidence, and contact.")}
+      ${routeHero("REGISTERED OPERATOR", "Legal and Company Centre", "Verified company identity and the current public scope for the Fenrua BlackBox Protocol, privacy-preserving protocol infrastructure, evidence, and contact.")}
       <section class="section-shell" aria-labelledby="company-identity-title">
         <div class="section-heading">
           <p class="eyebrow">COMPANY IDENTITY</p>
@@ -1992,7 +1998,7 @@ function legal() {
         <div class="constraint-list">${boundary.businessOperationsBoundary.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("\n          ")}</div>
       </section>
       <section class="section-shell split-section" aria-labelledby="technology-scope-title">
-        <div><p class="eyebrow">TECHNOLOGY SCOPE</p><h2 id="technology-scope-title">AI efficiency infrastructure and related services</h2></div>
+        <div><p class="eyebrow">TECHNOLOGY SCOPE</p><h2 id="technology-scope-title">Protocol infrastructure and related services</h2></div>
         <div class="constraint-list">${operatingRecord.technologyScope.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("\n          ")}</div>
       </section>
       <section class="section-shell split-section" aria-labelledby="evidence-boundary-title">

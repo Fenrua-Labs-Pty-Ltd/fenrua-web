@@ -271,7 +271,7 @@ Website publishing is controlled by the [Safe Website Publishing Control](docs/S
 
 CSA may synthesize public posture, review final wording, and raise release concerns, but CSA does not publish website updates.
 
-SAE is the approved website publishing executor for this repository. Founder or Project Lead authority may authorise, halt, or supersede a release. After authorisation, SAE owns the branch, PR, merge readiness, production watch, live-domain verification, and clean handoff.
+An explicitly assigned Codex Release Agent may prepare a bounded public update, validation evidence, screenshots, public pull request, and non-secret operations release request. The Owner or Project Lead may authorise, halt, or supersede a release; only the Owner's protected merge of the exact release request in the private operations control plane can trigger production. See the [Owner-approved release workflow](docs/OWNER_APPROVED_RELEASE_WORKFLOW.md).
 
 ---
 
@@ -369,9 +369,9 @@ These documents freeze proposed contracts and record unresolved promotion depend
 
 ## Owner-Approved Git Release
 
-An owner approves and merges a validated `main` commit.
+An Owner approves the exact validated `main` commit and merges the matching non-secret, expiring release request in the protected operations control plane. That private controller—not this public repository—performs the production request.
 
-The existing Vercel Git integration builds that exact commit and exposes `VERCEL_GIT_COMMIT_SHA`. The manifest generator refuses an unbound production build. The repository does not install the Vercel CLI, keeping unrelated deployment dependency trees out of the audited development environment.
+The manifest generator refuses an unbound production build. The repository does not install the Vercel CLI, keeping unrelated deployment dependency trees out of the audited development environment.
 
 Before deployment, retain the record digest from the independently built, trusted release checkout. After deployment, bind the read-only observation to both that digest and the exact commit:
 
@@ -382,13 +382,13 @@ npm run audit:live-release -- --url https://fenrua.ai --expected-commit <40-char
 
 The expected record digest is the independent trust anchor. A live manifest’s self-hash alone cannot detect origin compromise. The receipt proves only the observed public static artifact set at that time; it is not evidence for live cards, APIs, private systems, or perpetual production assertion.
 
-For the standalone SAE-owned production gate on the approved `main` commit, use a clean main checkout:
+For source-only production-readiness evidence on the approved `main` commit, use a clean main checkout:
 
 ```bash
 npm run release:production-check
 ```
 
-Production publishing is performed by the existing Vercel Git integration, not by a repository-local deployment CLI.
+The command above is source-only validation. Production publishing is performed by the Owner-approved private operations controller, not by a repository-local deployment CLI.
 
 ---
 
@@ -504,4 +504,3 @@ Approved visual baselines and related local evidence paths are private custody m
 Validation, CI, and deployment tooling must not print the raw path, publish the path, commit the path, or expose private custody information.
 
 Production deployment authority remains in the private operations repository.
-

@@ -8,14 +8,14 @@
       "status": "active",
       "path": "data/site-evidence.json",
       "replacementPath": "/audit",
-      "artifactSha256": "3219b1237c23afb37397ea74ecf350e67e1a100e1edc686919a771f305ab9a82"
+      "artifactSha256": "be39ce52155c67f34f3a62c4ac8462660350f0ca4bc9f949a17b0510b115b021"
     },
     {
       "id": "access-only-commercial-boundary",
       "status": "active",
       "path": "docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md",
       "replacementPath": "/audit",
-      "artifactSha256": "d5bb691cb29a527952ea1c90752761d390a6043156b4e270b258559940b1e5ef"
+      "artifactSha256": "72bf387b9e10b300644fcbe0a1984e4f79f1093c364322b517d67aafe77d95a8"
     },
     {
       "id": "company-identity",
@@ -103,5 +103,5 @@
       "artifactSha256": "0cce9e0dc7f7712642431b7819877e0b079081b4cb444f114997fdd5bb3d1d9d"
     }
   ],
-  "artifactsVerifiedAt": "2026-07-13T19:27:37Z"
+  "artifactsVerifiedAt": "2026-07-22T04:00:00Z"
 }

@@ -14,5 +14,5 @@ jobs:
       - name: Refuse public-repo deployment
         run: |
           echo "::error::Production publishing no longer runs from fenrua-web."
-          echo "::error::Use SAE-owned private operations deployment control."
+          echo "::error::Use the Owner-approved private operations deployment control."
           exit 1

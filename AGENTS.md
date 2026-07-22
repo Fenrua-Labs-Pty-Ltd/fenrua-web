@@ -107,11 +107,35 @@ CSA does not publish website updates.
 
 CSA may review public posture, synthesize department findings, clarify risks, and raise release concerns. CSA must not push, merge, trigger deployment, start a production watch, announce a publication, or claim that a website update is live.
 
-SAE is the only approved website publishing executor for `Fenrua-Labs-Pty-Ltd/fenrua-web`.
+For an explicitly assigned Owner-approved release task, any Codex agent may act as the **Release Agent** for `Fenrua-Labs-Pty-Ltd/fenrua-web`. This is a named execution role, separate from CSA. The Release Agent may prepare the bounded public change, evidence, screenshots, public pull request, and non-secret private-operations release request. It may not merge the protected private release request, access credentials, trigger a deployment directly, or claim a release is live.
 
-Founder or Project Lead authority may authorise, halt, or supersede publication. Once authorised, SAE owns the branch, pull request, merge readiness, deployment watch, live-domain verification, and clean release handoff.
+The Owner or Project Lead retains the only production approval: the Owner must merge the exact, expiring release request in the protected `fenrualabs/fenrua-public-operations-system` control plane. That protected merge—not a chat acknowledgement, WSL login, unlock code, preview status, or provider status—is the production trigger.
 
-If CSA receives a request that requires publication, CSA must return the smallest safe executive ruling and hand the publication action to SAE.
+If CSA receives a request that requires publication, CSA must return the smallest safe executive ruling and hand the execution to an explicitly assigned Release Agent.
+
+## Repository-Wide Owner-Approved Release Rule
+
+Status: **ACTIVE — APPLIES TO EVERY FENRUA-WEB BRANCH AND AGENT**
+
+The durable source of truth is [Owner-approved release workflow](docs/OWNER_APPROVED_RELEASE_WORKFLOW.md). It records the approved non-credentialed handoff based on `fenrualabs/fenrua-public-operations-system` at commit `9c6ed80acf3edc4565fb2d0d98df35633eeac461`.
+
+Every Release Agent must follow this order without relying on prior chat context:
+
+1. Receive the bounded task and identify the affected public surface.
+2. Implement only that task and run the required validation.
+3. For a visual change, capture desktop and mobile screenshots from an isolated local preview. Keep an explicitly frozen mobile treatment unchanged.
+4. Send the evidence to the Owner; revise and repeat the review loop until the Owner approves the exact result.
+5. Commit and open the bounded public pull request. A public pull request is source review only; it has no production authority.
+6. After the exact public commit is approved on protected `main`, prepare a non-secret, expiring release-request pull request in the approved operations control plane.
+7. Only the Owner's protected merge of that exact release request may trigger the private deployment controller. Verify the live manifest against the approved source commit before claiming publication.
+
+Non-negotiable boundaries:
+
+- The public repository must never store, request, view, copy, echo, or transmit provider credentials, private keys, tokens, decrypted bundles, private topology, or provider internals.
+- The public repository must never import, call, clone, or depend on the operations repository at runtime. The control plane is one-way and private.
+- A Release Agent can prepare a release request but cannot merge it, bypass its expiry, substitute a commit, or infer Owner approval from access to WSL or a provider dashboard.
+- If an approval, exact commit binding, protected merge, validation result, or live-manifest check is missing, fail closed and report the missing gate.
+- This repository-wide rule replaces legacy SAE-only and public-repository deployment execution wording. Mandatory security, disclosure, and secret-boundary controls remain active.
 
 ## Executive Philosophy
 

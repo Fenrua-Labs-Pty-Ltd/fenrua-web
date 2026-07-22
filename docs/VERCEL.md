@@ -8,17 +8,17 @@ Node runtime: `24.x`
 
 `fenrua-web` is the public source, evidence, validation, and release-manifest repository. It does not store Vercel tokens, provider credentials, `.vercel` project state, production deployment CLI wiring, private endpoints, or protected deployment secrets.
 
-Production deployment authority belongs exclusively to the private operations repository `fenrualabs/fenrua-public-operations-system`. A reviewed non-secret request in `requests/fenrua-web-production.json` binds the exact public commit, and the protected `vercel-production` workflow performs provider REST deployment and live-manifest verification without emitting provider values.
+Production deployment authority belongs exclusively to the private operations repository `fenrualabs/fenrua-public-operations-system`. A reviewed non-secret, expiring request binds the exact public commit, and the protected Owner-merged workflow performs provider REST deployment and live-manifest verification without emitting provider values. The repository-wide source of truth is [Owner-approved release workflow](OWNER_APPROVED_RELEASE_WORKFLOW.md).
 
 The allowed public repository path is:
 
-1. bounded SAE-owned branch;
-2. bounded pull request;
-3. `Validate public surface` passing;
-4. approved merge to protected `main`;
-5. reviewed private-operations release request;
-6. protected production deployment;
-7. live-domain manifest verification and clean handoff.
+1. bounded Release Agent branch;
+2. validation and Owner screenshot review for visual changes;
+3. bounded public pull request;
+4. Owner-approved exact commit on protected `main`;
+5. non-secret, expiring private-operations release request;
+6. Owner merge of that exact request in the protected control plane;
+7. protected production deployment, live-domain manifest verification, and clean handoff.
 
 Vercel preview/build status is useful deployment evidence, but it is not publishing authority. Production is not confirmed until the protected private workflow reaches provider readiness and the live release manifest reports the approved source commit.
 
@@ -26,17 +26,16 @@ Vercel preview/build status is useful deployment evidence, but it is not publish
 
 The existing Vercel project uses the repository root, Node `24.x`, `npm ci --omit=dev`, `npm run build:release`, the generated `public` output directory, production branch `main`, and canonical domain `fenrua.ai`. These non-secret settings remain reviewable in `vercel.json`; provider linkage values and credentials remain private.
 
-The Vercel Git integration supplies `VERCEL_GIT_COMMIT_SHA` for source binding. Owner and GitHub validation use exact Node `24.18.0` and npm
-`11.18.0`; Vercel accepts only the managed Node `24.x` and npm `11.x` major lines.
+Owner and GitHub validation use exact Node `24.18.0` and npm `11.18.0`; Vercel accepts only the managed Node `24.x` and npm `11.x` major lines. The private controller binds provider execution to the exact approved source commit.
 
-The historical public command spelling `npm run deploy:production:node24 -- --pr <number> --confirm-production` remains documented solely so repository regression tests can detect unreviewed behaviour changes. It is not the production authority; deployment execution belongs to the private operations repository.
+The historical public command spelling `npm run deploy:production:node24` remains only as a fail-closed compatibility sentinel. It always refuses execution and directs the caller to the Owner-approved private operations workflow; deployment execution belongs only to the private operations repository.
 
 The owner-approved external visual baseline path is private custody metadata. Validation may confirm custody, but routine output must not print the
 raw path, commit it, upload it, or copy it into provider logs.
 
 ## Preview and production gates
 
-The deployment command never runs the Vercel CLI, changes domains or environment variables, purges caches, or promotes previews. It executes only inside the SAE-owned private operations control plane, uses the protected provider environment, and binds deployment to a reviewed public commit. A local release check is necessary source evidence, not preview or production verification.
+The deployment command never runs the Vercel CLI, changes domains or environment variables, purges caches, promotes previews, merges a pull request, or calls a provider API. It is fail-closed. The private Owner-approved controller uses the protected provider environment and binds deployment to a reviewed public commit. A local release check is necessary source evidence, not preview or production verification.
 
 Before production authorisation, retain outside the public repository:
 
