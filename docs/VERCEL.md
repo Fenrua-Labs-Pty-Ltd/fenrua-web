@@ -26,7 +26,13 @@ Vercel preview/build status is useful deployment evidence, but it is not publish
 
 The existing Vercel project uses the repository root, Node `24.x`, `npm ci --omit=dev`, `npm run build:release`, the generated `public` output directory, production branch `main`, and canonical domain `fenrua.ai`. These non-secret settings remain reviewable in `vercel.json`; provider linkage values and credentials remain private.
 
-The Vercel Git source supplies `VERCEL_GIT_COMMIT_SHA`. The generated release manifest binds the public static artifact set to that commit and explicitly does not claim runtime attestation or protected-system state.
+The Vercel Git integration supplies `VERCEL_GIT_COMMIT_SHA` for source binding. Owner and GitHub validation use exact Node `24.18.0` and npm
+`11.18.0`; Vercel accepts only the managed Node `24.x` and npm `11.x` major lines.
+
+The historical public command spelling `npm run deploy:production:node24 -- --pr <number> --confirm-production` remains documented solely so repository regression tests can detect unreviewed behaviour changes. It is not the production authority; deployment execution belongs to the private operations repository.
+
+The owner-approved external visual baseline path is private custody metadata. Validation may confirm custody, but routine output must not print the
+raw path, commit it, upload it, or copy it into provider logs.
 
 ## Preview and production gates
 
