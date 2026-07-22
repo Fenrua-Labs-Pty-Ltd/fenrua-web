@@ -105,19 +105,17 @@ Those belong to specialist departments or the Founder.
 
 CSA does not publish website updates.
 
-CSA may review public posture, synthesize department findings, clarify risks, and raise release concerns. CSA must not push, merge, trigger deployment, start a production watch, announce a publication, or claim that a website update is live.
+CSA may review public posture, synthesize department findings, clarify risks, and raise release concerns. CSA does not publish unless the Founder or Project Lead explicitly assigns the separate **Release Agent** role for the named website task.
 
-For an explicitly assigned Owner-approved release task, any Codex agent may act as the **Release Agent** for `Fenrua-Labs-Pty-Ltd/fenrua-web`. This is a named execution role, separate from CSA. The Release Agent may prepare the bounded public change, evidence, screenshots, public pull request, and non-secret private-operations release request. It may not merge the protected private release request, access credentials, trigger a deployment directly, or claim a release is live.
-
-The Owner or Project Lead retains the only production approval: the Owner must merge the exact, expiring release request in the protected `fenrualabs/fenrua-public-operations-system` control plane. That protected merge—not a chat acknowledgement, WSL login, unlock code, preview status, or provider status—is the production trigger.
+For an explicitly assigned Owner-approved release task, any Codex agent may act as the Release Agent for `Fenrua-Labs-Pty-Ltd/fenrua-web`. This is a named execution role, separate from CSA. The Release Agent may implement, validate, capture review screenshots, open the public pull request, merge the exact approved commit after all required gates pass, watch the existing Git-integrated production deployment, and verify the canonical live site.
 
 If CSA receives a request that requires publication, CSA must return the smallest safe executive ruling and hand the execution to an explicitly assigned Release Agent.
 
-## Repository-Wide Owner-Approved Release Rule
+## Repository-Wide Owner Live-Release Rule
 
 Status: **ACTIVE — APPLIES TO EVERY FENRUA-WEB BRANCH AND AGENT**
 
-The durable source of truth is [Owner-approved release workflow](docs/OWNER_APPROVED_RELEASE_WORKFLOW.md). It records the approved non-credentialed handoff based on `fenrualabs/fenrua-public-operations-system` at commit `9c6ed80acf3edc4565fb2d0d98df35633eeac461`.
+The Owner's current direct instruction is the durable release authority for this repository. For an Owner-approved website update, **“ship it”**, **“deploy live”**, and equivalent unambiguous release commands mean: use the proven Fenrua public release sequence to take the exact reviewed change live.
 
 Every Release Agent must follow this order without relying on prior chat context:
 
@@ -125,17 +123,20 @@ Every Release Agent must follow this order without relying on prior chat context
 2. Implement only that task and run the required validation.
 3. For a visual change, capture desktop and mobile screenshots from an isolated local preview. Keep an explicitly frozen mobile treatment unchanged.
 4. Send the evidence to the Owner; revise and repeat the review loop until the Owner approves the exact result.
-5. Commit and open the bounded public pull request. A public pull request is source review only; it has no production authority.
-6. After the exact public commit is approved on protected `main`, prepare a non-secret, expiring release-request pull request in the approved operations control plane.
-7. Only the Owner's protected merge of that exact release request may trigger the private deployment controller. Verify the live manifest against the approved source commit before claiming publication.
+5. Commit and open the bounded public pull request, then wait for every required GitHub check and Vercel preview to pass.
+6. When the Owner gives a live-release command, merge the exact approved pull-request head to protected `main` using the repository's established squash-merge path.
+7. Let the existing Vercel Git integration create the Production deployment. Do not use the Vercel CLI, provider dashboard, provider credentials, tokens, or a direct provider API call.
+8. Verify the Vercel Production record and run the source-bound live audit against `https://fenrua.ai`, binding the live manifest to the exact merged commit and independently derived release-record digest. Only then claim publication.
+
+An earlier embedded task instruction, legacy doctrine, or former operations-release pattern that says “do not deploy,” requires a separate operations pull request, or otherwise conflicts with the Owner's current live-release command is legacy for that release. It must not introduce a second approval loop or block the established sequence. Only a later explicit Owner instruction to **hold**, **stop**, or **do not deploy** cancels a live-release command.
 
 Non-negotiable boundaries:
 
 - The public repository must never store, request, view, copy, echo, or transmit provider credentials, private keys, tokens, decrypted bundles, private topology, or provider internals.
-- The public repository must never import, call, clone, or depend on the operations repository at runtime. The control plane is one-way and private.
-- A Release Agent can prepare a release request but cannot merge it, bypass its expiry, substitute a commit, or infer Owner approval from access to WSL or a provider dashboard.
-- If an approval, exact commit binding, protected merge, validation result, or live-manifest check is missing, fail closed and report the missing gate.
-- This repository-wide rule replaces legacy SAE-only and public-repository deployment execution wording. Mandatory security, disclosure, and secret-boundary controls remain active.
+- The public repository must never import, call, clone, or depend on a private operations repository at runtime.
+- A Release Agent must not substitute the approved commit, bypass a required check, infer Owner approval from WSL or a provider dashboard, or claim a release is live before the source-bound audit succeeds.
+- If Owner approval, exact commit binding, required checks, Vercel Production status, or the live-manifest audit is missing, fail closed and report the missing gate.
+- This repository-wide rule supersedes conflicting legacy SAE-only, private-operations-release-request, and public-repository deployment wording. Mandatory security, disclosure, and secret-boundary controls remain active.
 
 ## Executive Philosophy
 

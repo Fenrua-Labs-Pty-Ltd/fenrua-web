@@ -19,29 +19,27 @@ assert.equal(packageJson.scripts?.["deploy:production:node24"], "node scripts/de
 assert.equal(vercel.buildCommand, "npm run build:release");
 assert.equal(vercel.outputDirectory, "public");
 
-for (const document of [deploymentNotes, safePublishing, ownerWorkflow, agents]) {
-  assert.match(document, /Owner-approved/i, "The repository must retain Owner-approved release control.");
-  assert.match(document, /fenrua-public-operations-system/i, "The approved operations control plane must remain explicit.");
-}
+for (const document of [deploymentNotes, safePublishing, ownerWorkflow, agents]) assert.match(document, /Owner-approved|Owner's current direct instruction/i, "The repository must retain Owner-approved release control.");
 
-assert.match(agents, /Repository-Wide Owner-Approved Release Rule/);
+assert.match(agents, /Repository-Wide Owner Live-Release Rule/);
+assert.match(agents, /ship it/i);
 assert.match(agents, /screenshot/i);
-assert.match(agents, /protected merge/i);
-assert.match(ownerWorkflow, /OWNER_APPROVES_EXACT_RELEASE/);
-assert.match(ownerWorkflow, /SAM_OWNER/);
+assert.match(agents, /Vercel Git integration/i);
+assert.match(ownerWorkflow, /squash-merge/i);
+assert.match(ownerWorkflow, /live audit/i);
 assert.match(ownerWorkflow, /must never store, request, view, copy, echo, or transmit credentials/i);
 assert.match(deploymentNotes, /The deployment command never runs the Vercel CLI/i);
 assert.match(deploymentNotes, /independently retained release-record digest/i);
 assert.match(deploymentNotes, /designated last-known-good \(LKG\) commit/i);
 
-assert.match(deploymentCommand, /retired and fail-closed/i);
-assert.match(deploymentCommand, /fenrua-public-operations-system/i);
-assert.match(deploymentCommand, /Owner's protected merge/i);
+assert.match(deploymentCommand, /direct deployment command is retired and fail-closed/i);
+assert.match(deploymentCommand, /Owner-approved Git-integrated release sequence/i);
+assert.match(deploymentCommand, /Owner's ship-it command/i);
 assert.doesNotMatch(deploymentCommand, /spawnSync|\bgh\b|fetch\(|VERCEL_TOKEN|api\/repos/i);
 
 const result = spawnSync(process.execPath, [deploymentCommandPath], { encoding: "utf8" });
 assert.equal(result.status, 1, "The public compatibility command must always fail closed.");
-assert.match(result.stderr, /Public-repository production deployment is retired and fail-closed/);
-assert.match(result.stderr, /Only the Owner's protected merge/);
+assert.match(result.stderr, /Public-repository direct deployment command is retired and fail-closed/);
+assert.match(result.stderr, /Vercel's existing Git integration then deploys Production/);
 
-console.log(JSON.stringify({ status: "ok", scope: "owner-approved-private-production-binding" }));
+console.log(JSON.stringify({ status: "ok", scope: "owner-approved-git-integrated-production-binding" }));

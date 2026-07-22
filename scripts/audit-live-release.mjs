@@ -61,6 +61,8 @@ function expectedArtifactContentTypes(route) {
       return ["text/css"];
     case ".json":
       return ["application/json"];
+    case ".webmanifest":
+      return ["application/manifest+json", "application/json"];
     case ".xml":
       return ["application/xml", "text/xml"];
     case ".txt":

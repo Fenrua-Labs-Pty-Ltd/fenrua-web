@@ -174,6 +174,7 @@ const fixedBodies = new Map([
   ["/data/company-identity.json", { body: '{"legalName":"FENRUA LABS PTY LTD","abn":"62 700 182 663","acn":"700 182 663"}', type: "application/json; charset=utf-8", status: 200 }],
   ["/.well-known/security.txt", { body: "Contact: mailto:security@fenrua.ai\n", type: "text/plain; charset=utf-8", status: 200 }],
   ["/sitemap.xml", { body: "<?xml version=\"1.0\"?><urlset></urlset>", type: "application/xml", status: 200 }],
+  ["/site.webmanifest", { body: '{"name":"Fenrua"}', type: "application/manifest+json; charset=utf-8", status: 200 }],
   ["/genesis", { body: "", type: "", status: 308, location: "/audit" }],
   ["/regression", { body: "", type: "", status: 308, location: "/audit" }],
 ]);
@@ -194,7 +195,7 @@ function fetchStub(manifest, overrides = new Map()) {
 }
 
 const auditArtifacts = [...fixedBodies.entries()]
-  .filter(([route, entry]) => entry.status === 200 && mandatoryLiveRoutes.some((required) => required.route === route))
+  .filter(([route, entry]) => entry.status === 200 && (mandatoryLiveRoutes.some((required) => required.route === route) || route === "/site.webmanifest"))
   .map(([route, entry]) => {
     const body = Buffer.from(entry.body);
     return { route, bytes: body.length, sha256: sha256(body) };

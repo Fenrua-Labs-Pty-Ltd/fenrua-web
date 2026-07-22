@@ -8,11 +8,11 @@ permissions:
 
 jobs:
   retired:
-    name: Public release gate moved to private operations
+    name: Direct public release gate retired
     runs-on: ubuntu-latest
     steps:
       - name: Refuse public-repo release gate
         run: |
           echo "::error::The public repository release gate is retired."
-          echo "::error::All production publishing now runs through Owner-approved private operations control."
+          echo "::error::All production publishing now follows the Owner-approved Git-integrated release sequence."
           exit 1
