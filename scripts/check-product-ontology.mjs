@@ -325,8 +325,8 @@ export function validateProductOntology() {
   const entityById = new Map(data.entities.map((entity) => [entity.id, entity]));
   expect(errors, entityById.get("fenrua.labs")?.entityType === "organisation", "Fenrua Labs must be an organisation");
   expect(errors, entityById.get("fenrua.labs")?.canonicalName === "Fenrua Labs", "Fenrua Labs must retain its canonical company name");
-  expect(errors, entityById.get("fenrua.protocol")?.entityType === "product", "Fenrua Protocol must be a product direction");
-  expect(errors, entityById.get("fenrua.protocol")?.canonicalName === "Fenrua Protocol", "Fenrua Protocol must retain its canonical platform label");
+  expect(errors, entityById.get("fenrua.protocol")?.entityType === "product", "Fenrua BlackBox Protocol must be a product direction");
+  expect(errors, entityById.get("fenrua.protocol")?.canonicalName === "Fenrua BlackBox Protocol", "Fenrua BlackBox Protocol must retain its canonical platform label");
   expect(errors, entityById.get("fenrua.layer-0-security-controls")?.entityType === "subsystem", "Layer 0 must be represented as a subsystem");
   expect(errors, /security-control/i.test(entityById.get("fenrua.layer-0-security-controls")?.definition ?? ""), "Layer 0 definition must retain its security-control boundary");
   for (const id of ["fenrua.fenc978", "fenrua.fenn521"]) {

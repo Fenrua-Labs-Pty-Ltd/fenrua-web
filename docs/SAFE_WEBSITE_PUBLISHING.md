@@ -3,7 +3,7 @@
 Status: Active public-repository control  
 Repository: `Fenrua-Labs-Pty-Ltd/fenrua-web`  
 Canonical public domain: `https://fenrua.ai`  
-Publication authority: SAE only  
+Publication authority: Owner-approved private control plane
 Founder authority: may authorise, halt, or supersede publication  
 CSA boundary: CSA does not publish
 
@@ -15,13 +15,11 @@ A website update is safe to publish only when the source tree, review surface, g
 
 ## Authority boundary
 
-SAE is the only approved website publishing executor for this repository.
+An explicitly assigned Codex Release Agent may prepare a bounded website change, validation evidence, screenshots, public pull request, and non-secret operations release request. CSA may review final public posture, synthesize department findings, and raise release concerns, but CSA does not publish.
 
-CSA may review final public posture, synthesize department findings, and raise release concerns. CSA must not push, merge, trigger, announce, or claim a website publication.
+Founder or Project Lead authority may authorise, stop, or supersede publication. The Owner's protected merge of the exact, expiring request in `fenrualabs/fenrua-public-operations-system` is the only production trigger. A Release Agent cannot merge that request, access credentials, trigger production directly, or claim publication before the live-manifest check passes.
 
-SATE may review wording, trust, impersonation, disclosure, no-token language, and public-boundary risk. OPS may review operational clarity, deployment state, live-domain status, and release handoff. Their reviews do not replace SAE publication execution.
-
-Founder or Project Lead may authorise, stop, or supersede publication. Once authorised, SAE owns the release path, merge readiness, production watch, and final clean handoff.
+The [Owner-approved release workflow](OWNER_APPROVED_RELEASE_WORKFLOW.md) is the repository-wide source of truth.
 
 ## Non-negotiable publishing rule
 
@@ -29,16 +27,13 @@ Do not publish from a dirty, failed, pending, ambiguous, or unreviewed state.
 
 A public website update must follow this order:
 
-1. Start from current `main`.
-2. Confirm there are no unintended open pull requests for the website release lane.
-3. Create a topic branch from the exact current `main` commit.
-4. Apply the bounded website change.
-5. Generate and validate the static output if the change touches generated surfaces.
-6. Open a pull request for review and preview deployment.
-7. Wait for required GitHub checks and preview deployment to succeed.
-8. Merge by the repository-approved merge method only.
-9. Watch the merged `main` commit until the production deployment reaches success or failure.
-10. Confirm the live `fenrua.ai` surface after the deployment reaches a final state.
+1. Start from current `main` and create a bounded topic branch.
+2. Apply the bounded website change, regenerate output when required, and validate it.
+3. For visual changes, provide desktop and mobile screenshots; revise until the Owner approves the exact result.
+4. Open the public source pull request and obtain the required review and validation evidence.
+5. Bind the exact Owner-approved public commit on protected `main` into a non-secret, expiring operations release request.
+6. The Owner merges that exact request in the protected private control plane.
+7. Verify the live `fenrua.ai` manifest against that exact commit before claiming publication.
 
 If any gate is pending, stay silent and do not claim publication. If any gate fails, stop the release and report the failed gate.
 
@@ -140,21 +135,9 @@ Production_Watch:
 
 If production succeeds, verify `https://fenrua.ai` directly. If production fails, do not publish another website update until the failed deployment is either fixed, reverted, or explicitly superseded by an approved recovery release.
 
-## SAE GitHub release gate
+## Owner-approved private-control-plane publication rule
 
-The repository provides `.github/workflows/sae-release-gate.yml` as the controlled manual production executor for SAE after a pull request has already passed review, preview, required checks, and merge.
-
-The workflow must be dispatched from `main` and requires:
-
-```yaml
-SAE_Release_Gate_Input:
-  expected_main_sha: "<exact approved main commit sha>"
-  confirmation: "SAE_APPROVES_PRODUCTION_RELEASE"
-```
-
-The gate verifies the checked-out `main` commit, requires a clean source tree, validates the public release artifact set, builds with the existing Vercel production secret set, deploys production, audits `https://fenrua.ai`, and fails if the release checkout is dirty after deployment.
-
-CSA must not dispatch this workflow or claim its result. OPS may inspect the workflow run and live-domain result, but SAE remains the publishing executor.
+The public repository's former production gate is retired and fail-closed. Production workflow execution belongs only to the protected private operations control plane. A Release Agent may prepare the non-secret request only after the exact public commit and Owner review evidence are ready; only the Owner merges it.
 
 ## Clean handoff gate
 
@@ -162,7 +145,7 @@ A website update is complete only when the handoff says:
 
 ```yaml
 Release_Handoff:
-  publisher: "SAE"
+  publisher: "Owner-approved private controller"
   open_prs: 0
   main_commit: "<published main sha>"
   production_status: "success"
@@ -201,29 +184,19 @@ Safe website publishing never authorises exposure of:
 Use this rule for every website update:
 
 ```text
-One SAE-owned release path. One clean branch. One bounded PR. Passing checks. Successful preview. Squash merge. Watch main. Verify live domain. Leave no open release PR behind.
+One bounded change. One evidence loop. One Owner-approved exact commit. One expiring non-secret private request. Owner merge. Verify the live manifest.
 ```
 
-## Locked SAE-only publication rule
+## Release Agent preparation rule
 
-All public website updates are executed through SAE-owned release control.
-
-Founder, CSA, or any other department may request, authorise, halt, or reject a change, but they do not directly publish the site. Even founder-originated updates must enter the same SAE-owned path:
-
-1. SAE creates or accepts the bounded change request.
-2. SAE owns the implementation branch.
-3. SAE opens the pull request.
-4. Required public validation must pass.
-5. SAE performs the merge or release action.
-6. Production is watched and verified.
-7. SAE leaves a clean handoff.
+Any explicitly assigned Codex Release Agent may prepare a public update and its non-secret operations release request. The Owner retains production authority through the protected control-plane merge. No agent, department, WSL session, code, preview, or provider status can replace that merge.
 
 The public `fenrua-web` repository must not contain Vercel tokens, provider credentials, `.vercel` project state, production deployment CLI wiring, or protected deployment secrets.
 
-Vercel preview/build status may provide useful signal, but it is not the source of publishing authority. The required public repository gate is the GitHub Actions `Validate public surface` check. Production publishing authority remains SAE-controlled.
+Vercel preview/build status may provide useful signal, but it is not the source of publishing authority. The required public repository gate is the GitHub Actions `Validate public surface` check. Production publishing authority remains Owner-approved and private-control-plane controlled.
 
 ## Retired public deployment sentinels
 
 The files `.github/workflows/deploy-production.yml` and `.github/workflows/sae-release-gate.yml` may remain only as fail-closed sentinels for repository continuity and validation compatibility.
 
-They must not contain Vercel CLI usage, provider secrets, production deploy steps, or public-repository publishing authority. If manually triggered, they must refuse deployment and direct execution to SAE-owned private operations control.
+They must not contain Vercel CLI usage, provider secrets, production deploy steps, or public-repository publishing authority. If manually triggered, they must refuse deployment and direct execution to Owner-approved private operations control.

@@ -103,7 +103,7 @@ for (const route of routes) {
   assert.match(html, /<main id="content">/, `${route} must contain a main landmark`);
   assert.match(html, /Skip to content/, `${route} must include a skip link`);
   assert.match(html, /technical-data\.js/, `${route} must load technical data controls`);
-  assert.match(html, /<strong>Fenrua Protocol<\/strong>/, `${route} must use the canonical public protocol name`);
+  assert.match(html, /<strong>Fenrua BlackBox Protocol<\/strong>/, `${route} must use the canonical public protocol name`);
   assert.match(html, /<small>by Fenrua Labs Pty Ltd<\/small>/, `${route} must identify the registered operator`);
   for (const [label, href] of [
     ["Platform", "/platform"],
@@ -173,7 +173,16 @@ const legal = await readFile(new URL("../legal/index.html", import.meta.url), "u
 for (const [label, markup] of [["Overview", overview], ["Trust", trust], ["Legal", legal]]) assertOfficialSourceWarning(markup, label);
 assert.ok(overview.indexOf('id="official-source-warning"') > overview.indexOf('<main id="content">'), "Overview warning must remain inside the main landmark.");
 assert.ok(overview.indexOf('id="official-source-warning"') < overview.indexOf('id="page-title"'), "Overview warning must appear directly below the navigation, before the hero introduction.");
+assert.match(overview, /<div class="home-intro">[\s\S]*id="official-source-warning"[\s\S]*class="route-hero route-hero-solo"/, "Overview must retain the shared desktop intro layout while preserving warning-first reading order.");
 assert.equal([...overview.matchAll(/class="section-shell split-section commercial-boundary"/g)].length, 1, "Overview must retain the single full policy card.");
+assert.match(overview, /Fenrua BlackBox Protocol/);
+assert.match(overview, /Public evidence for private AI execution\./);
+assert.match(overview, /Evidence Before Authority/);
+assert.match(overview, /Capability is not authority/);
+assert.match(overview, /Governable autonomous AI execution/);
+assert.match(overview, /Trust Gate and the P\/N-521 proof-kernel direction remain promotion-gated research\./);
+assert.doesNotMatch(overview, /AI efficiency infrastructure for verifiable systems/i);
+assert.match(trust, /Fenrua BlackBox Protocol provides bounded evidence for reviewer verification/);
 assert.match(overview, /<script src="\/kernel-status\.js" defer><\/script>/, "overview must load live chain updater");
 assert.match(overview, /class="site-header site-header-live"/, "overview must place live blocks in the header");
 assert.match(overview, /class="header-chain-rail mobile-chain-rail"/, "overview must render the mobile header live chain rail");
@@ -407,7 +416,7 @@ assert.match(legal, /ABN 62 700 182 663/);
 assert.match(legal, /ACN 700 182 663/);
 assert.match(legal, /Registered from 2026-07-13/);
 assert.match(legal, /CURRENT OPERATING RECORD/);
-assert.match(legal, /AI efficiency infrastructure and related services/);
+assert.match(legal, /Protocol infrastructure and related services/);
 assert.equal([...legal.matchAll(/<tr>/g)].length, 8, "Legal must render one header plus seven approved offering rows.");
 assert.match(legal, /may separately contract, invoice, receive payment, and deliver services through ordinary business arrangements/i);
 assert.doesNotMatch(legal, /\b(?:XP|Fortnight League|Picker|community activity|bounded rewards|payment rails)\b/i);

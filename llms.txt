@@ -1,9 +1,12 @@
-# Fenrua
+# Fenrua BlackBox Protocol
 
-> Fenrua is the public technical evidence interface for FENRUA LABS PTY LTD
-> (ABN 62 700 182 663; ACN 700 182 663), an Australian company undertaking the
-> research, development, and provision of AI efficiency infrastructure software
-> and related technology services.
+> Fenrua BlackBox Protocol is the public technical evidence interface for
+> FENRUA LABS PTY LTD (ABN 62 700 182 663; ACN 700 182 663), an Australian
+> company developing privacy-preserving protocol infrastructure for verifiable
+> AI automation and governable autonomous AI execution.
+>
+> Public evidence for private AI execution. Evidence Before Authority.
+> Capability is not authority.
 
 Canonical website: https://fenrua.ai/
 Platform orientation: https://fenrua.ai/platform

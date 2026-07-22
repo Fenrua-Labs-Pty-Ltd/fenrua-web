@@ -1,14 +1,14 @@
 {
   "schemaVersion": "fenrua.site-evidence.v1",
-  "generatedAt": "2026-07-13T19:27:37Z",
-  "contentModifiedDate": "2026-07-14",
+  "generatedAt": "2026-07-22T04:00:00Z",
+  "contentModifiedDate": "2026-07-22",
   "canonicalDomain": "https://fenrua.ai",
   "commercialBoundary": {
     "status": "active public commercial boundary",
-    "lastReviewed": "2026-07-14",
-    "title": "Fenrua Labs Pty Ltd — Research and Technology Services",
+    "lastReviewed": "2026-07-22",
+    "title": "Fenrua Labs Pty Ltd — Protocol Infrastructure and Technology Services",
     "paragraphs": [
-      "Fenrua Labs Pty Ltd researches, develops, and provides AI efficiency infrastructure software and related technology services through service subscriptions and client-specific business agreements. Its work may include software, infrastructure access, hosting, research, development, integration, technical support, and evidence-aware workflows within the scope of the relevant service or agreement.",
+      "Fenrua Labs Pty Ltd researches, develops, and provides privacy-preserving protocol infrastructure for verifiable AI automation and related technology services through service subscriptions and client-specific business agreements. Its work may include software, infrastructure access, hosting, research, development, integration, technical support, and evidence-aware workflows within the scope of the relevant service or agreement.",
       "Fenrua Labs Pty Ltd does not offer investments, token crowdfunding, securities, bonds, equity, debt, managed investment interests, profit-sharing arrangements, revenue-sharing arrangements, yield products, exchange products, trading products, or any financial-return scheme. Neither a subscription nor a client-specific business agreement gives, promises, expects, entitles, or represents profit, return, token appreciation, token allocation, liquidity, resale value, dividends, buyback rights, or ownership in Fenrua Labs Pty Ltd.",
       "Fenrua Labs Pty Ltd does not operate a market, exchange, order book, trading venue, or public swap product. It does not provide financial, investment, legal, or tax advice, or recommend that a person buy, sell, hold, trade, or rely on an asset for financial gain."
     ],
@@ -23,7 +23,7 @@
   },
   "legalOperatingRecord": {
     "status": "current public operating record",
-    "lastReviewed": "2026-07-14",
+    "lastReviewed": "2026-07-22",
     "offerings": [
       {
         "category": "Company and public website",
@@ -44,7 +44,7 @@
         "description": "Bounded, signed, state-dependent public observations. They do not accept transactions or establish claims outside their stated evidence."
       },
       {
-        "category": "AI efficiency infrastructure software and related technology services",
+        "category": "Protocol infrastructure and related technology services",
         "status": "AVAILABLE BY OFFER",
         "badgeState": "success",
         "description": "A service is offered with its own description, price, scope, and applicable terms."
@@ -69,7 +69,7 @@
       }
     ],
     "technologyScope": [
-      "Fenrua's business and technical direction includes research, development, software, infrastructure access, hosting, integration, technical support, evidence-aware workflows, operational efficiency, protocol design, and related technology services.",
+      "Fenrua BlackBox Protocol is Fenrua's privacy-preserving protocol-infrastructure direction for verifiable AI automation. Its bounded business and technical scope includes research, development, software, infrastructure access, hosting, integration, technical support, evidence-aware workflows, and related technology services.",
       "Identity, authority, integrity, policy, verification, containment, recovery, secret handling, and vulnerability reporting remain important technical functions where relevant. They are not the complete definition of Fenrua Labs' business or future direction."
     ],
     "requestHandling": [

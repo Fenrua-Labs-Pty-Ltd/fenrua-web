@@ -1,6 +1,6 @@
 {
   "schemaVersion": "fenrua.assurance-language.v1",
-  "lastReviewed": "2026-07-14",
+  "lastReviewed": "2026-07-22",
   "sourceReferences": {
     "companyIdentityId": "company-identity",
     "siteEvidenceId": "site-evidence-input",
@@ -248,9 +248,27 @@
       {
         "files": ["public/legal/index.html"],
         "term": "verified",
-        "context": "Verified company identity and the current public scope for research, development, AI efficiency infrastructure software, related technology services, evidence, and contact.",
+        "context": "Verified company identity and the current public scope for the Fenrua BlackBox Protocol, privacy-preserving protocol infrastructure, evidence, and contact.",
         "claimId": "claim.company.identity-source-record",
         "contextType": "claim",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/index.html"],
+        "term": "reviewed",
+        "context": "tool calls, policy decisions, model actions, infrastructure changes, and release claims can be bounded, reviewed, and verified without exposing the confidential machine beneath them.",
+        "claimId": "claim.platform.public-evidence-interface",
+        "contextType": "explanatory",
+        "minimumMatches": 1,
+        "maximumMatches": 1
+      },
+      {
+        "files": ["public/index.html"],
+        "term": "verified",
+        "context": "tool calls, policy decisions, model actions, infrastructure changes, and release claims can be bounded, reviewed, and verified without exposing the confidential machine beneath them.",
+        "claimId": "claim.platform.public-evidence-interface",
+        "contextType": "explanatory",
         "minimumMatches": 1,
         "maximumMatches": 1
       },
