@@ -13,7 +13,7 @@ const vercel = JSON.parse(read("vercel.json"));
 
 assert.equal(evidence.schemaVersion, "fenrua.site-evidence.v1");
 assert.deepEqual(evidence.commercialBoundary?.paragraphs, [
-  "Fenrua Labs Pty Ltd researches, develops, and provides AI efficiency infrastructure software and related technology services through service subscriptions and client-specific business agreements. Its work may include software, infrastructure access, hosting, research, development, integration, technical support, and evidence-aware workflows within the scope of the relevant service or agreement.",
+  "Fenrua Labs Pty Ltd researches, develops, and provides privacy-preserving protocol infrastructure for verifiable AI automation and related technology services through service subscriptions and client-specific business agreements. Its work may include software, infrastructure access, hosting, research, development, integration, technical support, and evidence-aware workflows within the scope of the relevant service or agreement.",
   "Fenrua Labs Pty Ltd does not offer investments, token crowdfunding, securities, bonds, equity, debt, managed investment interests, profit-sharing arrangements, revenue-sharing arrangements, yield products, exchange products, trading products, or any financial-return scheme. Neither a subscription nor a client-specific business agreement gives, promises, expects, entitles, or represents profit, return, token appreciation, token allocation, liquidity, resale value, dividends, buyback rights, or ownership in Fenrua Labs Pty Ltd.",
   "Fenrua Labs Pty Ltd does not operate a market, exchange, order book, trading venue, or public swap product. It does not provide financial, investment, legal, or tax advice, or recommend that a person buy, sell, hold, trade, or rely on an asset for financial gain.",
 ]);
@@ -35,7 +35,8 @@ assert.deepEqual(
     "RESEARCH / EVIDENCE",
   ],
 );
-assert.match(evidence.legalOperatingRecord.technologyScope.join(" "), /business and technical direction includes research, development, software/i);
+assert.match(evidence.legalOperatingRecord.technologyScope.join(" "), /privacy-preserving protocol-infrastructure direction for verifiable AI automation/i);
+assert.match(evidence.legalOperatingRecord.technologyScope.join(" "), /business and technical scope includes research, development, software/i);
 assert.equal(company.schemaVersion, "fenrua.company-identity.v1");
 assert.equal(company.legalName, "FENRUA LABS PTY LTD");
 assert.equal(company.abn, "62 700 182 663");
@@ -46,8 +47,9 @@ assert.deepEqual(company.publicProfiles, [
   { provider: "github", label: "GitHub", url: "https://github.com/fenrualabs" },
   { provider: "x", label: "X", url: "https://x.com/FenruaLabs" },
   { provider: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/fenrua-labs-80b679388" },
+  { provider: "youtube", label: "YouTube", url: "https://www.youtube.com/@FenruaLabs" },
 ]);
-assert.equal(company.publicProfilesVerifiedAt, "2026-07-14");
+assert.equal(company.publicProfilesVerifiedAt, "2026-07-22");
 
 assert.equal(register.schemaVersion, "fenrua.public-document-register.v1");
 for (const record of register.records) {
@@ -150,7 +152,7 @@ assert.match(audit, /ABN 62 700 182 663/);
 const legal = read("legal/index.html");
 assert.match(legal, /Research and technology services/);
 assert.match(legal, /Ordinary business activity/);
-assert.match(legal, /AI efficiency infrastructure and related services/);
+assert.match(legal, /Protocol infrastructure and related services/);
 assert.match(legal, /may separately contract, invoice, receive payment, and deliver services through ordinary business arrangements/i);
 assert.equal([...legal.matchAll(/<tr>/g)].length, 8, "Legal must render one header plus the approved seven offering rows.");
 for (const status of ["CURRENT PUBLIC", "AVAILABLE BY OFFER", "AVAILABLE BY AGREEMENT", "RESEARCH \/ EVIDENCE", "NOT PART OF THE CURRENT PUBLIC SITE", "NOT OFFERED"]) {
@@ -163,9 +165,13 @@ assert.match(legal, /href="\/#commercial-boundary-title">Service boundary<\/a>/)
 assert.equal([...legal.matchAll(/class="section-shell split-section commercial-boundary"/g)].length, 0);
 
 const overview = read("index.html");
-assert.match(overview, /Fenrua Labs Pty Ltd — Research and Technology Services/);
-assert.match(overview, /AI efficiency infrastructure software and related technology services/i);
-assert.match(overview, /AI efficiency infrastructure for verifiable systems/i);
+assert.match(overview, /Fenrua Labs Pty Ltd — Protocol Infrastructure and Technology Services/);
+assert.match(overview, /privacy-preserving protocol infrastructure for verifiable AI automation and related technology services/i);
+assert.match(overview, /Fenrua BlackBox Protocol/);
+assert.match(overview, /Public evidence for private AI execution\./);
+assert.match(overview, /Evidence Before Authority/);
+assert.match(overview, /Capability is not authority/);
+assert.doesNotMatch(overview, /AI efficiency infrastructure for verifiable systems/i);
 assert.match(overview, /does not offer investments, token crowdfunding, securities/i);
 assert.match(overview, /does not operate a market, exchange, order book, trading venue, or public swap product/i);
 assert.equal([...overview.matchAll(/class="section-shell split-section commercial-boundary"/g)].length, 1);

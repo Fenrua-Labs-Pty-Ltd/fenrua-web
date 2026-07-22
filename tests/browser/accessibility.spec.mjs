@@ -132,10 +132,10 @@ test("Overview keeps an honest signed-observation fallback without JavaScript", 
   }
 });
 
-test("the final mobile navigation category remains visible and keyboard-focusable", async ({ page }) => {
+test("the Roadmap mobile navigation category remains visible and keyboard-focusable", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await gotoCanonicalRoute(page, "/");
-  const terminalLink = page.locator('.site-nav a[href="/company"]');
+  const terminalLink = page.locator('.site-nav a[href="/roadmap"]');
   await terminalLink.focus();
 
   await expect(terminalLink).toBeFocused();

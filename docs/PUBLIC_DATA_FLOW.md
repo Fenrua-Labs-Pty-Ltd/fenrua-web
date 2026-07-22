@@ -97,7 +97,7 @@ where needed, legal review supplies approved evidence.
 | Field | Current source-bound statement |
 | --- | --- |
 | Data | Following a profile link can send ordinary navigation metadata from the browser to the destination service. The public site does not load those services as runtime scripts. |
-| Purpose | Link to the verified public GitHub, X, and LinkedIn profiles listed in the company identity record. |
+| Purpose | Link to the verified public GitHub, X, LinkedIn, and YouTube profiles listed in the company identity record. |
 | Processor/controller boundary | Visitor browser -> external social service selected by the visitor. Fenrua Labs public pages do not proxy those requests. |
 | Storage | Destination-service storage and retention are outside this repository's evidence boundary. |
 | Retention state | Not documented in the approved public source. |

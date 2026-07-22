@@ -1,14 +1,14 @@
-# Fenrua Layer 0 AI Security Architecture
+# Fenrua BlackBox Protocol — Layer 0 AI Security Architecture
 
 Status: public architecture foundation  
-Last reviewed: 2026-07-12  
+Last reviewed: 2026-07-22
 Maturity: reference architecture with implemented evidence surfaces
 
 ## Category
 
 This document describes Fenrua's Layer 0 AI security-control subsystem within
-the broader AI efficiency infrastructure, research, software, hosting, and
-related technology-services scope.
+the broader Fenrua BlackBox Protocol direction for privacy-preserving protocol
+infrastructure, verifiable AI automation, and related technology-services scope.
 
 Fenrua provides the identity, authority, integrity, policy, evidence,
 verification, containment, and recovery layer beneath autonomous AI systems.

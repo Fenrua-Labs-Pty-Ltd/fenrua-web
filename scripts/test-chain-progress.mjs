@@ -5,6 +5,11 @@ import {
   checkpointTransitionLua,
   evaluateCheckpointTransition,
 } from "../server/observation-continuity.js";
+import {
+  assertChainProgressPayload,
+  assertGenericPublicError,
+  assertObservationKeyMetadata,
+} from "./public-disclosure-contracts.mjs";
 
 const originalFetch = globalThis.fetch;
 const maxGatewayResponseBytesForTest = 2_048;
@@ -97,12 +102,16 @@ function responseRecorder() {
 async function callHandler({ method = "GET", url = "/api/chain-progress", headers = {} } = {}) {
   const response = responseRecorder();
   await handler({ method, url, headers }, response);
+  if (response.statusCode === 200) assertChainProgressPayload(response.body);
+  else assertGenericPublicError(response.body);
   return response;
 }
 
 async function callKeyHandler(handlerToCall, route, { method = "GET", url = route, headers = {} } = {}) {
   const response = responseRecorder();
   await handlerToCall({ method, url, headers }, response);
+  if (response.statusCode === 200) assertObservationKeyMetadata(response.body);
+  else assertGenericPublicError(response.body);
   return response;
 }
 

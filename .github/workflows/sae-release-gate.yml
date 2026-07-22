@@ -1,4 +1,5 @@
 name: Legacy public release sentinel
+name: Retired public release gate
 
 on:
   workflow_dispatch:
@@ -9,10 +10,13 @@ permissions:
 jobs:
   retired:
     name: Legacy public release gate moved to private ops
+    name: Direct public release gate retired
     runs-on: ubuntu-latest
     steps:
       - name: Refuse public-repo release gate
         run: |
           echo "::error::This public release gate is legacy and retired."
           echo "::error::All production publishing now runs through SAM/Owner private operations control."
+          echo "::error::The public repository release gate is retired."
+          echo "::error::All production publishing now follows the Owner-approved Git-integrated release sequence."
           exit 1

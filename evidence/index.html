@@ -11,16 +11,16 @@
     <meta name="theme-color" content="#0d0d0d" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_AU" />
-    <meta property="og:site_name" content="Fenrua" />
+    <meta property="og:site_name" content="Fenrua BlackBox Protocol" />
     <meta property="og:title" content="Fenrua Evidence Registry" />
     <meta property="og:description" content="Fenrua public evidence registry with claims, hashes, provenance, supersession, maturity, and limitations." />
     <meta property="og:url" content="https://fenrua.ai/evidence" />
-    <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
+    <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.png" />
     <meta property="og:image:alt" content="Fenrua logo" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Fenrua Evidence Registry" />
     <meta name="twitter:description" content="Fenrua public evidence registry with claims, hashes, provenance, supersession, maturity, and limitations." />
-    <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
+    <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.png" />
     <meta name="twitter:image:alt" content="Fenrua logo" />
     <link rel="canonical" href="https://fenrua.ai/evidence" />
     <link rel="alternate" hreflang="en-AU" href="https://fenrua.ai/evidence" />
@@ -37,7 +37,7 @@
     "Fenrua"
   ],
   "url": "https://fenrua.ai/",
-  "logo": "https://fenrua.ai/assets/fenrua-header-logo.jpg",
+  "logo": "https://fenrua.ai/assets/fenrua-header-logo.png",
   "foundingDate": "2026-07-13",
   "taxID": "ABN 62 700 182 663",
   "identifier": [
@@ -64,11 +64,12 @@
     "contactType": "business enquiries",
     "email": "partnerships@fenrua.ai"
   },
-  "description": "Fenrua Labs researches, develops, and provides AI efficiency infrastructure software and related technology services.",
+  "description": "Fenrua BlackBox Protocol is privacy-preserving protocol infrastructure for verifiable AI automation.",
   "sameAs": [
     "https://github.com/fenrualabs",
     "https://x.com/FenruaLabs",
-    "https://www.linkedin.com/in/fenrua-labs-80b679388"
+    "https://www.linkedin.com/in/fenrua-labs-80b679388",
+    "https://www.youtube.com/@FenruaLabs"
   ]
 }</script>
     <script type="application/ld+json">{
@@ -78,7 +79,7 @@
       "@type": "WebSite",
       "@id": "https://fenrua.ai/#website",
       "url": "https://fenrua.ai/",
-      "name": "Fenrua",
+      "name": "Fenrua BlackBox Protocol",
       "inLanguage": "en-AU",
       "publisher": {
         "@id": "https://fenrua.ai/#organization"
@@ -91,7 +92,7 @@
       "name": "Fenrua Evidence Registry",
       "description": "Fenrua public evidence registry with claims, hashes, provenance, supersession, maturity, and limitations.",
       "inLanguage": "en-AU",
-      "dateModified": "2026-07-14",
+      "dateModified": "2026-07-22",
       "isPartOf": {
         "@id": "https://fenrua.ai/#website"
       },
@@ -123,7 +124,11 @@
   ]
 }</script>
     <title>Fenrua Evidence Registry</title>
-    <link rel="icon" href="/assets/fenrua-header-logo.jpg" type="image/jpeg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
     <script src="/toolchain/toolchain.js" defer></script>
@@ -134,10 +139,10 @@
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
 
     <header class="site-header" aria-label="Site header">
-      <a class="brand" href="/" aria-label="Fenrua Protocol home">
-        <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
+      <a class="brand" href="/" aria-label="Fenrua BlackBox Protocol home">
+        <img src="/assets/fenrua-header-logo.png" width="40" height="40" alt="" decoding="async" />
         <span>
-          <strong>Fenrua Protocol</strong>
+          <strong>Fenrua BlackBox Protocol</strong>
           <small>by Fenrua Labs Pty Ltd</small>
         </span>
       </a>
@@ -148,6 +153,7 @@
         <a href="/trust" aria-current="page">Trust</a>
         <a href="/operations">Operations</a>
         <a href="/company">Company</a>
+        <a href="/roadmap">Roadmap</a>
       </nav>
     </header>
     <main id="content">
@@ -161,6 +167,7 @@
         <span>Trust</span>
         <div>
           <a href="/trust">Trust overview</a>
+          <a href="/trust#trust-gate">Trust Gate</a>
           <a href="/trust/claims">Claims</a>
           <a href="/trust/evidence-classes">Evidence classes</a>
           <a href="/evidence" aria-current="page">Evidence</a>
@@ -173,7 +180,7 @@
         <div class="route-hero-copy">
           <p class="eyebrow">PUBLIC EVIDENCE</p>
           <h1 id="page-title">Evidence Registry</h1>
-          <p>Current public release evidence is separated from historical source evidence and every record states its limitation.</p>
+          <p>Fenrua BlackBox Protocol separates current public release evidence from historical source evidence, and every record states its limitation.</p>
           <div class="cta-row"><a class="button button-primary" href="/audit">Read current audit</a><a class="button button-secondary" href="/.well-known/fenrua-release.json">Release manifest</a></div>
         </div>
       </section>
@@ -217,14 +224,14 @@
 <tr id="current-public-release-evidence">
       <td data-label="Artifact"><code>current-public-release-evidence</code><br>Current Public Release Evidence<br><small>static release scope</small></td>
       <td data-label="Claim">The current public static site is bound to a source commit and content-hashed artifact set at release build time.</td>
-      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">3219b1237c23afb37397ea74ecf350e67e1a100e1edc686919a771f305ab9a82</code><button type="button" data-copy="3219b1237c23afb37397ea74ecf350e67e1a100e1edc686919a771f305ab9a82" data-copy-label="Full SHA copied">Copy hash</button></div></td>
+      <td data-label="Hash"><div class="hash-copy"><code class="hash-value">be39ce52155c67f34f3a62c4ac8462660350f0ca4bc9f949a17b0510b115b021</code><button type="button" data-copy="be39ce52155c67f34f3a62c4ac8462660350f0ca4bc9f949a17b0510b115b021" data-copy-label="Full SHA copied">Copy hash</button></div></td>
       <td data-label="Source"><a href="/data/site-evidence.json">data/site-evidence.json</a><br><small>fenrua-web public static surface</small></td>
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">generated at release build</code><small>Evidence: <code class="hash-value">see /.well-known/fenrua-release.json</code></small></div></td>
       <td data-label="Producer">generate-release-manifest.mjs<br><small>Node.js, deterministic static validation</small></td>
       <td data-label="Command"><code>npm run build:release</code></td>
-      <td data-label="Verified / Revocation">2026-07-14<br><small>Maturity: Current public release · Revocation: active</small></td>
+      <td data-label="Verified / Revocation">2026-07-22<br><small>Maturity: Current public release · Revocation: active</small></td>
       <td data-label="Supersession">legacy placeholder audit records / none</td>
-      <td data-label="Limitation">This evidence excludes dynamic observations, APIs, live block-card data, and all protected systems.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: current-public-release-evidence&#10;Hash: 3219b1237c23afb37397ea74ecf350e67e1a100e1edc686919a771f305ab9a82&#10;Source revision: generated at release build&#10;Evidence revision: see /.well-known/fenrua-release.json&#10;Verified: 2026-07-14&#10;Scope: This evidence excludes dynamic observations, APIs, live block-card data, and all protected systems." data-copy-label="Evidence citation copied">Copy citation</button></td>
+      <td data-label="Limitation">This evidence excludes dynamic observations, APIs, live block-card data, and all protected systems.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: current-public-release-evidence&#10;Hash: be39ce52155c67f34f3a62c4ac8462660350f0ca4bc9f949a17b0510b115b021&#10;Source revision: generated at release build&#10;Evidence revision: see /.well-known/fenrua-release.json&#10;Verified: 2026-07-22&#10;Scope: This evidence excludes dynamic observations, APIs, live block-card data, and all protected systems." data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>
 <tr id="repository-sync-snapshot">
       <td data-label="Artifact"><code>repository-sync-snapshot</code><br>Repository Sync Snapshot<br><small>kernel snapshot</small></td>
@@ -282,9 +289,9 @@
       <td data-label="Revisions"><div class="hash-stack"><code class="hash-value">845187ca3dea57723b31ec5306fed1c275fcdcb7</code><small>Evidence: <code class="hash-value">toolchain-lock-2026-07-12</code></small></div></td>
       <td data-label="Producer">data/toolchain-registry.json<br><small>Node.js, Semgrep 1.169.0, SnarkJS snarkjs@0.7.6</small></td>
       <td data-label="Command"><code>node scripts/test-toolchain-registry.mjs</code></td>
-      <td data-label="Verified / Revocation">2026-07-14<br><small>Maturity: Historical toolchain evidence · Revocation: historical</small></td>
+      <td data-label="Verified / Revocation">2026-07-22<br><small>Maturity: Historical toolchain evidence · Revocation: historical</small></td>
       <td data-label="Supersession">none / none</td>
-      <td data-label="Limitation">Frozen toolchain capture; it is not current deployment provenance or security proof.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: toolchain-evidence-lock&#10;Hash: ee82a0446079437b8244618db9aaa55bd620811198d1c978fd7412e1209e8286&#10;Source revision: 845187ca3dea57723b31ec5306fed1c275fcdcb7&#10;Evidence revision: toolchain-lock-2026-07-12&#10;Verified: 2026-07-14&#10;Scope: Frozen toolchain capture; it is not current deployment provenance or security proof." data-copy-label="Evidence citation copied">Copy citation</button></td>
+      <td data-label="Limitation">Frozen toolchain capture; it is not current deployment provenance or security proof.<button type="button" data-copy="Fenrua Evidence:&#10;Artifact: toolchain-evidence-lock&#10;Hash: ee82a0446079437b8244618db9aaa55bd620811198d1c978fd7412e1209e8286&#10;Source revision: 845187ca3dea57723b31ec5306fed1c275fcdcb7&#10;Evidence revision: toolchain-lock-2026-07-12&#10;Verified: 2026-07-22&#10;Scope: Frozen toolchain capture; it is not current deployment provenance or security proof." data-copy-label="Evidence citation copied">Copy citation</button></td>
     </tr>
             </tbody>
           </table>
@@ -326,6 +333,7 @@
           <a href="https://github.com/fenrualabs" rel="me">GitHub</a>
           <a href="https://x.com/FenruaLabs" rel="me">X</a>
           <a href="https://www.linkedin.com/in/fenrua-labs-80b679388" rel="me">LinkedIn</a>
+          <a href="https://www.youtube.com/@FenruaLabs" rel="me">YouTube</a>
           <a href="/audit">Release verification</a>
           <a href="/evidence">Evidence</a>
           <a href="/toolchain">Toolchain</a>

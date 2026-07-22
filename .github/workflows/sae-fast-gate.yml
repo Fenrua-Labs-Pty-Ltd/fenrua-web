@@ -1,4 +1,5 @@
 name: SAM Owner public boundary
+name: Public release boundary gate
 
 on:
   pull_request:
@@ -18,6 +19,8 @@ concurrency:
 jobs:
   owner-release-boundary:
     name: SAM Owner public boundary
+  public-release-boundary-gate:
+    name: Public release boundary gate
     runs-on: ubuntu-latest
     timeout-minutes: 3
 
@@ -28,12 +31,13 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Verify public repo has no production deployment authority
+      - name: Verify credential-free Git-integrated production boundary
         shell: bash
         run: |
           set -euo pipefail
 
           echo "SAM Owner boundary: enforcing credential-free public source."
+          echo "Public release boundary gate: enforcing credential-free Git-integrated production authority."
 
           if grep -RInE --exclude='sae-fast-gate.yml' 'VERCEL_(TOKEN|ORG_ID|PROJECT_ID)|vercel[[:space:]]+(pull|build|deploy)|vercel@[0-9]' .github 2>/dev/null; then
             echo "::error::Public workflows contain forbidden production deployment wiring."
@@ -50,7 +54,7 @@ jobs:
           for f in .github/workflows/deploy-production.yml .github/workflows/sae-release-gate.yml; do
             test -f "$f" || { echo "::error::$f missing"; exit 1; }
             grep -q "exit 1" "$f" || { echo "::error::$f must fail closed"; exit 1; }
-            grep -q "private operations" "$f" || { echo "::error::$f must redirect to private operations"; exit 1; }
+            grep -q "Git-integrated release sequence" "$f" || { echo "::error::$f must direct callers to the approved Git-integrated release sequence"; exit 1; }
           done
 
           grep -q "SAM/Owner Website Release Policy" docs/SAFE_WEBSITE_PUBLISHING.md
@@ -58,3 +62,9 @@ jobs:
           grep -q "Vercel Publishing Boundary" docs/VERCEL.md
 
           echo "SAM Owner public boundary passed."
+          grep -q "Owner-approved Git-integrated publication rule" docs/SAFE_WEBSITE_PUBLISHING.md
+          grep -q "Repository-Wide Owner Live-Release Rule" AGENTS.md
+          grep -qi "Owner-Approved Live Release Workflow" docs/OWNER_APPROVED_RELEASE_WORKFLOW.md
+          grep -q "Vercel Publishing Boundary" docs/VERCEL.md
+
+          echo "Public release boundary gate passed."

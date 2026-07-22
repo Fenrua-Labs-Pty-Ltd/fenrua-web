@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   retired:
-    name: Production deploy moved to private ops
+    name: Direct production deploy command retired
     runs-on: ubuntu-latest
     steps:
       - name: Refuse public-repo deployment

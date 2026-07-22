@@ -11,16 +11,16 @@
     <meta name="theme-color" content="#0d0d0d" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_AU" />
-    <meta property="og:site_name" content="Fenrua" />
+    <meta property="og:site_name" content="Fenrua BlackBox Protocol" />
     <meta property="og:title" content="Fenrua Public Release Verification" />
     <meta property="og:description" content="Current public static release evidence, document status, access-only commercial boundary, and explicit limitations." />
     <meta property="og:url" content="https://fenrua.ai/audit" />
-    <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
+    <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.png" />
     <meta property="og:image:alt" content="Fenrua logo" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Fenrua Public Release Verification" />
     <meta name="twitter:description" content="Current public static release evidence, document status, access-only commercial boundary, and explicit limitations." />
-    <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
+    <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.png" />
     <meta name="twitter:image:alt" content="Fenrua logo" />
     <link rel="canonical" href="https://fenrua.ai/audit" />
     <link rel="alternate" hreflang="en-AU" href="https://fenrua.ai/audit" />
@@ -37,7 +37,7 @@
     "Fenrua"
   ],
   "url": "https://fenrua.ai/",
-  "logo": "https://fenrua.ai/assets/fenrua-header-logo.jpg",
+  "logo": "https://fenrua.ai/assets/fenrua-header-logo.png",
   "foundingDate": "2026-07-13",
   "taxID": "ABN 62 700 182 663",
   "identifier": [
@@ -64,11 +64,12 @@
     "contactType": "business enquiries",
     "email": "partnerships@fenrua.ai"
   },
-  "description": "Fenrua Labs researches, develops, and provides AI efficiency infrastructure software and related technology services.",
+  "description": "Fenrua BlackBox Protocol is privacy-preserving protocol infrastructure for verifiable AI automation.",
   "sameAs": [
     "https://github.com/fenrualabs",
     "https://x.com/FenruaLabs",
-    "https://www.linkedin.com/in/fenrua-labs-80b679388"
+    "https://www.linkedin.com/in/fenrua-labs-80b679388",
+    "https://www.youtube.com/@FenruaLabs"
   ]
 }</script>
     <script type="application/ld+json">{
@@ -78,7 +79,7 @@
       "@type": "WebSite",
       "@id": "https://fenrua.ai/#website",
       "url": "https://fenrua.ai/",
-      "name": "Fenrua",
+      "name": "Fenrua BlackBox Protocol",
       "inLanguage": "en-AU",
       "publisher": {
         "@id": "https://fenrua.ai/#organization"
@@ -91,7 +92,7 @@
       "name": "Fenrua Public Release Verification",
       "description": "Current public static release evidence, document status, access-only commercial boundary, and explicit limitations.",
       "inLanguage": "en-AU",
-      "dateModified": "2026-07-14",
+      "dateModified": "2026-07-22",
       "isPartOf": {
         "@id": "https://fenrua.ai/#website"
       },
@@ -123,7 +124,11 @@
   ]
 }</script>
     <title>Fenrua Public Release Verification</title>
-    <link rel="icon" href="/assets/fenrua-header-logo.jpg" type="image/jpeg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
 
@@ -133,10 +138,10 @@
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
 
     <header class="site-header" aria-label="Site header">
-      <a class="brand" href="/" aria-label="Fenrua Protocol home">
-        <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
+      <a class="brand" href="/" aria-label="Fenrua BlackBox Protocol home">
+        <img src="/assets/fenrua-header-logo.png" width="40" height="40" alt="" decoding="async" />
         <span>
-          <strong>Fenrua Protocol</strong>
+          <strong>Fenrua BlackBox Protocol</strong>
           <small>by Fenrua Labs Pty Ltd</small>
         </span>
       </a>
@@ -147,6 +152,7 @@
         <a href="/trust" aria-current="page">Trust</a>
         <a href="/operations">Operations</a>
         <a href="/company">Company</a>
+        <a href="/roadmap">Roadmap</a>
       </nav>
     </header>
     <main id="content">
@@ -160,6 +166,7 @@
         <span>Trust</span>
         <div>
           <a href="/trust">Trust overview</a>
+          <a href="/trust#trust-gate">Trust Gate</a>
           <a href="/trust/claims">Claims</a>
           <a href="/trust/evidence-classes">Evidence classes</a>
           <a href="/evidence">Evidence</a>
@@ -183,8 +190,8 @@
           <div><dt>Source commit</dt><dd>Bound by the release manifest generated from the exact release checkout</dd></div>
           <div><dt>Artifact set</dt><dd>Listed files and SHA-256 values in the public release manifest</dd></div>
           <div><dt>Method</dt><dd>Deterministic static generation, repository validation, and manifest self-integrity checks</dd></div>
-          <div><dt>Independent trust anchor</dt><dd>Retained site-evidence record digest: <code>3219b1237c23afb37397ea74ecf350e67e1a100e1edc686919a771f305ab9a82</code></dd></div>
-          <div><dt>Time of observation</dt><dd>2026-07-13T19:27:37Z</dd></div>
+          <div><dt>Independent trust anchor</dt><dd>Retained site-evidence record digest: <code>be39ce52155c67f34f3a62c4ac8462660350f0ca4bc9f949a17b0510b115b021</code></dd></div>
+          <div><dt>Time of observation</dt><dd>2026-07-22T04:00:00Z</dd></div>
           <div><dt>Expiration / supersession</dt><dd>Superseded by a later source-bound release record; this page does not make future release claims</dd></div>
         </dl>
       </section>
@@ -198,7 +205,7 @@
           <p>Public, point-in-time website artifacts generated from this repository.</p>
           <p>The current public audit route and release manifest when generated for a release.</p>
           <p>The public document register and non-live documentation listed there.</p>
-          <p><strong>Site evidence SHA-256:</strong> <code>3219b1237c23afb37397ea74ecf350e67e1a100e1edc686919a771f305ab9a82</code></p>
+          <p><strong>Site evidence SHA-256:</strong> <code>be39ce52155c67f34f3a62c4ac8462660350f0ca4bc9f949a17b0510b115b021</code></p>
         </div>
       </section>
       <section class="section-shell split-section">
@@ -228,7 +235,7 @@
       <td data-label="Current / archive"><a href="/data/site-evidence.json"><code>data/site-evidence.json</code></a></td>
       <td data-label="Replacement"><a href="/audit">/audit</a></td>
       <td data-label="Archived">Current</td>
-      <td data-label="Current artifact SHA-256"><code class="hash-value">3219b1237c23afb37397ea74ecf350e67e1a100e1edc686919a771f305ab9a82</code></td>
+      <td data-label="Current artifact SHA-256"><code class="hash-value">be39ce52155c67f34f3a62c4ac8462660350f0ca4bc9f949a17b0510b115b021</code></td>
       <td data-label="Original superseded SHA-256"><code class="hash-value">—</code></td>
     </tr>
 <tr>
@@ -237,7 +244,7 @@
       <td data-label="Current / archive"><a href="/docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md"><code>docs/ACCESS_ONLY_COMMERCIAL_BOUNDARY.md</code></a></td>
       <td data-label="Replacement"><a href="/audit">/audit</a></td>
       <td data-label="Archived">Current</td>
-      <td data-label="Current artifact SHA-256"><code class="hash-value">d5bb691cb29a527952ea1c90752761d390a6043156b4e270b258559940b1e5ef</code></td>
+      <td data-label="Current artifact SHA-256"><code class="hash-value">72bf387b9e10b300644fcbe0a1984e4f79f1093c364322b517d67aafe77d95a8</code></td>
       <td data-label="Original superseded SHA-256"><code class="hash-value">—</code></td>
     </tr>
 <tr>
@@ -246,7 +253,7 @@
       <td data-label="Current / archive"><a href="/data/company-identity.json"><code>data/company-identity.json</code></a></td>
       <td data-label="Replacement"><a href="/legal">/legal</a></td>
       <td data-label="Archived">Current</td>
-      <td data-label="Current artifact SHA-256"><code class="hash-value">1e9ad8fd4da615f8680e91fed42284f481d2e66973595598fd6f02cbea670016</code></td>
+      <td data-label="Current artifact SHA-256"><code class="hash-value">d673fa582e37a8270c12b67747f957d643f0db0b16bcb48dc7d4198cb39c2184</code></td>
       <td data-label="Original superseded SHA-256"><code class="hash-value">—</code></td>
     </tr>
 <tr>
@@ -264,7 +271,7 @@
       <td data-label="Current / archive"><a href="/docs/PUBLIC_DATA_FLOW.md"><code>docs/PUBLIC_DATA_FLOW.md</code></a></td>
       <td data-label="Replacement"><a href="/company">/company</a></td>
       <td data-label="Archived">Current</td>
-      <td data-label="Current artifact SHA-256"><code class="hash-value">a09b63168a40e21dde94854df4ce63756e6192de4d5e7ef41d2893932bc787dd</code></td>
+      <td data-label="Current artifact SHA-256"><code class="hash-value">a9094f227388cd6b43773f33bc4d41eb03422e0d5e74d70c4d79d03f472f851d</code></td>
       <td data-label="Original superseded SHA-256"><code class="hash-value">—</code></td>
     </tr>
 <tr>
@@ -392,6 +399,7 @@
           <a href="https://github.com/fenrualabs" rel="me">GitHub</a>
           <a href="https://x.com/FenruaLabs" rel="me">X</a>
           <a href="https://www.linkedin.com/in/fenrua-labs-80b679388" rel="me">LinkedIn</a>
+          <a href="https://www.youtube.com/@FenruaLabs" rel="me">YouTube</a>
           <a href="/audit">Release verification</a>
           <a href="/evidence">Evidence</a>
           <a href="/toolchain">Toolchain</a>

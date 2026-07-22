@@ -1,9 +1,9 @@
-# Fenrua Labs Pty Ltd — Research and Technology Services
+# Fenrua Labs Pty Ltd — Protocol Infrastructure and Technology Services
 
 Status: active public commercial boundary  
-Last reviewed: 2026-07-14
+Last reviewed: 2026-07-22
 
-Fenrua Labs Pty Ltd researches, develops, and provides AI efficiency infrastructure software and related technology services through service subscriptions and client-specific business agreements. Its work may include software, infrastructure access, hosting, research, development, integration, technical support, and evidence-aware workflows within the scope of the relevant service or agreement.
+Fenrua Labs Pty Ltd researches, develops, and provides privacy-preserving protocol infrastructure for verifiable AI automation and related technology services through service subscriptions and client-specific business agreements. Its work may include software, infrastructure access, hosting, research, development, integration, technical support, and evidence-aware workflows within the scope of the relevant service or agreement.
 
 Fenrua Labs Pty Ltd does not offer investments, token crowdfunding, securities, bonds, equity, debt, managed investment interests, profit-sharing arrangements, revenue-sharing arrangements, yield products, exchange products, trading products, or any financial-return scheme. Neither a subscription nor a client-specific business agreement gives, promises, expects, entitles, or represents profit, return, token appreciation, token allocation, liquidity, resale value, dividends, buyback rights, or ownership in Fenrua Labs Pty Ltd.
 

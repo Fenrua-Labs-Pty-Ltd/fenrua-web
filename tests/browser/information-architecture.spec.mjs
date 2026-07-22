@@ -37,14 +37,14 @@ test("skip link starts the keyboard order", async ({ page }) => {
 });
 
 for (const [width, height] of viewports) {
-  test(`six-category navigation remains visible at ${width}x${height}`, async ({ page }) => {
+  test(`seven-category navigation remains visible at ${width}x${height}`, async ({ page }) => {
     test.setTimeout(60_000);
     await page.setViewportSize({ width, height });
     for (const route of representativeRoutes) {
       await gotoRoute(page, route);
       const nav = page.locator(".site-nav");
-      await expect(nav.getByRole("link")).toHaveCount(6);
-      const terminal = nav.getByRole("link", { name: "Company", exact: true });
+      await expect(nav.getByRole("link")).toHaveCount(7);
+      const terminal = nav.getByRole("link", { name: "Roadmap", exact: true });
       await terminal.focus();
       await expect(terminal).toBeFocused();
       await expect.poll(() => terminal.evaluate((element) => {

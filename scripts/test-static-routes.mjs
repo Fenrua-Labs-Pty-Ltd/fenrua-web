@@ -13,6 +13,23 @@ function cardByHeading(markup, heading) {
   return card;
 }
 
+function assertOfficialSourceWarning(markup, label) {
+  const warning = sectionById(markup, "official-source-warning");
+  assert.match(warning, /class="official-source-warning"/, `${label} must render the official-source warning surface.`);
+  assert.match(warning, /<p class="warning-eyebrow">SECURITY NOTICE<\/p>/, `${label} must label the warning in text as a security notice.`);
+  assert.match(warning, /<h2 id="official-source-warning-title">Official Source and Anti-Impersonation Notice<\/h2>/, `${label} must preserve the warning title.`);
+  for (const statement of [
+    "fenrua.ai is the sole and only official website for Fenrua Protocol and Fenrua Labs Pty Ltd.",
+    "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+    "Fenrua activity is currently limited to Fenrua’s private-chain research environment and bounded public evidence surfaces.",
+    "should be treated as unauthorised, impersonated, or potentially fraudulent unless explicitly confirmed on fenrua.ai.",
+    "Always verify Fenrua information from fenrua.ai before trusting any external link, message, contract address, social post, or media account.",
+  ]) {
+    const escaped = statement.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    assert.match(warning, new RegExp(escaped), `${label} must preserve the required official-source notice.`);
+  }
+}
+
 function assertNoPositiveReviewerClaims(markup, label) {
   for (const pattern of [
     /\b(?:we|fenrua|the public (?:site|path|record))\s+(?:offer|offers|provide|provides|operate|operates|grant|grants|include|includes|guarantee|guarantees|promise|promises)\s+(?:a\s+)?(?:public account(?: flow)?|hosted verifier(?: availability)?|public service entitlement|SLO|uptime|runtime assurance|runtime attestation|production approval|financial return)\b/i,
@@ -44,6 +61,7 @@ for (const boundaryStatement of [
 
 const routes = [
   "index.html",
+  "roadmap/index.html",
   "platform/index.html",
   "architecture/index.html",
   "architecture/context/index.html",
@@ -79,14 +97,21 @@ const routes = [
   "accessibility/index.html",
 ];
 
-assert.equal(routes.length, 34, "Static route coverage must match the current public estate.");
+assert.equal(routes.length, 35, "Static route coverage must match the current public estate.");
 
 for (const route of routes) {
   const html = await readFile(new URL(`../${route}`, import.meta.url), "utf8");
+  assert.match(html, /<link rel="icon" href="\/favicon\.ico" sizes="any" \/>/, `${route} must expose the root ICO favicon.`);
+  assert.match(html, /<link rel="icon" type="image\/png" sizes="32x32" href="\/assets\/favicon-32x32\.png" \/>/, `${route} must expose the 32px PNG favicon.`);
+  assert.match(html, /<link rel="icon" type="image\/png" sizes="48x48" href="\/assets\/favicon-48x48\.png" \/>/, `${route} must expose the 48px PNG favicon.`);
+  assert.match(html, /<link rel="apple-touch-icon" sizes="180x180" href="\/assets\/apple-touch-icon\.png" \/>/, `${route} must expose the Apple touch icon.`);
+  assert.match(html, /<link rel="manifest" href="\/site\.webmanifest" \/>/, `${route} must expose the PWA manifest.`);
+  assert.match(html, /<img src="\/assets\/fenrua-header-logo\.png" width="40" height="40" alt="" decoding="async" \/>/, `${route} must use the frozen PNG in its header.`);
+  assert.doesNotMatch(html, /fenrua-header-logo\.jpg/, `${route} must not expose the retired JPG in page metadata, header, or favicon tags.`);
   assert.match(html, /<main id="content">/, `${route} must contain a main landmark`);
   assert.match(html, /Skip to content/, `${route} must include a skip link`);
   assert.match(html, /technical-data\.js/, `${route} must load technical data controls`);
-  assert.match(html, /<strong>Fenrua Protocol<\/strong>/, `${route} must use the canonical public protocol name`);
+  assert.match(html, /<strong>Fenrua BlackBox Protocol<\/strong>/, `${route} must use the canonical public protocol name`);
   assert.match(html, /<small>by Fenrua Labs Pty Ltd<\/small>/, `${route} must identify the registered operator`);
   for (const [label, href] of [
     ["Platform", "/platform"],
@@ -95,6 +120,7 @@ for (const route of routes) {
     ["Trust", "/trust"],
     ["Operations", "/operations"],
     ["Company", "/company"],
+    ["Roadmap", "/roadmap"],
   ]) {
     assert.match(html, new RegExp(`<a href="${href}">${label}<\\/a>|<a href="${href}" aria-current="page">${label}<\\/a>`), `${route} must expose the ${label} primary category.`);
   }
@@ -111,6 +137,7 @@ for (const route of routes) {
     ["GitHub", "https://github.com/fenrualabs"],
     ["X", "https://x.com/FenruaLabs"],
     ["LinkedIn", "https://www.linkedin.com/in/fenrua-labs-80b679388"],
+    ["YouTube", "https://www.youtube.com/@FenruaLabs"],
   ]) {
     assert.ok(html.includes(`<a href="${url}" rel="me">${label}</a>`), `${route} must expose the verified ${label} profile`);
   }
@@ -151,15 +178,54 @@ assert.doesNotMatch(toolchain, /<span class="status-badge">[^<]+<\/span><br>/, "
 assert.doesNotMatch(toolchain, />Executed</);
 
 const overview = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const trust = await readFile(new URL("../trust/index.html", import.meta.url), "utf8");
+const legal = await readFile(new URL("../legal/index.html", import.meta.url), "utf8");
+const roadmap = await readFile(new URL("../roadmap/index.html", import.meta.url), "utf8");
+for (const [label, markup] of [["Overview", overview], ["Trust", trust], ["Legal", legal]]) assertOfficialSourceWarning(markup, label);
+assert.ok(overview.indexOf('id="official-source-warning"') > overview.indexOf('<main id="content">'), "Overview warning must remain inside the main landmark.");
+assert.ok(overview.indexOf('id="official-source-warning"') < overview.indexOf('id="page-title"'), "Overview warning must appear directly below the navigation, before the hero introduction.");
+assert.match(overview, /<div class="home-intro">[\s\S]*id="official-source-warning"[\s\S]*class="route-hero route-hero-solo"/, "Overview must retain the shared desktop intro layout while preserving warning-first reading order.");
+assert.match(trust, /<div class="trust-intro">[\s\S]*id="official-source-warning"[\s\S]*class="route-hero route-hero-solo"/, "Trust must pair its official-source notice with the overview in the shared desktop intro layout.");
 assert.equal([...overview.matchAll(/class="section-shell split-section commercial-boundary"/g)].length, 1, "Overview must retain the single full policy card.");
+assert.match(overview, /Fenrua BlackBox Protocol/);
+assert.match(overview, /Public evidence for private AI execution\./);
+assert.match(overview, /Evidence Before Authority/);
+assert.match(overview, /Capability is not authority/);
+assert.match(overview, /Governable autonomous AI execution/);
+assert.match(overview, /Trust Gate and the P\/N-521 proof-kernel direction remain promotion-gated research\./);
+assert.doesNotMatch(overview, /AI efficiency infrastructure for verifiable systems/i);
+assert.match(trust, /Fenrua BlackBox Protocol provides bounded evidence for reviewer verification/);
+assert.match(trust, /id="trust-gate"/);
+assert.match(trust, /Trust Gate: Capability Is Not Authority/);
+assert.match(trust, /A model's ability to produce an action does not mean the action should be trusted\./);
+assert.match(trust, /Evidence Before Authority/);
+assert.match(trust, /Capability is not authority/);
+assert.match(trust, /id="allow-is-not-execute"/);
+assert.match(trust, /ALLOW is not EXECUTE/);
+for (const reviewerStep of [
+  "Action Request",
+  "Identity and Scope",
+  "Manifest and Policy",
+  "Revocation and Deny-Overrides",
+  "Evidence Construction",
+  "Verification",
+  "Review / Stop / Escalation",
+]) assert.match(trust, new RegExp(`<h3>${reviewerStep}<\\/h3>`), `Trust must include reviewer step: ${reviewerStep}.`);
+assert.match(trust, /Current public state/);
+assert.match(trust, /Roadmap direction/);
+assert.match(trust, /The Local Trust Gate CLI and hosted verifier have no public interface\./);
+assert.match(trust, /This Trust Gate page describes Fenrua's public governance model and staged protocol direction\./);
+assert.match(trust, /Autonomous AI systems can pursue narrow objectives across tool, network, and infrastructure boundaries\./);
+assert.match(trust, /href="\/trust#trust-gate"[^>]*>Trust Gate<\/a>/, "Trust section navigation must expose the canonical reviewer path.");
+assert.doesNotMatch(trust, /(?:cryptographic formulas?|tenant projection equations?|commitment formulas?|nullifier formulas?|witness vectors?|proof relations?|Merkle\/?MMR equations?|sparse Merkle aggregation details?|settlement formulas?|private chain topology|peer maps?|provider routes?|RPC details?)/i, "Trust Gate reviewer path must remain conceptual and public-safe.");
 assert.match(overview, /<script src="\/kernel-status\.js" defer><\/script>/, "overview must load live chain updater");
 assert.match(overview, /class="site-header site-header-live"/, "overview must place live blocks in the header");
 assert.match(overview, /class="header-chain-rail mobile-chain-rail"/, "overview must render the mobile header live chain rail");
 assert.match(overview, /class="section-shell chain-progress desktop-chain-progress"/, "overview must render desktop live blocks under the intro card");
 assert.match(overview, /data-chain-card="978"/, "overview must render Chain 978 live block card");
 assert.match(overview, /data-chain-card="521"/, "overview must render Chain N521 live block card");
-assert.match(overview, /<link rel="icon" href="\/assets\/fenrua-header-logo\.jpg" type="image\/jpeg" \/>/, "overview must use the approved logo as its favicon");
-assert.match(overview, /<img src="\/assets\/fenrua-header-logo\.jpg" width="40" height="40" alt="" \/>/, "overview must use the approved logo in its header");
+assert.match(overview, /<meta property="og:image" content="https:\/\/fenrua\.ai\/assets\/fenrua-header-logo\.png" \/>/, "overview must use the frozen PNG for OpenGraph discovery.");
+assert.match(overview, /<meta name="twitter:image" content="https:\/\/fenrua\.ai\/assets\/fenrua-header-logo\.png" \/>/, "overview must use the frozen PNG for Twitter discovery.");
 assert.match(overview, /data-chain-meta="feed-status"/, "overview must expose live chain feed status");
 assert.match(
   overview,
@@ -177,6 +243,38 @@ assert.match(overview, /Confidence/);
 assert.doesNotMatch(overview, /Independent source|Primary source/);
 assert.doesNotMatch(overview, /Blocks since check|data-chain-field="(?:978|521)-delta"/);
 
+assert.match(overview, /href="\/roadmap">View roadmap<\/a>/, "Overview must expose the public roadmap from its primary introduction.");
+assert.match(overview, /href="\/roadmap">Read the public BlackBox Roadmap<\/a>/, "Overview must link the staged direction section to the roadmap.");
+assert.match(overview, /href="\/trust#trust-gate">Inspect the Trust Gate model<\/a>/, "Overview must expose the canonical Trust Gate reviewer path.");
+assert.match(overview, /href="\/trust#trust-gate">Inspect the Trust Gate reviewer path<\/a>/, "Overview staged direction must link to the canonical Trust Gate reviewer path.");
+assert.match(roadmap, /<h1 id="page-title">BlackBox Roadmap<\/h1>/);
+assert.match(roadmap, /This roadmap describes staged protocol direction and public review boundaries\./);
+assert.match(roadmap, /Future-stage items are not availability claims unless explicitly marked as live on fenrua\.ai\./);
+for (const stage of [
+  "Public Evidence Surface",
+  "Official Source and Impersonation Boundary",
+  "Governable AI Execution",
+  "Trust Gate Direction",
+  "Tenant Identity and Scoped Access",
+  "Agent Capture and Evidence Events",
+  "Proof Ingress Direction",
+  "Tenant Logical Blocks",
+  "Encrypted Archive and Recovery",
+  "Selective Disclosure",
+  "Challenge and Replay Review",
+  "Production Rollout Gates",
+]) {
+  assert.match(roadmap, new RegExp(`<h3>${stage}<\\/h3>`), `Roadmap must include ${stage}.`);
+}
+assert.match(roadmap, /ALLOW is not EXECUTE/);
+assert.match(roadmap, /href="\/trust#trust-gate">Open reviewer path<\/a>/, "Roadmap Trust Gate stage must link to the canonical reviewer path.");
+assert.match(roadmap, /href="\/trust#trust-gate">Trust Gate reviewer path<\/a>/, "Roadmap review path must link to the canonical reviewer path.");
+assert.match(roadmap, /P\/N-521 proof-kernel direction/);
+assert.doesNotMatch(roadmap, /<(?:math|pre|code)\b/i, "Roadmap must not render formula or implementation notation.");
+assert.doesNotMatch(roadmap, /(?:witness vectors?|commitment formulas?|nullifier formulas?|Merkle\/MMR equations?|key-derivation formulas?|RPC details?|contract addresses?|tokenomics)/i, "Roadmap must remain public-safe and formula-free.");
+assert.match(legal, /Public records are for technical review, verification, evidence inspection, and professional due diligence\./);
+assert.match(legal, /Any private-chain observation is bounded infrastructure evidence\. It is not a public-mainnet deployment claim or proof of protected runtime safety\./);
+
 const platform = await readFile(new URL("../platform/index.html", import.meta.url), "utf8");
 assert.match(platform, /CURRENT CAPABILITY STATES/);
 assert.match(platform, /capability-register\.json/);
@@ -187,6 +285,9 @@ assert.match(platform, /href="\/trust\/claims#capability\.local-trust-gate">Insp
 assert.doesNotMatch(platform, /\/platform\/trust-gate/, "A dedicated Trust Gate product route must remain absent until the approved repository and release gate exist.");
 assert.match(platform, /AI efficiency evidence standard/);
 assert.match(platform, /does not publish a measured AI-efficiency benchmark/i);
+
+const verifyReviewerPath = await readFile(new URL("../verify/index.html", import.meta.url), "utf8");
+assert.match(verifyReviewerPath, /href="\/trust#allow-is-not-execute">Read reviewer authority boundary<\/a>/, "Verify must link to the canonical authority boundary without claiming a live verifier.");
 
 const start = await readFile(new URL("../start/index.html", import.meta.url), "utf8");
 for (const role of ["Developer", "Security engineer", "Researcher", "Enterprise technical leader", "University or educator", "Open-source contributor", "General technical reviewer"]) {
@@ -377,16 +478,15 @@ assert.doesNotMatch(reviewerDelta, /\b(?:sign[- ]?up|checkout|payment|wallet|tok
 assertNoPositiveReviewerClaims(reviewerDelta, "Reviewer delta");
 
 const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
-for (const route of ["legal", "support", "security", "accessibility"]) assert.match(sitemap, new RegExp(`/${route}<`));
+for (const route of ["legal", "support", "security", "accessibility", "roadmap"]) assert.match(sitemap, new RegExp(`/${route}<`));
 for (const route of ["nexus", "fenswap", "fenpresale", "wallet", "privacy", "terms"]) assert.doesNotMatch(sitemap, new RegExp(`/${route}<`));
 
-const legal = await readFile(new URL("../legal/index.html", import.meta.url), "utf8");
 assert.match(legal, /FENRUA LABS PTY LTD/);
 assert.match(legal, /ABN 62 700 182 663/);
 assert.match(legal, /ACN 700 182 663/);
 assert.match(legal, /Registered from 2026-07-13/);
 assert.match(legal, /CURRENT OPERATING RECORD/);
-assert.match(legal, /AI efficiency infrastructure and related services/);
+assert.match(legal, /Protocol infrastructure and related services/);
 assert.equal([...legal.matchAll(/<tr>/g)].length, 8, "Legal must render one header plus seven approved offering rows.");
 assert.match(legal, /may separately contract, invoice, receive payment, and deliver services through ordinary business arrangements/i);
 assert.doesNotMatch(legal, /\b(?:XP|Fortnight League|Picker|community activity|bounded rewards|payment rails)\b/i);

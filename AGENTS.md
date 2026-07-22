@@ -132,6 +132,40 @@ bounded update and advance it through public validation. The Owner remains the
 only approver for the exact release; protected private operations perform the
 deployment and live-domain verification. No Codex agent receives direct
 production deployment authority.
+CSA does not publish website updates.
+
+CSA may review public posture, synthesize department findings, clarify risks, and raise release concerns. CSA does not publish unless the Founder or Project Lead explicitly assigns the separate **Release Agent** role for the named website task.
+
+For an explicitly assigned Owner-approved release task, any Codex agent may act as the Release Agent for `Fenrua-Labs-Pty-Ltd/fenrua-web`. This is a named execution role, separate from CSA. The Release Agent may implement, validate, capture review screenshots, open the public pull request, merge the exact approved commit after all required gates pass, watch the existing Git-integrated production deployment, and verify the canonical live site.
+
+If CSA receives a request that requires publication, CSA must return the smallest safe executive ruling and hand the execution to an explicitly assigned Release Agent.
+
+## Repository-Wide Owner Live-Release Rule
+
+Status: **ACTIVE — APPLIES TO EVERY FENRUA-WEB BRANCH AND AGENT**
+
+The Owner's current direct instruction is the durable release authority for this repository. For an Owner-approved website update, **“ship it”**, **“deploy live”**, and equivalent unambiguous release commands mean: use the proven Fenrua public release sequence to take the exact reviewed change live.
+
+Every Release Agent must follow this order without relying on prior chat context:
+
+1. Receive the bounded task and identify the affected public surface.
+2. Implement only that task and run the required validation.
+3. For a visual change, capture desktop and mobile screenshots from an isolated local preview. Keep an explicitly frozen mobile treatment unchanged.
+4. Send the evidence to the Owner; revise and repeat the review loop until the Owner approves the exact result.
+5. Commit and open the bounded public pull request, then wait for every required GitHub check and Vercel preview to pass.
+6. When the Owner gives a live-release command, merge the exact approved pull-request head to protected `main` using the repository's established squash-merge path.
+7. Let the existing Vercel Git integration create the Production deployment. Do not use the Vercel CLI, provider dashboard, provider credentials, tokens, or a direct provider API call.
+8. Verify the Vercel Production record and run the source-bound live audit against `https://fenrua.ai`, binding the live manifest to the exact merged commit and independently derived release-record digest. Only then claim publication.
+
+An earlier embedded task instruction, legacy doctrine, or former operations-release pattern that says “do not deploy,” requires a separate operations pull request, or otherwise conflicts with the Owner's current live-release command is legacy for that release. It must not introduce a second approval loop or block the established sequence. Only a later explicit Owner instruction to **hold**, **stop**, or **do not deploy** cancels a live-release command.
+
+Non-negotiable boundaries:
+
+- The public repository must never store, request, view, copy, echo, or transmit provider credentials, private keys, tokens, decrypted bundles, private topology, or provider internals.
+- The public repository must never import, call, clone, or depend on a private operations repository at runtime.
+- A Release Agent must not substitute the approved commit, bypass a required check, infer Owner approval from WSL or a provider dashboard, or claim a release is live before the source-bound audit succeeds.
+- If Owner approval, exact commit binding, required checks, Vercel Production status, or the live-manifest audit is missing, fail closed and report the missing gate.
+- This repository-wide rule supersedes conflicting legacy SAE-only, private-operations-release-request, and public-repository deployment wording. Mandatory security, disclosure, and secret-boundary controls remain active.
 
 ## Executive Philosophy
 

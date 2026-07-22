@@ -22,7 +22,7 @@ test("every current route retains core content and navigation without JavaScript
       await page.goto(route, { waitUntil: "domcontentloaded" });
       await expect(page.locator("main")).toBeVisible();
       await expect(page.locator("h1")).toHaveCount(1);
-      await expect(page.locator(".site-nav a")).toHaveCount(6);
+      await expect(page.locator(".site-nav a")).toHaveCount(7);
       const geometry = await page.evaluate(() => ({
         clientWidth: document.documentElement.clientWidth,
         scrollWidth: document.documentElement.scrollWidth,

@@ -4,23 +4,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
-    <meta name="description" content="Fenrua trust boundaries, control ownership, and roots of trust." />
+    <meta name="description" content="Fenrua client-safe architecture boundary for public evidence and protected execution." />
     <meta name="robots" content="index,follow" />
     <meta name="googlebot" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
     <meta name="bingbot" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
     <meta name="theme-color" content="#0d0d0d" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_AU" />
-    <meta property="og:site_name" content="Fenrua" />
+    <meta property="og:site_name" content="Fenrua BlackBox Protocol" />
     <meta property="og:title" content="Fenrua Architecture: Trust boundaries" />
-    <meta property="og:description" content="Fenrua trust boundaries, control ownership, and roots of trust." />
+    <meta property="og:description" content="Fenrua client-safe architecture boundary for public evidence and protected execution." />
     <meta property="og:url" content="https://fenrua.ai/architecture/trust-boundaries" />
-    <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
+    <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.png" />
     <meta property="og:image:alt" content="Fenrua logo" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Fenrua Architecture: Trust boundaries" />
-    <meta name="twitter:description" content="Fenrua trust boundaries, control ownership, and roots of trust." />
-    <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
+    <meta name="twitter:description" content="Fenrua client-safe architecture boundary for public evidence and protected execution." />
+    <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.png" />
     <meta name="twitter:image:alt" content="Fenrua logo" />
     <link rel="canonical" href="https://fenrua.ai/architecture/trust-boundaries" />
     <link rel="alternate" hreflang="en-AU" href="https://fenrua.ai/architecture/trust-boundaries" />
@@ -37,7 +37,7 @@
     "Fenrua"
   ],
   "url": "https://fenrua.ai/",
-  "logo": "https://fenrua.ai/assets/fenrua-header-logo.jpg",
+  "logo": "https://fenrua.ai/assets/fenrua-header-logo.png",
   "foundingDate": "2026-07-13",
   "taxID": "ABN 62 700 182 663",
   "identifier": [
@@ -64,11 +64,12 @@
     "contactType": "business enquiries",
     "email": "partnerships@fenrua.ai"
   },
-  "description": "Fenrua Labs researches, develops, and provides AI efficiency infrastructure software and related technology services.",
+  "description": "Fenrua BlackBox Protocol is privacy-preserving protocol infrastructure for verifiable AI automation.",
   "sameAs": [
     "https://github.com/fenrualabs",
     "https://x.com/FenruaLabs",
-    "https://www.linkedin.com/in/fenrua-labs-80b679388"
+    "https://www.linkedin.com/in/fenrua-labs-80b679388",
+    "https://www.youtube.com/@FenruaLabs"
   ]
 }</script>
     <script type="application/ld+json">{
@@ -78,7 +79,7 @@
       "@type": "WebSite",
       "@id": "https://fenrua.ai/#website",
       "url": "https://fenrua.ai/",
-      "name": "Fenrua",
+      "name": "Fenrua BlackBox Protocol",
       "inLanguage": "en-AU",
       "publisher": {
         "@id": "https://fenrua.ai/#organization"
@@ -89,9 +90,9 @@
       "@id": "https://fenrua.ai/architecture/trust-boundaries#webpage",
       "url": "https://fenrua.ai/architecture/trust-boundaries",
       "name": "Fenrua Architecture: Trust boundaries",
-      "description": "Fenrua trust boundaries, control ownership, and roots of trust.",
+      "description": "Fenrua client-safe architecture boundary for public evidence and protected execution.",
       "inLanguage": "en-AU",
-      "dateModified": "2026-07-14",
+      "dateModified": "2026-07-22",
       "isPartOf": {
         "@id": "https://fenrua.ai/#website"
       },
@@ -129,7 +130,11 @@
   ]
 }</script>
     <title>Fenrua Architecture: Trust boundaries</title>
-    <link rel="icon" href="/assets/fenrua-header-logo.jpg" type="image/jpeg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
 
@@ -139,10 +144,10 @@
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
 
     <header class="site-header" aria-label="Site header">
-      <a class="brand" href="/" aria-label="Fenrua Protocol home">
-        <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
+      <a class="brand" href="/" aria-label="Fenrua BlackBox Protocol home">
+        <img src="/assets/fenrua-header-logo.png" width="40" height="40" alt="" decoding="async" />
         <span>
-          <strong>Fenrua Protocol</strong>
+          <strong>Fenrua BlackBox Protocol</strong>
           <small>by Fenrua Labs Pty Ltd</small>
         </span>
       </a>
@@ -153,6 +158,7 @@
         <a href="/trust">Trust</a>
         <a href="/operations">Operations</a>
         <a href="/company">Company</a>
+        <a href="/roadmap">Roadmap</a>
       </nav>
     </header>
     <main id="content">
@@ -178,23 +184,25 @@
         <div class="route-hero-copy">
           <p class="eyebrow">ARCHITECTURE VIEW</p>
           <h1 id="page-title">Trust boundaries</h1>
-          <p>Trust is scoped to named artifacts, signatures, policies, public records, and review boundaries. The page never collapses a signed observation into general system assurance.</p>
+          <p>Public evidence. Private execution. This client-safe view explains how public evidence, authority boundaries, protected execution, and bounded public evidence relate without representing a deployment inventory or service entitlement.</p>
 
         </div>
       </section>
       <section class="section-shell" aria-labelledby="trust-boundaries-diagram-title">
-        <div class="section-heading"><p class="eyebrow">SEMANTIC SYSTEM VIEW</p><h2 id="trust-boundaries-diagram-title">Trust boundaries map</h2><p>Each step carries its state in text. The diagram remains readable without colour or client JavaScript.</p></div>
+        <div class="section-heading"><p class="eyebrow">CLIENT-SAFE ARCHITECTURE</p><h2 id="trust-boundaries-diagram-title">Public evidence, protected execution</h2><p>Each step carries its state in text. The diagram remains readable without colour or client JavaScript.</p></div>
         <ol class="architecture-diagram" aria-label="Trust boundaries component map">
-          <li><span>01</span><div><strong>Public artifact boundary</strong><p>Only generated public files and declared records are released through the static surface.</p></div><em>Current</em></li>
-          <li><span>02</span><div><strong>Evidence and policy boundary</strong><p>Claims require scoped evidence and cannot be strengthened by page presentation alone.</p></div><em>Specification</em></li>
-          <li><span>03</span><div><strong>Independent review boundary</strong><p>No external review, certification, or production approval is implied unless a matching evidence record exists.</p></div><em>External</em></li>
-          <li><span>04</span><div><strong>Observation boundary</strong><p>A signed observation remains bounded to its declared contract, key, sequence, and freshness state.</p></div><em>Optional external</em></li>
+          <li><span>01</span><div><strong>Public evidence surface</strong><p>Public pages, declared records, and bounded verification material are evidence interfaces. Their presence does not reveal protected operations or create a service entitlement.</p></div><em>Current</em></li>
+          <li><span>02</span><div><strong>Evidence Before Authority</strong><p>Evidence can support review, but public presentation, a signature, or a capability label cannot grant authority by itself. Authority remains subject to the applicable approval and policy boundary.</p></div><em>Specification</em></li>
+          <li><span>03</span><div><strong>Protected private execution</strong><p>Private execution and protected operational material remain outside public pages, public responses, and ordinary evidence. This view intentionally does not describe their implementation.</p></div><em>Protected</em></li>
+          <li><span>04</span><div><strong>Bounded public evidence return</strong><p>Only allowlisted public evidence or verification metadata may return to the public surface. A public record is not an execution receipt, an availability statement, or an authority grant.</p></div><em>Current</em></li>
+          <li><span>05</span><div><strong>Independent review boundary</strong><p>No external review, certification, or production approval is implied unless a matching evidence record exists.</p></div><em>External</em></li>
+          <li><span>06</span><div><strong>Observation boundary</strong><p>A signed observation remains bounded to its declared contract, key, sequence, and freshness state.</p></div><em>Optional external</em></li>
         </ol>
-        <p class="diagram-text-equivalent"><strong>Text equivalent:</strong> Public artifact boundary is current; Evidence and policy boundary is specification; Independent review boundary is external; Observation boundary is optional external.</p>
+        <p class="diagram-text-equivalent"><strong>Text equivalent:</strong> Public evidence surface is current; Evidence Before Authority is specification; Protected private execution is protected; Bounded public evidence return is current; Independent review boundary is external; Observation boundary is optional external.</p>
       </section>
       <section class="section-shell split-section" aria-labelledby="trust-boundaries-boundary-title">
         <div><p class="eyebrow">CURRENT IMPLEMENTATION BOUNDARY</p><h2 id="trust-boundaries-boundary-title">What this view does and does not state</h2></div>
-        <div class="constraint-list"><p>Private infrastructure, signing material, customer environments, and unmeasured runtime behaviour remain outside the public trust boundary.</p><p>Inspect the <a href="/trust/claims">claim register</a> and <a href="/trust/evidence-classes">evidence classes</a> for the records that govern public assurance language.</p></div>
+        <div class="constraint-list"><p>Private infrastructure, signing material, customer environments, and unmeasured runtime behaviour remain outside the public trust boundary. Capability is not authority. Stage 0 architecture evidence note: this package explains the public/private boundary only; it does not assert production readiness, external certification, public tenant availability, or a Stage 0 PASS.</p><p>Inspect the <a href="/trust/claims">claim register</a> and <a href="/trust/evidence-classes">evidence classes</a> for the records that govern public assurance language.</p></div>
       </section><!-- fenrua-assurance-scope:end -->
     </main>
     <footer class="site-footer">
@@ -211,6 +219,7 @@
           <a href="https://github.com/fenrualabs" rel="me">GitHub</a>
           <a href="https://x.com/FenruaLabs" rel="me">X</a>
           <a href="https://www.linkedin.com/in/fenrua-labs-80b679388" rel="me">LinkedIn</a>
+          <a href="https://www.youtube.com/@FenruaLabs" rel="me">YouTube</a>
           <a href="/audit">Release verification</a>
           <a href="/evidence">Evidence</a>
           <a href="/toolchain">Toolchain</a>

@@ -52,4 +52,27 @@ const dataAndProvenance = await readFile(new URL("../architecture/data-and-prove
 assert.match(dataAndProvenance, /Tenancy and isolation boundary/);
 assert.match(dataAndProvenance, /no multi-tenant public control plane is claimed/);
 
+const trustBoundaries = await readFile(new URL("../architecture/trust-boundaries/index.html", import.meta.url), "utf8");
+for (const statement of [
+  "CLIENT-SAFE ARCHITECTURE",
+  "Public evidence. Private execution.",
+  "Evidence Before Authority",
+  "Protected private execution",
+  "Bounded public evidence return",
+  "Capability is not authority.",
+  "Stage 0 architecture evidence note:",
+]) {
+  assert.ok(trustBoundaries.includes(statement), `Client-safe architecture package must state: ${statement}`);
+}
+assert.match(
+  trustBoundaries,
+  /public presentation, a signature, or a capability label cannot grant authority by itself/,
+  "Client-safe architecture must preserve the authority boundary."
+);
+assert.match(
+  trustBoundaries,
+  /does not assert production readiness, external certification, public tenant availability, or a Stage 0 PASS/,
+  "Client-safe architecture must preserve the public claim boundary."
+);
+
 console.log(JSON.stringify({ status: "ok", scope: "architecture-trust", views: views.length, chainFreeSteps: chainFreeSequence.length }));
