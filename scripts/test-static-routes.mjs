@@ -100,6 +100,13 @@ assert.equal(routes.length, 34, "Static route coverage must match the current pu
 
 for (const route of routes) {
   const html = await readFile(new URL(`../${route}`, import.meta.url), "utf8");
+  assert.match(html, /<link rel="icon" href="\/favicon\.ico" sizes="any" \/>/, `${route} must expose the root ICO favicon.`);
+  assert.match(html, /<link rel="icon" type="image\/png" sizes="32x32" href="\/assets\/favicon-32x32\.png" \/>/, `${route} must expose the 32px PNG favicon.`);
+  assert.match(html, /<link rel="icon" type="image\/png" sizes="48x48" href="\/assets\/favicon-48x48\.png" \/>/, `${route} must expose the 48px PNG favicon.`);
+  assert.match(html, /<link rel="apple-touch-icon" sizes="180x180" href="\/assets\/apple-touch-icon\.png" \/>/, `${route} must expose the Apple touch icon.`);
+  assert.match(html, /<link rel="manifest" href="\/site\.webmanifest" \/>/, `${route} must expose the PWA manifest.`);
+  assert.match(html, /<img src="\/assets\/fenrua-header-logo\.png" width="40" height="40" alt="" decoding="async" \/>/, `${route} must use the frozen PNG in its header.`);
+  assert.doesNotMatch(html, /fenrua-header-logo\.jpg/, `${route} must not expose the retired JPG in page metadata, header, or favicon tags.`);
   assert.match(html, /<main id="content">/, `${route} must contain a main landmark`);
   assert.match(html, /Skip to content/, `${route} must include a skip link`);
   assert.match(html, /technical-data\.js/, `${route} must load technical data controls`);
@@ -189,8 +196,8 @@ assert.match(overview, /class="header-chain-rail mobile-chain-rail"/, "overview 
 assert.match(overview, /class="section-shell chain-progress desktop-chain-progress"/, "overview must render desktop live blocks under the intro card");
 assert.match(overview, /data-chain-card="978"/, "overview must render Chain 978 live block card");
 assert.match(overview, /data-chain-card="521"/, "overview must render Chain N521 live block card");
-assert.match(overview, /<link rel="icon" href="\/assets\/fenrua-header-logo\.jpg" type="image\/jpeg" \/>/, "overview must use the approved logo as its favicon");
-assert.match(overview, /<img src="\/assets\/fenrua-header-logo\.jpg" width="40" height="40" alt="" \/>/, "overview must use the approved logo in its header");
+assert.match(overview, /<meta property="og:image" content="https:\/\/fenrua\.ai\/assets\/fenrua-header-logo\.png" \/>/, "overview must use the frozen PNG for OpenGraph discovery.");
+assert.match(overview, /<meta name="twitter:image" content="https:\/\/fenrua\.ai\/assets\/fenrua-header-logo\.png" \/>/, "overview must use the frozen PNG for Twitter discovery.");
 assert.match(overview, /data-chain-meta="feed-status"/, "overview must expose live chain feed status");
 assert.match(
   overview,
