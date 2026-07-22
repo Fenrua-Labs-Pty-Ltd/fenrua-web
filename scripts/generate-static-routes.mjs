@@ -658,7 +658,7 @@ const organizationJsonLd = JSON.stringify(
     legalName: company.legalName,
     alternateName: [company.displayName, "Fenrua"],
     url: "https://fenrua.ai/",
-    logo: "https://fenrua.ai/assets/fenrua-header-logo.jpg",
+    logo: "https://fenrua.ai/assets/fenrua-header-logo.png",
     foundingDate: company.registrationDate,
     taxID: `ABN ${company.abn}`,
     identifier: [
@@ -812,12 +812,12 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
     <meta property="og:title" content="${attr(title)}" />
     <meta property="og:description" content="${attr(description)}" />
     <meta property="og:url" content="${attr(canonicalUrl)}" />
-    <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
+    <meta property="og:image" content="https://fenrua.ai/assets/fenrua-header-logo.png" />
     <meta property="og:image:alt" content="Fenrua logo" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="${attr(title)}" />
     <meta name="twitter:description" content="${attr(description)}" />
-    <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.jpg" />
+    <meta name="twitter:image" content="https://fenrua.ai/assets/fenrua-header-logo.png" />
     <meta name="twitter:image:alt" content="Fenrua logo" />
     <link rel="canonical" href="${attr(canonicalUrl)}" />
     <link rel="alternate" hreflang="en-AU" href="${attr(canonicalUrl)}" />
@@ -826,7 +826,11 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
     <script type="application/ld+json">${organizationJsonLd}</script>
     <script type="application/ld+json">${pageDiscoveryJsonLd({ title, description, canonical, current })}</script>
     <title>${esc(title)}</title>
-    <link rel="icon" href="/assets/fenrua-header-logo.jpg" type="image/jpeg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/technical-data.js" defer></script>
 ${pageScripts ? `    ${pageScripts}\n` : ""}
@@ -837,7 +841,7 @@ ${pageScripts ? `    ${pageScripts}\n` : ""}
     ${liveAnnouncer}
     <header class="${headerClass}" aria-label="Site header">
       <a class="brand" href="/" aria-label="Fenrua BlackBox Protocol home">
-        <img src="/assets/fenrua-header-logo.jpg" width="40" height="40" alt="" />
+        <img src="/assets/fenrua-header-logo.png" width="40" height="40" alt="" decoding="async" />
         <span>
           <strong>Fenrua BlackBox Protocol</strong>
           <small>by Fenrua Labs Pty Ltd</small>

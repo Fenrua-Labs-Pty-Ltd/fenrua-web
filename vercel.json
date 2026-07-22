@@ -394,12 +394,12 @@
     },
     {
       "source": "/opengraph-image",
-      "destination": "/assets/fenrua-header-logo.jpg",
+      "destination": "/assets/fenrua-header-logo.png",
       "permanent": true
     },
     {
       "source": "/twitter-image",
-      "destination": "/assets/fenrua-header-logo.jpg",
+      "destination": "/assets/fenrua-header-logo.png",
       "permanent": true
     },
     {

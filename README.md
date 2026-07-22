@@ -463,7 +463,8 @@ Core public files:
 - `api/chain-n521-observation-key.js` — Chain N521 public Ed25519 verification metadata endpoint
 - `server/observation-continuity.js` — atomic durable replay, equivocation, and key-rotation checkpoint
 - `scripts/check-secret-boundary.mjs` — fail-closed public source credential and vault gate
-- `assets/fenrua-header-logo.jpg` — shared Fenrua header and favicon mark
+- `assets/fenrua-header-logo.png` — frozen Fenrua header and crawler identity mark
+- `favicon.ico` and `site.webmanifest` — browser and PWA identity entry points
 - `docs/` — public boundary, release, trust, and operating documentation
 
 Deeper operating details are kept in `docs/` rather than expanded in this README.
