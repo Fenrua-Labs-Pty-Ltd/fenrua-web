@@ -9,7 +9,11 @@ const maxFreshObservationAgeSeconds = 90;
 const gatewayTimeoutMs = 5_000;
 const maxGatewayResponseBytes = 2_048;
 const responseCacheControl = "public, max-age=0, must-revalidate";
-const responseCdnCacheControl = "public, s-maxage=5, stale-while-revalidate=0, stale-if-error=0";
+// The browser checks every 20 seconds, while a signed observation is published
+// at most once per 15-second watcher/publisher cycle. A one-minute edge cache
+// keeps public reads responsive without changing the signed observation or its
+// timestamp; the client still derives freshness from `observed_at`.
+const responseCdnCacheControl = "public, s-maxage=60, stale-while-revalidate=0, stale-if-error=0";
 const rateLimitWindowMs = 60_000;
 const rateLimitMaximumRequests = 60;
 const rateLimitMaximumEntries = 10_000;

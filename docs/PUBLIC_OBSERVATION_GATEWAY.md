@@ -68,10 +68,14 @@ forwarding, or operator/customer metadata is returned.
 
 - Two agreeing sources and a fresh signed record produce `confirmed` / `Live`.
 - Quorum loss produces `partial`; the UI does not show an unconfirmed block as
-  a live head.
+  a live head. A valid signed partial is presented as a yellow `Awaiting next
+  observation` state. It may retain only a clearly labelled `Last verified`
+  block from the same browser session; that value is never presented as the
+  current head.
 - A confirmed record older than 90 seconds is shown as `Stale`. The ceiling
-  allows for the 15-second private watcher/publisher cadence, a 20-second
-  browser refresh, and the bounded cache; it is not a claim of immediate
+  allows for the 15-second private watcher/publisher cadence and the bounded
+  cache; the browser derives the live/stale state directly from the signed
+  observation time, not from the cache age. It is not a claim of immediate
   finality.
 - No current observation produces `unavailable`, never a false success.
 - A chain with no configured independent publisher is `Awaiting signed
@@ -93,9 +97,12 @@ forwarding, or operator/customer metadata is returned.
   namespace and configured Upstash Redis REST store. A configured store outage,
   partial configuration, malformed response, or rejected atomic transition
   never degrades to stateless acceptance.
-- The public status endpoint uses a 5-second CDN cache with no stale-on-error
+- The public status endpoint uses a 60-second CDN cache with no stale-on-error
   serving. The browser refreshes every 20 seconds while the private signed
-  publisher continues every 15 seconds.
+  publisher continues every 15 seconds. An edge may replay one response for up
+  to 60 seconds, but a cached record keeps its original signed `observed_at`;
+  it never receives a synthetic current timestamp. The browser's 90-second
+  live/stale decision is derived only from that signed timestamp.
 - A salted, in-memory, best-effort limit of 60 requests per minute per client
   is applied per warm serverless isolate. It does not replace edge-level DDoS
   protection.

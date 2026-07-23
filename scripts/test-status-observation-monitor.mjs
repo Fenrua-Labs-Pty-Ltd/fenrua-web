@@ -26,7 +26,11 @@ assert.match(monitor, /cache: "no-store"/, "The monitor must request a current p
 assert.match(monitor, /function hydrateCompactCard\(chain, state\)/, "The validated status render must hydrate the compact intro cards.");
 assert.match(monitor, /observation\.observed_at !== chain\.checkedAt/, "The monitor must bind the row time to the signed observation time.");
 assert.match(monitor, /chain\.observationSequence !== observation\.sequence/, "The monitor must bind the displayed sequence to the signed observation.");
-assert.match(monitor, /No current state is asserted/, "Unavailable monitor responses must fail closed.");
+assert.match(
+  monitor,
+  /No current signed observation is asserted/,
+  "An observation gap must not be presented as a current chain state."
+);
 assert.match(monitor, /advanced in this browser session/, "Sequence progress must be scoped to the current browser session.");
 assert.match(monitor, /highWater: new Map\(\)/, "The monitor must retain a browser-session high-water record per chain.");
 assert.match(monitor, /candidate\.keyId !== previous\.keyId/, "An unannounced verification-key change must be rejected.");
@@ -62,6 +66,36 @@ for (const reason of [
 }
 assert.match(monitor, /browser-session high-water preserved/, "A rejected candidate must preserve the last accepted high-water record.");
 assert.match(monitor, /state: "failure", sequence: null/, "A rejected candidate must be represented as a failure, never live or current.");
+assert.match(
+  monitor,
+  /const partialPresentationGraceSeconds = 60/,
+  "A valid signed partial must use a bounded one-minute presentation window."
+);
+assert.match(
+  monitor,
+  /partialSinceMs:[\s\S]{0,300}previous\?\.partialSinceMs \?\? Date\.now\(\)/,
+  "The partial presentation window must start once and never restart for later partial refreshes."
+);
+assert.match(
+  monitor,
+  /Last verified \$\{formatNumber\(retained\.blockNumber\)\} · awaiting next observation/,
+  "A partial may retain only a clearly labelled non-current block."
+);
+assert.match(
+  monitor,
+  /function renderRevalidating\(row,[\s\S]{0,180}setState\(row, "revalidating"\)/,
+  "A valid partial presentation must use the neutral revalidating state."
+);
+assert.match(
+  monitor,
+  /if \(state === "partial"\)[\s\S]{0,900}renderRevalidating\(row, observation, monotonicity, retained\)/,
+  "A valid partial must render as a neutral awaiting state, not a current head."
+);
+assert.match(
+  monitor,
+  /Signed observation rejected; no current state is asserted/,
+  "A rejected signature must remain distinct from an ordinary observation gap."
+);
 assert.doesNotMatch(monitor, /signed sequence[^\n]*reset/i, "Sequence rollback must never be presented as a benign reset.");
 assert.doesNotMatch(monitor, /FENRUA_[A-Z_]+/, "The browser monitor must not read protected configuration.");
 assert.doesNotMatch(monitor, /https?:\/\//, "The browser monitor must not contact an external or protected endpoint.");

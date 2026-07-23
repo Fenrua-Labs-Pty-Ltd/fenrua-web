@@ -3,6 +3,7 @@
   const initialRefreshMs = 20_000;
   const maximumRefreshMs = 60_000;
   const requestTimeoutMs = 8_000;
+  const partialPresentationGraceSeconds = 60;
   const validStates = new Set(["live", "delayed", "partial", "waiting", "unavailable"]);
   const rows = new Map(
     [...document.querySelectorAll("[data-status-monitor-row]")]
@@ -63,7 +64,10 @@
     const compactState = {
       live: "confirmed",
       delayed: "delayed",
-      partial: "partial",
+      revalidating: "waiting",
+      awaitingConfirmation: "waiting",
+      awaiting: "waiting",
+      partial: "waiting",
       waiting: "waiting",
       failure: "wrong-chain",
       unavailable: "unavailable",
@@ -93,7 +97,10 @@
   function stateDisplay(state) {
     if (state === "live") return { label: "Live", className: "status-success" };
     if (state === "delayed") return { label: "Stale", className: "status-stale" };
-    if (state === "partial") return { label: "Partial", className: "status-partial" };
+    if (state === "revalidating") return { label: "Awaiting next observation", className: "status-awaiting" };
+    if (state === "awaitingConfirmation") return { label: "Awaiting next observation", className: "status-awaiting" };
+    if (state === "awaiting") return { label: "Awaiting next observation", className: "status-awaiting" };
+    if (state === "partial") return { label: "Awaiting next observation", className: "status-awaiting" };
     if (state === "waiting") return { label: "Awaiting signed observation", className: "status-stale" };
     if (state === "failure") return { label: "Failure", className: "status-failure" };
     return { label: "Unavailable", className: "status-failure" };
@@ -132,6 +139,28 @@
 
   function formatNumber(value) {
     return new Intl.NumberFormat("en-US").format(value);
+  }
+
+  function retainedConfirmedObservation(highWater) {
+    if (
+      !isSafeNonNegativeInteger(highWater?.confirmedBlock) ||
+      !isIsoTimestamp(highWater?.confirmedObservedAt)
+    ) {
+      return null;
+    }
+
+    const ageSeconds = observationAgeSeconds(highWater.confirmedObservedAt);
+    if (ageSeconds === null) return null;
+    return {
+      blockNumber: highWater.confirmedBlock,
+      observedAt: highWater.confirmedObservedAt,
+      ageSeconds,
+    };
+  }
+
+  function isWithinRevalidationWindow(highWater) {
+    if (!Number.isFinite(highWater?.partialSinceMs)) return false;
+    return Math.max(0, Date.now() - highWater.partialSinceMs) <= partialPresentationGraceSeconds * 1_000;
   }
 
   function signedObservation(snapshot, chain) {
@@ -204,6 +233,12 @@
       keyId: observation.key_id,
       sequence: observation.sequence,
       confirmedBlock: isSafeNonNegativeInteger(observation.observed_block) ? observation.observed_block : previous?.confirmedBlock ?? null,
+      confirmedObservedAt: isSafeNonNegativeInteger(observation.observed_block)
+        ? observation.observed_at
+        : previous?.confirmedObservedAt ?? null,
+      partialSinceMs: isSafeNonNegativeInteger(observation.observed_block)
+        ? null
+        : previous?.partialSinceMs ?? Date.now(),
       observedAt: observation.observed_at,
       signature: observation.signature,
     };
@@ -224,7 +259,9 @@
       if (
         candidate.signature !== previous.signature ||
         candidate.observedAt !== previous.observedAt ||
-        candidate.confirmedBlock !== previous.confirmedBlock
+        candidate.confirmedBlock !== previous.confirmedBlock ||
+        candidate.confirmedObservedAt !== previous.confirmedObservedAt ||
+        candidate.partialSinceMs !== previous.partialSinceMs
       ) {
         return { accepted: false, reason: "same-sequence equivocation rejected", highWater: previous };
       }
@@ -279,7 +316,11 @@
     setText(
       row,
       "[data-status-monitor-source]",
-      state === "waiting" ? "Awaiting a signed public observation" : "No current signed observation returned"
+      state === "waiting"
+        ? "Awaiting a signed public observation"
+        : state === "awaiting"
+          ? "No current signed observation; awaiting next update"
+          : "No current signed observation returned"
     );
     setText(row, "[data-status-monitor-freshness]", "No current freshness claim");
   }
@@ -303,6 +344,56 @@
     setText(row, "[data-status-monitor-freshness]", "No current freshness claim; browser-session high-water preserved");
   }
 
+  function renderRevalidating(row, observation, monotonicity, retained) {
+    setState(row, "revalidating");
+    setObservationTime(row, observation.observed_at);
+    setText(
+      row,
+      "[data-status-monitor-sequence]",
+      `Signed sequence ${formatNumber(observation.sequence)} · last verified ${formatNumber(retained.blockNumber)}`
+    );
+    setText(
+      row,
+      "[data-status-monitor-block]",
+      `Last verified ${formatNumber(retained.blockNumber)} · awaiting next observation`
+    );
+    setText(row, "[data-status-monitor-source]", "Last verified signed observation; awaiting next update");
+    setText(
+      row,
+      "[data-status-monitor-freshness]",
+      `Last verified ${relativeObservationTime(retained.observedAt)} · ${partialPresentationGraceSeconds}-second update window`
+    );
+    return { chain: row.dataset.statusMonitorRow, state: "revalidating", sequence: observation.sequence, monotonicity };
+  }
+
+  function renderAwaitingConfirmation(row, observation, retained) {
+    setState(row, "awaitingConfirmation");
+    if (retained) {
+      setObservationTime(row, observation.observed_at);
+      setText(
+        row,
+        "[data-status-monitor-block]",
+        `Last verified ${formatNumber(retained.blockNumber)} · awaiting next observation`
+      );
+      setText(
+        row,
+        "[data-status-monitor-freshness]",
+        `Last verified ${relativeObservationTime(retained.observedAt)} · awaiting next signed observation`
+      );
+    } else {
+      setObservationTime(row, observation.observed_at);
+      setText(row, "[data-status-monitor-block]", "No verified block");
+      setText(row, "[data-status-monitor-freshness]", "No current confirmed head is asserted");
+    }
+    setText(
+      row,
+      "[data-status-monitor-sequence]",
+      `Signed sequence ${formatNumber(observation.sequence)} · awaiting next confirmed observation`
+    );
+    setText(row, "[data-status-monitor-source]", "Signed observation received; awaiting next update");
+    return { chain: row.dataset.statusMonitorRow, state: "awaitingConfirmation", sequence: observation.sequence };
+  }
+
   function renderChain(snapshot, chain) {
     const chainId = chain?.expectedChainId;
     const row = rows.get(chainId);
@@ -312,11 +403,15 @@
     const state = effectiveState(chain, observation, snapshot.freshnessSeconds);
     if (!observation) {
       const assertedSignedState = chain?.status === "live" || chain?.status === "delayed" || chain?.status === "partial";
-      const renderedState = assertedSignedState ? "failure" : state;
+      const renderedState = assertedSignedState ? "failure" : state === "unavailable" ? "awaiting" : state;
       renderUnavailable(
         row,
         renderedState,
-        state === "waiting" ? "Awaiting a signed public observation." : "Signed observation binding failed; no current state is asserted."
+        state === "waiting"
+          ? "Awaiting a signed public observation."
+          : assertedSignedState
+            ? "Signed observation binding failed; no current state is asserted."
+            : "No current signed observation is asserted; awaiting next observation."
       );
       return { chain: chainId, state: renderedState, sequence: null };
     }
@@ -325,6 +420,16 @@
     if (!monotonicity.accepted) {
       renderRejected(row, observation, monotonicity);
       return { chain: chainId, state: "failure", sequence: null };
+    }
+
+    if (state === "partial") {
+      const retained = retainedConfirmedObservation(monotonicity.highWater);
+      if (retained && isWithinRevalidationWindow(monotonicity.highWater)) {
+        const rendered = renderRevalidating(row, observation, monotonicity, retained);
+        return { chain: chainId, state: rendered.state, sequence: rendered.sequence };
+      }
+      const rendered = renderAwaitingConfirmation(row, observation, retained);
+      return { chain: chainId, state: rendered.state, sequence: rendered.sequence };
     }
 
     setState(row, state);
@@ -366,12 +471,12 @@
     monitoredChains.forEach((chain) => {
       const row = rows.get(chain);
       if (row) {
-        renderUnavailable(row, "unavailable", "Public monitor unavailable; no current observation is asserted.");
-        hydrateCompactCard(chain, "unavailable");
+        renderUnavailable(row, "awaiting", "No current signed observation is asserted; awaiting next observation.");
+        hydrateCompactCard(chain, "awaiting");
       }
     });
-    if (meta) meta.textContent = `The public monitor did not return a valid current observation. No current state is asserted; retrying in ${Math.round(monitor.retryMs / 1_000)} seconds.`;
-    announce(monitoredChains.map((chain) => ({ chain, state: "unavailable", sequence: null })));
+    if (meta) meta.textContent = `No current signed observation is asserted; awaiting the next update in ${Math.round(monitor.retryMs / 1_000)} seconds.`;
+    announce(monitoredChains.map((chain) => ({ chain, state: "awaiting", sequence: null })));
   }
 
   function normalizeSnapshot(payload) {

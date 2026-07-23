@@ -80,8 +80,28 @@ assert.match(
 );
 assert.match(
   kernelStatus,
-  /Feed failure; browser-session high-water preserved/,
-  "A refresh failure must remove current-state claims while preserving only labelled session history."
+  /Failure · \$\{activity\.reason\}; browser-session high-water preserved/,
+  "A rejected signed observation must remain a distinct fail-closed integrity state."
+);
+assert.match(
+  kernelStatus,
+  /No current observation asserted; awaiting next observation/,
+  "A transport outage must remove current-state claims while using the neutral awaiting presentation."
+);
+assert.match(
+  kernelStatus,
+  /const partialPresentationGraceSeconds = 60/,
+  "A valid signed partial must use the bounded one-minute presentation window."
+);
+assert.match(
+  kernelStatus,
+  /Last verified \$\{formatNumber\(retained\.blockNumber\)\} · awaiting next observation/,
+  "A valid partial may retain only a clearly labelled, non-current block."
+);
+assert.match(
+  kernelStatus,
+  /if \(displayChain\.status === "partial"\)[\s\S]{0,1800}card\.dataset\.status = "waiting"/,
+  "A valid partial must be presented as an awaiting state rather than a current live head."
 );
 
 console.log(JSON.stringify({ status: "ok", scope: "frozen-live-card-boundary", boundaries: boundaries.length }));

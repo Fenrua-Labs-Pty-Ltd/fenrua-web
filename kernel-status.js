@@ -177,8 +177,8 @@ const chainFieldMap = {
 const chainRefreshMs = 20_000;
 const chainFetchTimeoutMs = 8_000;
 const chainMaxBackoffMs = 60_000;
-const maxSnapshotAgeSeconds = 30;
 const defaultFreshnessSeconds = 90;
+const partialPresentationGraceSeconds = 60;
 const chainProbe = {
   nextAt: 0,
   tickId: null,
@@ -188,6 +188,7 @@ const chainProbe = {
   retryMs: chainRefreshMs,
   freshnessSeconds: defaultFreshnessSeconds,
   hasSnapshot: false,
+  snapshot: null,
   highWater: new Map(),
 };
 const allowedChainStates = new Set(["live", "delayed", "partial", "waiting", "unavailable"]);
@@ -237,13 +238,33 @@ function secondsSince(value) {
   return Math.max(0, Math.floor((Date.now() - timestamp) / 1_000));
 }
 
-function effectiveHeadAge(chain, payload) {
-  // `blockAgeSeconds` is already calculated from `observed_at` by the server.
-  // Add only time since this browser received the snapshot; adding checkedAt
-  // again would double-count the same age and cause false stale states.
-  const elapsed = secondsSince(payload.generatedAt);
-  if (!Number.isSafeInteger(chain.blockAgeSeconds) || elapsed === null) return null;
-  return chain.blockAgeSeconds + elapsed;
+function retainedConfirmedObservation(highWater) {
+  if (
+    !isSafeNonNegativeInteger(highWater?.confirmedBlock) ||
+    !isIsoTimestamp(highWater?.confirmedObservedAt)
+  ) {
+    return null;
+  }
+
+  const ageSeconds = secondsSince(highWater.confirmedObservedAt);
+  if (ageSeconds === null) return null;
+  return {
+    blockNumber: highWater.confirmedBlock,
+    observedAt: highWater.confirmedObservedAt,
+    ageSeconds,
+  };
+}
+
+function isWithinRevalidationWindow(highWater) {
+  if (!Number.isFinite(highWater?.partialSinceMs)) return false;
+  return Math.max(0, Date.now() - highWater.partialSinceMs) <= partialPresentationGraceSeconds * 1_000;
+}
+
+function effectiveHeadAge(chain) {
+  // `checkedAt` is bound to the signed `observed_at` for a confirmed record.
+  // Cache age and server generation time are not evidence of the chain head, so
+  // the client derives freshness only from this signed observation timestamp.
+  return secondsSince(chain.checkedAt);
 }
 
 function normalizeRefreshMs(value) {
@@ -325,6 +346,8 @@ function formatSourceValue(value) {
   if (value === "signed-observation") return "signed bounded observation";
   if (value === "stale-observation") return "signed observation (stale)";
   if (value === "partial-observation") return "partial observation";
+  if (value === "last-verified-observation") return "last verified signed observation; awaiting next update";
+  if (value === "awaiting-next-observation") return "no current signed observation; awaiting next update";
   if (value === "confirmed") return "live observation confirmed";
   if (value === "stale") return "stale observation";
   if (value === "mismatch") return "chain mismatch";
@@ -465,6 +488,12 @@ function assessSignedActivity(chain, payload) {
     confirmedBlock: isSafeNonNegativeInteger(observation.observed_block)
       ? observation.observed_block
       : previous?.confirmedBlock ?? null,
+    confirmedObservedAt: isSafeNonNegativeInteger(observation.observed_block)
+      ? observation.observed_at
+      : previous?.confirmedObservedAt ?? null,
+    partialSinceMs: isSafeNonNegativeInteger(observation.observed_block)
+      ? null
+      : previous?.partialSinceMs ?? Date.now(),
     observedAt: observation.observed_at,
     signature: observation.signature,
   };
@@ -475,6 +504,7 @@ function assessSignedActivity(chain, payload) {
       accepted: true,
       label: `Signed sequence ${formatNumber(sequence)} · current`,
       state: "steady",
+      highWater: candidate,
     };
   }
   const acceptedKeyRotation =
@@ -489,12 +519,15 @@ function assessSignedActivity(chain, payload) {
     const isIdentical =
       candidate.signature === previous.signature &&
       candidate.observedAt === previous.observedAt &&
-      candidate.confirmedBlock === previous.confirmedBlock;
+      candidate.confirmedBlock === previous.confirmedBlock &&
+      candidate.confirmedObservedAt === previous.confirmedObservedAt &&
+      candidate.partialSinceMs === previous.partialSinceMs;
     return isIdentical
       ? {
           accepted: true,
           label: `Signed sequence ${formatNumber(sequence)} · current`,
           state: "steady",
+          highWater: previous,
         }
       : { accepted: false, reason: "same-sequence equivocation rejected", highWater: previous };
   }
@@ -516,6 +549,7 @@ function assessSignedActivity(chain, payload) {
       ? `Signed sequence ${formatNumber(sequence)} · authenticated key rotation accepted`
       : `Signed sequence ${formatNumber(sequence)} · advanced`,
     state: acceptedKeyRotation ? "rotated" : "advanced",
+    highWater: candidate,
   };
 }
 
@@ -525,6 +559,8 @@ function formatConfidence(value) {
   if (value === "stale") return "Stale";
   if (value === "failure") return "Failure";
   if (value === "success") return "Confirmed";
+  if (value === "last-verified") return "Last verified";
+  if (value === "awaiting") return "Awaiting";
   return "Unavailable";
 }
 
@@ -534,9 +570,46 @@ function formatCountdown() {
   return seconds === 0 ? "refreshing" : `next update in ${seconds}s`;
 }
 
-function updateChainCountdown() {
+function updateChainFeedStatus(cardStates) {
+  const healthy = cardStates.filter(
+    (state) =>
+      state === "confirmed" ||
+      state === "partial" ||
+      state === "waiting" ||
+      state === "revalidating" ||
+      state === "awaiting"
+  );
+  const feedStatus = cardStates.includes("rollback")
+    ? "failure"
+    : cardStates.includes("revalidating") || cardStates.includes("awaiting")
+      ? "awaiting next observation"
+      : healthy.length
+        ? cardStates.every((state) => state === "confirmed")
+          ? "success"
+          : cardStates.includes("waiting")
+            ? "awaiting signed observation"
+            : "partial"
+        : cardStates.every((state) => state === "wrong-chain")
+          ? "failure"
+          : cardStates.every((state) => state === "unavailable")
+            ? "unavailable"
+            : "stale";
+  setText('[data-chain-meta="feed-status"]', feedStatus);
+  setText('[data-chain-meta="announcer"]', `Chain feed is ${feedStatus}.`);
+}
+
+function renderSnapshotCards(payload) {
+  const cardStates = payload.chains.map((chain) => updateChainCard(chain, payload));
+  updateChainFeedStatus(cardStates);
+  return cardStates;
+}
+
+function updateChainCountdown({ renderSnapshot = true } = {}) {
   setText('[data-chain-meta="countdown"]', formatCountdown());
   updateVerificationRails();
+  if (renderSnapshot && chainProbe.snapshot && !document.hidden) {
+    renderSnapshotCards(chainProbe.snapshot);
+  }
 }
 
 function startChainCountdown() {
@@ -550,45 +623,26 @@ function updateChainMeta(payload, cardStates) {
   chainProbe.freshnessSeconds = normalizeFreshnessSeconds(payload.freshnessSeconds);
   chainProbe.nextAt = Date.now() + refreshMs;
 
-  const healthy = cardStates.filter((state) => state === "confirmed" || state === "partial" || state === "waiting");
-  const feedStatus = cardStates.includes("rollback")
-    ? "failure"
-    : healthy.length
-    ? cardStates.every((state) => state === "confirmed")
-      ? "success"
-      : "partial"
-    : cardStates.every((state) => state === "wrong-chain")
-      ? "failure"
-      : cardStates.every((state) => state === "unavailable")
-        ? "unavailable"
-        : "stale";
-  setText('[data-chain-meta="feed-status"]', feedStatus);
-  setText('[data-chain-meta="announcer"]', `Chain feed is ${feedStatus}.`);
+  updateChainFeedStatus(cardStates);
   setText('[data-chain-meta="generated"]', formatCheckedAt(payload.generatedAt));
-  updateChainCountdown();
+  updateChainCountdown({ renderSnapshot: false });
 }
 
 function updateChainCard(chain, payload) {
   const fields = chainFieldMap[chain.expectedChainId];
   if (!fields) return "unavailable";
 
-  const snapshotAge = secondsSince(payload.generatedAt);
-  const agedHead = effectiveHeadAge(chain, payload);
+  const agedHead = effectiveHeadAge(chain);
   const displayChain = {
     ...chain,
     blockAgeSeconds: agedHead,
     status:
       chain.status === "live" &&
-      (snapshotAge === null ||
-        snapshotAge > maxSnapshotAgeSeconds ||
-        agedHead === null ||
-        agedHead > chainProbe.freshnessSeconds)
+      (agedHead === null || agedHead > chainProbe.freshnessSeconds)
         ? "delayed"
         : chain.status,
   };
   const hasCurrentBlock = Number.isSafeInteger(chain.blockNumber);
-  const status = cardStatus(displayChain);
-  const confirmation = displayChain.confirmation ?? {};
   const activity = assessSignedActivity(displayChain, payload);
 
   if (!activity.accepted) {
@@ -613,6 +667,58 @@ function updateChainCard(chain, payload) {
     });
     return "rollback";
   }
+
+  const retained = retainedConfirmedObservation(activity.highWater);
+  if (displayChain.status === "unavailable") {
+    setText(fields.status, "Awaiting next observation");
+    setText(fields.progress, "awaiting next observation");
+    setText(fields.chainId, formatChainIdentity(chain));
+    setText(fields.block, "No current observation");
+    setText(fields.checked, "not observed");
+    setText(fields.sourceHeader, formatSource("awaiting-next-observation"));
+    setText(fields.sourceResult, formatSourceValue("awaiting-next-observation"));
+    setText(fields.confidence, formatConfidence("awaiting"));
+    setText(fields.activity, "No current signed observation asserted");
+    document.querySelectorAll(fields.card).forEach((card) => {
+      card.dataset.status = "waiting";
+      card.dataset.activity = "awaiting";
+    });
+    return "awaiting";
+  }
+
+  if (displayChain.status === "partial") {
+    const withinGraceWindow = retained && isWithinRevalidationWindow(activity.highWater);
+    setText(fields.status, "Awaiting next observation");
+    setText(fields.progress, "awaiting next observation");
+    setText(fields.chainId, formatChainIdentity(chain));
+    setText(
+      fields.block,
+      retained
+        ? `Last verified ${formatNumber(retained.blockNumber)} · awaiting next observation`
+        : "Awaiting next confirmed observation"
+    );
+    setText(fields.checked, formatCheckedAt(chain.checkedAt));
+    setText(fields.sourceHeader, formatSource(retained ? "last-verified-observation" : "awaiting-next-observation"));
+    setText(fields.sourceResult, formatSourceValue(retained ? "last-verified-observation" : "awaiting-next-observation"));
+    setText(fields.confidence, formatConfidence(retained ? "last-verified" : "awaiting"));
+    setText(
+      fields.activity,
+      withinGraceWindow
+        ? `Signed sequence ${formatNumber(displayChain.observationSequence)} · awaiting next update`
+        : `Signed sequence ${formatNumber(displayChain.observationSequence)} · awaiting next confirmed observation`
+    );
+    document.querySelectorAll(fields.card).forEach((card) => {
+      card.dataset.status = "waiting";
+      card.dataset.activity = withinGraceWindow ? "revalidating" : "awaiting";
+    });
+    return withinGraceWindow ? "revalidating" : "awaiting";
+  }
+
+  const status = cardStatus(displayChain);
+  const confirmation =
+    displayChain.status === "delayed" && chain.status === "live"
+      ? { evidenceSource: "stale-observation", confidence: "stale" }
+      : displayChain.confirmation ?? {};
 
   setText(fields.status, status.label);
   setText(fields.progress, progressLabel(status.state));
@@ -644,46 +750,46 @@ function scheduleChainRead(delay) {
 
 function showFeedFailure() {
   chainProbe.nextAt = Date.now() + chainProbe.retryMs;
-  setText('[data-chain-meta="feed-status"]', "retrying");
-  setText('[data-chain-meta="announcer"]', "Chain feed is retrying. No current observation is asserted.");
-  updateChainCountdown();
+  setText('[data-chain-meta="feed-status"]', "awaiting next observation");
+  setText('[data-chain-meta="announcer"]', "Chain feed is awaiting the next observation. No current observation is asserted.");
+  updateChainCountdown({ renderSnapshot: false });
 
   Object.values(chainFieldMap).forEach((fields) => {
     const previous = chainProbe.highWater.get(fields.chainKey);
+    const retained = retainedConfirmedObservation(previous);
     if (chainProbe.hasSnapshot) {
-      setText(fields.status, "Failure");
+      setText(fields.status, "Awaiting next observation");
       setText(
         fields.block,
-        isSafeNonNegativeInteger(previous?.confirmedBlock)
-          ? `Last accepted ${formatNumber(previous.confirmedBlock)} · not current`
-          : "Observation unavailable"
+        retained
+          ? `Last verified ${formatNumber(retained.blockNumber)} · awaiting next observation`
+          : "No current observation"
       );
-      setText(fields.checked, "no current observation");
-      setText(fields.sourceHeader, formatSource());
-      setText(fields.sourceResult, formatSourceValue());
-      setText(fields.confidence, "Unavailable");
-      setText(fields.activity, "Feed failure; browser-session high-water preserved");
-      setText(fields.progress, "failure");
+      setText(fields.checked, retained ? `Last verified ${formatCheckedAt(retained.observedAt)}` : "not observed");
+      setText(fields.sourceHeader, formatSource(retained ? "last-verified-observation" : "awaiting-next-observation"));
+      setText(fields.sourceResult, formatSourceValue(retained ? "last-verified-observation" : "awaiting-next-observation"));
+      setText(fields.confidence, formatConfidence(retained ? "last-verified" : "awaiting"));
+      setText(fields.activity, "No current observation asserted; awaiting next observation");
+      setText(fields.progress, "awaiting next observation");
       document.querySelectorAll(fields.card).forEach((card) => {
-        card.dataset.status = "unavailable";
-        card.dataset.activity = "failure";
+        card.dataset.status = "waiting";
+        card.dataset.activity = "awaiting";
       });
       return;
     }
 
-    const awaiting = fields.chainKey === 521;
-    setText(fields.status, awaiting ? "Awaiting signed observation" : "Failure");
-    setText(fields.block, "Observation unavailable");
+    setText(fields.status, "Awaiting next observation");
+    setText(fields.block, "No current observation");
     setText(fields.checked, "not observed");
-    const evidenceSource = awaiting ? "awaiting-signed-observation" : undefined;
+    const evidenceSource = "awaiting-next-observation";
     setText(fields.sourceHeader, formatSource(evidenceSource));
     setText(fields.sourceResult, formatSourceValue(evidenceSource));
-    setText(fields.confidence, "Unavailable");
-    setText(fields.activity, awaiting ? "Awaiting signed observation" : "No verified sequence");
-    setText(fields.progress, awaiting ? "loading" : "retrying");
+    setText(fields.confidence, "Awaiting");
+    setText(fields.activity, "No current signed observation asserted");
+    setText(fields.progress, "awaiting next observation");
     document.querySelectorAll(fields.card).forEach((card) => {
-      card.dataset.status = awaiting ? "waiting" : "unavailable";
-      card.dataset.activity = awaiting ? "waiting" : "unavailable";
+      card.dataset.status = "waiting";
+      card.dataset.activity = "awaiting";
     });
   });
 }
@@ -740,12 +846,14 @@ async function readChainProgress() {
 
   try {
     const payload = await fetchChainProgress();
-    const cardStates = payload.chains.map((chain) => updateChainCard(chain, payload));
+    chainProbe.snapshot = payload;
+    const cardStates = renderSnapshotCards(payload);
     updateChainMeta(payload, cardStates);
     chainProbe.hasSnapshot = true;
     chainProbe.retryMs = chainProbe.refreshMs;
     scheduleChainRead(chainProbe.refreshMs);
   } catch {
+    chainProbe.snapshot = null;
     chainProbe.retryMs = Math.min(
       chainMaxBackoffMs,
       Math.max(chainProbe.refreshMs, chainProbe.retryMs * 2)

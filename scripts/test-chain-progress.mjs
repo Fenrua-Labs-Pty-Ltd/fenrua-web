@@ -352,7 +352,11 @@ try {
   assert.match(chainPage, /data-chain-field="978-activity"/);
   assert.match(chainPage, /data-chain-field="521-activity"/);
   assert.doesNotMatch(chainClient, /"0 blocks"|lastChainBlocks|lastChainCheckedAt|Private telemetry not published/);
-  assert.match(chainClient, /secondsSince\(payload\.generatedAt\)/);
+  assert.match(
+    chainClient,
+    /function effectiveHeadAge\(chain\)[\s\S]{0,300}secondsSince\(chain\.checkedAt\)/,
+    "Overview freshness must be derived from the signed observation time, not cache or response generation time."
+  );
   assert.match(chainClient, /const chainRefreshMs = 20_000/);
   assert.match(chainClient, /highWater:\s*new Map\(\)/, "Overview cards must retain a browser-session high-water record per chain.");
   assert.doesNotMatch(chainClient, /sequences:\s*new Map\(\)/, "Overview cards must not track sequence alone.");
@@ -412,7 +416,11 @@ try {
   assert.equal(healthy.headers.get("cache-control"), "public, max-age=0, must-revalidate");
   assert.equal(
     healthy.headers.get("cdn-cache-control"),
-    "public, s-maxage=5, stale-while-revalidate=0, stale-if-error=0"
+    "public, s-maxage=60, stale-while-revalidate=0, stale-if-error=0"
+  );
+  assert.equal(
+    healthy.headers.get("vercel-cdn-cache-control"),
+    "public, s-maxage=60, stale-while-revalidate=0, stale-if-error=0"
   );
   assert.equal(gatewayCalls, 2);
   assert.equal(healthy.body.refreshMs, 20_000);
