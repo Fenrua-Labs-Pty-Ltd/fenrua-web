@@ -108,7 +108,7 @@ function monitorPayload({ observedAt = new Date(Date.now() - 5_000).toISOString(
     version: 1,
     generatedAt: new Date().toISOString(),
     refreshMs: 60_000,
-    freshnessSeconds: 90,
+    freshnessSeconds: 180,
     observations: [
       {
         chain: "978",

@@ -43,7 +43,7 @@
   }
 
   function boundedFreshness(value) {
-    if (!Number.isSafeInteger(value)) return 90;
+    if (!Number.isSafeInteger(value)) return 180;
     return Math.min(Math.max(value, 30), 300);
   }
 

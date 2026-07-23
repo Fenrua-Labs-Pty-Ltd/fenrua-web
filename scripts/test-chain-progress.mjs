@@ -424,7 +424,7 @@ try {
   );
   assert.equal(gatewayCalls, 2);
   assert.equal(healthy.body.refreshMs, 60_000);
-  assert.equal(healthy.body.freshnessSeconds, 90);
+  assert.equal(healthy.body.freshnessSeconds, 180);
   assert.equal(healthy.body.chains[0].status, "live");
   assert.equal(healthy.body.chains[0].observationSequence, 41);
   assert.equal(healthy.body.chains[0].checkedAt, healthy.body.observations.find((record) => record.chain === "978")?.observed_at);
@@ -580,8 +580,19 @@ try {
 
   globalThis.fetch = twoGatewayFetch({
     "978": {
-      observed_at: new Date(Date.now() - 91_000).toISOString(),
-      staleness_seconds: 91,
+      observed_at: new Date(Date.now() - 179_000).toISOString(),
+      staleness_seconds: 180,
+    },
+  });
+  const atFreshnessBoundary = await callHandler({ headers: { "x-forwarded-for": "198.51.100.69" } });
+  assert.equal(atFreshnessBoundary.statusCode, 200);
+  assert.equal(atFreshnessBoundary.body.chains[0].status, "live");
+  assertSanitized(atFreshnessBoundary.body);
+
+  globalThis.fetch = twoGatewayFetch({
+    "978": {
+      observed_at: new Date(Date.now() - 181_000).toISOString(),
+      staleness_seconds: 181,
     },
   });
   const stale = await callHandler({ headers: { "x-forwarded-for": "198.51.100.7" } });

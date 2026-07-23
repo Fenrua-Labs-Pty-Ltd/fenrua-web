@@ -5,7 +5,9 @@ import { enforceObservationContinuity } from "../server/observation-continuity.j
 // browser request to JSON-RPC and never includes an endpoint, peer, hash, or
 // operator detail in its response.
 const refreshMs = 60_000;
-const maxFreshObservationAgeSeconds = 90;
+// A browser refreshes each minute. Keep a confirmed signed observation current
+// for three minutes so a normal refresh/cache delay does not present it as stale.
+const maxFreshObservationAgeSeconds = 180;
 const gatewayTimeoutMs = 5_000;
 const maxGatewayResponseBytes = 2_048;
 const responseCacheControl = "public, max-age=0, must-revalidate";

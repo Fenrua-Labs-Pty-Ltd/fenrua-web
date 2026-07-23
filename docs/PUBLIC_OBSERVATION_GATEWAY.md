@@ -72,9 +72,9 @@ forwarding, or operator/customer metadata is returned.
   observation` state. It may retain only a clearly labelled `Last verified`
   block from the same browser session; that value is never presented as the
   current head.
-- A confirmed record older than 90 seconds is shown as `Stale`. The ceiling
-  allows for the 15-second private watcher/publisher cadence and the bounded
-  cache; the browser derives the live/stale state directly from the signed
+- A confirmed record older than 180 seconds (three minutes) is shown as `Stale`. The three-minute
+  ceiling allows for the 15-second private watcher/publisher cadence and the
+  bounded cache; the browser derives the live/stale state directly from the signed
   observation time, not from the cache age. It is not a claim of immediate
   finality.
 - No current observation produces `unavailable`, never a false success.
@@ -101,7 +101,7 @@ forwarding, or operator/customer metadata is returned.
   serving. The browser refreshes every 60 seconds while the private signed
   publisher continues every 15 seconds. An edge may replay one response for up
   to 60 seconds, but a cached record keeps its original signed `observed_at`;
-  it never receives a synthetic current timestamp. The browser's 90-second
+  it never receives a synthetic current timestamp. The browser's three-minute
   live/stale decision is derived only from that signed timestamp.
 - A salted, in-memory, best-effort limit of 60 requests per minute per client
   is applied per warm serverless isolate. It does not replace edge-level DDoS

@@ -177,7 +177,7 @@ const chainFieldMap = {
 const chainRefreshMs = 60_000;
 const chainFetchTimeoutMs = 8_000;
 const chainMaxBackoffMs = 60_000;
-const defaultFreshnessSeconds = 90;
+const defaultFreshnessSeconds = 180;
 const partialPresentationGraceSeconds = 60;
 const chainProbe = {
   nextAt: 0,
