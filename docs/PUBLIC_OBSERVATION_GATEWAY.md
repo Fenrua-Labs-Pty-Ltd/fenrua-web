@@ -98,7 +98,7 @@ forwarding, or operator/customer metadata is returned.
   partial configuration, malformed response, or rejected atomic transition
   never degrades to stateless acceptance.
 - The public status endpoint uses a 60-second CDN cache with no stale-on-error
-  serving. The browser refreshes every 20 seconds while the private signed
+  serving. The browser refreshes every 60 seconds while the private signed
   publisher continues every 15 seconds. An edge may replay one response for up
   to 60 seconds, but a cached record keeps its original signed `observed_at`;
   it never receives a synthetic current timestamp. The browser's 90-second

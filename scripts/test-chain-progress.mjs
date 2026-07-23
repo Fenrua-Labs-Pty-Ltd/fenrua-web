@@ -357,7 +357,7 @@ try {
     /function effectiveHeadAge\(chain\)[\s\S]{0,300}secondsSince\(chain\.checkedAt\)/,
     "Overview freshness must be derived from the signed observation time, not cache or response generation time."
   );
-  assert.match(chainClient, /const chainRefreshMs = 20_000/);
+  assert.match(chainClient, /const chainRefreshMs = 60_000/);
   assert.match(chainClient, /highWater:\s*new Map\(\)/, "Overview cards must retain a browser-session high-water record per chain.");
   assert.doesNotMatch(chainClient, /sequences:\s*new Map\(\)/, "Overview cards must not track sequence alone.");
   for (const reason of [
@@ -397,7 +397,7 @@ try {
   assert.match(chainClient, /no current observation/i, "A rejected Overview candidate must not be rendered as current.");
   assert.match(chainClient, /Last accepted[^\n]*not current/, "Overview may show the preserved high-water block only when explicitly marked non-current.");
   assert.doesNotMatch(chainClient, /signed sequence[^\n]*reset/i, "Overview sequence rollback must never be presented as a benign reset.");
-  assert.match(chainApi, /const refreshMs = 20_000/);
+  assert.match(chainApi, /const refreshMs = 60_000/);
   assert.match(chainApi, /upstream\.body\?\.getReader\?\.\(\)/);
   assert.match(chainApi, /totalBytes > maxGatewayResponseBytes/);
   assert.match(chainApi, /controller\.abort\(\)[\s\S]{0,200}reader\.cancel/);
@@ -423,7 +423,7 @@ try {
     "public, s-maxage=60, stale-while-revalidate=0, stale-if-error=0"
   );
   assert.equal(gatewayCalls, 2);
-  assert.equal(healthy.body.refreshMs, 20_000);
+  assert.equal(healthy.body.refreshMs, 60_000);
   assert.equal(healthy.body.freshnessSeconds, 90);
   assert.equal(healthy.body.chains[0].status, "live");
   assert.equal(healthy.body.chains[0].observationSequence, 41);

@@ -4,12 +4,12 @@ import { enforceObservationContinuity } from "../server/observation-continuity.j
 // This route is intentionally a bounded public adapter. It never forwards a
 // browser request to JSON-RPC and never includes an endpoint, peer, hash, or
 // operator detail in its response.
-const refreshMs = 20_000;
+const refreshMs = 60_000;
 const maxFreshObservationAgeSeconds = 90;
 const gatewayTimeoutMs = 5_000;
 const maxGatewayResponseBytes = 2_048;
 const responseCacheControl = "public, max-age=0, must-revalidate";
-// The browser checks every 20 seconds, while a signed observation is published
+// The browser checks every 60 seconds, while a signed observation is published
 // at most once per 15-second watcher/publisher cycle. A one-minute edge cache
 // keeps public reads responsive without changing the signed observation or its
 // timestamp; the client still derives freshness from `observed_at`.
