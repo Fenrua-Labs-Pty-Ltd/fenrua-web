@@ -2930,6 +2930,10 @@ tr:last-child td {
     font-size: 0.72rem;
   }
 
+  .site-header-live .site-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .site-header-live .header-chain-rail {
     grid-template-columns: 1fr;
   }
