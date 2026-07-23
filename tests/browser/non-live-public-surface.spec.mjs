@@ -128,6 +128,22 @@ test("Overview presents an unavailable bounded monitor as a non-current awaiting
   await expect(card.locator('[data-chain-field="978-block"]')).toContainText("No current observation");
 });
 
+test("Overview retains its verified high-water during a transport wait", async ({ page }) => {
+  let response = monitorPayload();
+  await mockMonitor(page, () => response);
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await gotoPublic(page, "/");
+
+  const card = page.locator('.desktop-chain-progress [data-chain-card="521"]');
+  await expect(card.locator('[data-chain-field="521-block"]')).toHaveText("272,007");
+
+  response = new Error("unavailable");
+  await page.evaluate(() => window.dispatchEvent(new Event("online")));
+  await expect(card.locator('[data-chain-field="521-status"]')).toHaveText("Awaiting next observation");
+  await expect(card.locator('[data-chain-field="521-block"]')).toContainText("Last verified 272,007");
+  await expect(card.locator('[data-chain-field="521-activity"]')).toContainText("Last verified signed sequence 2,052");
+});
+
 test("Status hydrates monitor rows without duplicating observation cards", async ({ page }) => {
   const payload = monitorPayload();
   await mockMonitor(page, payload);
@@ -147,6 +163,22 @@ test("Status presents an unavailable monitor as a non-current awaiting state", a
 
   await expect(page.locator('[data-status-monitor-row="978"] [data-status-monitor-state]')).toHaveText("Awaiting next observation");
   await expect(page.locator("[data-status-monitor-meta]")).toContainText("No current signed observation is asserted");
+});
+
+test("Status retains its verified high-water during a transport wait", async ({ page }) => {
+  let response = monitorPayload();
+  await mockMonitor(page, () => response);
+  await gotoPublic(page, "/status");
+
+  const row = page.locator('[data-status-monitor-row="521"]');
+  await expect(row.locator('[data-status-monitor-block]')).toHaveText("272,007");
+
+  response = new Error("unavailable");
+  await page.evaluate(() => window.dispatchEvent(new Event("online")));
+  await expect(row.locator('[data-status-monitor-state]')).toHaveText("Awaiting next observation");
+  await expect(row.locator('[data-status-monitor-block]')).toContainText("Last verified 272,007");
+  await expect(row.locator('[data-status-monitor-sequence]')).toContainText("Last verified signed sequence 2,052");
+  await expect(page.locator('[data-status-monitor-meta]')).toContainText("Last verified observations remain visible");
 });
 
 test("Overview retains only a labelled last verified block during a valid signed partial", async ({ page }) => {

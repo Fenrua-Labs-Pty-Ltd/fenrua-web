@@ -668,17 +668,34 @@ function updateChainCard(chain, payload) {
     return "rollback";
   }
 
-  const retained = retainedConfirmedObservation(activity.highWater);
+  const retainedHighWater = activity.highWater ?? chainProbe.highWater.get(chain.expectedChainId);
+  const retained = retainedConfirmedObservation(retainedHighWater);
   if (displayChain.status === "unavailable") {
     setText(fields.status, "Awaiting next observation");
     setText(fields.progress, "awaiting next observation");
     setText(fields.chainId, formatChainIdentity(chain));
-    setText(fields.block, "No current observation");
-    setText(fields.checked, "not observed");
-    setText(fields.sourceHeader, formatSource("awaiting-next-observation"));
-    setText(fields.sourceResult, formatSourceValue("awaiting-next-observation"));
-    setText(fields.confidence, formatConfidence("awaiting"));
-    setText(fields.activity, "No current signed observation asserted");
+    setText(
+      fields.block,
+      retained
+        ? `Last verified ${formatNumber(retained.blockNumber)} · awaiting next observation`
+        : "No current observation"
+    );
+    setText(fields.checked, retained ? `Last verified ${formatCheckedAt(retained.observedAt)}` : "not observed");
+    setText(
+      fields.sourceHeader,
+      formatSource(retained ? "last-verified-observation" : "awaiting-next-observation")
+    );
+    setText(
+      fields.sourceResult,
+      formatSourceValue(retained ? "last-verified-observation" : "awaiting-next-observation")
+    );
+    setText(fields.confidence, formatConfidence(retained ? "last-verified" : "awaiting"));
+    setText(
+      fields.activity,
+      retained && Number.isSafeInteger(retainedHighWater?.sequence)
+        ? `Last verified signed sequence ${formatNumber(retainedHighWater.sequence)} · awaiting next observation`
+        : "No current signed observation asserted"
+    );
     document.querySelectorAll(fields.card).forEach((card) => {
       card.dataset.status = "waiting";
       card.dataset.activity = "awaiting";
@@ -769,7 +786,12 @@ function showFeedFailure() {
       setText(fields.sourceHeader, formatSource(retained ? "last-verified-observation" : "awaiting-next-observation"));
       setText(fields.sourceResult, formatSourceValue(retained ? "last-verified-observation" : "awaiting-next-observation"));
       setText(fields.confidence, formatConfidence(retained ? "last-verified" : "awaiting"));
-      setText(fields.activity, "No current observation asserted; awaiting next observation");
+      setText(
+        fields.activity,
+        retained && Number.isSafeInteger(previous?.sequence)
+          ? `Last verified signed sequence ${formatNumber(previous.sequence)} · awaiting next observation`
+          : "No current observation asserted; awaiting next observation"
+      );
       setText(fields.progress, "awaiting next observation");
       document.querySelectorAll(fields.card).forEach((card) => {
         card.dataset.status = "waiting";

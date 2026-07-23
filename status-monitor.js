@@ -308,8 +308,36 @@
     target.textContent = message;
   }
 
-  function renderUnavailable(row, state, message) {
+  function renderUnavailable(row, state, message, highWater) {
+    const retained = retainedConfirmedObservation(highWater);
     setState(row, state);
+
+    // A transport gap is not evidence that the last signed block vanished.
+    // Keep an already accepted high-water record visible, but label it as
+    // historical so it is never presented as a current head.
+    if (state === "awaiting" && retained) {
+      setObservationTime(row, retained.observedAt);
+      setText(
+        row,
+        "[data-status-monitor-sequence]",
+        Number.isSafeInteger(highWater?.sequence)
+          ? `Last verified signed sequence ${formatNumber(highWater.sequence)} · awaiting next observation`
+          : "Last verified signed observation · awaiting next observation"
+      );
+      setText(
+        row,
+        "[data-status-monitor-block]",
+        `Last verified ${formatNumber(retained.blockNumber)} · awaiting next observation`
+      );
+      setText(row, "[data-status-monitor-source]", "Last verified signed observation; awaiting next update");
+      setText(
+        row,
+        "[data-status-monitor-freshness]",
+        `Last verified ${relativeObservationTime(retained.observedAt)} · awaiting next observation`
+      );
+      return;
+    }
+
     clearObservation(row, message);
     setText(row, "[data-status-monitor-sequence]", "No verified signed sequence");
     setText(row, "[data-status-monitor-block]", "No confirmed block");
@@ -411,7 +439,8 @@
           ? "Awaiting a signed public observation."
           : assertedSignedState
             ? "Signed observation binding failed; no current state is asserted."
-            : "No current signed observation is asserted; awaiting next observation."
+            : "No current signed observation is asserted; awaiting next observation.",
+        monitor.highWater.get(chainId)
       );
       return { chain: chainId, state: renderedState, sequence: null };
     }
@@ -468,14 +497,26 @@
   }
 
   function renderFailure() {
+    const hasRetainedObservation = monitoredChains.some((chain) =>
+      retainedConfirmedObservation(monitor.highWater.get(chain))
+    );
     monitoredChains.forEach((chain) => {
       const row = rows.get(chain);
       if (row) {
-        renderUnavailable(row, "awaiting", "No current signed observation is asserted; awaiting next observation.");
+        renderUnavailable(
+          row,
+          "awaiting",
+          "No current signed observation is asserted; awaiting next observation.",
+          monitor.highWater.get(chain)
+        );
         hydrateCompactCard(chain, "awaiting");
       }
     });
-    if (meta) meta.textContent = `No current signed observation is asserted; awaiting the next update in ${Math.round(monitor.retryMs / 1_000)} seconds.`;
+    if (meta) {
+      meta.textContent = hasRetainedObservation
+        ? `No current signed observation is asserted. Last verified observations remain visible while awaiting the next update in ${Math.round(monitor.retryMs / 1_000)} seconds.`
+        : `No current signed observation is asserted; awaiting the next update in ${Math.round(monitor.retryMs / 1_000)} seconds.`;
+    }
     announce(monitoredChains.map((chain) => ({ chain, state: "awaiting", sequence: null })));
   }
 

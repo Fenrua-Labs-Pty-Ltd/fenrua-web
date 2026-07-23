@@ -238,7 +238,7 @@ test("core public content remains visible without JavaScript", async ({ browser 
   }
 });
 
-test("slow valid and failed observation responses remain bounded visual states", async ({ page }, testInfo) => {
+test("slow valid and unavailable observation responses remain bounded visual states", async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 1280, height: 720 });
   await mockMonitor(page, { payload: monitorPayload(), delayMs: 800 });
   await gotoRoute(page, "/", "domcontentloaded");
@@ -250,8 +250,8 @@ test("slow valid and failed observation responses remain bounded visual states",
 
   await mockMonitor(page, { status: 503 });
   await gotoRoute(page, "/", "domcontentloaded");
-  await expect(card.locator('[data-chain-field="978-status"]')).toHaveText("Failure");
-  await capture(page, testInfo, "overview-failed-observation-1280x720");
+  await expect(card.locator('[data-chain-field="978-status"]')).toHaveText("Awaiting next observation");
+  await capture(page, testInfo, "overview-awaiting-observation-1280x720");
 });
 
 test("named long-content stress fixtures cannot create horizontal overflow", async ({ page }, testInfo) => {
