@@ -76,6 +76,7 @@ assert.equal(headerValue("X-Frame-Options"), "DENY");
 assert.equal(headerValue("Cross-Origin-Opener-Policy"), "same-origin");
 assert.equal(headerValue("Cross-Origin-Resource-Policy"), "same-origin");
 assert.match(headerValue("Content-Security-Policy"), /upgrade-insecure-requests/);
+assert.match(headerValue("Content-Security-Policy"), /connect-src 'self' https:\/\/api\.github\.com https:\/\/raw\.githubusercontent\.com/, "Only the approved public Fenrua-521 source endpoints may extend the connect boundary.");
 const wwwRedirect = vercel.redirects.find(
   (entry) => entry.destination === "https://fenrua.ai/$1" && entry.has?.[0]?.value === "www\\.fenrua\\.ai"
 );

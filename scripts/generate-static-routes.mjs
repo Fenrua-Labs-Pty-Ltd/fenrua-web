@@ -163,6 +163,7 @@ const sectionNavigation = {
   ],
   Research: [
     ["Research registry", "/research"],
+    ["Fenrua-521 evidence", "/fenrua-521"],
     ["P/N521", "/research/pn521-cross-limb-borrow"],
     ["Toolchain evidence lock", "/research/toolchain-evidence-lock"],
     ["Observation boundary", "/research/read-only-chain-observation"],
@@ -229,6 +230,7 @@ const routeLabels = {
   utilities: "Utilities",
   kernel: "Security Kernel",
   research: "Research",
+  "fenrua-521": "Fenrua-521 evidence",
 };
 
 const evidenceRecords = [
@@ -752,7 +754,7 @@ function pageDiscoveryJsonLd({ title, description, canonical, current }) {
 function sectionForCurrent(current) {
   if (["Architecture", "Kernel", "Utilities"].includes(current)) return "Platform";
   if (["Developers", "Verify", "Toolchain"].includes(current)) return "Developers";
-  if (current === "Research") return "Research";
+  if (["Research", "Fenrua-521 evidence"].includes(current)) return "Research";
   if (["Evidence", "Audit", "Security", "Accessibility"].includes(current)) return "Trust";
   if (current === "Status") return "Operations";
   if (["Legal", "Support"].includes(current)) return "Company";
@@ -1707,6 +1709,77 @@ function researchIndex() {
   });
 }
 
+function fenrua521Evidence() {
+  const sourceRepository = "https://github.com/Fenrua-Labs-Pty-Ltd/fenrua-521-public-evidence";
+  const sourceTree = `${sourceRepository}/tree/main/releases`;
+  const fallbackReleases = [
+    {
+      id: "F521-PUB-ENVELOPE-001",
+      published: "24 July 2026",
+      scope: "Sanitized local inter-engine mediation-envelope conformance evidence.",
+      path: "f521-public-envelope-001",
+    },
+    {
+      id: "F521-PUB-BASELINE-001",
+      published: "24 July 2026",
+      scope: "Sanitized deterministic KRN mediator conformance evidence.",
+      path: "f521-public-baseline-001",
+    },
+  ];
+  const fallbackCards = fallbackReleases.map((release) => `<article class="fenrua-521-release-card">
+          <span>PUBLIC RELEASE · SOURCE-DECLARED STATE</span>
+          <h3><code>${esc(release.id)}</code></h3>
+          <p>${esc(release.scope)}</p>
+          <dl class="record-facts">
+            <div><dt>Published</dt><dd>${esc(release.published)}</dd></div>
+            <div><dt>Public results</dt><dd>1 declared result</dd></div>
+          </dl>
+          <a href="${attr(`${sourceTree}/${release.path}`)}">Open source release</a>
+        </article>`).join("\n        ");
+
+  return layout({
+    title: "Fenrua-521 Public Evidence",
+    description: "Public Fenrua-521 evidence releases, refreshed from the source repository with explicit public and private boundaries.",
+    current: "Fenrua-521 evidence",
+    canonicalPath: "/fenrua-521",
+    scripts: '<script src="/fenrua-521-evidence.js" defer></script>',
+    body: `${routeHero("FENRUA-521 · PUBLIC EVIDENCE", "Fenrua-521 evidence", "A source-linked release view for the Fenrua-521 public evidence repository. This page displays only public manifest records that meet the source repository’s declared release-state rule; it does not expose or infer protected execution detail.", `<div class="cta-row"><a class="button button-primary" href="${sourceRepository}">Open public evidence repository</a><a class="button button-secondary" href="${sourceTree}">Browse source releases</a></div>`)}
+      <section class="section-shell" aria-labelledby="fenrua-521-release-title">
+        <p class="eyebrow">AUTO-REFRESHED PUBLIC RELEASES</p>
+        <h2 id="fenrua-521-release-title">Repository-declared release records</h2>
+        <p>Server-rendered fallback records are available before JavaScript runs. When the browser can reach the public source repository, it refreshes this list every ten minutes and renders only manifests that match the published public schema and satisfy the source repository’s public release-state rule. A source declaration is evidence for the stated release record only; it is not a production, security-certification, tenant-availability, or live-service claim.</p>
+        <p><span class="status-badge" data-fenrua-521-status role="status" aria-live="polite" aria-atomic="true">Static public release records shown. Source refresh starts after this page loads.</span></p>
+        <div id="fenrua-521-releases" class="route-grid" data-fenrua-521-releases aria-live="polite">
+          ${fallbackCards}
+        </div>
+      </section>
+      <section class="section-shell split-section" aria-labelledby="fenrua-521-method-title">
+        <div>
+          <p class="eyebrow">PUBLIC RELEASE METHOD</p>
+          <h2 id="fenrua-521-method-title">A narrow, read-only source boundary</h2>
+          <p>The browser reads the repository’s public <code>releases/</code> directory without a credential, account, or write capability. It fetches public manifest files only, checks their public field shape, and orders eligible records by their declared publication time. No browser request is made to a Fenrua private network, operational route, provider dashboard, or customer system.</p>
+          <p>The source repository remains the release authority for these public records. The website does not manufacture release data, calculate a new verdict, or replace local validation. If a source refresh fails, the rendered fallback remains visible and the page reports an unavailable refresh without exposing a diagnostic cause.</p>
+        </div>
+        <div>
+          <p class="eyebrow">DISPLAY ALLOWLIST</p>
+          <h2>What this page may show</h2>
+          <ul class="bullet-list">
+            <li>Public release identifier, declared publication time, scope, and result count.</li>
+            <li>Only manifests using <code>fenrua-521-public-evidence/v1</code> that satisfy the source repository’s public release-state rule.</li>
+            <li>Links back to the exact public source-release directory for independent inspection.</li>
+            <li>Plain-language availability when the public source cannot be refreshed.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="section-shell" aria-labelledby="fenrua-521-boundary-title">
+        <p class="eyebrow">EVIDENCE BOUNDARY</p>
+        <h2 id="fenrua-521-boundary-title">Public evidence is not private execution</h2>
+        <p>Fenrua-521 release records are intentionally limited. They do not disclose formulas, prompts, source-runtime internals, private routes, provider relationships, infrastructure topology, credentials, signing material, customer data, private mesh wiring, recovery information, or protected operational state. The page will not display a release that lacks the expected public schema, declared state, digest-shaped fields, publication time, or at least one declared result.</p>
+        <p>Capability is not authority. A public artifact can support a narrowly stated review without proving a broader system claim. Treat the linked repository records as source evidence within their own published scope and limitations.</p>
+      </section>`,
+  });
+}
+
 function researchPage(item) {
   const recordId = `fenrua-research:${item.slug}`;
   const defaults = {
@@ -2546,6 +2619,7 @@ for (const view of architectureViews) writeRoute(path.join("architecture", view.
 writeRoute("kernel", kernel());
 writeRoute("utilities", utilities());
 writeRoute("research", researchIndex());
+writeRoute("fenrua-521", fenrua521Evidence());
 for (const item of researchItems) writeRoute(path.join("research", item.slug), researchPage(item));
 writeRoute("verify", verify());
 writeRoute("developers", developers());
@@ -2574,6 +2648,7 @@ const sitemapRoutes = [
   "kernel",
   "utilities",
   "research",
+  "fenrua-521",
   ...researchItems.map((item) => `research/${item.slug}`),
   "verify",
   "developers",

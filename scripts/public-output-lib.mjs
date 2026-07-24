@@ -19,6 +19,8 @@ export const publicEntries = [
   "developers",
   "docs",
   "evidence",
+  "fenrua-521",
+  "fenrua-521-evidence.js",
   "favicon.ico",
   "examples",
   "index.html",

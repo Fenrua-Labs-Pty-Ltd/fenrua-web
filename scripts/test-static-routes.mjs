@@ -75,6 +75,7 @@ const routes = [
   "kernel/index.html",
   "utilities/index.html",
   "research/index.html",
+  "fenrua-521/index.html",
   "research/pn521-cross-limb-borrow/index.html",
   "research/toolchain-evidence-lock/index.html",
   "research/read-only-chain-observation/index.html",
@@ -97,7 +98,7 @@ const routes = [
   "accessibility/index.html",
 ];
 
-assert.equal(routes.length, 35, "Static route coverage must match the current public estate.");
+assert.equal(routes.length, 36, "Static route coverage must match the current public estate.");
 
 for (const route of routes) {
   const html = await readFile(new URL(`../${route}`, import.meta.url), "utf8");
@@ -390,6 +391,20 @@ assert.match(research, /class="research-card-list"/);
 assert.match(research, /Open record/);
 assert.match(research, /Primary limitation/);
 
+const fenrua521 = await readFile(new URL("../fenrua-521/index.html", import.meta.url), "utf8");
+const fenrua521Reader = await readFile(new URL("../fenrua-521-evidence.js", import.meta.url), "utf8");
+assert.match(fenrua521, /data-fenrua-521-releases/, "Fenrua-521 must retain its server-rendered release region.");
+assert.match(fenrua521, /fenrua-521-evidence\.js/, "Fenrua-521 must load its bounded public source reader.");
+assert.match(fenrua521, /Repository-declared release records/, "Fenrua-521 must disclose its source-declared release boundary.");
+assert.match(fenrua521, /Public evidence is not private execution/, "Fenrua-521 must preserve the public/private boundary.");
+assert.match(fenrua521Reader, /Fenrua-Labs-Pty-Ltd\/fenrua-521-public-evidence/, "Fenrua-521 must be pinned to the approved public evidence repository.");
+assert.match(fenrua521Reader, /fenrua-521-public-evidence\/v1/, "Fenrua-521 must require the public evidence schema.");
+assert.match(fenrua521Reader, /build_state !== "VERIFIED"/, "Fenrua-521 must reject non-VERIFIED manifests.");
+assert.match(fenrua521Reader, /10 \* 60 \* 1000/, "Fenrua-521 must use the approved refresh window.");
+assert.doesNotMatch(fenrua521Reader, /\bAuthorization\b/i, "Fenrua-521 must not send credentials.");
+assert.doesNotMatch(fenrua521Reader, /localStorage|sessionStorage|document\.cookie/i, "Fenrua-521 must not retain browser credentials.");
+assert.match(fenrua521Reader, /catch \{\s*setStatus\("Public source refresh is unavailable/, "Fenrua-521 must fail closed without diagnostics.");
+
 for (const route of [
   "research/pn521-cross-limb-borrow/index.html",
   "research/toolchain-evidence-lock/index.html",
@@ -478,7 +493,7 @@ assert.doesNotMatch(reviewerDelta, /\b(?:sign[- ]?up|checkout|payment|wallet|tok
 assertNoPositiveReviewerClaims(reviewerDelta, "Reviewer delta");
 
 const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
-for (const route of ["legal", "support", "security", "accessibility", "roadmap"]) assert.match(sitemap, new RegExp(`/${route}<`));
+for (const route of ["legal", "support", "security", "accessibility", "roadmap", "fenrua-521"]) assert.match(sitemap, new RegExp(`/${route}<`));
 for (const route of ["nexus", "fenswap", "fenpresale", "wallet", "privacy", "terms"]) assert.doesNotMatch(sitemap, new RegExp(`/${route}<`));
 
 assert.match(legal, /FENRUA LABS PTY LTD/);

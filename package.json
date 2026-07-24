@@ -41,7 +41,7 @@
     "test:kernel-sync-filesystem": "node scripts/test-kernel-sync-filesystem.mjs",
     "test:toolchain-registry": "node scripts/test-toolchain-registry.mjs",
     "test:verify-examples": "node scripts/test-verify-examples.mjs",
-    "test:static-routes": "node scripts/test-static-routes.mjs",
+    "test:static-routes": "node --check fenrua-521-evidence.js && node scripts/test-static-routes.mjs && node scripts/test-fenrua-521-evidence.mjs",
     "test:live-card-boundary": "node scripts/test-live-card-boundary.mjs",
     "test:public-boundary": "node scripts/test-public-boundary.mjs",
     "test:status-observation-monitor": "node scripts/test-status-observation-monitor.mjs",
