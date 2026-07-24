@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
 const routes = [...sitemap.matchAll(/<loc>https:\/\/fenrua\.ai([^<]+)<\/loc>/g)].map(([, path]) => path);
 
-assert.equal(routes.length, 35, "The current route set must remain explicit in the sitemap.");
+assert.equal(routes.length, 36, "The current route set must remain explicit in the sitemap.");
 for (const route of routes) {
   const file = route === "/" ? "../index.html" : `..${route}/index.html`;
   const html = await readFile(new URL(file, import.meta.url), "utf8");

@@ -85,6 +85,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://fenrua.ai/fenrua-521</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://fenrua.ai/research/pn521-cross-limb-borrow</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>

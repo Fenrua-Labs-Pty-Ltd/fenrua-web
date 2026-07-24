@@ -124,6 +124,26 @@
       "audit": true
     },
     {
+      "id": "fenrua-521-public-evidence",
+      "path": "/fenrua-521",
+      "state": "current",
+      "methods": ["GET", "HEAD"],
+      "expectedStatus": 200,
+      "destination": null,
+      "canonical": "https://fenrua.ai/fenrua-521",
+      "indexPolicy": "index-follow",
+      "cacheClass": "html-current",
+      "contentOwner": "research",
+      "replacement": null,
+      "effectiveDate": "2026-07-25",
+      "reviewDate": "2026-07-25",
+      "evidenceIds": ["site-evidence-input"],
+      "notes": "Public Fenrua-521 evidence release reader with a source-repository fallback and declared release boundary.",
+      "routeClass": "html",
+      "contentType": "text/html",
+      "audit": true
+    },
+    {
       "id": "research-pn521-cross-limb-borrow",
       "path": "/research/pn521-cross-limb-borrow",
       "state": "current",
