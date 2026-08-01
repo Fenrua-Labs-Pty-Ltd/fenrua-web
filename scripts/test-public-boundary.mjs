@@ -48,8 +48,9 @@ assert.deepEqual(company.publicProfiles, [
   { provider: "x", label: "X", url: "https://x.com/FenruaLabs" },
   { provider: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/fenrua-labs-80b679388" },
   { provider: "youtube", label: "YouTube", url: "https://www.youtube.com/@FenruaLabs" },
+  { provider: "hugging-face", label: "Hugging Face", url: "https://huggingface.co/Fenrua-Labs" },
 ]);
-assert.equal(company.publicProfilesVerifiedAt, "2026-07-22");
+assert.equal(company.publicProfilesVerifiedAt, "2026-08-02");
 
 assert.equal(register.schemaVersion, "fenrua.public-document-register.v1");
 for (const record of register.records) {

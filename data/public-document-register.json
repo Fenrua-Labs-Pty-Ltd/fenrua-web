@@ -22,7 +22,7 @@
       "status": "active",
       "path": "data/company-identity.json",
       "replacementPath": "/legal",
-      "artifactSha256": "d673fa582e37a8270c12b67747f957d643f0db0b16bcb48dc7d4198cb39c2184"
+      "artifactSha256": "14b7cddda648c1a0b7b2565a78f7fe5fa878d2e0a5590b89cffb83bd25e53e9f"
     },
     {
       "id": "external-artifact-policy",
@@ -36,7 +36,7 @@
       "status": "active",
       "path": "docs/PUBLIC_DATA_FLOW.md",
       "replacementPath": "/company",
-      "artifactSha256": "a9094f227388cd6b43773f33bc4d41eb03422e0d5e74d70c4d79d03f472f851d"
+      "artifactSha256": "27dba833c21cf0a00d21819b841d7a1befcc89e6129c3e9ec917b591b87928a2"
     },
     {
       "id": "ai-efficiency-evidence-standard",

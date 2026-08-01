@@ -2569,6 +2569,73 @@ tr:last-child td {
   gap: 0.35rem;
 }
 
+.footer-link-groups {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.footer-contact-media {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.footer-profile-links {
+  flex-wrap: nowrap;
+}
+
+.footer-links .footer-profile-link {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--text);
+  padding: 0.42rem 0.56rem;
+}
+
+.footer-profile-link > span:last-child {
+  color: inherit;
+  font-size: inherit;
+}
+
+.footer-profile-icon {
+  display: grid;
+  width: 1.2rem;
+  height: 1.2rem;
+  place-items: center;
+}
+
+.footer-profile-logo {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex: 0 0 auto;
+}
+
+.footer-profile-github {
+  --profile-accent: #f0f6fc;
+}
+
+.footer-profile-x {
+  --profile-accent: #f5f7f6;
+}
+
+.footer-profile-linkedin {
+  --profile-accent: var(--blue);
+}
+
+.footer-profile-youtube {
+  --profile-accent: var(--red);
+}
+
+.footer-profile-hugging-face {
+  --profile-accent: var(--amber);
+}
+
+.footer-links .footer-profile-link:hover,
+.footer-links .footer-profile-link:focus-visible {
+  border-color: var(--profile-accent, var(--line-strong));
+  background: color-mix(in srgb, var(--profile-accent, var(--text)) 9%, transparent);
+}
+
 @media (max-width: 900px) {
   .site-header,
   .site-footer,
@@ -2623,6 +2690,17 @@ tr:last-child td {
   .site-nav,
   .footer-links {
     justify-content: flex-start;
+  }
+
+  .footer-profile-links {
+    flex-wrap: wrap;
+  }
+
+  .footer-contact-media {
+    display: grid;
+    align-items: start;
+    justify-content: start;
+    gap: 0.35rem;
   }
 
   .hero,
@@ -2698,6 +2776,10 @@ tr:last-child td {
 
   .footer-social {
     justify-items: start;
+  }
+
+  .footer-links .footer-profile-link {
+    min-height: 2.5rem;
   }
 }
 
