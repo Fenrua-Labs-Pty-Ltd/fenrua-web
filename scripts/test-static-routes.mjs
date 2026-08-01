@@ -131,8 +131,8 @@ for (const route of routes) {
   }
   assert.match(html, /href="\/#commercial-boundary-title">Service boundary<\/a>/, `${route} must link to the canonical service boundary`);
   assert.ok(
-    html.includes('Business enquiries: <a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a>'),
-    `${route} must expose the public business contact`,
+    html.includes('Business enquiries: <!--email_off--><a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a><!--/email_off-->'),
+    `${route} must expose the public business contact without edge HTML rewriting`,
   );
   const profileGroupStart = html.indexOf('class="footer-links footer-profile-links"');
   const utilityGroupStart = html.indexOf('class="footer-links footer-utility-links"');
