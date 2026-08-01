@@ -915,7 +915,7 @@ ${body}
       <div class="footer-social">
         <div class="footer-link-groups">
           <div class="footer-contact-media">
-            <p>Business enquiries: <a href="mailto:${attr(company.publicContact)}">${esc(company.publicContact)}</a></p>
+            <p>Business enquiries: <!--email_off--><a href="mailto:${attr(company.publicContact)}">${esc(company.publicContact)}</a><!--/email_off--></p>
             <div class="footer-links footer-profile-links" aria-label="Verified public profiles">
               ${company.publicProfiles.map(publicProfileLink).join("\n              ")}
             </div>
