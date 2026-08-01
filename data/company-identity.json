@@ -44,9 +44,14 @@
       "provider": "youtube",
       "label": "YouTube",
       "url": "https://www.youtube.com/@FenruaLabs"
+    },
+    {
+      "provider": "hugging-face",
+      "label": "Hugging Face",
+      "url": "https://huggingface.co/Fenrua-Labs"
     }
   ],
-  "publicProfilesVerifiedAt": "2026-07-22",
+  "publicProfilesVerifiedAt": "2026-08-02",
   "registrySources": [
     {
       "authority": "Australian Business Register",

@@ -134,13 +134,21 @@ for (const route of routes) {
     html.includes('Business enquiries: <a href="mailto:partnerships@fenrua.ai">partnerships@fenrua.ai</a>'),
     `${route} must expose the public business contact`,
   );
-  for (const [label, url] of [
-    ["GitHub", "https://github.com/fenrualabs"],
-    ["X", "https://x.com/FenruaLabs"],
-    ["LinkedIn", "https://www.linkedin.com/in/fenrua-labs-80b679388"],
-    ["YouTube", "https://www.youtube.com/@FenruaLabs"],
+  const profileGroupStart = html.indexOf('class="footer-links footer-profile-links"');
+  const utilityGroupStart = html.indexOf('class="footer-links footer-utility-links"');
+  assert.ok(profileGroupStart !== -1 && utilityGroupStart !== -1 && profileGroupStart < utilityGroupStart, `${route} must render media profiles before non-icon footer links.`);
+  for (const [provider, label, url] of [
+    ["github", "GitHub", "https://github.com/fenrualabs"],
+    ["x", "X", "https://x.com/FenruaLabs"],
+    ["linkedin", "LinkedIn", "https://www.linkedin.com/in/fenrua-labs-80b679388"],
+    ["youtube", "YouTube", "https://www.youtube.com/@FenruaLabs"],
+    ["hugging-face", "Hugging Face", "https://huggingface.co/Fenrua-Labs"],
   ]) {
-    assert.ok(html.includes(`<a href="${url}" rel="me">${label}</a>`), `${route} must expose the verified ${label} profile`);
+    assert.ok(
+      html.includes(`<a class="footer-profile-link footer-profile-${provider}" data-profile="${provider}" href="${url}" rel="me"><span class="footer-profile-icon" aria-hidden="true"><svg class="footer-profile-logo"`)
+      && html.includes(`</svg></span><span>${label}</span></a>`),
+      `${route} must expose the verified ${label} profile with an icon`,
+    );
   }
   assert.doesNotMatch(html, />Loading registry</, `${route} must not ship an empty loading registry`);
 }

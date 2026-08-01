@@ -51,6 +51,7 @@ const verifiedPublicProfiles = [
   { provider: "x", label: "X", url: "https://x.com/FenruaLabs" },
   { provider: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/fenrua-labs-80b679388" },
   { provider: "youtube", label: "YouTube", url: "https://www.youtube.com/@FenruaLabs" },
+  { provider: "hugging-face", label: "Hugging Face", url: "https://huggingface.co/Fenrua-Labs" },
 ];
 if (
   !Array.isArray(company.publicProfiles)
@@ -67,7 +68,7 @@ if (
     && profile.url === verifiedPublicProfiles[index].url
   ))
 ) {
-  throw new Error("data/company-identity.json must contain the four verified public profiles.");
+  throw new Error("data/company-identity.json must contain the five verified public profiles.");
 }
 const documentRegister = JSON.parse(readFileSync(documentRegisterPath, "utf8"));
 const kernelStatusSource = readFileSync(kernelStatusPath, "utf8");
@@ -475,6 +476,32 @@ function esc(value) {
 
 function attr(value) {
   return esc(value).replaceAll("'", "&#39;");
+}
+
+const publicProfileIcons = {
+  github: `
+    <path fill="#f0f6fc" d="M12 .6a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.05c-3.34.73-4.04-1.41-4.04-1.41-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.45 11.45 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .6Z" />`,
+  x: `
+    <path fill="#f5f7f6" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H7.97l4.713 6.231 5.561-6.231Zm-1.161 17.52h1.833L6.974 4.126H5.007L17.083 19.77Z" />`,
+  linkedin: `
+    <rect x="2" y="2" width="20" height="20" rx="2.2" fill="#0A66C2" />
+    <circle cx="7.3" cy="8" r="1.25" fill="#ffffff" />
+    <path fill="#ffffff" d="M6.1 10.2h2.4v7.2H6.1v-7.2Zm3.9 0h2.3v.98h.03c.32-.61 1.1-1.25 2.27-1.25 2.43 0 2.88 1.6 2.88 3.68v3.79h-2.4v-3.36c0-.8-.02-1.83-1.12-1.83-1.12 0-1.29.87-1.29 1.77v3.42H10v-7.2Z" />`,
+  youtube: `
+    <path fill="#FF0000" d="M21.58 6.19a3.02 3.02 0 0 0-2.12-2.14C17.59 3.55 12 3.55 12 3.55s-5.59 0-7.46.5A3.02 3.02 0 0 0 2.42 6.2C1.92 8.07 1.92 12 1.92 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.87.5 7.46.5 7.46.5s5.59 0 7.46-.5a3.02 3.02 0 0 0 2.12-2.14c.5-1.88.5-5.81.5-5.81s0-3.93-.5-5.81Z" />
+    <path fill="#ffffff" d="m10.2 15.5 5.1-3.5-5.1-3.5v7Z" />`,
+  "hugging-face": `
+    <circle cx="12" cy="12" r="9.5" fill="#FFD21E" />
+    <circle cx="8.8" cy="10" r="1" fill="#252525" />
+    <circle cx="15.2" cy="10" r="1" fill="#252525" />
+    <path d="M8.2 13.7c.98 1.23 2.24 1.85 3.8 1.85s2.82-.62 3.8-1.85" fill="none" stroke="#252525" stroke-linecap="round" stroke-width="1.45" />
+    <path d="M5.3 13.35 3.8 15l1.75 1.48M18.7 13.35l1.5 1.65-1.75 1.48" fill="none" stroke="#252525" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.45" />`,
+};
+
+function publicProfileLink(profile) {
+  const icon = publicProfileIcons[profile.provider];
+  if (!icon) throw new Error(`Verified public profile has no approved icon: ${profile.provider}`);
+  return `<a class="footer-profile-link footer-profile-${attr(profile.provider)}" data-profile="${attr(profile.provider)}" href="${attr(profile.url)}" rel="me"><span class="footer-profile-icon" aria-hidden="true"><svg class="footer-profile-logo" viewBox="0 0 24 24" focusable="false">${icon}</svg></span><span>${esc(profile.label)}</span></a>`;
 }
 
 function assuranceScope(mode, claimIds, content) {
@@ -886,16 +913,22 @@ ${body}
         <span>Evidence-first, source-first, maturity-labelled infrastructure.</span>
       </div>
       <div class="footer-social">
-        <p>Business enquiries: <a href="mailto:${attr(company.publicContact)}">${esc(company.publicContact)}</a></p>
-        <div class="footer-links" aria-label="Company links and verified public profiles">
-          <a href="/company">Company</a>
-          <a href="/#commercial-boundary-title">Service boundary</a>
-          ${company.publicProfiles.map((profile) => `<a href="${attr(profile.url)}" rel="me">${esc(profile.label)}</a>`).join("\n          ")}
-          <a href="/audit">Release verification</a>
-          <a href="/evidence">Evidence</a>
-          <a href="/toolchain">Toolchain</a>
-          <a href="/.well-known/fenrua-release.json">Release manifest</a>
-          <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
+        <div class="footer-link-groups">
+          <div class="footer-contact-media">
+            <p>Business enquiries: <a href="mailto:${attr(company.publicContact)}">${esc(company.publicContact)}</a></p>
+            <div class="footer-links footer-profile-links" aria-label="Verified public profiles">
+              ${company.publicProfiles.map(publicProfileLink).join("\n              ")}
+            </div>
+          </div>
+          <div class="footer-links footer-utility-links" aria-label="Company links">
+            <a href="/company">Company</a>
+            <a href="/#commercial-boundary-title">Service boundary</a>
+            <a href="/audit">Release verification</a>
+            <a href="/evidence">Evidence</a>
+            <a href="/toolchain">Toolchain</a>
+            <a href="/.well-known/fenrua-release.json">Release manifest</a>
+            <a href="https://github.com/fenrualabs/fenrua-kernel">Kernel repository</a>
+          </div>
         </div>
       </div>
     </footer>
