@@ -1,30 +1,30 @@
 /* KERNEL_STATUS_START */
 const kernelStatus = {
   "repositoryUrl": "https://github.com/fenrualabs/fenrua-kernel",
-  "auditLogUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/SECURITY_AUDIT_LOG.md",
-  "genesisManifestUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/manifest.json",
+  "auditLogUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/396988450f29e5ca9a4a0456c8dacb81dad04161/SECURITY_AUDIT_LOG.md",
+  "genesisManifestUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/396988450f29e5ca9a4a0456c8dacb81dad04161/tests/genesis/reports/manifest.json",
   "ciUrl": "https://github.com/fenrualabs/fenrua-kernel/actions",
-  "regressionUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/regressions/regression-order-sub-cross-limb-borrow.json",
-  "versionCommitUrl": "https://github.com/fenrualabs/fenrua-kernel/commit/390f7aeef778ce93db12e16028bc3a788b643c2d",
+  "regressionUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/396988450f29e5ca9a4a0456c8dacb81dad04161/tests/genesis/reports/regressions/regression-order-sub-cross-limb-borrow.json",
+  "versionCommitUrl": "https://github.com/fenrualabs/fenrua-kernel/commit/396988450f29e5ca9a4a0456c8dacb81dad04161",
   "evidenceRevisionUrl": "https://github.com/fenrualabs/fenrua-kernel/commit/85ecc97c026b01b576d735501795951dd293b3ca",
-  "versionTag": "sync 390f7aee…",
+  "versionTag": "sync 39698845…",
   "evidenceRevisionTag": "evidence 85ecc97c…",
   "buildStatus": "PASS",
   "auditResolution": "7/7 Findings Resolved",
   "genesisIntegrity": "10/10 Genesis Cases Verified",
   "ciOutput": "Differential: PASS",
   "regressionCoverage": "1 Permanent Regression: PASS",
-  "statusSource": "Validated public-artifact snapshot 390f7aee…",
+  "statusSource": "Validated public-artifact snapshot 39698845…",
   "lastSynced": "Source report generated 2026-07-12T11:18:16.000Z",
-  "snapshotCommitShort": "390f7aee…",
+  "snapshotCommitShort": "39698845…",
   "differentialSummary": "500,000 field pairs · 200,000 encodings · 100,000 digests",
   "evidence": [
     {
       "artifact": "Repository Sync Snapshot",
-      "hashReference": "390f7aee…",
+      "hashReference": "39698845…",
       "sourceLabel": "Pinned Snapshot",
-      "sourceUrl": "https://github.com/fenrualabs/fenrua-kernel/commit/390f7aeef778ce93db12e16028bc3a788b643c2d",
-      "copyValue": "390f7aeef778ce93db12e16028bc3a788b643c2d"
+      "sourceUrl": "https://github.com/fenrualabs/fenrua-kernel/commit/396988450f29e5ca9a4a0456c8dacb81dad04161",
+      "copyValue": "396988450f29e5ca9a4a0456c8dacb81dad04161"
     },
     {
       "artifact": "Frozen Evidence Revision",
@@ -37,27 +37,27 @@ const kernelStatus = {
       "artifact": "Genesis Manifest Record",
       "hashReference": "bd9ec111…",
       "sourceLabel": "Manifest",
-      "sourceUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/manifest.json",
+      "sourceUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/396988450f29e5ca9a4a0456c8dacb81dad04161/tests/genesis/reports/manifest.json",
       "copyValue": "bd9ec111888ec32e87a5b60776f0118973848e5c096bbed8f25246e7fd3008cd"
     },
     {
       "artifact": "Differential Validation",
       "hashReference": "e74a0ad3…",
       "sourceLabel": "Validation Report",
-      "sourceUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/audit/final-build-validation.json",
+      "sourceUrl": "https://github.com/fenrualabs/fenrua-kernel/blob/396988450f29e5ca9a4a0456c8dacb81dad04161/tests/audit/final-build-validation.json",
       "copyValue": "e74a0ad32730f5129f3f691eb3c9caab31a98596212594d218056e50a1a26c93"
     }
   ],
   "telemetry": {
     "schemaVersion": "fenrua.web.kernel-telemetry.v1",
-    "snapshotCommit": "390f7aeef778ce93db12e16028bc3a788b643c2d",
+    "snapshotCommit": "396988450f29e5ca9a4a0456c8dacb81dad04161",
     "frozenEvidenceRevision": "85ecc97c026b01b576d735501795951dd293b3ca",
     "sourceReport": {
       "path": "tests/genesis/reports/genesis-report.json",
       "fileSha256": "5a1a130f33fbf77cfa36ed9771eeba63a570d27fe347a43e2524d404e55b04b3",
       "recordSha256": "a25a9e1c53b5554fb0b518d0ea54810dcdc7252b8742fe5ca76060f41c4f7960",
       "reportGeneratedAtUtc": "2026-07-12T11:18:16.000Z",
-      "url": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/genesis-report.json"
+      "url": "https://github.com/fenrualabs/fenrua-kernel/blob/396988450f29e5ca9a4a0456c8dacb81dad04161/tests/genesis/reports/genesis-report.json"
     },
     "suite": {
       "id": "fenrua-pn521-genesis-v1",
@@ -86,7 +86,7 @@ const kernelStatus = {
       "source": {
         "path": "tests/audit/final-build-validation.json",
         "fileSha256": "e74a0ad32730f5129f3f691eb3c9caab31a98596212594d218056e50a1a26c93",
-        "url": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/audit/final-build-validation.json"
+        "url": "https://github.com/fenrualabs/fenrua-kernel/blob/396988450f29e5ca9a4a0456c8dacb81dad04161/tests/audit/final-build-validation.json"
       }
     },
     "regressions": [
@@ -101,13 +101,13 @@ const kernelStatus = {
           "bytes": 132,
           "sha256": "7d11e62691085056fde7193c23cc7b3ffbfde2171807f820fc94cecf6f19ee5e",
           "encoding": "A[66] || B[66], fixed-width unsigned big-endian",
-          "url": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/regressions/regression_001_p521_sub_overflow.bin"
+          "url": "https://github.com/fenrualabs/fenrua-kernel/blob/396988450f29e5ca9a4a0456c8dacb81dad04161/regressions/regression_001_p521_sub_overflow.bin"
         },
         "report": {
           "recordSha256": "a5c49db6dd40bee3185399b622ff5eb7845501d0a725e7aa561204766a19abfa",
           "fileSha256": "c7a2de386f54f74de0ff9e8b3147882035d08bf69f1cfbef78467d5099267cc0",
           "bytes": 2643,
-          "url": "https://github.com/fenrualabs/fenrua-kernel/blob/390f7aeef778ce93db12e16028bc3a788b643c2d/tests/genesis/reports/regressions/regression-order-sub-cross-limb-borrow.json"
+          "url": "https://github.com/fenrualabs/fenrua-kernel/blob/396988450f29e5ca9a4a0456c8dacb81dad04161/tests/genesis/reports/regressions/regression-order-sub-cross-limb-borrow.json"
         }
       }
     ]
