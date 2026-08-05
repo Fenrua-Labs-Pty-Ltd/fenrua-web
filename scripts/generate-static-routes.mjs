@@ -101,6 +101,24 @@ if (
 const generatedDate = contentModifiedDate;
 const checkMode = process.argv.includes("--check");
 const staleGeneratedFiles = [];
+const versionedAssetUrls = new Map();
+
+function versionedAssetUrl(relativePath) {
+  if (typeof relativePath !== "string" || !relativePath.startsWith("/") || relativePath.includes("?")) {
+    throw new TypeError("Versioned public asset paths must be root-relative paths without a query string.");
+  }
+  if (versionedAssetUrls.has(relativePath)) return versionedAssetUrls.get(relativePath);
+  const source = path.join(root, relativePath.slice(1));
+  if (!existsSync(source)) throw new Error(`Public asset is missing: ${relativePath}`);
+  const digest = createHash("sha256").update(readFileSync(source)).digest("hex").slice(0, 12);
+  const url = `${relativePath}?v=${digest}`;
+  versionedAssetUrls.set(relativePath, url);
+  return url;
+}
+
+function deferredScript(relativePath) {
+  return `<script src="${versionedAssetUrl(relativePath)}" defer></script>`;
+}
 
 function compactIdentifier(value) {
   return String(value).replaceAll(/\s/g, "");
@@ -842,7 +860,7 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
     ? '<span class="sr-only" data-chain-meta="announcer" role="status" aria-live="polite" aria-atomic="true"></span>'
     : "";
   const pageScripts = [
-    headerLive ? '<script src="/kernel-status.js" defer></script>' : "",
+    headerLive ? deferredScript("/kernel-status.js") : "",
     scripts,
   ].filter(Boolean).join("\n    ");
   return `<!doctype html>
@@ -881,8 +899,8 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
     <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="/styles.css" />
-    <script src="/technical-data.js" defer></script>
+    <link rel="stylesheet" href="${versionedAssetUrl("/styles.css")}" />
+    ${deferredScript("/technical-data.js")}
 ${pageScripts ? `    ${pageScripts}\n` : ""}
   </head>
   <body>
@@ -1501,7 +1519,7 @@ function trustClaims() {
     current: "Claims",
     canonicalPath: "/trust/claims",
     section: "Trust",
-    scripts: '<script src="/claim-filter.js" defer></script>',
+    scripts: deferredScript("/claim-filter.js"),
     body: `${routeHero("PUBLIC CLAIM REGISTER", "Claims", "Each significant public statement is represented as a record with a capability, maturity, evidence class, validity state, and limitation. All records remain visible when JavaScript is unavailable.")}
       <section class="section-shell" aria-labelledby="claim-search-title"><div class="section-heading"><p class="eyebrow">LOCAL RECORD FILTER</p><h2 id="claim-search-title">Inspect claims without remote search</h2><p>Filtering runs entirely in the browser against the static rendered records. Download the exact machine-readable input for independent inspection.</p></div>
         <label class="claim-search-label" for="claim-search">Search public claims</label><input id="claim-search" data-claim-filter type="search" autocomplete="off" placeholder="Search statement, capability, assurance verb, or evidence class" /><p data-claim-filter-status role="status" aria-live="polite" aria-atomic="true">${claimRegister.claims.length} claims shown</p><p><a href="/data/claim-register.json">Download claim register JSON</a></p>
@@ -1775,7 +1793,7 @@ function fenrua521Evidence() {
     description: "Public Fenrua-521 evidence releases, refreshed from the source repository with explicit public and private boundaries.",
     current: "Fenrua-521 evidence",
     canonicalPath: "/fenrua-521",
-    scripts: '<script src="/fenrua-521-evidence.js" defer></script>',
+    scripts: deferredScript("/fenrua-521-evidence.js"),
     body: `${routeHero("FENRUA-521 · PUBLIC EVIDENCE", "Fenrua-521 evidence", "A source-linked release view for the Fenrua-521 public evidence repository. This page displays only public manifest records that meet the source repository’s declared release-state rule; it does not expose or infer protected execution detail.", `<div class="cta-row"><a class="button button-primary" href="${sourceRepository}">Open public evidence repository</a><a class="button button-secondary" href="${sourceTree}">Browse source releases</a></div>`)}
       <section class="section-shell" aria-labelledby="fenrua-521-release-title">
         <p class="eyebrow">AUTO-REFRESHED PUBLIC RELEASES</p>
@@ -2121,7 +2139,7 @@ function evidence() {
     title: "Fenrua Evidence Registry",
     description: "Fenrua public evidence registry with claims, hashes, provenance, supersession, maturity, and limitations.",
     current: "Evidence",
-    scripts: '<script src="/toolchain/toolchain.js" defer></script>',
+    scripts: deferredScript("/toolchain/toolchain.js"),
     body: assuranceScope("claims", ["claim.observation.signed-read-only"], `${routeHero("PUBLIC EVIDENCE", "Evidence Registry", "Fenrua BlackBox Protocol separates current public release evidence from historical source evidence, and every record states its limitation.", `<div class="cta-row"><a class="button button-primary" href="/audit">Read current audit</a><a class="button button-secondary" href="/.well-known/fenrua-release.json">Release manifest</a></div>`)}
       <section class="section-shell" aria-labelledby="evidence-groups"><div class="section-heading"><p class="eyebrow">EVIDENCE STATE</p><h2 id="evidence-groups">Freshness and supersession stay visible</h2><p>Evidence type, freshness, authority, and what a record does not prove are separate dimensions. Empty categories remain explicit rather than being filled with a stronger claim.</p></div>
         ${cardGrid(evidenceGroups)}
@@ -2452,7 +2470,7 @@ function status() {
     title: "Fenrua Status",
     description: "Fenrua public signed-observation monitor and static release-status reference.",
     current: "Status",
-    scripts: '<script src="/status-monitor.js" defer></script>',
+    scripts: deferredScript("/status-monitor.js"),
     body: assuranceScope("claims", ["claim.observation.signed-read-only", "claim.observation.observed-block-label"], `${routeHero("STATUS AND PUBLIC OBSERVATIONS", "Status", "Current signed observations are monitored separately from static release records. A release record is never presented as a chain event or activation time.")}
       <section class="section-shell">
         <div class="toolchain-summary state-grid">
@@ -2583,7 +2601,7 @@ function toolchain() {
     title: "Fenrua Toolchain Registry",
     description: "Server-rendered Fenrua toolchain registry with exact detected versions, filters, pagination, downloads, timestamp, and integrity hash.",
     current: "Toolchain",
-    scripts: '<script src="/toolchain/toolchain.js" defer></script>',
+    scripts: deferredScript("/toolchain/toolchain.js"),
     body: `${routeHero("SERVER-RENDERED REGISTRY", "Toolchain", "The registry is useful before JavaScript runs. JavaScript only adds filtering, pagination, and copy controls.", `<div class="cta-row"><a class="button button-primary" href="/data/toolchain-registry.json">Download JSON</a><a class="button button-secondary" href="/docs/FENRUA_TOOLCHAIN_LOCK.md">Download Markdown lock</a></div>`)}
       <section class="section-shell">
         <div class="toolchain-meta toolchain-summary">

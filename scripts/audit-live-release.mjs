@@ -114,7 +114,7 @@ export async function fetchBounded(
   try {
     const response = await fetchImpl(url, {
       redirect: "manual",
-      headers: { "cache-control": "no-cache", accept: "*/*" },
+      headers: { "cache-control": "no-cache", pragma: "no-cache", accept: "*/*" },
       signal: requestSignal,
     });
     const lengthHeader = response.headers.get("content-length");

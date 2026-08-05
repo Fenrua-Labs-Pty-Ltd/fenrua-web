@@ -27,7 +27,7 @@ const overview = await readFile(new URL("../index.html", import.meta.url), "utf8
 assert.match(overview, /<header class="site-header site-header-live"/, "Overview must retain the dedicated mobile observation rail.");
 assert.match(overview, /class="header-chain-rail mobile-chain-rail"/, "Overview must retain its compact mobile observation cards.");
 assert.match(overview, /class="section-shell chain-progress desktop-chain-progress"/, "Overview must retain detailed desktop cards under its introductory card.");
-assert.match(overview, /<script src="\/kernel-status\.js" defer><\/script>/, "Overview must use the bounded observation updater.");
+assert.match(overview, /<script src="\/kernel-status\.js\?v=[a-f0-9]{12}" defer><\/script>/, "Overview must use the content-versioned bounded observation updater.");
 assert.equal([...overview.matchAll(/data-chain-card="/g)].length, 4, "Overview must render only its responsive pairs of observation cards.");
 assert.equal([...overview.matchAll(/data-chain-meta="announcer"/g)].length, 1, "Overview must expose one bounded observation announcer.");
 assert.match(overview, /Awaiting signed observation/, "Overview static output must not assert a current chain state.");
@@ -37,11 +37,11 @@ for (const route of routes.filter((route) => route !== "/" && route !== "/status
   const html = await readFile(new URL(`..${route}/index.html`, import.meta.url), "utf8");
   assert.equal([...html.matchAll(/data-chain-card="/g)].length, 0, `${route} must not duplicate detailed chain cards.`);
   assert.equal([...html.matchAll(/data-chain-meta="announcer"/g)].length, 0, `${route} must not announce a poller it does not run.`);
-  assert.doesNotMatch(html, /<script\s+src="\/(?:kernel-status|status-monitor)\.js"/i, `${route} must not load an unrelated observation poller.`);
+  assert.doesNotMatch(html, /<script\s+src="\/(?:kernel-status|status-monitor)\.js(?:\?[^\"]*)?"/i, `${route} must not load an unrelated observation poller.`);
 }
 
 const status = await readFile(new URL("../status/index.html", import.meta.url), "utf8");
-assert.match(status, /<script src="\/status-monitor\.js" defer><\/script>/, "Status must retain the dedicated signed-observation monitor.");
+assert.match(status, /<script src="\/status-monitor\.js\?v=[a-f0-9]{12}" defer><\/script>/, "Status must retain the content-versioned dedicated signed-observation monitor.");
 assert.equal([...status.matchAll(/data-chain-card="/g)].length, 0, "Status uses its monitor table rather than duplicate cards.");
 assert.equal([...status.matchAll(/data-status-monitor-announcer/g)].length, 1, "Status must retain one monitor announcer.");
 
