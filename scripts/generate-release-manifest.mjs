@@ -19,7 +19,11 @@ function sourceCommit() {
   }
   let checkoutCommit = "";
   try {
-    checkoutCommit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim().toLowerCase();
+    checkoutCommit = execFileSync("git", ["rev-parse", "HEAD"], {
+      cwd: root,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim().toLowerCase();
   } catch {
     if (!vercelCommit) throw new Error("Release manifest requires a Git checkout or VERCEL_GIT_COMMIT_SHA.");
   }

@@ -111,7 +111,7 @@ for (const path of gonePaths) {
 const successorRedirects = new Map([
   ["/nexus", "/architecture"],
   ["/explorer", "/status"],
-  ["/about", "/"],
+  ["/about", "/company"],
   ["/brief", "/"],
   ["/contact", "/support"],
 ]);

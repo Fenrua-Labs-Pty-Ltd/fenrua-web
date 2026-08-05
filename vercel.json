@@ -378,7 +378,7 @@
     },
     {
       "source": "/about",
-      "destination": "/",
+      "destination": "/company",
       "permanent": true
     },
     {
