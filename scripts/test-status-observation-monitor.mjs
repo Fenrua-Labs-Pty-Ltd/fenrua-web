@@ -102,6 +102,21 @@ assert.doesNotMatch(
   /\[data-status="waiting"\]\[data-activity="revalidating"\]/,
   "A valid revalidation window must not be styled as an amber observation gap."
 );
+assert.doesNotMatch(
+  styles,
+  /\[data-status="waiting"\]\[data-activity="awaiting"\]/,
+  "A short public read gap must retain the neutral awaiting presentation."
+);
+assert.match(
+  monitor,
+  /if \(state === "awaiting"\) return \{ label: "Awaiting next observation", className: "status-info" \};/,
+  "A short public read gap must render with neutral information styling."
+);
+assert.match(
+  monitor,
+  /if \(state === "waiting"\) return \{ label: "Awaiting signed observation", className: "status-info" \};/,
+  "Initial signed-observation waiting must render with neutral information styling."
+);
 assert.match(
   monitor,
   /if \(state === "partial"\)[\s\S]{0,900}renderRevalidating\(row, observation, monotonicity, retained\)/,

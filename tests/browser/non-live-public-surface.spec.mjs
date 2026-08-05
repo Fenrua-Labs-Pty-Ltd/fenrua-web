@@ -126,6 +126,8 @@ test("Overview presents an unavailable bounded monitor as a non-current awaiting
   const card = page.locator('.desktop-chain-progress [data-chain-card="978"]');
   await expect(card.locator('[data-chain-field="978-status"]')).toHaveText("Awaiting next observation");
   await expect(card.locator('[data-chain-field="978-block"]')).toContainText("No current observation");
+  await expect(card).toHaveAttribute("data-status", "waiting");
+  await expect(card).toHaveAttribute("data-activity", "awaiting");
 });
 
 test("Overview retains its verified high-water during a transport wait", async ({ page }) => {
@@ -161,7 +163,9 @@ test("Status presents an unavailable monitor as a non-current awaiting state", a
   await mockMonitor(page, new Error("unavailable"));
   await gotoPublic(page, "/status");
 
-  await expect(page.locator('[data-status-monitor-row="978"] [data-status-monitor-state]')).toHaveText("Awaiting next observation");
+  const state = page.locator('[data-status-monitor-row="978"] [data-status-monitor-state]');
+  await expect(state).toHaveText("Awaiting next observation");
+  await expect(state).toHaveClass(/status-info/);
   await expect(page.locator("[data-status-monitor-meta]")).toContainText("No current signed observation is asserted");
 });
 
