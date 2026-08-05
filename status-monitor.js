@@ -97,10 +97,10 @@
   function stateDisplay(state) {
     if (state === "live") return { label: "Live", className: "status-success" };
     if (state === "delayed") return { label: "Stale", className: "status-stale" };
-    if (state === "revalidating") return { label: "Awaiting next observation", className: "status-awaiting" };
-    if (state === "awaitingConfirmation") return { label: "Awaiting next observation", className: "status-awaiting" };
+    if (state === "revalidating") return { label: "Awaiting next observation", className: "status-info" };
+    if (state === "awaitingConfirmation") return { label: "Awaiting next observation", className: "status-info" };
     if (state === "awaiting") return { label: "Awaiting next observation", className: "status-awaiting" };
-    if (state === "partial") return { label: "Awaiting next observation", className: "status-awaiting" };
+    if (state === "partial") return { label: "Awaiting next observation", className: "status-info" };
     if (state === "waiting") return { label: "Awaiting signed observation", className: "status-stale" };
     if (state === "failure") return { label: "Failure", className: "status-failure" };
     return { label: "Unavailable", className: "status-failure" };
