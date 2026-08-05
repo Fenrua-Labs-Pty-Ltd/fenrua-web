@@ -1,6 +1,6 @@
 {
   "schemaVersion": "fenrua.capability-register.v1",
-  "lastReviewed": "2026-07-14",
+  "lastReviewed": "2026-08-05",
   "sourceReferences": {
     "companyIdentityId": "company-identity",
     "siteEvidenceId": "site-evidence-input",
@@ -282,6 +282,86 @@
       "owner": "developer-platform",
       "lastReviewed": "2026-07-14",
       "promotionGate": "Require a public implementation, usable interface, evidence record, limitations, and owner-approved release decision before any availability promotion."
+    },
+    {
+      "id": "capability.fenrua-v1-model-family",
+      "name": "Fenrua V1 model family",
+      "category": "model-family",
+      "lifecycle": "planned",
+      "maturity": "research",
+      "availability": "not-available",
+      "summary": "Planned closed-weight Fenrua V1 Mini, V1, and V1 Pro model family with no public access path in the current release.",
+      "interfaces": [
+        { "kind": "documentation", "label": "Fenrua AI public direction", "target": "/ai" }
+      ],
+      "claimIds": ["claim.fenrua-v1.planned-boundary"],
+      "evidenceIds": [],
+      "limitations": ["No weights, public download, inference, API, application, benchmark, or production model service is available."],
+      "nonClaims": ["A public model card or branding record is not an availability, performance, hosted-privacy, or production-readiness claim."],
+      "dependencies": ["fenrua.ai", "fenrua.v1", "fenrua.fml-mosaic"],
+      "owner": "ai-product",
+      "lastReviewed": "2026-08-05",
+      "promotionGate": "Require evaluation, adverse tests, independent review, an approved public interface, and a human-controlled release decision before changing availability."
+    },
+    {
+      "id": "capability.hunting-knowledge",
+      "name": "HuntingKnowledge preparation direction",
+      "category": "knowledge-preparation",
+      "lifecycle": "planned",
+      "maturity": "research",
+      "availability": "not-available",
+      "summary": "Planned knowledge-preparation direction with separated hunting and cleaning or update roles and no public corpus service.",
+      "interfaces": [
+        { "kind": "documentation", "label": "HuntingKnowledge boundary", "target": "/ai#hunting-knowledge-title" }
+      ],
+      "claimIds": ["claim.hunting-knowledge.planned-boundary"],
+      "evidenceIds": [],
+      "limitations": ["The exact corpus, methods, training use, and evaluation results are confidential or not claimed."],
+      "nonClaims": ["No public corpus, knowledge API, model behaviour, quality result, or release is available."],
+      "dependencies": ["fenrua.ai", "fenrua.hunting-knowledge"],
+      "owner": "ai-research",
+      "lastReviewed": "2026-08-05",
+      "promotionGate": "Require a reviewed source policy, evaluation and adverse-test evidence, independent review, and a human-controlled release decision before any public capability claim."
+    },
+    {
+      "id": "capability.encrypted-vault-direction",
+      "name": "Encrypted vault direction",
+      "category": "user-continuity",
+      "lifecycle": "planned",
+      "maturity": "research",
+      "availability": "not-available",
+      "summary": "Planned personal and organisation continuity direction with content off-chain, bounded commitments, and user or authorised-organisation key control.",
+      "interfaces": [
+        { "kind": "documentation", "label": "Encrypted vault boundary", "target": "/ai#fenrua-vault-title" }
+      ],
+      "claimIds": ["claim.encrypted-vault.planned-boundary"],
+      "evidenceIds": [],
+      "limitations": ["No encrypted vault service, account, upload flow, endpoint, hosted-inference privacy guarantee, or commitment implementation is available."],
+      "nonClaims": ["This direction does not claim raw content or keys are placed on-chain, or that hosted inference is cryptographically invisible."],
+      "dependencies": ["fenrua.ai", "fenrua.vault-direction"],
+      "owner": "ai-product",
+      "lastReviewed": "2026-08-05",
+      "promotionGate": "Require a reviewed threat model, implementation and adverse-test evidence, independent review, and a human-controlled release decision before any availability promotion."
+    },
+    {
+      "id": "capability.fenrua-compute-units",
+      "name": "Fenrua Compute Units",
+      "category": "service-accounting",
+      "lifecycle": "planned",
+      "maturity": "doctrine",
+      "availability": "not-available",
+      "summary": "Planned inactive non-transferable service-accounting direction with no current programme or allocation.",
+      "interfaces": [
+        { "kind": "documentation", "label": "FCU boundary", "target": "/ai#fcu-title" }
+      ],
+      "claimIds": ["claim.fenrua-compute-units.planned-boundary"],
+      "evidenceIds": [],
+      "limitations": ["No FCU programme, allocation, wallet, transfer, trade, cash value, yield, staking, or investment feature is active."],
+      "nonClaims": ["FCU are not a token, financial product, investment, appreciation, or guaranteed launch allocation."],
+      "dependencies": ["fenrua.ai", "fenrua.compute-units"],
+      "owner": "ai-product",
+      "lastReviewed": "2026-08-05",
+      "promotionGate": "Require a separately reviewed service-accounting design, legal and product review, implementation evidence, and a human-controlled release decision before any change to the inactive boundary."
     }
   ]
 }

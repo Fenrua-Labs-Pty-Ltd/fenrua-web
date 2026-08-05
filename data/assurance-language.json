@@ -255,24 +255,6 @@
         "maximumMatches": 1
       },
       {
-        "files": ["public/index.html"],
-        "term": "reviewed",
-        "context": "tool calls, policy decisions, model actions, infrastructure changes, and release claims can be bounded, reviewed, and verified without exposing the confidential machine beneath them.",
-        "claimId": "claim.platform.public-evidence-interface",
-        "contextType": "explanatory",
-        "minimumMatches": 1,
-        "maximumMatches": 1
-      },
-      {
-        "files": ["public/index.html"],
-        "term": "verified",
-        "context": "tool calls, policy decisions, model actions, infrastructure changes, and release claims can be bounded, reviewed, and verified without exposing the confidential machine beneath them.",
-        "claimId": "claim.platform.public-evidence-interface",
-        "contextType": "explanatory",
-        "minimumMatches": 1,
-        "maximumMatches": 1
-      },
-      {
         "files": ["public/legal/index.html"],
         "term": "verified",
         "context": "Registry details last verified 13 July 2026.",

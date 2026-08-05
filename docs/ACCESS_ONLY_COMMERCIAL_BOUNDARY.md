@@ -1,7 +1,7 @@
 # Fenrua Labs Pty Ltd — Protocol Infrastructure and Technology Services
 
 Status: active public commercial boundary  
-Last reviewed: 2026-07-22
+Last reviewed: 2026-08-05
 
 Fenrua Labs Pty Ltd researches, develops, and provides privacy-preserving protocol infrastructure for verifiable AI automation and related technology services through service subscriptions and client-specific business agreements. Its work may include software, infrastructure access, hosting, research, development, integration, technical support, and evidence-aware workflows within the scope of the relevant service or agreement.
 

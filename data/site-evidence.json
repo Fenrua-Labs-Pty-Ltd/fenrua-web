@@ -1,11 +1,11 @@
 {
   "schemaVersion": "fenrua.site-evidence.v1",
-  "generatedAt": "2026-07-22T04:00:00Z",
-  "contentModifiedDate": "2026-07-22",
+  "generatedAt": "2026-08-05T00:00:00Z",
+  "contentModifiedDate": "2026-08-05",
   "canonicalDomain": "https://fenrua.ai",
   "commercialBoundary": {
     "status": "active public commercial boundary",
-    "lastReviewed": "2026-07-22",
+    "lastReviewed": "2026-08-05",
     "title": "Fenrua Labs Pty Ltd — Protocol Infrastructure and Technology Services",
     "paragraphs": [
       "Fenrua Labs Pty Ltd researches, develops, and provides privacy-preserving protocol infrastructure for verifiable AI automation and related technology services through service subscriptions and client-specific business agreements. Its work may include software, infrastructure access, hosting, research, development, integration, technical support, and evidence-aware workflows within the scope of the relevant service or agreement.",
@@ -23,13 +23,13 @@
   },
   "legalOperatingRecord": {
     "status": "current public operating record",
-    "lastReviewed": "2026-07-22",
+    "lastReviewed": "2026-08-05",
     "offerings": [
       {
         "category": "Company and public website",
         "status": "CURRENT PUBLIC",
         "badgeState": "success",
-        "description": "Company information, service information, technical documentation, research, evidence records, status information, and bounded read-only observations."
+        "description": "Company information, Fenrua AI public development direction, service information, technical documentation, research, evidence records, status information, and bounded read-only observations."
       },
       {
         "category": "Research and technical artifacts",
@@ -59,7 +59,7 @@
         "category": "Public self-service account, checkout, client upload, or interactive AI interface",
         "status": "NOT PART OF THE CURRENT PUBLIC SITE",
         "badgeState": "paused",
-        "description": "These controls are not exposed by the current public release. This does not restrict separately offered or agreed services."
+        "description": "These controls are not exposed by the current public release. No public Fenrua V1 weights, inference, API, app, encrypted vault service, or FCU programme is represented. This does not restrict separately offered or agreed services."
       },
       {
         "category": "Investment, financial-return, exchange, trading, custody, or public-swap product",
@@ -69,7 +69,7 @@
       }
     ],
     "technologyScope": [
-      "Fenrua BlackBox Protocol is Fenrua's privacy-preserving protocol-infrastructure direction for verifiable AI automation. Its bounded business and technical scope includes research, development, software, infrastructure access, hosting, integration, technical support, evidence-aware workflows, and related technology services.",
+      "Fenrua BlackBox Protocol is Fenrua's privacy-preserving protocol-infrastructure direction for verifiable AI automation. Its bounded business and technical scope includes research, development, software, infrastructure access, hosting, integration, technical support, evidence-aware workflows, and related technology services. Fenrua AI is a public development direction for controlled model systems; it does not make a model, API, application, encrypted vault, or compute-unit programme publicly available.",
       "Identity, authority, integrity, policy, verification, containment, recovery, secret handling, and vulnerability reporting remain important technical functions where relevant. They are not the complete definition of Fenrua Labs' business or future direction."
     ],
     "requestHandling": [

@@ -24,7 +24,7 @@ assert.doesNotMatch(styles, /linear-gradient|@keyframes/, "The industrial public
 assert.doesNotMatch(styles, /font-size:\s*15px|clamp\(/, "The public style must retain a fixed 16px minimum and stable display sizing.");
 assert.match(styles, /@media \(forced-colors: active\)/, "Static pages need forced-colors support.");
 assert.match(styles, /body :is\(a, button, input, select, textarea, summary, \[tabindex\]\):focus-visible/, "Interactive elements need a consistent visible focus indicator.");
-assert.match(styles, /\.site-header \.site-nav\s*\{\s*display: grid;\s*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/, "Mobile navigation must expose all seven categories without horizontal discovery.");
+assert.match(styles, /\.site-header \.site-nav\s*\{\s*display: grid;\s*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/, "Mobile navigation must expose all eight categories without horizontal discovery.");
 assert.match(styles, /\.site-header \.site-nav a\s*\{\s*justify-content: center;\s*min-height: 2\.75rem;/, "Mobile category controls must be centered and at least 44 CSS pixels high.");
 assert.doesNotMatch(styles, /site-header-mobile-live|mobile-nav-hint|mobile-nav-swipe-cue/, "The public mobile navigation must not rely on a hidden swipe cue.");
 assert.doesNotMatch(styles, /\.site-header \.site-nav\s*\{[^}]*overflow-x:/, "The public mobile navigation must not rely on horizontal scrolling.");

@@ -36,6 +36,11 @@
       "url": "https://x.com/FenruaLabs"
     },
     {
+      "provider": "x-fenrua-ai",
+      "label": "Fenrua AI on X",
+      "url": "https://x.com/FenruaAI"
+    },
+    {
       "provider": "linkedin",
       "label": "LinkedIn",
       "url": "https://www.linkedin.com/in/fenrua-labs-80b679388"
@@ -51,7 +56,7 @@
       "url": "https://huggingface.co/Fenrua-Labs"
     }
   ],
-  "publicProfilesVerifiedAt": "2026-08-02",
+  "publicProfilesVerifiedAt": "2026-08-05",
   "registrySources": [
     {
       "authority": "Australian Business Register",

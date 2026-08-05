@@ -1,7 +1,7 @@
 {
   "schemaVersion": "fenrua.route-lifecycle.v1",
   "canonicalOrigin": "https://fenrua.ai",
-  "reviewedAt": "2026-07-22",
+  "reviewedAt": "2026-08-05",
   "records": [
     {
       "id": "home",
@@ -19,6 +19,26 @@
       "reviewDate": "2026-07-14",
       "evidenceIds": ["site-evidence-input"],
       "notes": "Canonical public overview and routing surface.",
+      "routeClass": "html",
+      "contentType": "text/html",
+      "audit": true
+    },
+    {
+      "id": "ai",
+      "path": "/ai",
+      "state": "current",
+      "methods": ["GET", "HEAD"],
+      "expectedStatus": 200,
+      "destination": null,
+      "canonical": "https://fenrua.ai/ai",
+      "indexPolicy": "index-follow",
+      "cacheClass": "html-current",
+      "contentOwner": "ai-product",
+      "replacement": null,
+      "effectiveDate": "2026-08-05",
+      "reviewDate": "2026-08-05",
+      "evidenceIds": ["site-evidence-input"],
+      "notes": "Public Fenrua AI development-direction route with explicit planned and not-available product boundaries.",
       "routeClass": "html",
       "contentType": "text/html",
       "audit": true
