@@ -46,7 +46,7 @@ assert.match(architecture, /class="section-nav"/, "Architecture must expose sect
 assert.match(claims, /data-claim-filter/, "Claims must expose the local filter control.");
 assert.match(claims, /data-claim-record/, "Claims must remain server-rendered before filtering.");
 
-assert.match(status, /<script src="\/status-monitor\.js" defer><\/script>/, "Status must use the isolated public-monitor script.");
+assert.match(status, /<script src="\/status-monitor\.js\?v=[a-f0-9]{12}" defer><\/script>/, "Status must use the content-versioned isolated public-monitor script.");
 assert.doesNotMatch(status, /<script>\s*\(\(\) =>/, "Status must not ship a CSP-blocked inline script.");
 assert.doesNotMatch(status, /data-relative-time=/, "Static release timestamps must not be represented as live updates.");
 assert.match(statusMonitor, /Last signed observation|observed_at/, "The monitor must use signed-observation semantics.");

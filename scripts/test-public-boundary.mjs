@@ -73,6 +73,7 @@ assert.ok(archiveHeader?.headers.some((header) => header.key === "X-Robots-Tag" 
 const globalHeaders = vercel.headers.find((entry) => entry.source === "/(.*)")?.headers ?? [];
 const headerValue = (key) => globalHeaders.find((header) => header.key === key)?.value;
 assert.equal(headerValue("Strict-Transport-Security"), "max-age=63072000");
+assert.equal(headerValue("Cache-Control"), "public, max-age=0, must-revalidate, no-transform");
 assert.equal(headerValue("X-Frame-Options"), "DENY");
 assert.equal(headerValue("Cross-Origin-Opener-Policy"), "same-origin");
 assert.equal(headerValue("Cross-Origin-Resource-Policy"), "same-origin");

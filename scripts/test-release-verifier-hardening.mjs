@@ -301,6 +301,16 @@ assert.equal(
   3,
 );
 
+let auditRequestHeaders;
+await fetchBounded("https://preview.example/fresh", {
+  maxBytes: 2,
+  fetchImpl: async (_url, { headers }) => {
+    auditRequestHeaders = headers;
+    return new Response("ok", { headers: { "content-type": "text/plain", "content-length": "2" } });
+  },
+});
+assert.deepEqual(auditRequestHeaders, { "cache-control": "no-cache", pragma: "no-cache", accept: "*/*" });
+
 await assert.rejects(
   fetchBounded("https://preview.example/streamed-large", {
     maxBytes: 3,

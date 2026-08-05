@@ -7,7 +7,7 @@ const [status, monitor, styles] = await Promise.all([
   readFile(new URL("../styles.css", import.meta.url), "utf8"),
 ]);
 
-assert.match(status, /<script src="\/status-monitor\.js" defer><\/script>/, "Status must load its isolated public monitor.");
+assert.match(status, /<script src="\/status-monitor\.js\?v=[a-f0-9]{12}" defer><\/script>/, "Status must load its content-versioned isolated public monitor.");
 assert.doesNotMatch(status, /<script src="\/mobile-chain-status\.js" defer><\/script>/, "Status must not start a second public-observation poller.");
 assert.doesNotMatch(status, /data-chain-card=/, "Status must use its monitor table rather than duplicate detailed observation cards.");
 assert.match(status, /LIVE SIGNED OBSERVATIONS/, "Status must distinguish live observations from static release records.");

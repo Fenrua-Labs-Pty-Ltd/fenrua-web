@@ -109,9 +109,10 @@ for (const route of routes) {
   assert.match(html, /<link rel="manifest" href="\/site\.webmanifest" \/>/, `${route} must expose the PWA manifest.`);
   assert.match(html, /<img src="\/assets\/fenrua-header-logo\.png" width="40" height="40" alt="" decoding="async" \/>/, `${route} must use the frozen PNG in its header.`);
   assert.doesNotMatch(html, /fenrua-header-logo\.jpg/, `${route} must not expose the retired JPG in page metadata, header, or favicon tags.`);
+  assert.match(html, /<link rel="stylesheet" href="\/styles\.css\?v=[a-f0-9]{12}" \/>/, `${route} must load its content-versioned stylesheet.`);
+  assert.match(html, /<script src="\/technical-data\.js\?v=[a-f0-9]{12}" defer><\/script>/, `${route} must load content-versioned technical data controls.`);
   assert.match(html, /<main id="content">/, `${route} must contain a main landmark`);
   assert.match(html, /Skip to content/, `${route} must include a skip link`);
-  assert.match(html, /technical-data\.js/, `${route} must load technical data controls`);
   assert.match(html, /<strong>Fenrua BlackBox Protocol<\/strong>/, `${route} must use the canonical public protocol name`);
   assert.match(html, /<small>by Fenrua Labs Pty Ltd<\/small>/, `${route} must identify the registered operator`);
   for (const [label, href] of [
@@ -227,7 +228,7 @@ assert.match(trust, /This Trust Gate page describes Fenrua's public governance m
 assert.match(trust, /Autonomous AI systems can pursue narrow objectives across tool, network, and infrastructure boundaries\./);
 assert.match(trust, /href="\/trust#trust-gate"[^>]*>Trust Gate<\/a>/, "Trust section navigation must expose the canonical reviewer path.");
 assert.doesNotMatch(trust, /(?:cryptographic formulas?|tenant projection equations?|commitment formulas?|nullifier formulas?|witness vectors?|proof relations?|Merkle\/?MMR equations?|sparse Merkle aggregation details?|settlement formulas?|private chain topology|peer maps?|provider routes?|RPC details?)/i, "Trust Gate reviewer path must remain conceptual and public-safe.");
-assert.match(overview, /<script src="\/kernel-status\.js" defer><\/script>/, "overview must load live chain updater");
+assert.match(overview, /<script src="\/kernel-status\.js\?v=[a-f0-9]{12}" defer><\/script>/, "overview must load the content-versioned live chain updater");
 assert.match(overview, /class="site-header site-header-live"/, "overview must place live blocks in the header");
 assert.match(overview, /class="header-chain-rail mobile-chain-rail"/, "overview must render the mobile header live chain rail");
 assert.match(overview, /class="section-shell chain-progress desktop-chain-progress"/, "overview must render desktop live blocks under the intro card");
@@ -352,7 +353,7 @@ assertNoPositiveReviewerClaims(reviewerPublicContent, "Reviewer paths");
 
 const claims = await readFile(new URL("../trust/claims/index.html", import.meta.url), "utf8");
 assert.match(claims, /data-claim-filter/);
-assert.match(claims, /claim-filter\.js/);
+assert.match(claims, /claim-filter\.js\?v=[a-f0-9]{12}/);
 assert.match(claims, /Download claim register JSON/);
 assert.ok([...claims.matchAll(/data-claim-record/g)].length >= 19, "Claims must render the complete canonical register without JavaScript.");
 assert.match(claims, /capability\.observation-n521/);
@@ -402,7 +403,7 @@ assert.match(research, /Primary limitation/);
 const fenrua521 = await readFile(new URL("../fenrua-521/index.html", import.meta.url), "utf8");
 const fenrua521Reader = await readFile(new URL("../fenrua-521-evidence.js", import.meta.url), "utf8");
 assert.match(fenrua521, /data-fenrua-521-releases/, "Fenrua-521 must retain its server-rendered release region.");
-assert.match(fenrua521, /fenrua-521-evidence\.js/, "Fenrua-521 must load its bounded public source reader.");
+assert.match(fenrua521, /fenrua-521-evidence\.js\?v=[a-f0-9]{12}/, "Fenrua-521 must load its content-versioned bounded public source reader.");
 assert.match(fenrua521, /Repository-declared release records/, "Fenrua-521 must disclose its source-declared release boundary.");
 assert.match(fenrua521, /Public evidence is not private execution/, "Fenrua-521 must preserve the public/private boundary.");
 assert.match(fenrua521Reader, /Fenrua-Labs-Pty-Ltd\/fenrua-521-public-evidence/, "Fenrua-521 must be pinned to the approved public evidence repository.");
@@ -436,7 +437,7 @@ assert.match(status, /Research and technology services/);
 assert.match(status, /LIVE SIGNED OBSERVATIONS/);
 assert.match(status, /STATIC RELEASE RECORDS/);
 assert.match(status, /STATUS PLANE BOUNDARIES/);
-assert.match(status, /<script src="\/status-monitor\.js" defer><\/script>/);
+assert.match(status, /<script src="\/status-monitor\.js\?v=[a-f0-9]{12}" defer><\/script>/);
 assert.match(status, /data-status-monitor-row="978"/);
 assert.match(status, /data-status-monitor-row="521"/);
 assert.match(status, /Last signed observation/);
