@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
-const [status, monitor] = await Promise.all([
+const [status, monitor, styles] = await Promise.all([
   readFile(new URL("../status/index.html", import.meta.url), "utf8"),
   readFile(new URL("../status-monitor.js", import.meta.url), "utf8"),
+  readFile(new URL("../styles.css", import.meta.url), "utf8"),
 ]);
 
 assert.match(status, /<script src="\/status-monitor\.js" defer><\/script>/, "Status must load its isolated public monitor.");
@@ -85,6 +86,21 @@ assert.match(
   monitor,
   /function renderRevalidating\(row,[\s\S]{0,180}setState\(row, "revalidating"\)/,
   "A valid partial presentation must use the neutral revalidating state."
+);
+assert.match(
+  monitor,
+  /if \(state === "revalidating"\) return \{ label: "Awaiting next observation", className: "status-info" \};/,
+  "A valid signed partial must use the neutral information presentation."
+);
+assert.match(
+  styles,
+  /\.status-info\s*\{[\s\S]{0,120}var\(--signal-info\)[\s\S]{0,120}var\(--blue\)/,
+  "The neutral signed-partial presentation must remain visually distinct from an observation gap."
+);
+assert.doesNotMatch(
+  styles,
+  /\[data-status="waiting"\]\[data-activity="revalidating"\]/,
+  "A valid revalidation window must not be styled as an amber observation gap."
 );
 assert.match(
   monitor,

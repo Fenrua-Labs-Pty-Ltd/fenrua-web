@@ -835,29 +835,20 @@ h1 {
 }
 
 .header-chain-card[data-status="waiting"][data-activity="awaiting"],
-.header-chain-card[data-status="waiting"][data-activity="revalidating"],
-.chain-card[data-status="waiting"][data-activity="awaiting"],
-.chain-card[data-status="waiting"][data-activity="revalidating"] {
+.chain-card[data-status="waiting"][data-activity="awaiting"] {
   border-color: var(--signal-warn);
 }
 
 .header-chain-card[data-status="waiting"][data-activity="awaiting"] .chain-card-top strong,
-.header-chain-card[data-status="waiting"][data-activity="revalidating"] .chain-card-top strong,
 .chain-card[data-status="waiting"][data-activity="awaiting"] .chain-card-top strong,
-.chain-card[data-status="waiting"][data-activity="revalidating"] .chain-card-top strong,
-.chain-card[data-status="waiting"][data-activity="awaiting"] .chain-progress-meter-top strong,
-.chain-card[data-status="waiting"][data-activity="revalidating"] .chain-progress-meter-top strong {
+.chain-card[data-status="waiting"][data-activity="awaiting"] .chain-progress-meter-top strong {
   color: var(--amber);
 }
 
 .header-chain-card[data-status="waiting"][data-activity="awaiting"] .live-dot,
-.header-chain-card[data-status="waiting"][data-activity="revalidating"] .live-dot,
 .chain-card[data-status="waiting"][data-activity="awaiting"] .live-dot,
-.chain-card[data-status="waiting"][data-activity="revalidating"] .live-dot,
 .header-chain-card[data-status="waiting"][data-activity="awaiting"] .chain-progress-rail i,
-.header-chain-card[data-status="waiting"][data-activity="revalidating"] .chain-progress-rail i,
-.chain-card[data-status="waiting"][data-activity="awaiting"] .chain-progress-rail i,
-.chain-card[data-status="waiting"][data-activity="revalidating"] .chain-progress-rail i {
+.chain-card[data-status="waiting"][data-activity="awaiting"] .chain-progress-rail i {
   background: var(--amber);
 }
 
@@ -2209,6 +2200,11 @@ h3 {
 .status-success {
   border-color: rgba(101, 242, 154, 0.44);
   color: var(--green);
+}
+
+.status-info {
+  border-color: var(--signal-info);
+  color: var(--blue);
 }
 
 .status-awaiting {

@@ -195,6 +195,7 @@ test("Overview retains only a labelled last verified block during a valid signed
   await expect(card.locator('[data-chain-field="521-status"]')).toHaveText("Awaiting next observation");
   await expect(card.locator('[data-chain-field="521-block"]')).toContainText("Last verified 272,007");
   await expect(card.locator('[data-chain-field="521-block"]')).toContainText("awaiting next observation");
+  await expect(card).toHaveAttribute("data-activity", "revalidating");
   await expect(card).not.toContainText("Partial");
 
   response = monitorPayload({
@@ -220,10 +221,12 @@ test("Status keeps a valid signed partial neutral after the one-minute presentat
   response = partialMonitorPayload();
   await page.evaluate(() => window.dispatchEvent(new Event("online")));
   await expect(row.locator('[data-status-monitor-state]')).toHaveText("Awaiting next observation");
+  await expect(row.locator('[data-status-monitor-state]')).toHaveClass(/status-info/);
   await expect(row.locator('[data-status-monitor-block]')).toContainText("Last verified 272,007");
 
   await page.clock.fastForward(60_100);
   await expect(row.locator('[data-status-monitor-state]')).toHaveText("Awaiting next observation");
+  await expect(row.locator('[data-status-monitor-state]')).toHaveClass(/status-info/);
   await expect(row.locator('[data-status-monitor-block]')).toContainText("Last verified 272,007");
   await expect(row).not.toContainText("Partial");
 });

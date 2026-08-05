@@ -95,6 +95,16 @@ assert.match(
 );
 assert.match(
   kernelStatus,
+  /label: "Awaiting signed observation", state: "awaiting"/,
+  "A chain with no signed observation must use the distinct awaiting presentation."
+);
+assert.match(
+  kernelStatus,
+  /const partialActivity = withinGraceWindow \? "revalidating" : "partial-confirmation"/,
+  "A signed partial must remain distinct from a true observation gap."
+);
+assert.match(
+  kernelStatus,
   /Last verified \$\{formatNumber\(retained\.blockNumber\)\} · awaiting next observation/,
   "A valid partial may retain only a clearly labelled, non-current block."
 );

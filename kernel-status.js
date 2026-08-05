@@ -468,7 +468,7 @@ function assessSignedActivity(chain, payload) {
   const sequence = chain.observationSequence;
   if (!Number.isSafeInteger(sequence)) {
     return chain.status === "waiting"
-      ? { accepted: true, label: "Awaiting signed observation", state: "waiting" }
+      ? { accepted: true, label: "Awaiting signed observation", state: "awaiting" }
       : { accepted: true, label: "No verified sequence", state: "unavailable" };
   }
 
@@ -705,6 +705,7 @@ function updateChainCard(chain, payload) {
 
   if (displayChain.status === "partial") {
     const withinGraceWindow = retained && isWithinRevalidationWindow(activity.highWater);
+    const partialActivity = withinGraceWindow ? "revalidating" : "partial-confirmation";
     setText(fields.status, "Awaiting next observation");
     setText(fields.progress, "awaiting next observation");
     setText(fields.chainId, formatChainIdentity(chain));
@@ -726,9 +727,9 @@ function updateChainCard(chain, payload) {
     );
     document.querySelectorAll(fields.card).forEach((card) => {
       card.dataset.status = "waiting";
-      card.dataset.activity = withinGraceWindow ? "revalidating" : "awaiting";
+      card.dataset.activity = partialActivity;
     });
-    return withinGraceWindow ? "revalidating" : "awaiting";
+    return "revalidating";
   }
 
   const status = cardStatus(displayChain);
