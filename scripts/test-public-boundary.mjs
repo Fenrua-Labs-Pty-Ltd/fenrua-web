@@ -46,11 +46,12 @@ assert.equal(company.publicContact, "partnerships@fenrua.ai");
 assert.deepEqual(company.publicProfiles, [
   { provider: "github", label: "GitHub", url: "https://github.com/fenrualabs" },
   { provider: "x", label: "X", url: "https://x.com/FenruaLabs" },
+  { provider: "x-fenrua-ai", label: "Fenrua AI on X", url: "https://x.com/FenruaAI" },
   { provider: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/fenrua-labs-80b679388" },
   { provider: "youtube", label: "YouTube", url: "https://www.youtube.com/@FenruaLabs" },
   { provider: "hugging-face", label: "Hugging Face", url: "https://huggingface.co/Fenrua-Labs" },
 ]);
-assert.equal(company.publicProfilesVerifiedAt, "2026-08-02");
+assert.equal(company.publicProfilesVerifiedAt, "2026-08-05");
 
 assert.equal(register.schemaVersion, "fenrua.public-document-register.v1");
 for (const record of register.records) {

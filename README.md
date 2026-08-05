@@ -1,10 +1,10 @@
-# Fenrua BlackBox Protocol
+# Fenrua Labs Public Website
 
-**Public evidence for private AI execution.**
+**Evidence-first AI infrastructure and controlled model systems.**
 
-`fenrua-web` is the canonical public website and evidence interface for **https://fenrua.ai**.
+`fenrua-web` is the canonical public website and evidence interface for **https://fenrua.ai**. It presents two connected programmes: **Fenrua AI**, the public development direction for the planned Fenrua V1 model family, and **Fenrua BlackBox Protocol**, evidence infrastructure for governable AI execution.
 
-Fenrua BlackBox Protocol is a privacy-preserving evidence layer for verifiable AI automation. It lets reviewers inspect bounded evidence about AI execution, trust decisions, release artifacts, policy boundaries, and public claims without exposing the confidential machine beneath them.
+Fenrua AI does not currently provide model weights, public downloads, inference, an API, an application, an encrypted vault service, or an active compute-unit programme. Fenrua BlackBox Protocol remains a privacy-preserving evidence layer for verifiable AI automation. It lets reviewers inspect bounded evidence about AI execution, trust decisions, release artifacts, policy boundaries, and public claims without exposing the confidential machine beneath them.
 
 Fenrua’s core rule is simple:
 

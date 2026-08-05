@@ -285,6 +285,12 @@ export function validateProductOntology() {
   const requiredEntityIds = [
     "fenrua.labs",
     "fenrua.protocol",
+    "fenrua.ai",
+    "fenrua.v1",
+    "fenrua.fml-mosaic",
+    "fenrua.hunting-knowledge",
+    "fenrua.vault-direction",
+    "fenrua.compute-units",
     "fenrua.ai-efficiency-infrastructure",
     "fenrua.layer-0-security-controls",
     "fenrua.security-kernel",
@@ -327,6 +333,14 @@ export function validateProductOntology() {
   expect(errors, entityById.get("fenrua.labs")?.canonicalName === "Fenrua Labs", "Fenrua Labs must retain its canonical company name");
   expect(errors, entityById.get("fenrua.protocol")?.entityType === "product", "Fenrua BlackBox Protocol must be a product direction");
   expect(errors, entityById.get("fenrua.protocol")?.canonicalName === "Fenrua BlackBox Protocol", "Fenrua BlackBox Protocol must retain its canonical platform label");
+  expect(errors, entityById.get("fenrua.ai")?.canonicalName === "Fenrua AI", "Fenrua AI must retain its public programme name");
+  expect(errors, entityById.get("fenrua.ai")?.status === "current", "Fenrua AI public documentation must remain current");
+  expect(errors, entityById.get("fenrua.v1")?.canonicalName === "Fenrua V1", "Fenrua V1 must retain its public model-family name");
+  expect(errors, entityById.get("fenrua.v1")?.status === "planned", "Fenrua V1 must remain planned without capability evidence");
+  expect(errors, entityById.get("fenrua.fml-mosaic")?.status === "historical", "FML-Mosaic must remain a historical internal codename in public records");
+  expect(errors, entityById.get("fenrua.hunting-knowledge")?.status === "planned", "HuntingKnowledge must remain planned without a public corpus claim");
+  expect(errors, entityById.get("fenrua.vault-direction")?.status === "planned", "Encrypted vault direction must remain planned");
+  expect(errors, entityById.get("fenrua.compute-units")?.status === "planned", "Fenrua Compute Units must remain planned and inactive");
   expect(errors, entityById.get("fenrua.layer-0-security-controls")?.entityType === "subsystem", "Layer 0 must be represented as a subsystem");
   expect(errors, /security-control/i.test(entityById.get("fenrua.layer-0-security-controls")?.definition ?? ""), "Layer 0 definition must retain its security-control boundary");
   for (const id of ["fenrua.fenc978", "fenrua.fenn521"]) {

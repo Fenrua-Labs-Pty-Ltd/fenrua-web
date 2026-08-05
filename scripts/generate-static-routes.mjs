@@ -49,6 +49,7 @@ const evidenceById = new Map(evidenceTaxonomy.evidenceRecords.map((record) => [r
 const verifiedPublicProfiles = [
   { provider: "github", label: "GitHub", url: "https://github.com/fenrualabs" },
   { provider: "x", label: "X", url: "https://x.com/FenruaLabs" },
+  { provider: "x-fenrua-ai", label: "Fenrua AI on X", url: "https://x.com/FenruaAI" },
   { provider: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/fenrua-labs-80b679388" },
   { provider: "youtube", label: "YouTube", url: "https://www.youtube.com/@FenruaLabs" },
   { provider: "hugging-face", label: "Hugging Face", url: "https://huggingface.co/Fenrua-Labs" },
@@ -68,7 +69,7 @@ if (
     && profile.url === verifiedPublicProfiles[index].url
   ))
 ) {
-  throw new Error("data/company-identity.json must contain the five verified public profiles.");
+  throw new Error("data/company-identity.json must contain the approved verified public profiles.");
 }
 const documentRegister = JSON.parse(readFileSync(documentRegisterPath, "utf8"));
 const kernelStatusSource = readFileSync(kernelStatusPath, "utf8");
@@ -155,6 +156,7 @@ const manifestRecord = kernelEvidenceRecord("Genesis Manifest Record");
 const differentialRecord = kernelEvidenceRecord("Differential Validation");
 
 const nav = [
+  ["AI", "/ai"],
   ["Platform", "/platform"],
   ["Developers", "/developers"],
   ["Research", "/research"],
@@ -165,6 +167,9 @@ const nav = [
 ];
 
 const sectionNavigation = {
+  AI: [
+    ["Fenrua AI", "/ai"],
+  ],
   Platform: [
     ["Platform overview", "/platform"],
     ["Architecture", "/architecture"],
@@ -220,6 +225,7 @@ const sectionNavigation = {
 
 const routeLabels = {
   "": "Home",
+  ai: "Fenrua AI",
   architecture: "Architecture",
   components: "Components",
   runtime: "Runtime",
@@ -501,6 +507,8 @@ const publicProfileIcons = {
     <path fill="#f0f6fc" d="M12 .6a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.05c-3.34.73-4.04-1.41-4.04-1.41-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.45 11.45 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .6Z" />`,
   x: `
     <path fill="#f5f7f6" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H7.97l4.713 6.231 5.561-6.231Zm-1.161 17.52h1.833L6.974 4.126H5.007L17.083 19.77Z" />`,
+  "x-fenrua-ai": `
+    <path fill="#f5f7f6" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H7.97l4.713 6.231 5.561-6.231Zm-1.161 17.52h1.833L6.974 4.126H5.007L17.083 19.77Z" />`,
   linkedin: `
     <rect x="2" y="2" width="20" height="20" rx="2.2" fill="#0A66C2" />
     <circle cx="7.3" cy="8" r="1.25" fill="#ffffff" />
@@ -723,7 +731,7 @@ const organizationJsonLd = JSON.stringify(
     "@id": "https://fenrua.ai/#organization",
     name: company.legalName,
     legalName: company.legalName,
-    alternateName: [company.displayName, "Fenrua"],
+    alternateName: [company.displayName, "Fenrua", "Fenrua AI"],
     url: "https://fenrua.ai/",
     logo: "https://fenrua.ai/assets/fenrua-header-logo.png",
     foundingDate: company.registrationDate,
@@ -744,7 +752,7 @@ const organizationJsonLd = JSON.stringify(
       contactType: "business enquiries",
       email: company.publicContact,
     },
-    description: "Fenrua BlackBox Protocol is privacy-preserving protocol infrastructure for verifiable AI automation.",
+    description: "Fenrua Labs develops Fenrua AI controlled model systems and the Fenrua BlackBox Protocol evidence infrastructure for governable AI execution.",
     sameAs: company.publicProfiles.map((profile) => profile.url),
   },
   null,
@@ -771,7 +779,7 @@ function pageDiscoveryJsonLd({ title, description, canonical, current }) {
       "@type": "WebSite",
       "@id": "https://fenrua.ai/#website",
       url: "https://fenrua.ai/",
-      name: "Fenrua BlackBox Protocol",
+      name: "Fenrua Labs",
       inLanguage: "en-AU",
       publisher: { "@id": "https://fenrua.ai/#organization" },
     },
@@ -797,6 +805,7 @@ function pageDiscoveryJsonLd({ title, description, canonical, current }) {
 }
 
 function sectionForCurrent(current) {
+  if (current === "Fenrua AI") return "AI";
   if (["Architecture", "Kernel", "Utilities"].includes(current)) return "Platform";
   if (["Developers", "Verify", "Toolchain"].includes(current)) return "Developers";
   if (["Research", "Fenrua-521 evidence"].includes(current)) return "Research";
@@ -876,7 +885,7 @@ function layout({ title, description, current, body, scripts = "", canonicalPath
     <meta name="theme-color" content="#0d0d0d" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_AU" />
-    <meta property="og:site_name" content="Fenrua BlackBox Protocol" />
+    <meta property="og:site_name" content="Fenrua Labs" />
     <meta property="og:title" content="${attr(title)}" />
     <meta property="og:description" content="${attr(description)}" />
     <meta property="og:url" content="${attr(canonicalUrl)}" />
@@ -1340,6 +1349,7 @@ function platform() {
     canonicalPath: "/platform",
     section: "Platform",
     body: `${routeHero("PROTOCOL ORIENTATION", "Protocol infrastructure", "Fenrua BlackBox Protocol is protocol infrastructure for verifiable AI automation and governable autonomous AI execution. The platform view separates what is inspectable today from specifications, research, and planned work.", `<div class="cta-row"><a class="button button-primary" href="/architecture">Read architecture</a><a class="button button-secondary" href="/start">Choose a starting path</a></div>`)}
+      <section class="section-shell split-section" aria-labelledby="platform-model-boundary"><div><p class="eyebrow">MODEL ACCESS AND PROTOCOL BOUNDARY</p><h2 id="platform-model-boundary">Future model access is planned; BlackBox remains separate infrastructure</h2><p>Fenrua AI describes the planned Fenrua V1 model family and controlled-access direction. Fenrua BlackBox Protocol remains the separate evidence and authority infrastructure programme for governable AI execution.</p></div><div class="constraint-list"><p>The current BlackBox public evidence lane does not provide hosted-model inference, hosted-model privacy, model weights, a developer API, an application, or an encrypted vault service.</p><p><a href="/ai">Read the Fenrua AI maturity boundary</a>.</p></div></section>
       <section class="section-shell" aria-labelledby="platform-capabilities"><div class="section-heading"><p class="eyebrow">CURRENT CAPABILITY STATES</p><h2 id="platform-capabilities">Maturity stays attached to the record</h2><p>These summaries are generated from the canonical capability register. A public page, specification, or record is not promoted into a service merely by being visible here.</p></div>
         ${capabilityCards(["capability.public-website", "capability.security-kernel-specification", "capability.utility-catalogue", "capability.local-verifier", "capability.local-trust-gate"], { "capability.security-kernel-specification": "/kernel", "capability.utility-catalogue": "/utilities", "capability.local-verifier": "/verify", "capability.local-trust-gate": "/trust/claims#capability.local-trust-gate" })}
       </section>
@@ -1442,6 +1452,16 @@ function companyHub() {
     body: `${routeHero("COMPANY AND SERVICE BOUNDARY", "Company", "Fenrua Labs Pty Ltd is the registered operator named on the public estate. Public information supports technical review and service discovery, not self-service contracting or financial products.", `<div class="cta-row"><a class="button button-primary" href="/legal">Legal and company record</a><a class="button button-secondary" href="/support">Support boundary</a></div>`)}
       <section class="section-shell split-section" aria-labelledby="company-identity"><div><p class="eyebrow">PUBLIC IDENTITY</p><h2 id="company-identity">Registered operator and public channels</h2><p>Company details and public profiles are maintained in the canonical company identity record. Contact channels below are public, factual, and scoped to their purpose.</p></div>
         <div class="constraint-list"><p><strong>${esc(company.legalName)}</strong><br />ABN ${esc(company.abn)} · ACN ${esc(company.acn)}</p><p><strong>Business enquiries:</strong> <a href="mailto:${attr(company.publicContact)}">${esc(company.publicContact)}</a></p><p><strong>Security reporting:</strong> <a href="/security">Use the public security reporting boundary</a>.</p></div>
+      </section>
+      <section class="section-shell" aria-labelledby="company-portfolio"><div class="section-heading"><p class="eyebrow">PUBLIC PORTFOLIO</p><h2 id="company-portfolio">Connected programmes with separate maturity boundaries</h2><p>These names describe public directions and documentation. They do not claim that a model, application, vault, compute-unit programme, or specialist research programme is publicly available.</p></div>
+        ${cardGrid([
+          { kicker: "PUBLIC DEVELOPMENT DIRECTION", title: "Fenrua AI", text: "The Fenrua Labs product and community programme for controlled, evidence-aware model systems.", href: "/ai", link: "Fenrua AI" },
+          { kicker: "PLANNED", title: "Fenrua V1", text: "The planned closed-weight Fenrua V1 Mini, V1, and V1 Pro model family.", href: "/ai#fenrua-v1-family", link: "Fenrua V1 boundary" },
+          { kicker: "PLANNED", title: "Fenrua Platform and Fenrua App", text: "Planned developer, organisation, and application directions with no current public product access claim.", href: "/ai#fenrua-ai-maturity", link: "Current maturity" },
+          { kicker: "CANDIDATE PREPARATION", title: "HuntingKnowledge", text: "A planned community-knowledge direction with confidential corpus and separated research roles.", href: "/ai#hunting-knowledge-title", link: "HuntingKnowledge boundary" },
+          { kicker: "CURRENT PUBLIC EVIDENCE", title: "Fenrua BlackBox Protocol", text: "Evidence and authority infrastructure for governable AI execution, kept separate from model access.", href: "/platform", link: "BlackBox Protocol" },
+          { kicker: "SPECIALIST RESEARCH", title: "FML-521-A", text: "A separate specialist research direction with public evidence limited to its declared scope and limitations.", href: "/fenrua-521", link: "Fenrua-521 evidence" },
+        ])}
       </section>
       <section class="section-shell" aria-labelledby="company-boundary"><div class="section-heading"><p class="eyebrow">SERVICE BOUNDARY</p><h2 id="company-boundary">Public records, agreement-specific delivery</h2><p>Research, software, infrastructure access, hosting, integration, technical support, and evidence-aware workflows may be delivered only within the relevant agreement. The public site does not represent a client portal, checkout, trading venue, wallet, token offering, or financial-return product.</p></div>
         ${cardGrid([{ kicker: "LEGAL", title: "Operating record", text: "Read the current public company and service record, including explicit non-financial-product boundaries.", href: "/legal", link: "Legal and company" }, { kicker: "SUPPORT", title: "Technical enquiries", text: "Public support directs people to the correct published channel and does not accept sensitive material in public forms.", href: "/support", link: "Support boundary" }, { kicker: "DATA FLOW", title: "Public data handling", text: "The public data-flow document states known public flows and the remaining owner or legal review dependencies.", href: "/docs/PUBLIC_DATA_FLOW.md", link: "Data flow" }])}
@@ -1548,22 +1568,85 @@ function trustEvidenceClasses() {
   });
 }
 
+function ai() {
+  const maturityRows = [
+    ["Fenrua V1 Mini", "PLANNED", "No weights, public download, or hosted access are released."],
+    ["Fenrua V1", "PLANNED", "No developer or organisation API is available."],
+    ["Fenrua V1 Pro", "PLANNED", "No public application or flagship model access is available."],
+    ["Encrypted vault direction", "PLANNED", "No encrypted vault service is available today."],
+    ["Fenrua Compute Units", "INACTIVE", "No allocation, wallet, transfer, trade, yield, or financial product is claimed."],
+    ["Production model service", "NOT CLAIMED", "No production inference, production readiness, benchmark leadership, or hosted-privacy guarantee is claimed."],
+  ].map(([surface, status, boundary]) => `<tr><td data-label="Surface">${esc(surface)}</td><td data-label="Status">${esc(status)}</td><td data-label="Current boundary">${esc(boundary)}</td></tr>`);
+
+  return layout({
+    title: "Fenrua AI | Fenrua V1 models and controlled access",
+    description: "Fenrua AI public development direction for the planned Fenrua V1 closed-weight model family and controlled access boundary.",
+    current: "Fenrua AI",
+    canonicalPath: "/ai",
+    section: "AI",
+    body: `${routeHero(
+      "FENRUA AI",
+      "Evidence-first models. Controlled access. User-owned continuity.",
+      "Fenrua AI is the product and community programme of Fenrua Labs. The Fenrua V1 family is being developed as a closed-weight, controlled-access assistant family for practical learning, software development, research, professional work, and evidence-aware reasoning. The models, API, application, encrypted vault service, and compute-unit programme remain under development and are not publicly available today.",
+      `<div class="cta-row"><a class="button button-primary" href="https://huggingface.co/Fenrua-Labs/Fenrua-V1">Read the Fenrua V1 card</a><a class="button button-secondary" href="/platform">Inspect BlackBox Protocol</a></div>`,
+    )}
+      <section id="fenrua-v1-family" class="section-shell" aria-labelledby="fenrua-v1-family-title">
+        <div class="section-heading"><p class="eyebrow">FENRUA V1 FAMILY</p><h2 id="fenrua-v1-family-title">Three planned variants, one controlled-access boundary</h2><p>All Fenrua V1 weights are closed. This public direction does not offer a download, hosted inference, developer API, model architecture, training recipe, corpus mixture, benchmark claim, or live access path.</p></div>
+        ${cardGrid([
+          { kicker: "PLANNED", title: "Fenrua V1 Mini", text: "A planned Community Access Model for practical learning and community-facing exploration. No public model access is available today." },
+          { kicker: "PLANNED", title: "Fenrua V1", text: "A planned Fenrua Platform model for developer and organisation contexts. No developer or organisation API is available today." },
+          { kicker: "PLANNED", title: "Fenrua V1 Pro", text: "A planned flagship Fenrua application model. No application or hosted flagship model is released today." },
+        ])}
+      </section>
+      <section class="section-shell split-section" aria-labelledby="fenrua-ai-community-title">
+        <div><p class="eyebrow">COMMUNITY AND HUGGING FACE</p><h2 id="fenrua-ai-community-title">Public documentation and discovery, not a model-access claim</h2><p>Hugging Face is used for documentation, development preview, community discovery, evaluation updates, contribution intake, and planned protected demonstration. It does not make weights or public inference available.</p></div>
+        <div class="constraint-list"><p><a href="https://huggingface.co/Fenrua-Labs/Fenrua-V1">Fenrua V1 model card</a></p><p><a href="https://huggingface.co/Fenrua-Labs/FenruaLabs">FenruaLabs company and research card</a></p><p><a href="https://huggingface.co/Fenrua-Labs">Fenrua Labs on Hugging Face</a></p><p><a href="https://x.com/FenruaAI">@FenruaAI</a></p></div>
+      </section>
+      <section class="section-shell" aria-labelledby="hunting-knowledge-title">
+        <div class="section-heading"><p class="eyebrow">HUNTINGKNOWLEDGE</p><h2 id="hunting-knowledge-title">A planned community-knowledge direction with separated roles</h2><p>HuntingKnowledge is a planned direction for youth-useful technical, scientific, mathematical, academic, digital, and AI-literacy knowledge. Agent 1 hunts. Agent 2 cleans and updates. The roles do not cross over. The exact corpus, source selection, and methods remain confidential, and no corpus access or model behaviour is claimed by this page.</p></div>
+      </section>
+      <section class="section-shell split-section" aria-labelledby="fenrua-vault-title">
+        <div><p class="eyebrow">ENCRYPTED VAULT DIRECTION</p><h2 id="fenrua-vault-title">Content off-chain. Commitments on-chain. Keys with the user or authorised organisation.</h2><p>Fenrua is planning bounded personal continuity commitments for 978 and bounded organisation policy and governance commitments for N521. No raw content or keys are intended to be placed on-chain, and no encrypted vault service is available today.</p></div>
+        <div class="constraint-list"><p><strong>Hosted-inference boundary:</strong> selected content may be processed ephemerally by a future hosted runtime. Fenrua does not claim cryptographically invisible hosted inference.</p><p><strong>Current boundary:</strong> no vault product, endpoint, account, upload flow, or protected operational detail is exposed by this public site.</p></div>
+      </section>
+      <section class="section-shell split-section" aria-labelledby="fcu-title">
+        <div><p class="eyebrow">FENRUA COMPUTE UNITS</p><h2 id="fcu-title">Planned service accounting, not a financial instrument</h2><p>Fenrua Compute Units (FCU) are planned as non-transferable service-accounting units. The programme is inactive and no guaranteed launch allocation is represented.</p></div>
+        <div class="constraint-list"><p>FCU have no claimed cash value, transferability, trading market, wallet, investment value, appreciation, yield, staking, token, or financial-return feature.</p></div>
+      </section>
+      <section id="fenrua-ai-maturity" class="section-shell" aria-labelledby="fenrua-ai-maturity-title">
+        <div class="section-heading"><p class="eyebrow">CURRENT MATURITY</p><h2 id="fenrua-ai-maturity-title">The public state is intentionally explicit</h2><p>Public naming and documentation are current. Product capability remains maturity-labelled and is not promoted by branding, a card, or a public route.</p></div>
+        ${table(["Surface", "Status", "Current boundary"], maturityRows, "status-table ai-maturity-table", "Fenrua AI current maturity")}
+      </section>
+      <section class="section-shell split-section" aria-labelledby="fenrua-ai-evidence-title">
+        <div><p class="eyebrow">EVIDENCE DISCIPLINE</p><h2 id="fenrua-ai-evidence-title">Capability is not authority</h2><p>Fenrua AI inherits the evidence-first discipline used across the public estate. A public capability claim requires evaluation, adverse tests, independent review, and a human-controlled release decision.</p></div>
+        <div class="constraint-list"><p>Until that evidence exists, public wording remains limited to planned direction, current documentation, explicit non-claims, and the distinction between public evidence and private execution.</p><p><a href="/trust">Inspect evidence and authority boundaries</a>.</p></div>
+      </section>`,
+  });
+}
+
 function home() {
   return layout({
-    title: "Fenrua BlackBox Protocol | Private AI execution",
-    description: "Public evidence for private AI execution, with reviewable boundaries.",
+    title: "Fenrua Labs | Evidence-first AI infrastructure",
+    description: "Fenrua AI controlled model direction and BlackBox Protocol evidence infrastructure, with source-linked public maturity boundaries.",
     current: "Overview",
     headerLive: true,
     body: `      <div class="home-intro">
 ${officialSourceWarning()}
       ${routeHero(
-        "FENRUA BLACKBOX PROTOCOL",
-        "Public evidence for private AI execution.",
-        "Fenrua BlackBox Protocol is privacy-preserving protocol infrastructure for verifiable AI automation. It separates capability from authority by placing an evidence layer beneath AI execution, so tool calls, policy decisions, model actions, infrastructure changes, and release claims can be bounded, reviewed, and verified without exposing the confidential machine beneath them. Use this site to inspect public evidence records, release scope, trust boundaries, bounded observation context, and local validation paths.",
-        `<div class="cta-row"><a class="button button-primary" href="/platform">Explore platform</a><a class="button button-secondary" href="/roadmap">View roadmap</a><a class="button button-secondary" href="/trust">Inspect trust records</a></div>`,
+        "FENRUA LABS PTY LTD",
+        "Evidence-first AI infrastructure and controlled model systems.",
+        "Fenrua Labs develops the Fenrua BlackBox Protocol for verifiable AI execution and the Fenrua V1 model family for controlled, evidence-aware AI access. Public claims remain source-linked and maturity-labelled. Private execution, model assets, user vault content, and protected infrastructure remain contained.",
+        `<div class="cta-row"><a class="button button-primary" href="/ai">Explore Fenrua AI</a><a class="button button-secondary" href="/platform">Inspect BlackBox Protocol</a><a class="button button-secondary" href="/research">View research</a></div>`,
         false
       )}
       </div>
+      <section class="section-shell" aria-labelledby="home-programmes-title">
+        <div class="section-heading"><p class="eyebrow">TWO CONNECTED PROGRAMMES</p><h2 id="home-programmes-title">Public evidence and controlled model direction</h2><p>Fenrua Labs presents two connected programmes with distinct current boundaries. Neither card is a public product-access, production-readiness, or service-availability claim.</p></div>
+        ${cardGrid([
+          { kicker: "PUBLIC DEVELOPMENT DIRECTION", title: "Fenrua AI", text: "Fenrua V1 closed-weight model development, HuntingKnowledge, encrypted-vault direction, and planned controlled access with an explicit no-availability boundary.", href: "/ai", link: "Explore Fenrua AI" },
+          { kicker: "STAGED EVIDENCE-FIRST PROGRAMME", title: "Fenrua BlackBox Protocol", text: "Public evidence for private AI execution. Evidence and authority infrastructure for governable AI execution, with bounded public records and protected private execution.", href: "/platform", link: "Inspect BlackBox Protocol" },
+        ])}
+      </section>
       ${chainProgressSection()}
       <section class="section-shell" aria-labelledby="home-answers">
         <div class="section-heading">
@@ -1624,6 +1707,18 @@ function roadmap() {
       <section class="section-shell split-section" aria-labelledby="roadmap-disclaimer-title">
         <div><p class="eyebrow">PUBLIC / PRIVATE BOUNDARY</p><h2 id="roadmap-disclaimer-title">Direction, not a disclosure or availability claim</h2></div>
         <div class="constraint-list"><p>This roadmap describes staged protocol direction and public review boundaries. It does not disclose private infrastructure, formulas, credentials, topology, provider routes, operational wiring, or protected implementation details.</p><p>Future-stage items are not availability claims unless explicitly marked as live on fenrua.ai. Public records support technical review, verification, evidence inspection, and professional due diligence; they do not prove protected runtime safety or public-mainnet deployment.</p></div>
+      </section>
+      <section class="section-shell" aria-labelledby="roadmap-fenrua-ai-title">
+        <div class="section-heading"><p class="eyebrow">FENRUA AI PRODUCT LANE</p><h2 id="roadmap-fenrua-ai-title">Naming is current; capability remains maturity-labelled</h2><p>This lane records a public development direction, not a launch schedule or availability promise.</p></div>
+        ${cardGrid([
+          { kicker: "CURRENT", title: "Naming and public cards", text: "Fenrua AI, Fenrua V1, and supporting public documentation are current public records." },
+          { kicker: "CANDIDATE PREPARATION", title: "HuntingKnowledge", text: "A planned knowledge direction with confidential corpus and method boundaries." },
+          { kicker: "PLANNED", title: "Fenrua V1 Mini", text: "Planned Community Access Model; no public model access is released." },
+          { kicker: "PLANNED", title: "Fenrua Platform and Fenrua V1", text: "Planned developer and organisation direction; no API is available." },
+          { kicker: "PLANNED", title: "Fenrua App and Fenrua V1 Pro", text: "Planned flagship application direction; no app or model access is released." },
+          { kicker: "PLANNED", title: "Vault and FCU direction", text: "Encrypted vault service and non-transferable service accounting remain planned and inactive." },
+          { kicker: "NOT RUN", title: "Production release", text: "No production model, API, application, vault service, or FCU programme is claimed." },
+        ])}
       </section>
       <section class="section-shell" aria-labelledby="roadmap-stages-title">
         <div class="section-heading"><p class="eyebrow">CONTROLLED MATURITY PATH</p><h2 id="roadmap-stages-title">Twelve public stages</h2><p>Each stage describes a bounded public meaning and preserves the distinction between direction, evidence, and live capability.</p></div>
@@ -1750,6 +1845,7 @@ function researchIndex() {
     description: "Fenrua research records with claims, non-claims, threats, tooling, evidence, and limitations.",
     current: "Research",
     body: `${routeHero("RESEARCH TO INFRASTRUCTURE", "Research Registry", "Research appears publicly only when its claim, non-claim, threat, invariant, evidence, tooling, maturity, and limitations are adjacent.")}
+      <section class="section-shell split-section" aria-labelledby="research-fenrua-v1"><div><p class="eyebrow">PUBLIC DEVELOPMENT RECORD</p><h2 id="research-fenrua-v1">Fenrua V1 and FML-Mosaic</h2><p>Fenrua V1 is the public name for a planned closed-weight model family. FML-Mosaic is the internal engineering programme and historical codename; FML-Mosaic-527B is a legacy public identifier, not the current public model brand.</p></div><div class="constraint-list"><p>HuntingKnowledge is a planned candidate-preparation direction. Its corpus, methods, architecture, training details, benchmarks, and availability remain confidential or not claimed.</p><p><a href="/ai">Read the Fenrua AI current maturity boundary</a> · <a href="https://huggingface.co/Fenrua-Labs/Fenrua-V1">Read the public model card</a>.</p></div></section>
       <section class="section-shell">
         <p class="mobile-data-notice"><strong>Mobile view is optimised for record-by-record inspection.</strong> Desktop offers the full comparison layout. All evidence remains available here.</p>
         ${table(["Research", "Claim", "Non-Claim", "Primitive", "Maturity"], rows, "research-table")}
@@ -2664,6 +2760,7 @@ function toolchain() {
 }
 
 writeRoute("", home());
+writeRoute("ai", ai());
 writeRoute("platform", platform());
 writeRoute("architecture", architecture());
 for (const view of architectureViews) writeRoute(path.join("architecture", view.slug), architectureView(view));
@@ -2693,6 +2790,7 @@ writeRoute("roadmap", roadmap());
 
 const sitemapRoutes = [
   "",
+  "ai",
   "platform",
   "architecture",
   ...architectureViews.map((view) => `architecture/${view.slug}`),

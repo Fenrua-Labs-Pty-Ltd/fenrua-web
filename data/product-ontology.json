@@ -1,6 +1,6 @@
 {
   "schemaVersion": "fenrua.product-ontology.v1",
-  "lastReviewed": "2026-07-22",
+  "lastReviewed": "2026-08-05",
   "sourceReferences": {
     "companyIdentityId": "company-identity",
     "siteEvidenceId": "site-evidence-input",
@@ -38,6 +38,102 @@
       "publicRoutes": ["/", "/roadmap"],
       "owner": "public-platform",
       "evidenceIds": ["site-evidence-input", "source-public-interface-doctrine"]
+    },
+    {
+      "id": "fenrua.ai",
+      "canonicalName": "Fenrua AI",
+      "entityType": "product",
+      "status": "current",
+      "category": "public-ai-programme",
+      "definition": "Public product and community programme for planned controlled model systems, with current documentation and explicit non-availability boundaries.",
+      "aliases": [],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["Do not use Fenrua AI as a claim that a model, API, application, encrypted vault, or compute-unit programme is currently available."],
+      "replacementId": null,
+      "effectiveDate": "2026-08-05",
+      "publicRoutes": ["/", "/ai", "/company", "/roadmap"],
+      "owner": "ai-product",
+      "evidenceIds": ["site-evidence-input", "source-public-interface-doctrine"]
+    },
+    {
+      "id": "fenrua.v1",
+      "canonicalName": "Fenrua V1",
+      "entityType": "product",
+      "status": "planned",
+      "category": "model-family",
+      "definition": "Planned closed-weight model family covering Fenrua V1 Mini, Fenrua V1, and Fenrua V1 Pro under a controlled-access direction.",
+      "aliases": ["Fenrua V1 Mini", "Fenrua V1 Pro"],
+      "deprecatedAliases": ["FML-Mosaic-527B"],
+      "prohibitedAmbiguities": ["Do not use Fenrua V1 as evidence that model weights, public inference, an API, an application, benchmark results, or production access are available."],
+      "replacementId": null,
+      "effectiveDate": "2026-08-05",
+      "publicRoutes": ["/ai", "/research", "/company", "/roadmap"],
+      "owner": "ai-product",
+      "evidenceIds": []
+    },
+    {
+      "id": "fenrua.fml-mosaic",
+      "canonicalName": "FML-Mosaic",
+      "entityType": "research-family",
+      "status": "historical",
+      "category": "internal-engineering-programme",
+      "definition": "Internal engineering programme and historical codename referenced publicly only to distinguish it from the Fenrua V1 model-family name.",
+      "aliases": [],
+      "deprecatedAliases": ["FML-Mosaic-527B"],
+      "prohibitedAmbiguities": ["Do not use FML-Mosaic as the current public model brand or as a disclosure of model architecture, weights, training, corpus, endpoint, provider, or protected implementation detail."],
+      "replacementId": "fenrua.v1",
+      "effectiveDate": "2026-08-05",
+      "publicRoutes": ["/ai", "/research"],
+      "owner": "ai-product",
+      "evidenceIds": ["site-evidence-input"]
+    },
+    {
+      "id": "fenrua.hunting-knowledge",
+      "canonicalName": "HuntingKnowledge",
+      "entityType": "research-family",
+      "status": "planned",
+      "category": "knowledge-preparation",
+      "definition": "Planned community-knowledge preparation direction with separated hunting and cleaning or update roles and a confidential corpus boundary.",
+      "aliases": [],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["Do not use HuntingKnowledge as a claim that a corpus, training method, model behaviour, evaluation result, or public knowledge service is available."],
+      "replacementId": null,
+      "effectiveDate": "2026-08-05",
+      "publicRoutes": ["/ai", "/research", "/roadmap"],
+      "owner": "ai-research",
+      "evidenceIds": []
+    },
+    {
+      "id": "fenrua.vault-direction",
+      "canonicalName": "Encrypted vault direction",
+      "entityType": "capability",
+      "status": "planned",
+      "category": "user-continuity",
+      "definition": "Planned bounded personal and organisation continuity direction with content off-chain, commitments on-chain, and keys retained by the user or authorised organisation.",
+      "aliases": [],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["Do not present this direction as an available vault, upload flow, endpoint, hosted privacy guarantee, or disclosure of commitment implementation details."],
+      "replacementId": null,
+      "effectiveDate": "2026-08-05",
+      "publicRoutes": ["/ai", "/roadmap"],
+      "owner": "ai-product",
+      "evidenceIds": []
+    },
+    {
+      "id": "fenrua.compute-units",
+      "canonicalName": "Fenrua Compute Units",
+      "entityType": "capability",
+      "status": "planned",
+      "category": "service-accounting",
+      "definition": "Planned inactive non-transferable service-accounting direction with no financial-product characteristics.",
+      "aliases": ["FCU"],
+      "deprecatedAliases": [],
+      "prohibitedAmbiguities": ["Do not use FCU as a token, wallet, cash-value, transfer, trading, investment, appreciation, yield, staking, or allocation claim."],
+      "replacementId": null,
+      "effectiveDate": "2026-08-05",
+      "publicRoutes": ["/ai", "/roadmap"],
+      "owner": "ai-product",
+      "evidenceIds": []
     },
     {
       "id": "fenrua.ai-efficiency-infrastructure",
@@ -222,7 +318,7 @@
       "status": "current",
       "category": "public-interface",
       "definition": "The public website, technical documentation, evidence records, status information, and bounded read-only observations.",
-      "aliases": ["fenrua.ai"],
+      "aliases": [],
       "deprecatedAliases": [],
       "prohibitedAmbiguities": ["The public interface is not a self-service account, checkout, client upload, or interactive AI interface."],
       "replacementId": null,
@@ -282,6 +378,30 @@
             "file": "public/company/index.html",
             "context": "The public site does not represent a client portal, checkout, trading venue, wallet, token offering, or financial-return product.",
             "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/ai/index.html",
+            "context": "FCU have no claimed cash value, transferability, trading market, wallet, investment value, appreciation, yield, staking, token, or financial-return feature.",
+            "claimId": "claim.fenrua-compute-units.planned-boundary",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/ai/index.html",
+            "context": "No allocation, wallet, transfer, trade, yield, or financial product is claimed.",
+            "claimId": "claim.fenrua-compute-units.planned-boundary",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/claims/index.html",
+            "context": "Fenrua Compute Units are planned inactive non-transferable service-accounting units; no allocation, wallet, cash value, transfer, trade, investment, appreciation, yield, or staking feature is active.",
+            "claimId": "claim.fenrua-compute-units.planned-boundary",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/claims/index.html",
+            "context": "No FCU programme, allocation, wallet, transfer, trade, cash value, yield, staking, or investment feature is active.",
+            "claimId": "claim.fenrua-compute-units.planned-boundary",
             "expectedMatches": 1
           }
         ]
@@ -381,6 +501,12 @@
             "file": "public/index.html",
             "context": "Fenrua Labs Pty Ltd does not operate a market, exchange, order book, trading venue, or public swap product.",
             "claimId": "claim.commercial.no-financial-products",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/ai/index.html",
+            "context": "FCU have no claimed cash value, transferability, trading market, wallet, investment value, appreciation, yield, staking, token, or financial-return feature.",
+            "claimId": "claim.fenrua-compute-units.planned-boundary",
             "expectedMatches": 1
           }
         ]
@@ -521,6 +647,24 @@
             "context": "Any public token, contract, listing, website, media profile, message, group, or account claiming to represent a live Fenrua token or an official Fenrua commercial offering should be treated as unauthorised, impersonated, or potentially fraudulent unless explicitly confirmed on fenrua.ai.",
             "claimId": "claim.commercial.no-financial-products",
             "expectedMatches": 2
+          },
+          {
+            "file": "public/ai/index.html",
+            "context": "FCU have no claimed cash value, transferability, trading market, wallet, investment value, appreciation, yield, staking, token, or financial-return feature.",
+            "claimId": "claim.fenrua-compute-units.planned-boundary",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/claims/index.html",
+            "context": "A service-accounting direction is not a token, financial product, investment, or promised launch allocation.",
+            "claimId": "claim.fenrua-compute-units.planned-boundary",
+            "expectedMatches": 1
+          },
+          {
+            "file": "public/trust/claims/index.html",
+            "context": "FCU are not a token, financial product, investment, appreciation, or guaranteed launch allocation.",
+            "claimId": "claim.fenrua-compute-units.planned-boundary",
+            "expectedMatches": 1
           }
         ]
       }

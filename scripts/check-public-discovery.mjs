@@ -140,6 +140,7 @@ for (const file of htmlArtifacts) {
   assert.deepEqual(organization.sameAs, [
     "https://github.com/fenrualabs",
     "https://x.com/FenruaLabs",
+    "https://x.com/FenruaAI",
     "https://www.linkedin.com/in/fenrua-labs-80b679388",
     "https://www.youtube.com/@FenruaLabs",
     "https://huggingface.co/Fenrua-Labs",

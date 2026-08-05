@@ -61,6 +61,7 @@ for (const boundaryStatement of [
 
 const routes = [
   "index.html",
+  "ai/index.html",
   "roadmap/index.html",
   "platform/index.html",
   "architecture/index.html",
@@ -98,7 +99,7 @@ const routes = [
   "accessibility/index.html",
 ];
 
-assert.equal(routes.length, 36, "Static route coverage must match the current public estate.");
+assert.equal(routes.length, 37, "Static route coverage must match the current public estate.");
 
 for (const route of routes) {
   const html = await readFile(new URL(`../${route}`, import.meta.url), "utf8");
@@ -116,6 +117,7 @@ for (const route of routes) {
   assert.match(html, /<strong>Fenrua BlackBox Protocol<\/strong>/, `${route} must use the canonical public protocol name`);
   assert.match(html, /<small>by Fenrua Labs Pty Ltd<\/small>/, `${route} must identify the registered operator`);
   for (const [label, href] of [
+    ["AI", "/ai"],
     ["Platform", "/platform"],
     ["Developers", "/developers"],
     ["Research", "/research"],
@@ -141,6 +143,7 @@ for (const route of routes) {
   for (const [provider, label, url] of [
     ["github", "GitHub", "https://github.com/fenrualabs"],
     ["x", "X", "https://x.com/FenruaLabs"],
+    ["x-fenrua-ai", "Fenrua AI on X", "https://x.com/FenruaAI"],
     ["linkedin", "LinkedIn", "https://www.linkedin.com/in/fenrua-labs-80b679388"],
     ["youtube", "YouTube", "https://www.youtube.com/@FenruaLabs"],
     ["hugging-face", "Hugging Face", "https://huggingface.co/Fenrua-Labs"],
@@ -188,6 +191,7 @@ assert.doesNotMatch(toolchain, /<span class="status-badge">[^<]+<\/span><br>/, "
 assert.doesNotMatch(toolchain, />Executed</);
 
 const overview = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const ai = await readFile(new URL("../ai/index.html", import.meta.url), "utf8");
 const trust = await readFile(new URL("../trust/index.html", import.meta.url), "utf8");
 const legal = await readFile(new URL("../legal/index.html", import.meta.url), "utf8");
 const roadmap = await readFile(new URL("../roadmap/index.html", import.meta.url), "utf8");
@@ -198,7 +202,11 @@ assert.match(overview, /<div class="home-intro">[\s\S]*id="official-source-warni
 assert.match(trust, /<div class="trust-intro">[\s\S]*id="official-source-warning"[\s\S]*class="route-hero route-hero-solo"/, "Trust must pair its official-source notice with the overview in the shared desktop intro layout.");
 assert.equal([...overview.matchAll(/class="section-shell split-section commercial-boundary"/g)].length, 1, "Overview must retain the single full policy card.");
 assert.match(overview, /Fenrua BlackBox Protocol/);
-assert.match(overview, /Public evidence for private AI execution\./);
+assert.match(overview, /Evidence-first AI infrastructure and controlled model systems\./);
+assert.match(overview, /Fenrua Labs develops the Fenrua BlackBox Protocol for verifiable AI execution and the Fenrua V1 model family/);
+assert.match(overview, /TWO CONNECTED PROGRAMMES/);
+assert.match(overview, /PUBLIC DEVELOPMENT DIRECTION/);
+assert.match(overview, /STAGED EVIDENCE-FIRST PROGRAMME/);
 assert.match(overview, /Evidence Before Authority/);
 assert.match(overview, /Capability is not authority/);
 assert.match(overview, /Governable autonomous AI execution/);
@@ -253,10 +261,23 @@ assert.match(overview, /Confidence/);
 assert.doesNotMatch(overview, /Independent source|Primary source/);
 assert.doesNotMatch(overview, /Blocks since check|data-chain-field="(?:978|521)-delta"/);
 
-assert.match(overview, /href="\/roadmap">View roadmap<\/a>/, "Overview must expose the public roadmap from its primary introduction.");
+assert.match(overview, /href="\/ai">Explore Fenrua AI<\/a>/, "Overview must expose the Fenrua AI public direction from its primary introduction.");
+assert.match(overview, /href="\/platform">Inspect BlackBox Protocol<\/a>/, "Overview must expose the BlackBox Protocol from its primary introduction.");
+assert.match(overview, /href="\/research">View research<\/a>/, "Overview must expose the research registry from its primary introduction.");
 assert.match(overview, /href="\/roadmap">Read the public BlackBox Roadmap<\/a>/, "Overview must link the staged direction section to the roadmap.");
-assert.match(overview, /href="\/trust#trust-gate">Inspect the Trust Gate model<\/a>/, "Overview must expose the canonical Trust Gate reviewer path.");
 assert.match(overview, /href="\/trust#trust-gate">Inspect the Trust Gate reviewer path<\/a>/, "Overview staged direction must link to the canonical Trust Gate reviewer path.");
+assert.match(ai, /<h1 id="page-title">Evidence-first models\. Controlled access\. User-owned continuity\.<\/h1>/);
+assert.match(ai, /Fenrua V1 Mini/);
+assert.match(ai, /Fenrua V1 Pro/);
+assert.match(ai, /All Fenrua V1 weights are closed\./);
+assert.match(ai, /HuntingKnowledge/);
+assert.match(ai, /Content off-chain\. Commitments on-chain\. Keys with the user or authorised organisation\./);
+assert.match(ai, /No encrypted vault service is available today\./);
+assert.match(ai, /Fenrua Compute Units/);
+assert.match(ai, /NOT CLAIMED/);
+assert.match(ai, /https:\/\/huggingface\.co\/Fenrua-Labs\/Fenrua-V1/);
+assert.match(ai, /https:\/\/x\.com\/FenruaAI/);
+assert.doesNotMatch(ai, /(?:public weights are available|public inference is available|developer API is available|production-ready model)/i, "Fenrua AI must retain its no-availability boundary.");
 assert.match(roadmap, /<h1 id="page-title">BlackBox Roadmap<\/h1>/);
 assert.match(roadmap, /This roadmap describes staged protocol direction and public review boundaries\./);
 assert.match(roadmap, /Future-stage items are not availability claims unless explicitly marked as live on fenrua\.ai\./);
@@ -502,7 +523,7 @@ assert.doesNotMatch(reviewerDelta, /\b(?:sign[- ]?up|checkout|payment|wallet|tok
 assertNoPositiveReviewerClaims(reviewerDelta, "Reviewer delta");
 
 const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
-for (const route of ["legal", "support", "security", "accessibility", "roadmap", "fenrua-521"]) assert.match(sitemap, new RegExp(`/${route}<`));
+for (const route of ["ai", "legal", "support", "security", "accessibility", "roadmap", "fenrua-521"]) assert.match(sitemap, new RegExp(`/${route}<`));
 for (const route of ["nexus", "fenswap", "fenpresale", "wallet", "privacy", "terms"]) assert.doesNotMatch(sitemap, new RegExp(`/${route}<`));
 
 assert.match(legal, /FENRUA LABS PTY LTD/);

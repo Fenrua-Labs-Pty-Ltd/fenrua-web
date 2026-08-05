@@ -10,6 +10,7 @@ export const outputDirectory = resolve(root, "public");
 export const publicEntries = [
   ".well-known",
   "accessibility",
+  "ai",
   "architecture",
   "assets",
   "audit",

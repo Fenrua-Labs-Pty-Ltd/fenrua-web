@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
 
 const sitemapPath = fileURLToPath(new URL("../../sitemap.xml", import.meta.url));
 const routes = [...readFileSync(sitemapPath, "utf8").matchAll(/<loc>https:\/\/fenrua\.ai([^<]+)<\/loc>/g)].map(([, route]) => route);
-const representativeRoutes = ["/", "/platform", "/architecture/deployment", "/trust/claims", "/operations", "/status", "/toolchain", "/company"];
+const representativeRoutes = ["/", "/ai", "/platform", "/architecture/deployment", "/trust/claims", "/operations", "/status", "/toolchain", "/company"];
 const viewports = [
   [320, 568],
   [360, 800],
@@ -37,13 +37,13 @@ test("skip link starts the keyboard order", async ({ page }) => {
 });
 
 for (const [width, height] of viewports) {
-  test(`seven-category navigation remains visible at ${width}x${height}`, async ({ page }) => {
+  test(`eight-category navigation remains visible at ${width}x${height}`, async ({ page }) => {
     test.setTimeout(60_000);
     await page.setViewportSize({ width, height });
     for (const route of representativeRoutes) {
       await gotoRoute(page, route);
       const nav = page.locator(".site-nav");
-      await expect(nav.getByRole("link")).toHaveCount(7);
+      await expect(nav.getByRole("link")).toHaveCount(8);
       const terminal = nav.getByRole("link", { name: "Roadmap", exact: true });
       await terminal.focus();
       await expect(terminal).toBeFocused();

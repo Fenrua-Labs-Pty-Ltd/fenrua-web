@@ -1,6 +1,6 @@
 {
   "schemaVersion": "fenrua.public-service-catalogue.v1",
-  "lastReviewed": "2026-07-22",
+  "lastReviewed": "2026-08-05",
   "sourceReferences": {
     "companyIdentityId": "company-identity",
     "siteEvidenceId": "site-evidence-input",
@@ -10,11 +10,11 @@
     {
       "id": "service.public-website",
       "name": "Fenrua public website and evidence interface",
-      "purpose": "Publishes company information, service information, technical documentation, research, evidence records, status information, and bounded read-only observations.",
+      "purpose": "Publishes company information, the Fenrua AI public development direction, technical documentation, research, evidence records, status information, and bounded read-only observations.",
       "availability": "public",
       "interface": {
         "type": "website",
-        "targets": ["https://fenrua.ai/", "/legal", "/support"]
+        "targets": ["https://fenrua.ai/", "/ai", "/legal", "/support"]
       },
       "dependencies": ["Static public artifact generation", "Canonical public domain"],
       "dataClassification": "public",
@@ -22,7 +22,7 @@
       "statusSource": "site-evidence-input",
       "evidenceSource": "site-evidence-input",
       "supportBoundary": "Public business enquiries are handled through the published contact channel; the public site has no self-service account or checkout.",
-      "knownLimitation": "The public interface does not attest to live APIs, protected systems, private infrastructure, or client-specific environments.",
+      "knownLimitation": "The public interface does not attest to live APIs, protected systems, private infrastructure, client-specific environments, or availability of a Fenrua V1 model, vault, application, or FCU programme.",
       "sloState": "not-defined",
       "incidentState": "not-defined",
       "retirementState": "active"
