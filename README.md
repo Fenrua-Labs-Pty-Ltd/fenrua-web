@@ -16,13 +16,13 @@ Capability is not authority. A system’s ability to act does not mean the actio
 
 ## Official Source and Anti-Impersonation Notice
 
-**fenrua.ai is the sole and only official website for Fenrua Protocol and Fenrua Labs Pty Ltd.**
+**fenrua.ai is the official website for Fenrua Labs Pty Ltd, Fenrua AI, and Fenrua BlackBox Protocol.**
 
-Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Protocol must be treated as unofficial unless it is explicitly listed or linked from **https://fenrua.ai**.
+Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Labs Pty Ltd, Fenrua AI, or Fenrua BlackBox Protocol must be treated as unofficial unless it is explicitly listed or linked from **https://fenrua.ai**.
 
-Fenrua Protocol has **no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page** on Ethereum, Solana, BSC, or any other public mainnet chain.
+Fenrua Labs Pty Ltd has **no live Fenrua token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page** on Ethereum, Solana, BSC, or any other public mainnet chain.
 
-Fenrua activity is currently limited to Fenrua’s private-chain research environment and bounded public evidence surfaces. Fenrua Labs Pty Ltd is not offering, selling, promoting, or authorising any commercial token offering.
+Fenrua BlackBox Protocol activity is currently limited to its private-chain research environment and bounded public evidence surfaces. Fenrua Labs Pty Ltd is not offering, selling, promoting, or authorising any commercial token offering.
 
 Any public token, contract, listing, website, media profile, message, group, or account claiming to represent a live Fenrua token or an official Fenrua commercial offering should be treated as **unauthorised, impersonated, or potentially fraudulent** unless explicitly confirmed on **fenrua.ai**.
 

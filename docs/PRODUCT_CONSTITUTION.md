@@ -12,7 +12,7 @@ proposed action is authorised and trustworthy before execution, fail closed
 when required evidence is absent or invalid, and produce a record that an
 independent verifier can inspect.
 
-The proposed working category statement is **Fenrua Protocol is evidence-first
+The proposed working category statement is **Fenrua BlackBox Protocol is evidence-first
 decision-control infrastructure for autonomous AI systems.** It remains a
 product-positioning proposal pending owner approval. It is not a claim that a
 hosted service, enterprise deployment, or general-availability product exists.
@@ -48,7 +48,7 @@ The initial Trust Gate does not execute the approved action. It returns a
 decision and evidence; the caller remains responsible for execution and for
 enforcing a `DENY` result.
 
-## Local-First Guarantee
+## Local-First Design Requirement
 
 The local decision data plane must run at a customer-controlled edge with no
 network requirement, no public-chain requirement, no Fenrua-hosted dependency,

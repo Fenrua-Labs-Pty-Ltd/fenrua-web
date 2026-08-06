@@ -19,9 +19,9 @@ function assertOfficialSourceWarning(markup, label) {
   assert.match(warning, /<p class="warning-eyebrow">SECURITY NOTICE<\/p>/, `${label} must label the warning in text as a security notice.`);
   assert.match(warning, /<h2 id="official-source-warning-title">Official Source and Anti-Impersonation Notice<\/h2>/, `${label} must preserve the warning title.`);
   for (const statement of [
-    "fenrua.ai is the sole and only official website for Fenrua Protocol and Fenrua Labs Pty Ltd.",
-    "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
-    "Fenrua activity is currently limited to Fenrua’s private-chain research environment and bounded public evidence surfaces.",
+    "fenrua.ai is the official website for Fenrua Labs Pty Ltd, Fenrua AI, and Fenrua BlackBox Protocol.",
+    "Fenrua Labs Pty Ltd has no live Fenrua token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+    "Fenrua BlackBox Protocol activity is currently limited to its private-chain research environment and bounded public evidence surfaces.",
     "should be treated as unauthorised, impersonated, or potentially fraudulent unless explicitly confirmed on fenrua.ai.",
     "Always verify Fenrua information from fenrua.ai before trusting any external link, message, contract address, social post, or media account.",
   ]) {
@@ -114,8 +114,8 @@ for (const route of routes) {
   assert.match(html, /<script src="\/technical-data\.js\?v=[a-f0-9]{12}" defer><\/script>/, `${route} must load content-versioned technical data controls.`);
   assert.match(html, /<main id="content">/, `${route} must contain a main landmark`);
   assert.match(html, /Skip to content/, `${route} must include a skip link`);
-  assert.match(html, /<strong>Fenrua BlackBox Protocol<\/strong>/, `${route} must use the canonical public protocol name`);
-  assert.match(html, /<small>by Fenrua Labs Pty Ltd<\/small>/, `${route} must identify the registered operator`);
+  assert.match(html, /<strong>Fenrua Labs<\/strong>/, `${route} must use the canonical company-level header identity`);
+  assert.match(html, /<small>Fenrua AI · BlackBox Protocol<\/small>/, `${route} must identify both public programmes`);
   for (const [label, href] of [
     ["AI", "/ai"],
     ["Platform", "/platform"],

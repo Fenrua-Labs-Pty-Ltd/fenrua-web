@@ -162,7 +162,7 @@ export function routeAssertions(record, requestUrl, getResponse, getBody, headRe
     if (!containsNoStore(cacheControl)) failures.push("Retired routes must use Cache-Control: no-store, max-age=0.");
     if (xRobotsTag !== "noindex, nofollow, noarchive") failures.push("Retired routes must carry the exact noindex retirement header.");
     if (!/<h1>This route has been retired\.<\/h1>/.test(html)) failures.push("Retired route body is missing its accessible retirement heading.");
-    if (!/Fenrua Protocol/.test(html) || !/Fenrua Labs Pty Ltd/.test(html)) failures.push("Retired route body is missing current Fenrua naming.");
+    if (!/Fenrua BlackBox Protocol/.test(html) || !/Fenrua Labs Pty Ltd/.test(html)) failures.push("Retired route body is missing current Fenrua naming.");
     if (hasUnapprovedExternalScript(html)) failures.push("Retired route body contains an unapproved external script.");
     if (/\b(?:legacy|presale|swap|staking|yield|wallet|market|investment|account|token|trading)\b/i.test(visibleHtmlText(html))) {
       failures.push("Retired route body contains prohibited legacy-promotional language.");

@@ -705,10 +705,10 @@ function commercialBoundarySection() {
 const officialSourceNotice = {
   title: "Official Source and Anti-Impersonation Notice",
   paragraphs: [
-    "fenrua.ai is the sole and only official website for Fenrua Protocol and Fenrua Labs Pty Ltd.",
-    "Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Protocol must be treated as unofficial unless it is explicitly listed or linked from fenrua.ai.",
-    "Fenrua Protocol has no live token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
-    "Fenrua activity is currently limited to Fenrua’s private-chain research environment and bounded public evidence surfaces. Fenrua Labs Pty Ltd is not offering, selling, promoting, or authorising any commercial token offering.",
+    "fenrua.ai is the official website for Fenrua Labs Pty Ltd, Fenrua AI, and Fenrua BlackBox Protocol.",
+    "Any website, social account, media channel, token page, contract listing, claim page, airdrop page, staking page, swap, bridge, NFT mint, Telegram group, Discord server, or public communication claiming to represent Fenrua Labs Pty Ltd, Fenrua AI, or Fenrua BlackBox Protocol must be treated as unofficial unless it is explicitly listed or linked from fenrua.ai.",
+    "Fenrua Labs Pty Ltd has no live Fenrua token, contract, presale, airdrop, staking pool, swap, bridge, NFT mint, or claim page on Ethereum, Solana, BSC, or any other public mainnet chain.",
+    "Fenrua BlackBox Protocol activity is currently limited to its private-chain research environment and bounded public evidence surfaces. Fenrua Labs Pty Ltd is not offering, selling, promoting, or authorising any commercial token offering.",
     "Any public token, contract, listing, website, media profile, message, group, or account claiming to represent a live Fenrua token or an official Fenrua commercial offering should be treated as unauthorised, impersonated, or potentially fraudulent unless explicitly confirmed on fenrua.ai.",
     "Always verify Fenrua information from fenrua.ai before trusting any external link, message, contract address, social post, or media account.",
   ],
@@ -917,11 +917,11 @@ ${pageScripts ? `    ${pageScripts}\n` : ""}
     <span class="sr-only" data-copy-announcer role="status" aria-live="polite" aria-atomic="true"></span>
     ${liveAnnouncer}
     <header class="${headerClass}" aria-label="Site header">
-      <a class="brand" href="/" aria-label="Fenrua BlackBox Protocol home">
+      <a class="brand" href="/" aria-label="Fenrua Labs home">
         <img src="/assets/fenrua-header-logo.png" width="40" height="40" alt="" decoding="async" />
         <span>
-          <strong>Fenrua BlackBox Protocol</strong>
-          <small>by Fenrua Labs Pty Ltd</small>
+          <strong>Fenrua Labs</strong>
+          <small>Fenrua AI · BlackBox Protocol</small>
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">

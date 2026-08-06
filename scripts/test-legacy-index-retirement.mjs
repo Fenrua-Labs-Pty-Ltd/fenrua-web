@@ -39,7 +39,7 @@ assert.equal(get.statusCode, 410);
 assert.equal(get.headers.get("x-robots-tag"), RETIRED_ROUTE_ROBOTS);
 assert.match(get.headers.get("content-type"), /^text\/html/);
 assert.equal(get.headers.get("cache-control"), RETIRED_ROUTE_CACHE_CONTROL);
-assert.match(get.body, /<title>Retired route \| Fenrua Protocol<\/title>/);
+assert.match(get.body, /<title>Retired route \| Fenrua BlackBox Protocol<\/title>/);
 assert.match(get.body, /<h1>This route has been retired\.<\/h1>/);
 assert.match(get.body, /Fenrua Labs Pty Ltd/);
 assert.match(get.body, /<nav aria-label="Current Fenrua links">/);
@@ -142,7 +142,7 @@ const retiredHeaders = {
   "cache-control": RETIRED_ROUTE_CACHE_CONTROL,
   "x-robots-tag": RETIRED_ROUTE_ROBOTS,
 };
-const retiredHtml = "<!doctype html><html><body><h1>This route has been retired.</h1><p>Fenrua Protocol · Fenrua Labs Pty Ltd</p></body></html>";
+const retiredHtml = "<!doctype html><html><body><h1>This route has been retired.</h1><p>Fenrua BlackBox Protocol · Fenrua Labs Pty Ltd</p></body></html>";
 const cleanResponse = new Response(retiredHtml, { status: 410, headers: retiredHeaders });
 assert.deepEqual(
   routeAssertions(retiredRecord, "https://fenrua.ai/retired", cleanResponse, Buffer.from(retiredHtml), new Response(null, { status: 410, headers: retiredHeaders }), Buffer.alloc(0)),
