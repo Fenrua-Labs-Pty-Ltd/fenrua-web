@@ -25,13 +25,13 @@ export default function handler(request, response) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow,noarchive" />
-    <title>Retired route | Fenrua Protocol</title>
+    <title>Retired route | Fenrua BlackBox Protocol</title>
   </head>
   <body>
     <main>
       <h1>This route has been retired.</h1>
-      <p>It is not part of the current Fenrua Protocol public platform or Fenrua Labs Pty Ltd service boundary.</p>
-      <nav aria-label="Current Fenrua links"><a href="https://fenrua.ai/">Fenrua Protocol</a> | <a href="https://fenrua.ai/legal">Fenrua Labs Pty Ltd</a></nav>
+      <p>It is not part of the current Fenrua BlackBox Protocol public platform or Fenrua Labs Pty Ltd service boundary.</p>
+      <nav aria-label="Current Fenrua links"><a href="https://fenrua.ai/">Fenrua Labs</a> | <a href="https://fenrua.ai/legal">Fenrua Labs Pty Ltd</a></nav>
     </main>
   </body>
 </html>`);
