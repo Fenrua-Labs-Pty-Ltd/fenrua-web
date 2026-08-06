@@ -114,7 +114,7 @@ for (const route of routes) {
   assert.match(html, /<script src="\/technical-data\.js\?v=[a-f0-9]{12}" defer><\/script>/, `${route} must load content-versioned technical data controls.`);
   assert.match(html, /<main id="content">/, `${route} must contain a main landmark`);
   assert.match(html, /Skip to content/, `${route} must include a skip link`);
-  assert.match(html, /<strong>Fenrua Labs<\/strong>/, `${route} must use the canonical company-level header identity`);
+  assert.match(html, /<strong>Fenrua Labs Pty Ltd<\/strong>/, `${route} must identify the registered operator`);
   assert.match(html, /<small>Fenrua AI · BlackBox Protocol<\/small>/, `${route} must identify both public programmes`);
   for (const [label, href] of [
     ["AI", "/ai"],
