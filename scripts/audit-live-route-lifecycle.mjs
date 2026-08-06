@@ -74,6 +74,24 @@ function bodyFingerprint(body) {
   return createHash("sha256").update(body).digest("hex");
 }
 
+function visibleHtmlText(html) {
+  return html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script\b[^>]*>/gi, " ")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style\b[^>]*>/gi, " ")
+    .replace(/<[^>]+>/g, " ");
+}
+
+function hasUnapprovedExternalScript(html) {
+  const sources = [...html.matchAll(/<script\b[^>]*\bsrc\s*=\s*(["'])(.*?)\1[^>]*>/gi)].map((match) => match[2]);
+  return sources.some((source) => {
+    try {
+      return new URL(source, canonicalOrigin).origin !== canonicalOrigin;
+    } catch {
+      return true;
+    }
+  });
+}
+
 async function fetchBounded(url, { method = "GET", fetchImpl = fetch } = {}) {
   const response = await fetchImpl(url, {
     method,
@@ -105,7 +123,7 @@ async function mapWithConcurrency(items, worker) {
   return results;
 }
 
-function routeAssertions(record, requestUrl, getResponse, getBody, headResponse, headBody) {
+export function routeAssertions(record, requestUrl, getResponse, getBody, headResponse, headBody) {
   const failures = [];
   const contentType = mediaType(getResponse);
   const cacheControl = header(getResponse, "cache-control");
@@ -145,7 +163,8 @@ function routeAssertions(record, requestUrl, getResponse, getBody, headResponse,
     if (xRobotsTag !== "noindex, nofollow, noarchive") failures.push("Retired routes must carry the exact noindex retirement header.");
     if (!/<h1>This route has been retired\.<\/h1>/.test(html)) failures.push("Retired route body is missing its accessible retirement heading.");
     if (!/Fenrua Protocol/.test(html) || !/Fenrua Labs Pty Ltd/.test(html)) failures.push("Retired route body is missing current Fenrua naming.");
-    if (/\b(?:legacy|presale|swap|staking|yield|wallet|market|investment|account|token|trading)\b/i.test(html)) {
+    if (hasUnapprovedExternalScript(html)) failures.push("Retired route body contains an unapproved external script.");
+    if (/\b(?:legacy|presale|swap|staking|yield|wallet|market|investment|account|token|trading)\b/i.test(visibleHtmlText(html))) {
       failures.push("Retired route body contains prohibited legacy-promotional language.");
     }
   }

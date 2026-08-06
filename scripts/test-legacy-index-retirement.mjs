@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import handler from "../api/legacy-gone.js";
+import { routeAssertions } from "./audit-live-route-lifecycle.mjs";
 import { RETIRED_ROUTE_CACHE_CONTROL, RETIRED_ROUTE_ROBOTS } from "./retired-route-contract.mjs";
 
 assert.equal(RETIRED_ROUTE_CACHE_CONTROL, "no-store, max-age=0");
@@ -94,7 +95,7 @@ const successorRedirects = [
   ["/nexus/release", "/audit"],
   ["/nexus/audit", "/audit"],
   ["/nexus/monitoring", "/status"],
-  ["/about", "/"],
+  ["/about", "/company"],
   ["/brief", "/"],
   ["/contact", "/support"],
   ["/explorer", "/status"],
@@ -130,6 +131,38 @@ for (const source of ["/fenpresale", "/fenswap", "/wallet", "/privacy", "/terms"
 for (const legacy of ["nexus", "explorer", "fenpresale", "fenswap", "wallet", "register", "login", "account", "v2"]) {
   assert.doesNotMatch(sitemap, new RegExp(`<loc>[^<]*/${legacy}(?:/|<)`), `Sitemap must exclude ${legacy}.`);
 }
+
+const retiredRecord = {
+  state: "gone",
+  expectedStatus: 410,
+  contentType: "text/html",
+};
+const retiredHeaders = {
+  "content-type": "text/html; charset=utf-8",
+  "cache-control": RETIRED_ROUTE_CACHE_CONTROL,
+  "x-robots-tag": RETIRED_ROUTE_ROBOTS,
+};
+const retiredHtml = "<!doctype html><html><body><h1>This route has been retired.</h1><p>Fenrua Protocol · Fenrua Labs Pty Ltd</p></body></html>";
+const cleanResponse = new Response(retiredHtml, { status: 410, headers: retiredHeaders });
+assert.deepEqual(
+  routeAssertions(retiredRecord, "https://fenrua.ai/retired", cleanResponse, Buffer.from(retiredHtml), new Response(null, { status: 410, headers: retiredHeaders }), Buffer.alloc(0)),
+  [],
+  "A controlled retirement response must satisfy the live route contract.",
+);
+const injectedHtml = `${retiredHtml}<script src="https://unapproved.example.invalid/beacon.js?token=synthetic"></script>`;
+const injectedResponse = new Response(injectedHtml, { status: 410, headers: retiredHeaders });
+assert.deepEqual(
+  routeAssertions(retiredRecord, "https://fenrua.ai/retired", injectedResponse, Buffer.from(injectedHtml), new Response(null, { status: 410, headers: retiredHeaders }), Buffer.alloc(0)),
+  ["Retired route body contains an unapproved external script."],
+  "A third-party injected script must fail the retirement contract without being mistaken for visible route copy.",
+);
+const whitespaceClosedInjectedHtml = `${retiredHtml}<script src="https://unapproved.example.invalid/beacon.js?token=synthetic"></script\t\n data-boundary>`;
+const whitespaceClosedInjectedResponse = new Response(whitespaceClosedInjectedHtml, { status: 410, headers: retiredHeaders });
+assert.deepEqual(
+  routeAssertions(retiredRecord, "https://fenrua.ai/retired", whitespaceClosedInjectedResponse, Buffer.from(whitespaceClosedInjectedHtml), new Response(null, { status: 410, headers: retiredHeaders }), Buffer.alloc(0)),
+  ["Retired route body contains an unapproved external script."],
+  "A whitespace-formatted script close must not make injected content appear as visible copy.",
+);
 assert.match(robots, /User-agent: \*\nAllow: \//, "Retired URLs must remain crawlable so removal responses can be observed.");
 assert.doesNotMatch(robots, /Disallow:\s*\/(?:nexus|explorer|v2)/i, "robots.txt must not hide retirement responses.");
 

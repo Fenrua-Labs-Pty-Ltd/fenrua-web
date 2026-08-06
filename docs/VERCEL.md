@@ -12,12 +12,6 @@ Production deployment authority follows the Owner-approved Git-integrated workfl
 
 The allowed public repository path is:
 
-1. bounded agent-submitted or Owner-authored branch;
-2. bounded pull request;
-3. `Validate public surface` passing;
-4. approved merge to protected `main`;
-5. reviewed private-operations release request;
-6. protected production deployment;
 1. bounded Release Agent branch;
 2. validation and Owner screenshot review for visual changes;
 3. bounded public pull request;
@@ -41,7 +35,6 @@ raw path, commit it, upload it, or copy it into provider logs.
 
 ## Preview and production gates
 
-The deployment command never runs the Vercel CLI, changes domains or environment variables, purges caches, or promotes previews. It executes only inside the SAM/Owner private operations control plane, uses the protected provider environment, and binds deployment to an Owner-approved public commit. A local release check is necessary source evidence, not preview or production verification.
 The deployment command never runs the Vercel CLI, changes domains or environment variables, purges caches, promotes previews, merges a pull request, or calls a provider API. It is fail-closed. The Owner-approved protected-main merge and existing Git integration bind deployment to the reviewed public commit. A local release check is necessary source evidence, not preview or production verification.
 
 Before production authorisation, retain outside the public repository:
