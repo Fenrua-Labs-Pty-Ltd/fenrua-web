@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
+import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const manifestPath = resolve(root, ".well-known", "fenrua-release.json");
+const originalManifest = readFileSync(manifestPath);
 const checkout = spawnSync("git", ["rev-parse", "--is-inside-work-tree"], { cwd: root, encoding: "utf8" });
 const hasCheckout = checkout.status === 0 && checkout.stdout.trim() === "true";
 const result = spawnSync(process.execPath, ["scripts/generate-release-manifest.mjs"], {
@@ -40,10 +43,6 @@ const fallback = spawnSync(process.execPath, ["scripts/generate-release-manifest
 assert.equal(fallback.status, 0, `The Vercel commit fallback must succeed: ${fallback.stderr}`);
 assert.doesNotMatch(fallback.stderr, /fatal: not a git repository/i, "The expected Vercel fallback must not emit a Git probe error.");
 
-const restore = spawnSync(process.execPath, ["scripts/generate-release-manifest.mjs"], {
-  cwd: root,
-  encoding: "utf8",
-  env: { ...process.env, FENRUA_ALLOW_DIRTY_RELEASE: "1" },
-});
-assert.equal(restore.status, 0, `The local release manifest must be restored: ${restore.stderr}`);
+writeFileSync(manifestPath, originalManifest);
+assert.deepEqual(readFileSync(manifestPath), originalManifest, "The local release manifest must be restored exactly.");
 console.log(JSON.stringify({ status: "ok", scope: "release-source-commit-binding" }));

@@ -156,6 +156,13 @@ assert.deepEqual(
   ["Retired route body contains an unapproved external script."],
   "A third-party injected script must fail the retirement contract without being mistaken for visible route copy.",
 );
+const whitespaceClosedInjectedHtml = `${retiredHtml}<script src="https://unapproved.example.invalid/beacon.js?token=synthetic"></script\t\n data-boundary>`;
+const whitespaceClosedInjectedResponse = new Response(whitespaceClosedInjectedHtml, { status: 410, headers: retiredHeaders });
+assert.deepEqual(
+  routeAssertions(retiredRecord, "https://fenrua.ai/retired", whitespaceClosedInjectedResponse, Buffer.from(whitespaceClosedInjectedHtml), new Response(null, { status: 410, headers: retiredHeaders }), Buffer.alloc(0)),
+  ["Retired route body contains an unapproved external script."],
+  "A whitespace-formatted script close must not make injected content appear as visible copy.",
+);
 assert.match(robots, /User-agent: \*\nAllow: \//, "Retired URLs must remain crawlable so removal responses can be observed.");
 assert.doesNotMatch(robots, /Disallow:\s*\/(?:nexus|explorer|v2)/i, "robots.txt must not hide retirement responses.");
 
